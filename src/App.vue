@@ -1,11 +1,11 @@
 <script setup>
-import Landing from './pages/landing/Landing.vue'
+
 
 </script>
 
 <template>
-  <Landing/>
+  <!-- <Landing/> -->
+  <router-view></router-view>
 </template>
 
-<style scoped>
-</style>
+<style scoped></style>
