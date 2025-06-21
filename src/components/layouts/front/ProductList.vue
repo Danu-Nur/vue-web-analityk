@@ -1,11 +1,43 @@
 <script setup>
 import Product from './Product.vue';
-defineProps({
-    products: {
-        type: Array,
-        required: true,
+// defineProps({
+//     products: {
+//         type: Array,
+//         required: true,
+//     },
+// })
+// Define the products array (converted from PHP)
+const products = [
+    {
+        id: 1,
+        name: 'Product 1',
+        image: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/c/c-original.svg',
+        price: '$10.00',
+        description: 'Description for product 1.',
     },
-})
+    {
+        id: 2,
+        name: 'Product 2',
+        image: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/csharp/csharp-original.svg',
+        price: '$20.00',
+        description: 'Description for product 2.',
+    },
+    {
+        id: 3,
+        name: 'Product 3',
+        image: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/cplusplus/cplusplus-original.svg',
+        price: '$30.00',
+        description: 'Description for product 3.',
+    },
+    {
+        id: 4,
+        name: 'Product 4', // Corrected duplicate name from 'Product 3'
+        image: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/css3/css3-original.svg',
+        price: '$30.00',
+        description: 'Description for product 4.', // Corrected description
+    },
+];
+
 </script>
 <template>
     <section>
@@ -36,7 +68,7 @@ defineProps({
                 <div class="relative">
                     <div id="carousel-container"
                         class="overflow-x-auto overflow-y-hidden carousel-wrapper snap-x snap-mandatory scroll-smooth whitespace-nowrap xl:grid xl:grid-cols-4 xl:snap-none xl:overflow-x-visible xl:whitespace-normal xl:gap-x-12">
-                        <Product :products="products"/>
+                        <Product :products="products" />
 
                     </div>
                 </div>
