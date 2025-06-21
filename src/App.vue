@@ -4,7 +4,6 @@
 </script>
 
 <template>
-  <!-- <Landing/> -->
   <router-view></router-view>
 </template>
 

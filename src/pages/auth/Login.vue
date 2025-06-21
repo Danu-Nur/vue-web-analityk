@@ -1,6 +1,4 @@
-```vue
 <script setup>
-import FrontLayouts from '../../components/layouts/FrontLayouts.vue';
 import ThemeToggle from '../../components/layouts/ui/ThemeToggle.vue';
 import { ref } from 'vue'
 // Reactive state to track password visibility
@@ -10,10 +8,14 @@ const isPasswordVisible = ref(false);
 function togglePassword() {
     isPasswordVisible.value = !isPasswordVisible.value;
 }
+
+function handleLogin() {
+    // Add login logic here (e.g., validate email, make API call)
+    console.log('Login button clicked');
+}
 </script>
 
 <template>
-    <!-- <FrontLayouts> -->
     <div
         class="flex flex-col items-center justify-center min-h-screen px-6 font-sans transition-colors duration-300 bg-white dark:bg-gray-950">
         <header class="flex items-center justify-between w-full max-w-md mb-6">
@@ -50,7 +52,8 @@ function togglePassword() {
                     <input id="password" :type="isPasswordVisible ? 'text' : 'password'"
                         placeholder="Enter your password"
                         class="w-full px-3 py-2 text-gray-900 placeholder-gray-400 bg-white border border-gray-300 dark:placeholder-gray-400 dark:border-gray-700 focus:outline-none focus:ring-1 focus:ring-gray-500 dark:focus:ring-gray-400 focus:border-gray-500 dark:focus:border-gray-400 dark:bg-gray-900 dark:text-gray-100" />
-                    <button type="button" @click="togglePassword()" id="togglePassword" :aria-label="isPasswordVisible ? 'Hide password' : 'Show password'"
+                    <button type="button" @click="togglePassword()" id="togglePassword"
+                        :aria-label="isPasswordVisible ? 'Hide password' : 'Show password'"
                         class="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-500 dark:text-gray-400 focus:outline-none">
                         <i :class="['text-xl bi', isPasswordVisible ? 'bi-eye-slash' : 'bi-eye']"></i>
                     </button>
@@ -65,7 +68,7 @@ function togglePassword() {
                         <input type="checkbox" id="remember-me"><label for="remember-me" class="ms-2">Remember
                             me</label>
                     </div>
-                    <a href="#" class="underline">Forgot password?</a>
+                    <router-link to="/forgot-password" class="underline">Forgot password?</router-link>
                 </div>
             </div>
             <div class="flex items-center my-6">
@@ -95,17 +98,4 @@ function togglePassword() {
             </p>
         </div>
     </div>
-    <!-- </FrontLayouts> -->
 </template>
-
-<script>
-export default {
-    methods: {
-        handleLogin() {
-            // Add login logic here (e.g., validate email, make API call)
-            console.log('Login button clicked');
-        },
-    },
-};
-</script>
-```

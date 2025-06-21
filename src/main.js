@@ -1,8 +1,8 @@
 import { createApp } from 'vue'
 import App from './App.vue'
 import './style.css'
-import Alpine from 'alpinejs'
 import router from './router'
+import Alpine from 'alpinejs'
 import 'bootstrap-icons/font/bootstrap-icons.css';
 
 window.Alpine = Alpine
