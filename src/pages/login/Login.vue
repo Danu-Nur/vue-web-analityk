@@ -26,10 +26,10 @@ function togglePassword() {
             <div class="text-center">
                 <!-- <i class="bi bi-collection"></i> -->
                 <i class="bi bi-activity"></i>
-                <h1 class="mb-1 text-xl font-bold text-gray-800 dark:text-gray-100">
+                <h1 class="mb-1 text-2xl font-bold text-gray-800 dark:text-gray-100">
                     Welcome to Acme Inc.
                 </h1>
-                <p class="mb-6 text-sm text-gray-600 dark:text-gray-300">
+                <p class="mb-6 text-gray-600 text-md dark:text-gray-300">
                     Don’t have an account?
                     <router-link to="/signup" class="underline hover:text-gray-500 dark:hover:text-gray-400">
                         Sign up
@@ -52,13 +52,11 @@ function togglePassword() {
                         class="w-full px-3 py-2 text-gray-900 placeholder-gray-400 bg-white border border-gray-300 dark:placeholder-gray-400 dark:border-gray-700 focus:outline-none focus:ring-1 focus:ring-gray-500 dark:focus:ring-gray-400 focus:border-gray-500 dark:focus:border-gray-400 dark:bg-gray-900 dark:text-gray-100" />
                     <button type="button" @click="togglePassword()" id="togglePassword" :aria-label="isPasswordVisible ? 'Hide password' : 'Show password'"
                         class="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-500 dark:text-gray-400 focus:outline-none">
-                        <!-- <i class="text-xl bi bi-eye" id="eyeIcon"></i>
-                        <i class="text-xl bi bi-eye-slash" id="eyeSlashIcon"></i> -->
                         <i :class="['text-xl bi', isPasswordVisible ? 'bi-eye-slash' : 'bi-eye']"></i>
                     </button>
                 </div>
                 <button type="button"
-                    class="w-full py-2 text-sm font-semibold text-white transition-colors duration-200 bg-gray-700 hover:bg-gray-800 dark:bg-gray-600 dark:hover:bg-gray-700"
+                    class="w-full py-2 font-semibold text-white transition-colors duration-200 bg-gray-700 hover:bg-gray-800 dark:bg-gray-600 dark:hover:bg-gray-700"
                     @click="handleLogin">
                     Login
                 </button>
@@ -77,12 +75,12 @@ function togglePassword() {
             </div>
             <div class="flex justify-center gap-3">
                 <button type="button"
-                    class="flex items-center justify-center w-full px-3 py-2 space-x-2 text-sm text-gray-900 transition-colors duration-200 bg-white border border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-800">
+                    class="flex items-center justify-center w-full px-3 py-2 space-x-2 text-gray-900 transition-colors duration-200 bg-white border border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-800">
                     <i class="bi bi-apple"></i>
                     <span>Continue with Apple</span>
                 </button>
                 <button type="button"
-                    class="flex items-center justify-center w-full px-3 py-2 space-x-2 text-sm text-gray-900 transition-colors duration-200 bg-white border border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-800">
+                    class="flex items-center justify-center w-full px-3 py-2 space-x-2 text-gray-900 transition-colors duration-200 bg-white border border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-800">
                     <i class="bi bi-google"></i>
                     <span>Continue with Google</span>
                 </button>
