@@ -1,7 +1,7 @@
 <script setup>
 import { ref, watch } from 'vue';
 import ApplicationLogo from './ui/ApplicationLogo.vue';
-import ThemeToggle from './front/ThemeToggle.vue';
+import ThemeToggle from './ui/ThemeToggle.vue';
 import Dropdown from './ui/DropdownComponent.vue';
 import { TransitionRoot, TransitionChild } from '@headlessui/vue';
 
@@ -95,9 +95,10 @@ watch(isMenuOpen, (newValue) => {
                 </div>
                 <div class="flex items-center lg:order-2">
                     <ThemeToggle />
-                    <a href="#"
+                    <!-- <a href="#"
                         class="text-gray-800 dark:text-white hover:bg-gray-200 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-3 lg:px-5 py-2 lg:py-2.5 mr-2 dark:hover:bg-gray-700 focus:outline-none dark:focus:ring-gray-800 border border-gray-500 dark:border-gray-400 whitespace-nowrap">Log
-                        in</a>
+                        in</a> -->
+                        <router-link to="/login" class="text-gray-800 dark:text-white hover:bg-gray-200 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-3 lg:px-5 py-2 lg:py-2.5 mr-2 dark:hover:bg-gray-700 focus:outline-none dark:focus:ring-gray-800 border border-gray-500 dark:border-gray-400 whitespace-nowrap">Log in</router-link>
                     <a href="#"
                         class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-3 lg:px-5 py-2 lg:py-2.5">Sign
                         in</a>
