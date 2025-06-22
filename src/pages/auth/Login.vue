@@ -63,7 +63,7 @@ function handleLogin() {
                     @click="handleLogin">
                     Login
                 </button>
-                <div class="flex justify-between w-full">
+                <div class="flex justify-between w-full text-gray-600 dark:text-gray-300">
                     <div class="flex">
                         <input type="checkbox" id="remember-me"><label for="remember-me" class="ms-2">Remember
                             me</label>

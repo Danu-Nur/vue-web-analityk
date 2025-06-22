@@ -1,4 +1,3 @@
-
 <script setup>
 import ThemeToggle from '../../components/layouts/ui/ThemeToggle.vue';
 import { ref } from 'vue';
@@ -79,10 +78,10 @@ function handleSignUp() {
                     <input id="email" v-model="email" type="email" placeholder="m@example.com"
                         class="w-full px-3 py-2 text-gray-900 placeholder-gray-400 bg-white border border-gray-300 dark:placeholder-gray-400 dark:border-gray-700 focus:outline-none focus:ring-1 focus:ring-gray-500 dark:focus:ring-gray-400 focus:border-gray-500 dark:focus:border-gray-400 dark:bg-gray-900 dark:text-gray-100" />
                 </div>
+                <label for="password" class="block mb-1 font-semibold text-gray-700 dark:text-gray-200">
+                    Password
+                </label>
                 <div class="relative">
-                    <label for="password" class="block mb-1 font-semibold text-gray-700 dark:text-gray-200">
-                        Password
-                    </label>
                     <input id="password" v-model="password" :type="isPasswordVisible ? 'text' : 'password'"
                         placeholder="Enter your password"
                         class="w-full px-3 py-2 text-gray-900 placeholder-gray-400 bg-white border border-gray-300 dark:placeholder-gray-400 dark:border-gray-700 focus:outline-none focus:ring-1 focus:ring-gray-500 dark:focus:ring-gray-400 focus:border-gray-500 dark:focus:border-gray-400 dark:bg-gray-900 dark:text-gray-100" />
@@ -93,16 +92,16 @@ function handleSignUp() {
                         <i :class="['text-xl bi', isPasswordVisible ? 'bi-eye-slash' : 'bi-eye']"></i>
                     </button>
                 </div>
+                <label for="confirm-password" class="block mb-1 font-semibold text-gray-700 dark:text-gray-200">
+                    Confirm Password
+                </label>
                 <div class="relative mb-6">
-                    <label for="confirm-password" class="block mb-1 font-semibold text-gray-700 dark:text-gray-200">
-                        Confirm Password
-                    </label>
                     <input id="confirm-password" v-model="confirmPassword"
                         :type="isConfirmPasswordVisible ? 'text' : 'password'" placeholder="Confirm your password"
                         class="w-full px-3 py-2 text-gray-900 placeholder-gray-400 bg-white border border-gray-300 dark:placeholder-gray-400 dark:border-gray-700 focus:outline-none focus:ring-1 focus:ring-gray-500 dark:focus:ring-gray-400 focus:border-gray-500 dark:focus:border-gray-400 dark:bg-gray-900 dark:text-gray-100" />
                     <button type="button" id="toggleConfirmPassword"
                         :aria-label="isConfirmPasswordVisible ? 'Hide confirm password' : 'Show confirm password'"
-                        class="absolute inset-y-0 right-0 flex items-center justify-center pr-3 text-gray-500 transition-colors duration-200 dark:text-gray-400 focus:outline-none hover:text-gray-600 dark:hover:text-gray-300"
+                        class="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-500 transition-colors duration-200 dark:text-gray-400 focus:outline-none hover:text-gray-600 dark:hover:text-gray-300"
                         @click="toggleConfirmPassword">
                         <i :class="['text-xl bi', isConfirmPasswordVisible ? 'bi-eye-slash' : 'bi-eye']"></i>
                     </button>
