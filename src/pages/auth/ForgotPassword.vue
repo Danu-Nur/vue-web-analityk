@@ -1,5 +1,5 @@
 <script setup>
-import ThemeToggle from '../../components/layouts/ui/ThemeToggle.vue';
+import ThemeToggle from '../../layouts/ui/ThemeToggle.vue';
 import { ref } from 'vue';
 
 // Reactive state for form fields

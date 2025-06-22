@@ -1,8 +1,8 @@
 <script setup>
-import FrontLayouts from '../../components/layouts/FrontLayouts.vue';
-import HeroVue from '../../components/layouts/landing/Hero.vue';
-import Marquee from '../../components/layouts/landing/Marquee.vue';
-import ProductList from '../../components/layouts/landing/ProductList.vue';
+import FrontLayouts from '../../layouts/FrontLayouts.vue';
+import HeroVue from '../../layouts/landing/Hero.vue';
+import Marquee from '../../layouts/landing/Marquee.vue';
+import ProductList from '../../layouts/landing/ProductList.vue';
 
 defineProps({
     products: Array,

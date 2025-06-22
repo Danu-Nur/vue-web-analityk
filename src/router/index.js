@@ -3,6 +3,7 @@ import Landing from '../pages/landing/Landing.vue'
 import Login from '../pages/auth/Login.vue';
 import SignUp from '../pages/auth/SignUp.vue';
 import ForgotPassword from '../pages/auth/ForgotPassword.vue';
+import AdminDashboard from '../pages/admin/Dashboard.vue';
 
 const routes = [
     {
@@ -24,6 +25,11 @@ const routes = [
         path: '/forgot-password',
         name: 'forgot.password',
         component: ForgotPassword
+    },
+    {
+        path: '/admin-dashboard',
+        name: 'admin.dashboard',
+        component: AdminDashboard
     },
 ]
 
