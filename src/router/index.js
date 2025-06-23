@@ -1,35 +1,30 @@
 import { createRouter, createWebHistory } from "vue-router";
-import Landing from '../pages/landing/Landing.vue'
-import Login from '../pages/auth/Login.vue';
-import SignUp from '../pages/auth/SignUp.vue';
-import ForgotPassword from '../pages/auth/ForgotPassword.vue';
-import AdminDashboard from '../pages/admin/Dashboard.vue';
 
 const routes = [
     {
         path: '/',
         name: 'landing',
-        component: Landing
+        component: () => import('../pages/landing/Landing.vue')
     },
     {
         path: '/login',
         name: 'login',
-        component: Login
+        component: () => import('../pages/auth/Login.vue')
     },
     {
         path: '/signup',
         name: 'signup',
-        component: SignUp
+        component: () => import('../pages/auth/SignUp.vue')
     },
     {
         path: '/forgot-password',
         name: 'forgot.password',
-        component: ForgotPassword
+        component: () => import('../pages/auth/ForgotPassword.vue')
     },
     {
         path: '/admin-dashboard',
         name: 'admin.dashboard',
-        component: AdminDashboard
+        component: () => import('../pages/admin/Dashboard.vue')
     },
 ]
 
