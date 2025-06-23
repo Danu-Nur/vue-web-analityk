@@ -18,13 +18,13 @@ const props = defineProps({
 
 const chartOptions = computed(() => ({
     chart: { id: 'line-chart' },
-    title: { text: title },
-    xaxis: { categories },
+    title: props.title ,
+    xaxis: props.categories,
     stroke: { curve: 'smooth' },
     colors: props.colors, 
     dataLabels: { enabled: false },
     tooltip: { shared: true, intersect: false }
 }))
 
-const series = computed(() => [{ name: title, data: seriesData }])
+const series = computed(() => [{ name: props.title, data: props.seriesData }])
 </script>
