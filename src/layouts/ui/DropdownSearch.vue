@@ -1,11 +1,11 @@
 <script setup>
 import { ref, computed, onMounted, onBeforeUnmount } from 'vue';
 
-const personalAccount = ref({ id: 1, name: 'Alicia Koch', initials: 'AK', color: 'from-purple-500 to-pink-500' });
+const personalAccount = ref({ id: 1, name: 'Anisa Ken', initials: 'AK', color: 'from-purple-500 to-pink-500' });
 
 const teams = ref([
-    { id: 2, name: 'Acme Inc.', initials: 'AI', color: 'from-blue-500 to-green-500'},
-    { id: 3, name: 'Monsters Inc.', initials: 'MI', color: 'from-pink-500 to-blue-500' },
+    { id: 2, name: 'Army Mvc.', initials: 'AI', color: 'from-blue-500 to-green-500'},
+    { id: 3, name: 'Monsters Un Mvc.', initials: 'MI', color: 'from-pink-500 to-blue-500' },
     { id: 4, name: 'Sam Carter', initials: 'SC', color: 'from-yellow-500 to-green-500' },
     { id: 5, name: 'John Doe', initials: 'JD', color: 'from-blue-500 to-yellow-500' },
     { id: 6, name: 'Emma Smith', initials: 'ES', color: 'from-red-300 to-pink-600' },

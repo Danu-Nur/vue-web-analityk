@@ -1,6 +1,9 @@
 <script setup>
-import ThemeToggle from '../../layouts/ui/ThemeToggle.vue';
 import { ref } from 'vue'
+import { useRouter } from 'vue-router'
+import ThemeToggle from '../../layouts/ui/ThemeToggle.vue';
+
+const router = useRouter()
 // Reactive state to track password visibility
 const isPasswordVisible = ref(false);
 
@@ -12,6 +15,8 @@ function togglePassword() {
 function handleLogin() {
     // Add login logic here (e.g., validate email, make API call)
     console.log('Login button clicked');
+    router.push('/admin-dashboard')
+
 }
 </script>
 

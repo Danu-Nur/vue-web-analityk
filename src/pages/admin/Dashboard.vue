@@ -2,6 +2,7 @@
 import { ref, onMounted } from 'vue';
 import DropdownSearch from '../../layouts/ui/DropdownSearch.vue';
 import { TransitionRoot, TransitionChild } from '@headlessui/vue';
+import BarChart from '../../components/apexchart/BarChart.vue';
 // import { Chart } from 'chart.js/auto';
 const isMenuOpen = ref(false);
 
@@ -54,80 +55,35 @@ const recentSales = ref([
         avatar: 'https://storage.googleapis.com/a1aa/image/8e84123b-eb5a-4c72-28d9-c9ca4c15f5f1.jpg',
         avatarAlt: 'User avatar silhouette of a woman with black hair',
     },
+    {
+        name: 'Jackson Lee',
+        email: 'jackson.lee@email.com',
+        amount: '+$39.00',
+        avatar: 'https://storage.googleapis.com/a1aa/image/b2aec910-2d30-4116-722a-0d773a27bff9.jpg',
+        avatarAlt: 'User avatar silhouette of a man with short hair and glasses',
+    },
+    {
+        name: 'Isabella Nguyen',
+        email: 'isabella.nguyen@email.com',
+        amount: '+$299.00',
+        avatar: 'https://storage.googleapis.com/a1aa/image/8e84123b-eb5a-4c72-28d9-c9ca4c15f5f1.jpg',
+        avatarAlt: 'User avatar silhouette of a woman with black hair',
+    },
+    {
+        name: 'William Kim',
+        email: 'will@email.com',
+        amount: '+$99.00',
+        avatar: 'https://storage.googleapis.com/a1aa/image/b2aec910-2d30-4116-722a-0d773a27bff9.jpg',
+        avatarAlt: 'User avatar silhouette of a man with short hair and glasses',
+    },
+    {
+        name: 'Sofia Davis',
+        email: 'sofia.davis@email.com',
+        amount: '+$39.00',
+        avatar: 'https://storage.googleapis.com/a1aa/image/8e84123b-eb5a-4c72-28d9-c9ca4c15f5f1.jpg',
+        avatarAlt: 'User avatar silhouette of a woman with black hair',
+    },
 ]);
-
-// Initialize chart
-// onMounted(() => {
-//     const ctx = document.getElementById('overviewChart')?.getContext('2d');
-//     if (!ctx) {
-//         console.error('Canvas element not found');
-//         return;
-//     }
-
-//     new Chart(ctx, {
-//         type: 'bar',
-//         data: {
-//             labels: ['Jan', 'Mar', 'Jun', 'Sep', 'Nov'], // Aligned with data
-//             datasets: [
-//                 {
-//                     label: 'Total',
-//                     data: [5500, 1500, 5400, 2100, 4000], // Reduced to match labels
-//                     backgroundColor: 'var(--color-primary-500)',
-//                     borderRadius: 4,
-//                     barPercentage: 0.6,
-//                     categoryPercentage: 0.6,
-//                 },
-//             ],
-//         },
-//         options: {
-//             responsive: true,
-//             maintainAspectRatio: false,
-//             scales: {
-//                 x: {
-//                     grid: { display: false, drawBorder: false },
-//                     ticks: {
-//                         color: '#4B5563', // gray-600
-//                         font: { size: 11, family: 'Figtree, sans-serif' }, // Use font-sans
-//                     },
-//                 },
-//                 y: {
-//                     grid: { color: '#E5E7EB', drawBorder: false, borderDash: [4, 4] },
-//                     ticks: {
-//                         color: '#9CA3AF', // gray-400
-//                         font: { size: 11, family: 'Figtree, sans-serif' },
-//                         stepSize: 1000,
-//                         beginAtZero: true,
-//                         maxTicksLimit: 6,
-//                     },
-//                     beginAtZero: true,
-//                 },
-//             },
-//             plugins: {
-//                 legend: {
-//                     display: true,
-//                     position: 'top',
-//                     labels: {
-//                         color: 'var(--color-primary-900)', // primary-900
-//                         font: { size: 12, family: 'Figtree, sans-serif', weight: 'bold' },
-//                         usePointStyle: true,
-//                         pointStyle: 'circle',
-//                         padding: 20,
-//                     },
-//                 },
-//                 tooltip: {
-//                     enabled: true,
-//                     backgroundColor: 'var(--color-primary-900)',
-//                     titleFont: { family: 'Figtree, sans-serif', weight: 'bold' },
-//                     bodyFont: { family: 'Figtree, sans-serif' },
-//                     cornerRadius: 4,
-//                     padding: 8,
-//                 },
-//             },
-//             interaction: { mode: 'nearest', axis: 'x', intersect: false },
-//             animation: { duration: 500, easing: 'easeOutQuart' },
-//         },
-//     });
-// });
 </script>
 <template>
     <div class="bg-white text-gray-900">
@@ -249,7 +205,8 @@ const recentSales = ref([
 
             <!-- Tabs -->
             <div class="flex items-center mb-6 overflow-x-auto">
-                <div class="flex items-start bg-gray-100 gap-2 p-1 rounded-md justify-between min-w-full md:min-w-0 w-max">
+                <div
+                    class="flex items-start bg-gray-100 gap-2 p-1 rounded-md justify-between min-w-full md:min-w-0 w-max">
                     <button class="bg-white text-gray-900 font-semibold rounded-md py-1 px-2 md:py-2 md:px-4"
                         type="button">Overview</button>
                     <button class="text-gray-400 rounded-md py-1 px-2 md:py-2 md:px-4" disabled
@@ -280,9 +237,10 @@ const recentSales = ref([
                 <article aria-label="Overview chart"
                     class="border border-gray-200 rounded-lg p-4 lg:col-span-3 flex flex-col">
                     <h2 class="font-semibold text-gray-900 mb-4">Overview</h2>
-                    <canvas
-                        aria-label="Bar chart showing monthly total sales overview from January to November with bars in black color and labeled months Jan, Jun, Nov"
-                        class="rounded" height="280" id="overviewChart" width="720"></canvas>
+                    <BarChart 
+                        :title="'Page Views per Month'" 
+                        :categories="['Jan', 'Feb', 'Mar', 'Apr', 'May','Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']"
+                        :seriesData="[220, 330, 290, 500, 310, 400, 450, 380, 600, 520, 610, 700]" />
                     <div class="flex justify-end items-center text-xs text-gray-600 mt-2 space-x-1">
                         <span class="w-3 h-3 rounded-full bg-black inline-block"></span>
                         <span>total</span>
@@ -310,5 +268,4 @@ const recentSales = ref([
     </div>
 </template>
 <style>
-@import 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css';
 </style>
