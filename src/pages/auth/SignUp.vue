@@ -38,16 +38,18 @@ function handleSignUp() {
 </script>
 
 <template>
+    <header class="absolute flex items-center justify-between w-full top-0 px-2 sm:px-6 lg:px-12 py-3">
+        <router-link to="/login"
+            class="flex items-center gap-2 ms-2 p-2.5 font-semibold text-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg focus:outline-none">
+            <i class="bi bi-chevron-left"></i>
+            Login
+        </router-link>
+        <ThemeToggle />
+    </header>
     <div
-        class="flex flex-col items-center justify-center min-h-screen px-6 font-sans transition-colors duration-300 bg-white dark:bg-gray-950">
-        <header class="flex items-center justify-between w-full max-w-md mb-6">
-            <router-link to="/login"
-                class="flex items-center gap-2 font-semibold text-gray-700 dark:text-gray-100 hover:text-gray-500 dark:hover:text-gray-300 focus:outline-none">
-                <i class="bi bi-arrow-left"></i> Back to Login
-            </router-link>
-            <ThemeToggle />
-        </header>
-        <div class="w-full max-w-md">
+        class="flex flex-col items-center justify-center min-h-screen px-6 font-sans transition-colors duration-300 bg-white dark:bg-gray-950 py-5">
+
+        <div class="w-full max-w-md py-5">
             <div class="text-center">
                 <i class="text-2xl text-gray-700 bi bi-person-plus dark:text-gray-200"></i>
                 <h1 class="mb-1 text-2xl font-bold text-gray-800 dark:text-gray-100">
@@ -117,7 +119,7 @@ function handleSignUp() {
                 <span class="mx-3 text-sm text-gray-500 dark:text-gray-400">Or</span>
                 <hr class="flex-grow border-gray-300 dark:border-gray-700" />
             </div>
-            <div class="flex justify-center gap-3">
+            <div class="flex flex-col md:flex-row justify-center gap-3">
                 <button type="button"
                     class="flex items-center justify-center w-full px-3 py-2 space-x-2 text-gray-900 transition-colors duration-200 bg-white border border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-800">
                     <i class="bi bi-apple"></i>

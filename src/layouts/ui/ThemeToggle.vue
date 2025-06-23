@@ -50,7 +50,7 @@ export default {
 </script>
 <template>
     <button id="theme-toggle" type="button"
-        class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none rounded-lg text-sm p-2.5 mr-2"
+        class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none rounded-lg p-2.5 mr-2"
         @click="toggleTheme">
         <svg id="theme-toggle-dark-icon" class="w-5 h-5" :class="{ 'hidden': !isDark }" fill="currentColor"
             viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">

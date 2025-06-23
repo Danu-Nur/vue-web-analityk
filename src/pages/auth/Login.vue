@@ -16,14 +16,15 @@ function handleLogin() {
 </script>
 
 <template>
+    <header class="absolute top-0 flex items-center justify-between w-full px-2 sm:px-6 lg:px-12 py-3">
+        <router-link to="/"
+            class="flex items-center gap-2 font-semibold ms-2 p-2.5 text-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg focus:outline-none">
+            <i class="bi bi-chevron-left"></i> Back</router-link>
+        <ThemeToggle />
+    </header>
     <div
         class="flex flex-col items-center justify-center min-h-screen px-6 font-sans transition-colors duration-300 bg-white dark:bg-gray-950">
-        <header class="flex items-center justify-between w-full max-w-md mb-6">
-            <router-link to="/"
-                class="flex items-center gap-2 font-semibold text-black dark:text-white hover:underline focus:outline-none"><i
-                    class="bi bi-arrow-left"></i> Back</router-link>
-            <ThemeToggle />
-        </header>
+
         <div class="w-full max-w-md">
             <div class="text-center">
                 <!-- <i class="bi bi-collection"></i> -->
@@ -76,7 +77,7 @@ function handleLogin() {
                 <span class="mx-3 text-gray-500 text-md dark:text-gray-400">Or</span>
                 <hr class="flex-grow border-gray-300 dark:border-gray-700" />
             </div>
-            <div class="flex justify-center gap-3">
+            <div class="flex flex-col md:flex-row justify-center gap-3">
                 <button type="button"
                     class="flex items-center justify-center w-full px-3 py-2 space-x-2 text-gray-900 transition-colors duration-200 bg-white border border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-800">
                     <i class="bi bi-apple"></i>
