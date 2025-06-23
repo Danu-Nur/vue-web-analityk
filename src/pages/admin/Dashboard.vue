@@ -1,9 +1,13 @@
 <script setup>
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, defineAsyncComponent } from 'vue';
 import DropdownSearch from '../../layouts/ui/DropdownSearch.vue';
 import { TransitionRoot, TransitionChild } from '@headlessui/vue';
-import BarChart from '../../components/apexchart/BarChart.vue';
-// import { Chart } from 'chart.js/auto';
+
+// Importing the BarChart component asynchronously
+const BarChart = defineAsyncComponent(() =>
+    import('../../components/apexchart/BarChart.vue')
+)
+
 const isMenuOpen = ref(false);
 
 // Summary cards data
@@ -237,14 +241,21 @@ const recentSales = ref([
                 <article aria-label="Overview chart"
                     class="border border-gray-200 rounded-lg p-4 lg:col-span-3 flex flex-col">
                     <h2 class="font-semibold text-gray-900 mb-4">Overview</h2>
-                    <BarChart 
-                        :title="'Page Views per Month'" 
-                        :categories="['Jan', 'Feb', 'Mar', 'Apr', 'May','Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']"
-                        :seriesData="[220, 330, 290, 500, 310, 400, 450, 380, 600, 520, 610, 700]" />
-                    <div class="flex justify-end items-center text-xs text-gray-600 mt-2 space-x-1">
+                    <Suspense>
+                        <template #default>
+                            <BarChart :title="'Page Views per Month'"
+                                :categories="['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']"
+                                :seriesData="[220, 330, 290, 500, 310, 400, 450, 380, 600, 520, 610, 700]" />
+                        </template>
+                        <template #fallback>
+                            <div>Loading chart...</div>
+                        </template>
+                    </Suspense>
+
+                    <!-- <div class="flex justify-end items-center text-xs text-gray-600 mt-2 space-x-1">
                         <span class="w-3 h-3 rounded-full bg-black inline-block"></span>
                         <span>total</span>
-                    </div>
+                    </div> -->
                 </article>
                 <article aria-label="Recent Sales" class="border border-gray-200 rounded-lg p-4">
                     <h2 class="font-semibold text-gray-900 mb-1">Recent Sales</h2>
@@ -267,5 +278,4 @@ const recentSales = ref([
         </main>
     </div>
 </template>
-<style>
-</style>
+<style></style>

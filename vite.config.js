@@ -8,4 +8,15 @@ export default defineConfig({
     vue(),
     tailwindcss(),
   ],
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          vue: ['vue', 'vue-router'],
+          apexcharts: ['apexcharts'],
+          // apexcharts: ['vue3-apexcharts', 'apexcharts'],
+        },
+      },
+    },
+  }
 })
