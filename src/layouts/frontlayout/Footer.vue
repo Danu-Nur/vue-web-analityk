@@ -1,5 +1,5 @@
 <script setup>
-import ApplicationLogo from './ui/ApplicationLogo.vue';
+import ApplicationLogo from '../ui/ApplicationLogo.vue';
 </script>
 <template>
     <footer class="">

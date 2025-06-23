@@ -1,8 +1,8 @@
 <script setup>
 import { ref, watch } from 'vue';
-import ApplicationLogo from './ui/ApplicationLogo.vue';
-import ThemeToggle from './ui/ThemeToggle.vue';
-import Dropdown from './ui/DropdownComponent.vue';
+import ApplicationLogo from '../ui/ApplicationLogo.vue';
+import ThemeToggle from '../ui/ThemeToggle.vue';
+import Dropdown from '../ui/DropdownComponent.vue';
 import { TransitionRoot, TransitionChild } from '@headlessui/vue';
 
 const isMenuOpen = ref(false);

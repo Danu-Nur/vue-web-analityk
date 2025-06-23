@@ -1,80 +1,285 @@
+<script setup>
+import { ref, onMounted } from 'vue';
+import DropdownSearch from '../../layouts/ui/DropdownSearch.vue';
+import { TransitionRoot, TransitionChild } from '@headlessui/vue';
+// import { Chart } from 'chart.js/auto';
+const isMenuOpen = ref(false);
+
+// Summary cards data
+const summaryCards = ref([
+    { title: 'Total Revenue', value: '$45,231.89', change: '+20.1% from last month', icon: 'bi-currency-dollar' },
+    { title: 'Subscriptions', value: '+2350', change: '+180.1% from last month', icon: 'bi-people' },
+    { title: 'Sales', value: '+12,234', change: '+19% from last month', icon: 'bi-credit-card' },
+    { title: 'Active Now', value: '+573', change: '+201 since last hour', icon: 'bi-graph-up' },
+]);
+
+const toggleMenu = () => {
+    isMenuOpen.value = !isMenuOpen.value;
+};
+
+// Recent sales data
+const recentSales = ref([
+    {
+        name: 'Olivia Martin',
+        email: 'olivia.martin@email.com',
+        amount: '+$1,999.00',
+        avatar: 'https://storage.googleapis.com/a1aa/image/8e84123b-eb5a-4c72-28d9-c9ca4c15f5f1.jpg',
+        avatarAlt: 'User avatar silhouette of a woman with black hair',
+    },
+    {
+        name: 'Jackson Lee',
+        email: 'jackson.lee@email.com',
+        amount: '+$39.00',
+        avatar: 'https://storage.googleapis.com/a1aa/image/b2aec910-2d30-4116-722a-0d773a27bff9.jpg',
+        avatarAlt: 'User avatar silhouette of a man with short hair and glasses',
+    },
+    {
+        name: 'Isabella Nguyen',
+        email: 'isabella.nguyen@email.com',
+        amount: '+$299.00',
+        avatar: 'https://storage.googleapis.com/a1aa/image/8e84123b-eb5a-4c72-28d9-c9ca4c15f5f1.jpg',
+        avatarAlt: 'User avatar silhouette of a woman with black hair',
+    },
+    {
+        name: 'William Kim',
+        email: 'will@email.com',
+        amount: '+$99.00',
+        avatar: 'https://storage.googleapis.com/a1aa/image/b2aec910-2d30-4116-722a-0d773a27bff9.jpg',
+        avatarAlt: 'User avatar silhouette of a man with short hair and glasses',
+    },
+    {
+        name: 'Sofia Davis',
+        email: 'sofia.davis@email.com',
+        amount: '+$39.00',
+        avatar: 'https://storage.googleapis.com/a1aa/image/8e84123b-eb5a-4c72-28d9-c9ca4c15f5f1.jpg',
+        avatarAlt: 'User avatar silhouette of a woman with black hair',
+    },
+]);
+
+// Initialize chart
+// onMounted(() => {
+//     const ctx = document.getElementById('overviewChart')?.getContext('2d');
+//     if (!ctx) {
+//         console.error('Canvas element not found');
+//         return;
+//     }
+
+//     new Chart(ctx, {
+//         type: 'bar',
+//         data: {
+//             labels: ['Jan', 'Mar', 'Jun', 'Sep', 'Nov'], // Aligned with data
+//             datasets: [
+//                 {
+//                     label: 'Total',
+//                     data: [5500, 1500, 5400, 2100, 4000], // Reduced to match labels
+//                     backgroundColor: 'var(--color-primary-500)',
+//                     borderRadius: 4,
+//                     barPercentage: 0.6,
+//                     categoryPercentage: 0.6,
+//                 },
+//             ],
+//         },
+//         options: {
+//             responsive: true,
+//             maintainAspectRatio: false,
+//             scales: {
+//                 x: {
+//                     grid: { display: false, drawBorder: false },
+//                     ticks: {
+//                         color: '#4B5563', // gray-600
+//                         font: { size: 11, family: 'Figtree, sans-serif' }, // Use font-sans
+//                     },
+//                 },
+//                 y: {
+//                     grid: { color: '#E5E7EB', drawBorder: false, borderDash: [4, 4] },
+//                     ticks: {
+//                         color: '#9CA3AF', // gray-400
+//                         font: { size: 11, family: 'Figtree, sans-serif' },
+//                         stepSize: 1000,
+//                         beginAtZero: true,
+//                         maxTicksLimit: 6,
+//                     },
+//                     beginAtZero: true,
+//                 },
+//             },
+//             plugins: {
+//                 legend: {
+//                     display: true,
+//                     position: 'top',
+//                     labels: {
+//                         color: 'var(--color-primary-900)', // primary-900
+//                         font: { size: 12, family: 'Figtree, sans-serif', weight: 'bold' },
+//                         usePointStyle: true,
+//                         pointStyle: 'circle',
+//                         padding: 20,
+//                     },
+//                 },
+//                 tooltip: {
+//                     enabled: true,
+//                     backgroundColor: 'var(--color-primary-900)',
+//                     titleFont: { family: 'Figtree, sans-serif', weight: 'bold' },
+//                     bodyFont: { family: 'Figtree, sans-serif' },
+//                     cornerRadius: 4,
+//                     padding: 8,
+//                 },
+//             },
+//             interaction: { mode: 'nearest', axis: 'x', intersect: false },
+//             animation: { duration: 500, easing: 'easeOutQuart' },
+//         },
+//     });
+// });
+</script>
 <template>
     <div class="bg-white text-gray-900">
+        <!-- Header -->
         <header class="border-b border-gray-200">
             <nav aria-label="Primary Navigation"
-                class="max-w-[1280px] mx-auto flex items-center justify-between px-4 py-3">
-                <div class="flex items-center space-x-4">
+                class="mx-auto flex items-center md:justify-between px-4 sm:px-6 lg:px-12 py-3">
+                <div class="flex items-center justify-between w-full md:w-auto space-x-3">
+                    <!-- Logo or DropdownSearch -->
+                    <DropdownSearch />
+                    <!-- Hamburger Menu for Mobile -->
+                    <button class="md:hidden flex items-center justify-end me-0 text-gray-600 focus:outline-none"
+                        aria-label="Toggle navigation menu" @click="toggleMenu">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M4 6h16M4 12h16m-7 6h7" />
+                        </svg>
+                    </button>
 
-                    <div class="relative">
-                        <div aria-label="User initials SC"
-                            class="flex items-center justify-center w-8 h-8 rounded-full border absolute inset-y-0 border-gray-300 text-xs font-semibold text-gray-600">
-                            SC
-                        </div>
-                        <select aria-label="User name Alicia Koch"
-                            class="appearance-none border border-gray-300 rounded-md ms-4 py-1.5 pl-3 pr-8 text-gray-700 text-sm focus:outline-none focus:ring-1 focus:ring-black">
-                            <option selected>Alicia Koch</option>
-                        </select>
-                        <span class="pointer-events-none absolute inset-y-0 right-2 flex items-center text-gray-400">
-                            <i class="fas fa-chevron-down text-xs"></i>
-                        </span>
+                    <div class="hidden md:flex items-center space-x-5">
+                        <a aria-current="page" class="font-semibold text-gray-900" href="#">Overview</a>
+                        <a class="text-gray-500 hover:text-gray-900" href="#">Customers</a>
+                        <a class="text-gray-500 hover:text-gray-900" href="#">Products</a>
+                        <a class="text-gray-500 hover:text-gray-900" href="#">Settings</a>
                     </div>
-                    <a aria-current="page" class="text-sm font-semibold text-gray-900" href="#">Overview</a>
-                    <a class="text-sm text-gray-500 hover:text-gray-900" href="#">Customers</a>
-                    <a class="text-sm text-gray-500 hover:text-gray-900" href="#">Products</a>
-                    <a class="text-sm text-gray-500 hover:text-gray-900" href="#">Settings</a>
                 </div>
-                <div class="flex items-center space-x-4">
+                <!-- Desktop Navigation -->
+
+                <!-- Desktop Search and Avatar -->
+                <div class="hidden md:flex items-center space-x-4">
                     <input aria-label="Search"
-                        class="border border-gray-300 rounded-md py-1.5 px-3 text-sm placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-black"
+                        class="border border-gray-300 rounded-md py-1.5 px-3 placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-black"
                         placeholder="Search..." type="search" />
                     <img alt="User avatar silhouette of a woman with black hair"
                         class="w-8 h-8 rounded-full object-cover" :height="32" :width="32" loading="lazy"
                         src="https://storage.googleapis.com/a1aa/image/8e84123b-eb5a-4c72-28d9-c9ca4c15f5f1.jpg" />
                 </div>
             </nav>
+
+            <!-- Mobile Navigation Menu -->
+            <TransitionRoot as="template" :show="isMenuOpen">
+                <div class="relative z-50 xl:hidden">
+                    <TransitionChild as="template" enter="transition-opacity ease-linear duration-300"
+                        enter-from="opacity-0" enter-to="opacity-100"
+                        leave="transition-opacity ease-linear duration-300" leave-from="opacity-100"
+                        leave-to="opacity-0">
+                        <div class="fixed inset-0 bg-black/50 dark:bg-black/70" @click="toggleMenu" />
+                    </TransitionChild>
+
+                    <div class="fixed inset-0 z-50 flex">
+                        <TransitionChild as="template" enter="transition ease-in-out duration-300 transform"
+                            enter-from="translate-x-full" enter-to="translate-x-0"
+                            leave="transition ease-in-out duration-300 transform" leave-from="translate-x-0"
+                            leave-to="translate-x-full">
+                            <div
+                                class="relative flex flex-col w-64 py-4 pb-12 ml-auto overflow-y-auto bg-white shadow-lg dark:bg-gray-800">
+                                <div class="flex items-center justify-between px-4">
+                                    <span class="text-lg font-semibold text-gray-900 dark:text-gray-100">Menu</span>
+                                    <button @click="toggleMenu"
+                                        class="flex items-center justify-center p-2 -mr-2 text-gray-400 bg-white rounded-md dark:text-gray-300 dark:bg-gray-800 size-10">
+                                        <span class="sr-only">Close menu</span>
+                                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <path fill-rule="evenodd"
+                                                d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                                                clip-rule="evenodd"></path>
+                                        </svg>
+                                    </button>
+                                </div>
+                                <ul class="flex flex-col p-4 space-y-2 font-medium">
+                                    <li>
+                                        <input aria-label="Search"
+                                            class="border border-gray-300 rounded-md py-2 px-3 placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-black w-full"
+                                            placeholder="Search..." type="search" />
+                                    </li>
+                                    <li>
+                                        <a href="#"
+                                            class="block px-3 py-2 text-gray-700 rounded hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-700 dark:hover:text-white">Overview</a>
+                                    </li>
+                                    <li>
+                                        <a href="#"
+                                            class="block px-3 py-2 text-gray-700 rounded hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-700 dark:hover:text-white">Customers</a>
+                                    </li>
+                                    <li>
+                                        <a href="#"
+                                            class="block px-3 py-2 text-gray-700 rounded hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-700 dark:hover:text-white">Products</a>
+                                    </li>
+                                    <li>
+                                        <a href="#"
+                                            class="block px-3 py-2 text-gray-700 rounded hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-700 dark:hover:text-white">Settings</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </TransitionChild>
+                    </div>
+                </div>
+            </TransitionRoot>
         </header>
-        <main class="max-w-[1280px] mx-auto px-4 py-6">
-            <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-4">
-                <h1 class="text-2xl font-extrabold leading-tight text-gray-900 mb-3 md:mb-0">Dashboard</h1>
-                <div class="flex items-center space-x-3">
+
+        <!-- Main Content -->
+        <main class="mx-auto px-4 sm:px-6 lg:px-12 py-6">
+            <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-6">
+                <h1 class="text-2xl sm:text-3xl font-extrabold leading-tight text-gray-900 mb-4 md:mb-0">Dashboard</h1>
+                <div class="flex flex-col sm:flex-row items-start sm:items-center space-y-3 sm:space-y-0 sm:space-x-3">
                     <button
-                        class="flex items-center border border-gray-300 rounded-md py-2 px-3 text-sm text-gray-700 hover:bg-gray-100 focus:outline-none focus:ring-1 focus:ring-black"
+                        class="flex items-center border border-gray-300 rounded-md py-2 px-4 text-gray-700 hover:bg-gray-100 focus:outline-none focus:ring-1 focus:ring-black w-full sm:w-auto"
                         type="button">
-                        <i class="far fa-calendar-alt mr-2 text-gray-600"></i>
+                        <!-- <i class="far fa-calendar-alt mr-2 "></i> -->
+                        <i class="bi bi-calendar mr-2 text-gray-600"></i>
                         <span>Jan 20, 2023 - Feb 9, 2023</span>
                     </button>
                     <button
-                        class="bg-black text-white text-sm font-semibold rounded-md py-2 px-4 hover:bg-gray-900 focus:outline-none focus:ring-1 focus:ring-black"
+                        class="bg-black text-white font-semibold rounded-md py-2 px-4 hover:bg-gray-900 focus:outline-none focus:ring-1 focus:ring-black w-full sm:w-auto"
                         type="button">
                         Download
                     </button>
                 </div>
             </div>
-            <div class="flex flex-wrap items-center gap-3 mb-6">
-                <button class="bg-gray-100 text-gray-900 text-sm font-semibold rounded-md py-1.5 px-4"
-                    type="button">Overview</button>
-                <button class="text-gray-400 text-sm font-semibold rounded-md py-1.5 px-4 cursor-not-allowed" disabled
-                    type="button">Analytics</button>
-                <button class="text-gray-400 text-sm font-semibold rounded-md py-1.5 px-4 cursor-not-allowed" disabled
-                    type="button">Reports</button>
-                <button class="text-gray-400 text-sm font-semibold rounded-md py-1.5 px-4 cursor-not-allowed" disabled
-                    type="button">Notifications</button>
+
+            <!-- Tabs -->
+            <div class="flex items-center mb-6 overflow-x-auto">
+                <div class="flex items-start bg-gray-100 gap-2 p-1 rounded-md justify-between min-w-full md:min-w-0 w-max">
+                    <button class="bg-white text-gray-900 font-semibold rounded-md py-1 px-2 md:py-2 md:px-4"
+                        type="button">Overview</button>
+                    <button class="text-gray-400 rounded-md py-1 px-2 md:py-2 md:px-4" disabled
+                        type="button">Analytics</button>
+                    <button class="text-gray-400 rounded-md py-1 px-2 md:py-2 md:px-4" disabled
+                        type="button">Reports</button>
+                    <button class="text-gray-400 rounded-md py-1 px-2 md:py-2 md:px-4" disabled
+                        type="button">Notifications</button>
+                </div>
             </div>
-            <section aria-label="Summary cards" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+
+            <!-- Summary Cards -->
+            <section aria-label="Summary cards"
+                class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mb-6">
                 <article v-for="card in summaryCards" :key="card.title" :aria-label="card.title"
-                    class="border border-gray-200 rounded-lg p-4 flex flex-col justify-between">
+                    class="border border-gray-200 rounded-lg p-4 sm:p-6 flex flex-col justify-between">
                     <div class="flex justify-between items-start mb-2">
-                        <p class="text-xs text-gray-600 font-semibold">{{ card.title }}</p>
-                        <i :class="card.icon" class="text-gray-300 text-sm"></i>
+                        <p class="text-gray-600 font-semibold">{{ card.title }}</p>
+                        <i :class="card.icon" class="text-gray-400 text-xl"></i>
                     </div>
-                    <p class="text-2xl font-extrabold text-gray-900 mb-1">{{ card.value }}</p>
-                    <p class="text-xs text-gray-500 font-semibold">{{ card.change }}</p>
+                    <p class="text-xl sm:text-2xl font-extrabold text-gray-900 mb-1">{{ card.value }}</p>
+                    <p class="text-sm text-gray-400">{{ card.change }}</p>
                 </article>
             </section>
-            <section aria-label="Main content" class="grid grid-cols-1 lg:grid-cols-3 gap-4">
+
+            <!-- Main Content Grid -->
+            <section aria-label="Main content" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
                 <article aria-label="Overview chart"
-                    class="border border-gray-200 rounded-lg p-4 lg:col-span-2 flex flex-col">
-                    <h2 class="text-sm font-semibold text-gray-900 mb-4">Overview</h2>
+                    class="border border-gray-200 rounded-lg p-4 lg:col-span-3 flex flex-col">
+                    <h2 class="font-semibold text-gray-900 mb-4">Overview</h2>
                     <canvas
                         aria-label="Bar chart showing monthly total sales overview from January to November with bars in black color and labeled months Jan, Jun, Nov"
                         class="rounded" height="280" id="overviewChart" width="720"></canvas>
@@ -84,7 +289,7 @@
                     </div>
                 </article>
                 <article aria-label="Recent Sales" class="border border-gray-200 rounded-lg p-4">
-                    <h2 class="text-sm font-semibold text-gray-900 mb-1">Recent Sales</h2>
+                    <h2 class="font-semibold text-gray-900 mb-1">Recent Sales</h2>
                     <p class="text-xs text-gray-500 mb-4">You made 265 sales this month.</p>
                     <ul class="space-y-4">
                         <li v-for="sale in recentSales" :key="sale.email" class="flex items-center justify-between">
@@ -92,11 +297,11 @@
                                 <img :alt="sale.avatarAlt" class="w-8 h-8 rounded-full object-cover" :height="32"
                                     :width="32" loading="lazy" :src="sale.avatar" />
                                 <div>
-                                    <p class="text-sm font-semibold text-gray-900 leading-tight">{{ sale.name }}</p>
+                                    <p class="font-semibold text-gray-900 leading-tight">{{ sale.name }}</p>
                                     <p class="text-xs text-gray-400 leading-tight">{{ sale.email }}</p>
                                 </div>
                             </div>
-                            <p class="text-sm font-semibold text-gray-900">{{ sale.amount }}</p>
+                            <p class="font-semibold text-gray-900">{{ sale.amount }}</p>
                         </li>
                     </ul>
                 </article>
@@ -104,131 +309,6 @@
         </main>
     </div>
 </template>
-<script>
-import { ref, onMounted } from 'vue';
-// import Chart from 'chart.js/auto';
-
-export default {
-    name: 'App',
-    setup() {
-        const summaryCards = ref([
-            { title: 'Total Revenue', value: '$45,231.89', change: '+20.1% from last month', icon: 'fas fa-dollar-sign' },
-            { title: 'Subscriptions', value: '+2350', change: '+180.1% from last month', icon: 'fas fa-user-friends' },
-            { title: 'Sales', value: '+12,234', change: '+19% from last month', icon: 'fas fa-credit-card' },
-            { title: 'Active Now', value: '+573', change: '+201 since last hour', icon: 'fas fa-chart-line' },
-        ]);
-
-        const recentSales = ref([
-            {
-                name: 'Olivia Martin',
-                email: 'olivia.martin@email.com',
-                amount: '+$1,999.00',
-                avatar: 'https://storage.googleapis.com/a1aa/image/8e84123b-eb5a-4c72-28d9-c9ca4c15f5f1.jpg',
-                avatarAlt: 'User avatar silhouette of a woman with black hair',
-            },
-            {
-                name: 'Jackson Lee',
-                email: 'jackson.lee@email.com',
-                amount: '+$39.00',
-                avatar: 'https://storage.googleapis.com/a1aa/image/b2aec910-2d30-4116-722a-0d773a27bff9.jpg',
-                avatarAlt: 'User avatar silhouette of a man with short hair and glasses',
-            },
-            {
-                name: 'Isabella Nguyen',
-                email: 'isabella.nguyen@email.com',
-                amount: '+$299.00',
-                avatar: 'https://storage.googleapis.com/a1aa/image/8e84123b-eb5a-4c72-28d9-c9ca4c15f5f1.jpg',
-                avatarAlt: 'User avatar silhouette of a woman with black hair',
-            },
-            {
-                name: 'William Kim',
-                email: 'will@email.com',
-                amount: '+$99.00',
-                avatar: 'https://storage.googleapis.com/a1aa/image/b2aec910-2d30-4116-722a-0d773a27bff9.jpg',
-                avatarAlt: 'User avatar silhouette of a man with short hair and glasses',
-            },
-            {
-                name: 'Sofia Davis',
-                email: 'sofia.davis@email.com',
-                amount: '+$39.00',
-                avatar: 'https://storage.googleapis.com/a1aa/image/8e84123b-eb5a-4c72-28d9-c9ca4c15f5f1.jpg',
-                avatarAlt: 'User avatar silhouette of a woman with black hair',
-            },
-        ]);
-
-        onMounted(() => {
-            const ctx = document.getElementById('overviewChart').getContext('2d');
-            new Chart(ctx, {
-                type: 'bar',
-                data: {
-                    labels: ['Jan', '', 'Jun', '', 'Nov'],
-                    datasets: [{
-                        label: 'total',
-                        data: [5500, 1500, 5400, 2100, 1500, 2300, 4000, 1300, 5600, 3200],
-                        backgroundColor: '#000000',
-                        borderRadius: 4,
-                        barPercentage: 0.6,
-                        categoryPercentage: 0.6,
-                    }],
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    scales: {
-                        x: {
-                            grid: { display: false, drawBorder: false },
-                            ticks: {
-                                color: '#4B5563',
-                                font: { size: 11, family: 'Inter, sans-serif' },
-                                maxRotation: 0,
-                                autoSkip: false,
-                            },
-                        },
-                        y: {
-                            grid: { color: '#E5E7EB', drawBorder: false, borderDash: [4, 4] },
-                            ticks: {
-                                color: '#9CA3AF',
-                                font: { size: 11, family: 'Inter, sans-serif' },
-                                stepSize: 1000,
-                                beginAtZero: true,
-                                maxTicksLimit: 6,
-                            },
-                            beginAtZero: true,
-                        },
-                    },
-                    plugins: {
-                        legend: {
-                            display: true,
-                            position: 'top',
-                            labels: {
-                                color: '#000000',
-                                font: { size: 12, family: 'Inter, sans-serif', weight: 'bold' },
-                                usePointStyle: true,
-                                pointStyle: 'circle',
-                                padding: 20,
-                            },
-                        },
-                        tooltip: {
-                            enabled: true,
-                            backgroundColor: '#000000',
-                            titleFont: { family: 'Inter, sans-serif', weight: 'bold' },
-                            bodyFont: { family: 'Inter, sans-serif' },
-                            cornerRadius: 4,
-                            padding: 8,
-                        },
-                    },
-                    interaction: { mode: 'nearest', axis: 'x', intersect: false },
-                    animation: { duration: 500, easing: 'easeOutQuart' },
-                },
-            });
-        });
-
-        return { summaryCards, recentSales };
-    },
-};
-</script>
-
 <style>
-@import 'https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css';
 @import 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css';
 </style>
