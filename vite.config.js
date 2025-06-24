@@ -9,12 +9,24 @@ export default defineConfig({
     tailwindcss(),
   ],
   build: {
+    // minify: 'terser', // Use terser for better minification
+    // terserOptions: {
+    //   compress: {
+    //     drop_console: true, // Remove console.logs
+    //     drop_debugger: true,
+    //   },
+    // },
     rollupOptions: {
       output: {
         manualChunks: {
           vue: ['vue', 'vue-router'],
           apexcharts: ['apexcharts'],
-          // apexcharts: ['vue3-apexcharts', 'apexcharts'],
+          // 'vue3-apexcharts': ['vue3-apexcharts'],
+          papaparse: ['papaparse'],
+          'xlsx-js-style': ['xlsx-js-style'],
+          'file-saver': ['file-saver'],
+          'jspdf': ['jspdf'],
+          'jspdf-autotable': ['jspdf-autotable'],
         },
       },
     },
