@@ -1,25 +1,25 @@
 <script setup>
 import { ref, onMounted, defineAsyncComponent } from 'vue';
-import DropdownSearch from '../../layouts/ui/DropdownSearch.vue';
+import DropdownSearch from '../../../layouts/ui/DropdownSearch.vue';
 import { TransitionRoot, TransitionChild } from '@headlessui/vue';
 
 const dateRangePicker = defineAsyncComponent(() =>
-    import('../../components/calendar/DateRangePicker.vue')
+    import('../../../components/calendar/DateRangePicker.vue')
 );
 
 // Importing the BarChart component asynchronously
 const BarChart = defineAsyncComponent(() =>
-    import('../../components/apexchart/BarChart.vue')
+    import('../../../components/apexchart/BarChart.vue')
 )
 
 // Importing the LineChart component asynchronously
 const LineChart = defineAsyncComponent(() =>
-    import('../../components/apexchart/LineChart.vue')
+    import('../../../components/apexchart/LineChart.vue')
 )
 
 // Importing the Datatable component asynchronously
 const Datatable = defineAsyncComponent(() =>
-    import('../../components/datatables/DataTable.vue')
+    import('../../../components/datatables/DataTable.vue')
 )
 
 const tabs = ['Overview', 'Analytics', 'Reports', 'Notifications']
@@ -115,7 +115,7 @@ const headers = [
     { text: 'URL', value: 'url', sortable: true },
     { text: 'Date & time', value: 'date', sortable: true },
     { text: 'Visitors', value: 'visit', sortable: true},
-    { text: '24h Visitors', value: 'visitorperhours', sortable: true, class: 'text-blue-500', formatter: (val) => val.length.toString() },
+    { text: '24h Visitors', value: 'visitorperhours', sortable: true, class: 'text-blue-500 text-center', formatter: (val) => val.length.toString() },
 ];
 
 // Sample Data (with visitorperhours arrays)
@@ -412,7 +412,7 @@ const items = [
                 </article>
             </section>
             <section aria-label="Main content" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
-                <article aria-label="Recent Sales" class="border border-gray-200 lg:col-span-2 rounded-lg p-4">
+                <article aria-label="Recent Sales" class="border border-gray-200 lg:col-span-3 rounded-lg p-4">
                     <h2 class="font-semibold text-gray-900 mb-1">Recent Sales</h2>
                     <p class="text-xs text-gray-500 mb-4">You made 265 sales this month.</p>
                     <Suspense>
@@ -424,7 +424,7 @@ const items = [
                         </template>
                     </Suspense>
                 </article>
-                <article aria-label="Recent Sales" class="border border-gray-200 rounded-lg p-4">
+                <!-- <article aria-label="Recent Sales" class="border border-gray-200 rounded-lg p-4">
                     <h2 class="font-semibold text-gray-900 mb-1">Recent Sales</h2>
                     <p class="text-xs text-gray-500 mb-4">You made 265 sales this month.</p>
                     <ul class="space-y-4">
@@ -440,7 +440,7 @@ const items = [
                             <p class="font-semibold text-gray-900">{{ sale.amount }}</p>
                         </li>
                     </ul>
-                </article>
+                </article> -->
                 <article aria-label="Recent Sales" class="border border-gray-200 rounded-lg p-4">
                     <h2 class="font-semibold text-gray-900 mb-1">Recent Sales</h2>
                     <p class="text-xs text-gray-500 mb-4">You made 265 sales this month.</p>

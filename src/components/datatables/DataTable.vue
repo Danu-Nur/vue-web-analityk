@@ -1,5 +1,5 @@
 <template>
-    <div class="p-4">
+    <div class="">
         <TableHeader v-model:search="search" @export-csv="exportToCSV" @export-excel="exportToExcel"
             @export-pdf="exportToPDF" @print="printTable" />
         <DataTable :headers="headers" :rows="paginatedRows" :sort-by="sortBy" :sort-order="sortOrder"
@@ -81,7 +81,7 @@ async function exportToCSV() {
 
 // Export Excel
 async function exportToExcel() {
-    const XLSX = await import('xlsx-js-style');
+    const XLSX = await import('xlsx');
     const { saveAs } = await import('file-saver');
     const ws = XLSX.utils.json_to_sheet(filteredRows.value);
     const wb = XLSX.utils.book_new();
@@ -97,9 +97,9 @@ async function exportToPDF() {
     const { default: autoTable } = await import('jspdf-autotable');
     const doc = new jsPDF();
     autoTable(doc, {
-        head: [headers.value.map((header) => header.text)],
+        head: [props.headers.map((header) => header.text)],
         body: filteredRows.value.map((row) =>
-            headers.value.map((header) => {
+            props.headers.map((header) => {
                 const value = row[header.value];
                 return header.formatter ? header.formatter(value) : value;
             })
@@ -134,7 +134,7 @@ function printTable() {
         <table>
           <thead>
             <tr>
-              ${headers.value.map((header) => `<th>${header.text}</th>`).join('')}
+              ${props.headers.map((header) => `<th>${header.text}</th>`).join('')}
             </tr>
           </thead>
           <tbody>
@@ -142,7 +142,7 @@ function printTable() {
             .map(
                 (row) => `
                   <tr>
-                    ${headers.value
+                    ${props.headers
                         .map((header) => {
                             const value = row[header.value];
                             const formattedValue = header.formatter ? header.formatter(value) : value;

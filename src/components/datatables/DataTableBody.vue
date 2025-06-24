@@ -1,10 +1,11 @@
 <template>
     <div class="overflow-x-auto">
-        <table class="min-w-full text-sm border border-gray-200">
+        <table class="min-w-full text-sm border border-gray-200 rounded-md">
             <thead class="text-gray-400 shadow uppercase border-b border-gray-200">
                 <tr>
-                    <th v-for="header in headers" :key="header.value"
-                        class="text-nowrap py-2 px-2 text-left cursor-pointer"
+                    <th v-for="(header, index) in headers" :key="index"
+                        :class="index === headers.length - 1 && header.text === '24h Visitors' ? 'text-center' : 'text-left'"
+                        class="text-nowrap py-2 px-2 cursor-pointer"
                         @click="header.sortable && toggleSort(header.value)">
                         {{ header.text }}
                         <span v-if="sortBy === header.value">{{ sortOrder === 'asc' ? '↑' : '↓' }}</span>
@@ -14,7 +15,7 @@
             <tbody>
                 <tr v-for="(row, index) in rows" :key="index" :class="index % 2 === 0 ? 'bg-gray-50' : ''"
                     class="hover:bg-gray-100 border-t border-gray-200">
-                    <td v-for="header in headers" :key="header.value" class="text-nowrap py-2 px-2"
+                    <td v-for="header in headers" :key="header.value" class="text-nowrap py-1 px-2"
                         :class="header.class">
                         <template v-if="header.value === 'visitorperhours'">
                             <Suspense>
