@@ -46,8 +46,8 @@ const filteredRows = computed(() => {
     }
     if (sortBy.value) {
         result.sort((a, b) => {
-            const valA = a[sortBy.value];
-            const valB = b[sortBy.value];
+            const valA = sortBy.value === 'visitorperhours' ? a[sortBy.value].length : a[sortBy.value];
+            const valB = sortBy.value === 'visitorperhours' ? b[sortBy.value].length : b[sortBy.value];
             if (typeof valA === 'number') {
                 return sortOrder.value === 'asc' ? valA - valB : valB - valA;
             }

@@ -40,6 +40,7 @@ const toggleMenu = () => {
 
 // Recent sales data
 const recentSales = ref([
+
     {
         name: 'Olivia Martin',
         email: 'olivia.martin@email.com',
@@ -106,51 +107,103 @@ const recentSales = ref([
 
 ]);
 
-// Dynamic Headers (configurable)
-const headers = ref([
+
+// Dynamic Headers (with '24h Visitors' based on visitorperhours.length)
+const headers = [
     { text: 'Lane ID', value: 'lane', sortable: true },
     { text: 'Plaza Name', value: 'plaza', sortable: true },
     { text: 'URL', value: 'url', sortable: true },
     { text: 'Date & time', value: 'date', sortable: true },
-    { text: 'Amount', value: 'amount', sortable: true, class: 'text-red-500', formatter: (val) => `- $${val.toFixed(2)}` },
-    { text: 'Balance', value: 'balance', sortable: true, class: 'text-green-600', formatter: (val) => `$${val.toLocaleString(undefined, { minimumFractionDigits: 2 })}` },
-]);
+    { text: 'Visitors', value: 'visit', sortable: true},
+    { text: '24h Visitors', value: 'visitorperhours', sortable: true, class: 'text-blue-500', formatter: (val) => val.length.toString() },
+];
 
-// Dummy Data for January 2025 with URLs
-const items = ref([
-    { lane: 'M01', plaza: 'Kingston E', url: '/toll/kingston', date: '01-01-2025 08:30 AM', amount: 150, balance: 20000 },
-    { lane: 'M02', plaza: 'May Pen W', url: '/toll/maypen', date: '02-01-2025 09:15 AM', amount: 180, balance: 19820 },
-    { lane: 'M03', plaza: 'Spanish Town N', url: '/toll/spanishtown', date: '03-01-2025 10:00 AM', amount: 200, balance: 19620 },
-    { lane: 'M04', plaza: 'Vineyard S', url: '/toll/vineyard', date: '04-01-2025 11:45 AM', amount: 220, balance: 19400 },
-    { lane: 'M05', plaza: 'Portmore E', url: '/toll/portmore', date: '05-01-2025 12:30 PM', amount: 250, balance: 19150 },
-    { lane: 'M01', plaza: 'Kingston E', url: '/toll/kingston', date: '06-01-2025 01:15 PM', amount: 270, balance: 18880 },
-    { lane: 'M02', plaza: 'May Pen W', url: '/toll/maypen', date: '07-01-2025 02:00 PM', amount: 300, balance: 18580 },
-    { lane: 'M03', plaza: 'Spanish Town N', url: '/toll/spanishtown', date: '08-01-2025 03:45 PM', amount: 320, balance: 18260 },
-    { lane: 'M04', plaza: 'Vineyard S', url: '/toll/vineyard', date: '09-01-2025 04:30 PM', amount: 310, balance: 17950 },
-    { lane: 'M05', plaza: 'Portmore E', url: '/toll/portmore', date: '10-01-2025 05:15 PM', amount: 290, balance: 17660 },
-    { lane: 'M01', plaza: 'Kingston E', url: '/toll/kingston', date: '11-01-2025 06:00 PM', amount: 280, balance: 17380 },
-    { lane: 'M02', plaza: 'May Pen W', url: '/toll/maypen', date: '12-01-2025 07:45 AM', amount: 300, balance: 17080 },
-    { lane: 'M03', plaza: 'Spanish Town N', url: '/toll/spanishtown', date: '13-01-2025 08:30 AM', amount: 350, balance: 16730 },
-    { lane: 'M04', plaza: 'Vineyard S', url: '/toll/vineyard', date: '14-01-2025 09:15 AM', amount: 380, balance: 16350 },
-    { lane: 'M05', plaza: 'Portmore E', url: '/toll/portmore', date: '15-01-2025 10:00 AM', amount: 400, balance: 15950 },
-    { lane: 'M01', plaza: 'Kingston E', url: '/toll/kingston', date: '16-01-2025 11:45 AM', amount: 420, balance: 15530 },
-    { lane: 'M02', plaza: 'May Pen W', url: '/toll/maypen', date: '17-01-2025 12:30 PM', amount: 410, balance: 15120 },
-    { lane: 'M03', plaza: 'Spanish Town N', url: '/toll/spanishtown', date: '18-01-2025 01:15 PM', amount: 390, balance: 14730 },
-    { lane: 'M04', plaza: 'Vineyard S', url: '/toll/vineyard', date: '19-01-2025 02:00 PM', amount: 370, balance: 14360 },
-    { lane: 'M05', plaza: 'Portmore E', url: '/toll/portmore', date: '20-01-2025 03:45 PM', amount: 400, balance: 13960 },
-    { lane: 'M01', plaza: 'Kingston E', url: '/toll/kingston', date: '21-01-2025 04:30 PM', amount: 430, balance: 13530 },
-    { lane: 'M02', plaza: 'May Pen W', url: '/toll/maypen', date: '22-01-2025 05:15 PM', amount: 450, balance: 13080 },
-    { lane: 'M03', plaza: 'Spanish Town N', url: '/toll/spanishtown', date: '23-01-2025 06:00 PM', amount: 470, balance: 12610 },
-    { lane: 'M04', plaza: 'Vineyard S', url: '/toll/vineyard', date: '24-01-2025 07:45 AM', amount: 500, balance: 12110 },
-    { lane: 'M05', plaza: 'Portmore E', url: '/toll/portmore', date: '25-01-2025 08:30 AM', amount: 520, balance: 11590 },
-    { lane: 'M01', plaza: 'Kingston E', url: '/toll/kingston', date: '26-01-2025 09:15 AM', amount: 510, balance: 11080 },
-    { lane: 'M02', plaza: 'May Pen W', url: '/toll/maypen', date: '27-01-2025 10:00 AM', amount: 490, balance: 10590 },
-    { lane: 'M03', plaza: 'Spanish Town N', url: '/toll/spanishtown', date: '28-01-2025 11:45 AM', amount: 480, balance: 10110 },
-    { lane: 'M04', plaza: 'Vineyard S', url: '/toll/vineyard', date: '29-01-2025 12:30 PM', amount: 500, balance: 9610 },
-    { lane: 'M05', plaza: 'Portmore E', url: '/toll/portmore', date: '30-01-2025 01:15 PM', amount: 530, balance: 9080 },
-    { lane: 'M01', plaza: 'Kingston E', url: '/toll/kingston', date: '31-01-2025 02:00 PM', amount: 550, balance: 8530 },
-]);
+// Sample Data (with visitorperhours arrays)
+const items = [
+    {
+        lane: 'M01',
+        plaza: 'Kingston E',
+        url: '/toll/kingston',
+        date: '01-01-2025',
+        visit: 150,
+        visitorperhours: [
+            { date: '01-01-2025 08:30 AM' },
+            { date: '01-01-2025 09:00 AM' },
+            { date: '01-01-2025 09:00 AM' },
+            { date: '01-01-2025 10:15 AM' },
+            { date: '01-01-2025 10:15 AM' },
+            { date: '01-01-2025 11:30 AM' },
+            { date: '01-01-2025 12:00 PM' },
+        ],
+    },
+    {
+        lane: 'M02',
+        plaza: 'May Pen W',
+        url: '/toll/maypen',
+        date: '02-01-2025',
+        visit: 180,
+        visitorperhours: [
+            { date: '02-01-2025 09:15 AM' },
+            { date: '02-01-2025 09:15 AM' },
+            { date: '02-01-2025 09:15 AM' },
+            { date: '02-01-2025 10:00 AM' },
+            { date: '02-01-2025 11:45 AM' },
+        ],
+    },
+    {
+        lane: 'M03',
+        plaza: 'Spanish Town N',
+        url: '/toll/spanishtown',
+        date: '03-01-2025',
+        visit: 200,
+        visitorperhours: [
+            { date: '03-01-2025 10:00 AM' },
+            { date: '03-01-2025 11:00 AM' },
+            { date: '03-01-2025 11:00 AM' },
+            { date: '03-01-2025 12:30 PM' },
+            { date: '03-01-2025 01:15 PM' },
+            { date: '03-01-2025 01:15 PM' },
+            { date: '03-01-2025 01:15 PM' },
+        ],
+    },
+    {
+        lane: 'M04',
+        plaza: 'Vineyard S',
+        url: '/toll/vineyard',
+        date: '04-01-2025',
+        visit: 220,
+        visitorperhours: [
+            { date: '04-01-2025 00:00 PM' },
+            { date: '04-01-2025 01:04 PM' },
+            { date: '04-01-2025 02:30 PM' },
+            { date: '04-01-2025 02:34 PM' },
+            { date: '04-01-2025 02:40 PM' },
+            { date: '04-01-2025 03:05 PM' },
+            { date: '04-01-2025 03:12 PM' },
+        ],
+    },
+    {
+        lane: 'M05',
+        plaza: 'Portmore E',
+        url: '/toll/portmore',
+        date: '05-01-2025',
+        visit: 250,
+        visitorperhours: [
+            { date: '05-01-2025 12:30 PM' },
+            { date: '05-01-2025 12:30 PM' },
+            { date: '05-01-2025 12:30 PM' },
+            { date: '05-01-2025 12:30 PM' },
+            { date: '05-01-2025 01:00 PM' },
+            { date: '05-01-2025 02:15 PM' },
+            { date: '05-01-2025 03:30 PM' },
+            { date: '05-01-2025 04:00 PM' },
+            { date: '05-01-2025 04:00 PM' },
+            { date: '05-01-2025 05:15 PM' },
+        ],
+    },
+];
 </script>
+
 <template>
     <div class="bg-white text-gray-900">
         <!-- Header -->
@@ -367,7 +420,7 @@ const items = ref([
                             <Datatable :headers="headers" :items="items" title="All Transactions" />
                         </template>
                         <template #fallback>
-                            <div>Loading data...</div>
+                            <div class="w-full h-full flex justify-center">Loading data...</div>
                         </template>
                     </Suspense>
                 </article>
