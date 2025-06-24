@@ -1,5 +1,7 @@
 <template>
-    <VueApexCharts type="line" height="100" width="250" :options="chartOptions" :series="series" />
+    <div class="w-full h-full justify-center items-center flex">
+        <VueApexCharts type="line" width="200" height="60" :options="chartOptions" :series="series" />
+    </div>
 </template>
 
 <script setup>
@@ -22,7 +24,7 @@ const chartOptions = computed(() => ({
         toolbar: { show: false }, // Hide toolbar
         zoom: { enabled: false }, // Disable zoom
         animations: { enabled: false }, // Optional: Disable animations for minimal look
-        background: '#ffffff', // Set background color (customize as needed)
+        background: '', // Set background color (customize as needed)
     },
     title: {
         text: undefined, // Hide title
