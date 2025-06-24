@@ -3,11 +3,27 @@ import { ref, onMounted, defineAsyncComponent } from 'vue';
 import DropdownSearch from '../../layouts/ui/DropdownSearch.vue';
 import { TransitionRoot, TransitionChild } from '@headlessui/vue';
 
+const dateRangePicker = defineAsyncComponent(() =>
+    import('../../components/calendar/DateRangePicker.vue')
+);
+
 // Importing the BarChart component asynchronously
 const BarChart = defineAsyncComponent(() =>
     import('../../components/apexchart/BarChart.vue')
 )
 
+// Importing the LineChart component asynchronously
+const LineChart = defineAsyncComponent(() =>
+    import('../../components/apexchart/LineChart.vue')
+)
+
+// Importing the Datatable component asynchronously
+const Datatable = defineAsyncComponent(() =>
+    import('../../components/datatables/DataTable.vue')
+)
+
+const tabs = ['Overview', 'Analytics', 'Reports', 'Notifications']
+const activeTab = ref('Overview')
 const isMenuOpen = ref(false);
 
 // Summary cards data
@@ -87,12 +103,58 @@ const recentSales = ref([
         avatar: 'https://storage.googleapis.com/a1aa/image/8e84123b-eb5a-4c72-28d9-c9ca4c15f5f1.jpg',
         avatarAlt: 'User avatar silhouette of a woman with black hair',
     },
+
+]);
+
+// Dynamic Headers (configurable)
+const headers = ref([
+    { text: 'Lane ID', value: 'lane', sortable: true },
+    { text: 'Plaza Name', value: 'plaza', sortable: true },
+    { text: 'URL', value: 'url', sortable: true },
+    { text: 'Date & time', value: 'date', sortable: true },
+    { text: 'Amount', value: 'amount', sortable: true, class: 'text-red-500', formatter: (val) => `- $${val.toFixed(2)}` },
+    { text: 'Balance', value: 'balance', sortable: true, class: 'text-green-600', formatter: (val) => `$${val.toLocaleString(undefined, { minimumFractionDigits: 2 })}` },
+]);
+
+// Dummy Data for January 2025 with URLs
+const items = ref([
+    { lane: 'M01', plaza: 'Kingston E', url: '/toll/kingston', date: '01-01-2025 08:30 AM', amount: 150, balance: 20000 },
+    { lane: 'M02', plaza: 'May Pen W', url: '/toll/maypen', date: '02-01-2025 09:15 AM', amount: 180, balance: 19820 },
+    { lane: 'M03', plaza: 'Spanish Town N', url: '/toll/spanishtown', date: '03-01-2025 10:00 AM', amount: 200, balance: 19620 },
+    { lane: 'M04', plaza: 'Vineyard S', url: '/toll/vineyard', date: '04-01-2025 11:45 AM', amount: 220, balance: 19400 },
+    { lane: 'M05', plaza: 'Portmore E', url: '/toll/portmore', date: '05-01-2025 12:30 PM', amount: 250, balance: 19150 },
+    { lane: 'M01', plaza: 'Kingston E', url: '/toll/kingston', date: '06-01-2025 01:15 PM', amount: 270, balance: 18880 },
+    { lane: 'M02', plaza: 'May Pen W', url: '/toll/maypen', date: '07-01-2025 02:00 PM', amount: 300, balance: 18580 },
+    { lane: 'M03', plaza: 'Spanish Town N', url: '/toll/spanishtown', date: '08-01-2025 03:45 PM', amount: 320, balance: 18260 },
+    { lane: 'M04', plaza: 'Vineyard S', url: '/toll/vineyard', date: '09-01-2025 04:30 PM', amount: 310, balance: 17950 },
+    { lane: 'M05', plaza: 'Portmore E', url: '/toll/portmore', date: '10-01-2025 05:15 PM', amount: 290, balance: 17660 },
+    { lane: 'M01', plaza: 'Kingston E', url: '/toll/kingston', date: '11-01-2025 06:00 PM', amount: 280, balance: 17380 },
+    { lane: 'M02', plaza: 'May Pen W', url: '/toll/maypen', date: '12-01-2025 07:45 AM', amount: 300, balance: 17080 },
+    { lane: 'M03', plaza: 'Spanish Town N', url: '/toll/spanishtown', date: '13-01-2025 08:30 AM', amount: 350, balance: 16730 },
+    { lane: 'M04', plaza: 'Vineyard S', url: '/toll/vineyard', date: '14-01-2025 09:15 AM', amount: 380, balance: 16350 },
+    { lane: 'M05', plaza: 'Portmore E', url: '/toll/portmore', date: '15-01-2025 10:00 AM', amount: 400, balance: 15950 },
+    { lane: 'M01', plaza: 'Kingston E', url: '/toll/kingston', date: '16-01-2025 11:45 AM', amount: 420, balance: 15530 },
+    { lane: 'M02', plaza: 'May Pen W', url: '/toll/maypen', date: '17-01-2025 12:30 PM', amount: 410, balance: 15120 },
+    { lane: 'M03', plaza: 'Spanish Town N', url: '/toll/spanishtown', date: '18-01-2025 01:15 PM', amount: 390, balance: 14730 },
+    { lane: 'M04', plaza: 'Vineyard S', url: '/toll/vineyard', date: '19-01-2025 02:00 PM', amount: 370, balance: 14360 },
+    { lane: 'M05', plaza: 'Portmore E', url: '/toll/portmore', date: '20-01-2025 03:45 PM', amount: 400, balance: 13960 },
+    { lane: 'M01', plaza: 'Kingston E', url: '/toll/kingston', date: '21-01-2025 04:30 PM', amount: 430, balance: 13530 },
+    { lane: 'M02', plaza: 'May Pen W', url: '/toll/maypen', date: '22-01-2025 05:15 PM', amount: 450, balance: 13080 },
+    { lane: 'M03', plaza: 'Spanish Town N', url: '/toll/spanishtown', date: '23-01-2025 06:00 PM', amount: 470, balance: 12610 },
+    { lane: 'M04', plaza: 'Vineyard S', url: '/toll/vineyard', date: '24-01-2025 07:45 AM', amount: 500, balance: 12110 },
+    { lane: 'M05', plaza: 'Portmore E', url: '/toll/portmore', date: '25-01-2025 08:30 AM', amount: 520, balance: 11590 },
+    { lane: 'M01', plaza: 'Kingston E', url: '/toll/kingston', date: '26-01-2025 09:15 AM', amount: 510, balance: 11080 },
+    { lane: 'M02', plaza: 'May Pen W', url: '/toll/maypen', date: '27-01-2025 10:00 AM', amount: 490, balance: 10590 },
+    { lane: 'M03', plaza: 'Spanish Town N', url: '/toll/spanishtown', date: '28-01-2025 11:45 AM', amount: 480, balance: 10110 },
+    { lane: 'M04', plaza: 'Vineyard S', url: '/toll/vineyard', date: '29-01-2025 12:30 PM', amount: 500, balance: 9610 },
+    { lane: 'M05', plaza: 'Portmore E', url: '/toll/portmore', date: '30-01-2025 01:15 PM', amount: 530, balance: 9080 },
+    { lane: 'M01', plaza: 'Kingston E', url: '/toll/kingston', date: '31-01-2025 02:00 PM', amount: 550, balance: 8530 },
 ]);
 </script>
 <template>
     <div class="bg-white text-gray-900">
         <!-- Header -->
-        <header class="border-b border-gray-200">
+        <header class="sticky top-0 z-50 bg-white border-b border-gray-200">
             <nav aria-label="Primary Navigation"
                 class="mx-auto flex items-center md:justify-between px-4 sm:px-6 lg:px-12 py-3">
                 <div class="flex items-center justify-between w-full md:w-auto space-x-3">
@@ -114,6 +176,7 @@ const recentSales = ref([
                         <a class="text-gray-500 hover:text-gray-900" href="#">Settings</a>
                     </div>
                 </div>
+
                 <!-- Desktop Navigation -->
 
                 <!-- Desktop Search and Avatar -->
@@ -192,13 +255,21 @@ const recentSales = ref([
             <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-6">
                 <h1 class="text-2xl sm:text-3xl font-extrabold leading-tight text-gray-900 mb-4 md:mb-0">Dashboard</h1>
                 <div class="flex flex-col sm:flex-row items-start sm:items-center space-y-3 sm:space-y-0 sm:space-x-3">
-                    <button
-                        class="flex items-center border border-gray-300 rounded-md py-2 px-4 text-gray-700 hover:bg-gray-100 focus:outline-none focus:ring-1 focus:ring-black w-full sm:w-auto"
-                        type="button">
-                        <!-- <i class="far fa-calendar-alt mr-2 "></i> -->
-                        <i class="bi bi-calendar mr-2 text-gray-600"></i>
-                        <span>Jan 20, 2023 - Feb 9, 2023</span>
-                    </button>
+                    <Suspense>
+                        <template #default>
+                            <!-- Date Range Picker -->
+                            <dateRangePicker />
+                        </template>
+                        <template #fallback>
+                            <button
+                                class="flex items-center border border-gray-300 rounded-md py-2 px-4 text-gray-700 hover:bg-gray-100 focus:outline-none focus:ring-1 focus:ring-black w-full sm:w-auto"
+                                type="button">
+                                <!-- <i class="far fa-calendar-alt mr-2 "></i> -->
+                                <i class="bi bi-calendar mr-2 text-gray-600"></i>
+                                <span class="text-transparent">Jan 20, 2023 - Feb 9, 2023</span>
+                            </button>
+                        </template>
+                    </Suspense>
                     <button
                         class="bg-black text-white font-semibold rounded-md py-2 px-4 hover:bg-gray-900 focus:outline-none focus:ring-1 focus:ring-black w-full sm:w-auto"
                         type="button">
@@ -207,20 +278,40 @@ const recentSales = ref([
                 </div>
             </div>
 
-            <!-- Tabs -->
+            <!-- Tabs Header -->
             <div class="flex items-center mb-6 overflow-x-auto">
                 <div
                     class="flex items-start bg-gray-100 gap-2 p-1 rounded-md justify-between min-w-full md:min-w-0 w-max">
-                    <button class="bg-white text-gray-900 font-semibold rounded-md py-1 px-2 md:py-2 md:px-4"
-                        type="button">Overview</button>
-                    <button class="text-gray-400 rounded-md py-1 px-2 md:py-2 md:px-4" disabled
-                        type="button">Analytics</button>
-                    <button class="text-gray-400 rounded-md py-1 px-2 md:py-2 md:px-4" disabled
-                        type="button">Reports</button>
-                    <button class="text-gray-400 rounded-md py-1 px-2 md:py-2 md:px-4" disabled
-                        type="button">Notifications</button>
+                    <button v-for="tab in tabs" :key="tab" @click="activeTab = tab" :class="[
+                        'rounded-md py-1 px-2 md:px-4 ',
+                        activeTab === tab
+                            ? 'bg-white text-gray-800 font-semibold'
+                            : 'text-gray-400 hover:text-gray-600'
+                    ]" type="button">
+                        {{ tab }}
+                    </button>
                 </div>
             </div>
+
+            <!-- Tabs Content -->
+            <!-- <div class="bg-white p-4 rounded-md shadow">
+                <div v-if="activeTab === 'Overview'">
+                    <h2 class="text-xl font-bold mb-2">Overview</h2>
+                    <p>Konten overview ditampilkan di sini.</p>
+                </div>
+                <div v-else-if="activeTab === 'Analytics'">
+                    <h2 class="text-xl font-bold mb-2">Analytics</h2>
+                    <p>Konten analytics ditampilkan di sini.</p>
+                </div>
+                <div v-else-if="activeTab === 'Reports'">
+                    <h2 class="text-xl font-bold mb-2">Reports</h2>
+                    <p>Konten reports ditampilkan di sini.</p>
+                </div>
+                <div v-else-if="activeTab === 'Notifications'">
+                    <h2 class="text-xl font-bold mb-2">Notifications</h2>
+                    <p>Konten notifikasi ditampilkan di sini.</p>
+                </div>
+            </div> -->
 
             <!-- Summary Cards -->
             <section aria-label="Summary cards"
@@ -228,18 +319,32 @@ const recentSales = ref([
                 <article v-for="card in summaryCards" :key="card.title" :aria-label="card.title"
                     class="border border-gray-200 rounded-lg p-4 sm:p-6 flex flex-col justify-between">
                     <div class="flex justify-between items-start mb-2">
-                        <p class="text-gray-600 font-semibold">{{ card.title }}</p>
+                        <p class="text-gray-700 font-semibold">{{ card.title }}</p>
                         <i :class="card.icon" class="text-gray-400 text-xl"></i>
                     </div>
-                    <p class="text-xl sm:text-2xl font-extrabold text-gray-900 mb-1">{{ card.value }}</p>
-                    <p class="text-sm text-gray-400">{{ card.change }}</p>
+                    <p class="text-2xl sm:text-3xl font-extrabold text-gray-900 mb-1">{{ card.value }}</p>
+                    <p class="text-sm text-gray-500">{{ card.change }}</p>
                 </article>
             </section>
 
             <!-- Main Content Grid -->
-            <section aria-label="Main content" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+            <section aria-label="Main content"
+                class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 mb-6">
                 <article aria-label="Overview chart"
-                    class="border border-gray-200 rounded-lg p-4 lg:col-span-3 flex flex-col">
+                    class="border border-gray-200 rounded-lg p-4 lg:col-span-2 flex flex-col">
+                    <h2 class="font-semibold text-gray-900 mb-4">Overview</h2>
+                    <Suspense>
+                        <template #default>
+                            <LineChart :title="'Page Views per Day (January 2025)'"
+                                :categories="['01-01-2025', '02-01-2025', '03-01-2025', '04-01-2025', '05-01-2025', '06-01-2025', '07-01-2025', '08-01-2025', '09-01-2025', '10-01-2025', '11-01-2025', '12-01-2025', '13-01-2025', '14-01-2025', '15-01-2025', '16-01-2025', '17-01-2025', '18-01-2025', '19-01-2025', '20-01-2025', '21-01-2025', '22-01-2025', '23-01-2025', '24-01-2025', '25-01-2025', '26-01-2025', '27-01-2025', '28-01-2025', '29-01-2025', '30-01-2025', '31-01-2025']"
+                                :seriesData="[150, 180, 200, 220, 250, 270, 300, 320, 310, 290, 280, 300, 350, 380, 400, 420, 410, 390, 370, 400, 430, 450, 470, 500, 520, 510, 490, 480, 500, 530, 550]" />
+                        </template>
+                        <template #fallback>
+                            <div>Loading chart...</div>
+                        </template>
+                    </Suspense>
+                </article>
+                <article aria-label="Recent Sales" class="border border-gray-200 rounded-lg p-4">
                     <h2 class="font-semibold text-gray-900 mb-4">Overview</h2>
                     <Suspense>
                         <template #default>
@@ -251,11 +356,37 @@ const recentSales = ref([
                             <div>Loading chart...</div>
                         </template>
                     </Suspense>
-
-                    <!-- <div class="flex justify-end items-center text-xs text-gray-600 mt-2 space-x-1">
-                        <span class="w-3 h-3 rounded-full bg-black inline-block"></span>
-                        <span>total</span>
-                    </div> -->
+                </article>
+            </section>
+            <section aria-label="Main content" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+                <article aria-label="Recent Sales" class="border border-gray-200 lg:col-span-2 rounded-lg p-4">
+                    <h2 class="font-semibold text-gray-900 mb-1">Recent Sales</h2>
+                    <p class="text-xs text-gray-500 mb-4">You made 265 sales this month.</p>
+                    <Suspense>
+                        <template #default>
+                            <Datatable :headers="headers" :items="items" title="All Transactions" />
+                        </template>
+                        <template #fallback>
+                            <div>Loading data...</div>
+                        </template>
+                    </Suspense>
+                </article>
+                <article aria-label="Recent Sales" class="border border-gray-200 rounded-lg p-4">
+                    <h2 class="font-semibold text-gray-900 mb-1">Recent Sales</h2>
+                    <p class="text-xs text-gray-500 mb-4">You made 265 sales this month.</p>
+                    <ul class="space-y-4">
+                        <li v-for="sale in recentSales" :key="sale.email" class="flex items-center justify-between">
+                            <div class="flex items-center space-x-3">
+                                <img :alt="sale.avatarAlt" class="w-8 h-8 rounded-full object-cover" :height="32"
+                                    :width="32" loading="lazy" :src="sale.avatar" />
+                                <div>
+                                    <p class="font-semibold text-gray-900 leading-tight">{{ sale.name }}</p>
+                                    <p class="text-xs text-gray-400 leading-tight">{{ sale.email }}</p>
+                                </div>
+                            </div>
+                            <p class="font-semibold text-gray-900">{{ sale.amount }}</p>
+                        </li>
+                    </ul>
                 </article>
                 <article aria-label="Recent Sales" class="border border-gray-200 rounded-lg p-4">
                     <h2 class="font-semibold text-gray-900 mb-1">Recent Sales</h2>
