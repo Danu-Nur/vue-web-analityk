@@ -1,5 +1,5 @@
 <template>
-    <VueApexCharts type="line" height="350" :options="chartOptions" :series="series" />
+    <VueApexCharts type="line" height="400" :options="chartOptions" :series="series" />
 </template>
 
 <script setup>
@@ -18,8 +18,15 @@ const props = defineProps({
 
 const chartOptions = computed(() => ({
     chart: { id: 'line-chart' },
-    title: props.title ,
-    xaxis: props.categories,
+    title: {
+        text: props.title,
+        align: 'center',
+        style: { fontSize: '16px', fontWeight: 'bold' }
+    },
+    xaxis: {
+        categories: props.categories,
+        labels: { style: { fontSize: '12px' } }
+    },
     stroke: { curve: 'smooth' },
     colors: props.colors, 
     dataLabels: { enabled: false },
