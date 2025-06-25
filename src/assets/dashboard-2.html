@@ -1,0 +1,1055 @@
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <title>
+        Dashboard with ApexCharts
+    </title>
+    <script src="https://cdn.tailwindcss.com">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter&amp;display=swap" rel="stylesheet" />
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        input[type='checkbox'] {
+            position: absolute;
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        input[type='checkbox']+label>span {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            border: 1.5px solid #d1d5db;
+            border-radius: 4px;
+            vertical-align: middle;
+            margin-right: 0.5rem;
+            transition: background-color 0.2s ease;
+        }
+
+        input[type='checkbox']:checked+label>span {
+            background-color: #2563eb;
+            border-color: #2563eb;
+            background-image: url("data:image/svg+xml,%3csvg fill='none' stroke='%23fff' stroke-width='3' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'%3e%3cpath stroke-linecap='round' stroke-linejoin='round' d='M5 13l4 4L19 7'/%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+    </style>
+</head>
+
+<body class="bg-white text-gray-700 text-sm leading-relaxed">
+    <div class="min-h-screen flex flex-col">
+        <nav class="flex items-center space-x-6 px-6 py-3 border-b border-gray-200 text-gray-600 text-sm select-none">
+            <a class="hover:text-gray-900" href="#">
+                Examples
+            </a>
+            <a class="font-semibold text-gray-900" href="#">
+                Dashboard
+            </a>
+            <a class="hover:text-gray-900" href="#">
+                Tasks
+            </a>
+            <a class="hover:text-gray-900" href="#">
+                Playground
+            </a>
+            <a class="hover:text-gray-900" href="#">
+                Authentication
+            </a>
+            <div class="ml-auto relative">
+                <button aria-expanded="false" aria-haspopup="listbox" aria-labelledby="theme-label"
+                    class="flex items-center space-x-1 border border-gray-300 rounded px-3 py-1 text-xs font-semibold text-gray-700 hover:bg-gray-100 focus:outline-none"
+                    id="theme-button" type="button">
+                    <span>
+                        Theme:
+                    </span>
+                    <span class="font-normal">
+                        Scaled
+                    </span>
+                    <i class="fas fa-chevron-down text-xs">
+                    </i>
+                </button>
+            </div>
+        </nav>
+        <div class="flex flex-1 overflow-hidden">
+            <aside class="flex flex-col w-56 border-r border-gray-200 bg-white select-none">
+                <div class="flex items-center space-x-2 px-4 py-3 border-b border-gray-200 font-semibold text-gray-900">
+                    <i class="fas fa-circle text-xs">
+                    </i>
+                    <span>
+                        Acme Inc.
+                    </span>
+                </div>
+                <nav class="flex-1 overflow-y-auto px-4 pt-4 pb-6 space-y-4 text-xs text-gray-600">
+                    <div>
+                        <ul class="space-y-1">
+                            <li>
+                                <a class="flex items-center space-x-2 font-semibold text-gray-900" href="#">
+                                    <i class="fas fa-columns text-xs">
+                                    </i>
+                                    <span>
+                                        Dashboard
+                                    </span>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="flex items-center space-x-2 hover:text-gray-900" href="#">
+                                    <i class="fas fa-sync-alt text-xs">
+                                    </i>
+                                    <span>
+                                        Lifecycle
+                                    </span>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="flex items-center space-x-2 hover:text-gray-900" href="#">
+                                    <i class="fas fa-chart-bar text-xs">
+                                    </i>
+                                    <span>
+                                        Analytics
+                                    </span>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="flex items-center space-x-2 hover:text-gray-900" href="#">
+                                    <i class="fas fa-folder text-xs">
+                                    </i>
+                                    <span>
+                                        Projects
+                                    </span>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="flex items-center space-x-2 hover:text-gray-900" href="#">
+                                    <i class="fas fa-users text-xs">
+                                    </i>
+                                    <span>
+                                        Team
+                                    </span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="pt-4 border-t border-gray-200 text-gray-400 text-xs">
+                        <div class="mb-2">
+                            Documents
+                        </div>
+                        <ul class="space-y-1">
+                            <li>
+                                <a class="flex items-center space-x-2 hover:text-gray-900" href="#">
+                                    <i class="fas fa-database text-xs">
+                                    </i>
+                                    <span>
+                                        Data Library
+                                    </span>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="flex items-center space-x-2 hover:text-gray-900" href="#">
+                                    <i class="fas fa-file-alt text-xs">
+                                    </i>
+                                    <span>
+                                        Reports
+                                    </span>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="flex items-center space-x-2 hover:text-gray-900" href="#">
+                                    <i class="fas fa-pen-nib text-xs">
+                                    </i>
+                                    <span>
+                                        Word Assistant
+                                    </span>
+                                </a>
+                            </li>
+                            <li class="text-gray-400 cursor-default select-none">
+                                More
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+                <nav class="px-4 pb-6 space-y-3 text-xs text-gray-600 border-t border-gray-200">
+                    <a class="flex items-center space-x-2 hover:text-gray-900" href="#">
+                        <i class="fas fa-cog text-xs">
+                        </i>
+                        <span>
+                            Settings
+                        </span>
+                    </a>
+                    <a class="flex items-center space-x-2 hover:text-gray-900" href="#">
+                        <i class="fas fa-question-circle text-xs">
+                        </i>
+                        <span>
+                            Get Help
+                        </span>
+                    </a>
+                    <a class="flex items-center space-x-2 hover:text-gray-900" href="#">
+                        <i class="fas fa-search text-xs">
+                        </i>
+                        <span>
+                            Search
+                        </span>
+                    </a>
+                </nav>
+                <div class="flex items-center space-x-3 px-4 py-3 border-t border-gray-200 text-gray-600 text-xs">
+                    <img alt="User avatar with short hair and glasses" class="rounded-full" height="32" loading="lazy"
+                        src="https://storage.googleapis.com/a1aa/image/08fb0570-f7e9-4028-c249-5a83c45a26c7.jpg"
+                        width="32" />
+                    <div class="flex flex-col leading-tight">
+                        <span class="font-semibold text-gray-900 truncate max-w-[120px]">
+                            shadcn
+                        </span>
+                        <span class="truncate max-w-[120px]">
+                            m@example.com
+                        </span>
+                    </div>
+                    <button aria-label="User menu" class="ml-auto text-gray-400 hover:text-gray-600 focus:outline-none"
+                        type="button">
+                        <i class="fas fa-ellipsis-v">
+                        </i>
+                    </button>
+                </div>
+            </aside>
+            <main class="flex-1 overflow-y-auto p-6">
+                <header class="flex justify-between items-center mb-4">
+                    <h2 class="font-semibold text-gray-900 text-sm">
+                        Documents
+                    </h2>
+                    <button
+                        class="inline-flex items-center space-x-1 bg-black text-white text-xs font-semibold rounded px-3 py-1 hover:bg-gray-900 focus:outline-none"
+                        type="button">
+                        <i class="fas fa-plus-circle text-xs">
+                        </i>
+                        <span>
+                            Quick Create
+                        </span>
+                    </button>
+                </header>
+                <section class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+                    <div class="border border-gray-200 rounded-lg p-4">
+                        <div class="flex justify-between items-center text-gray-500 text-xs mb-1">
+                            <span>
+                                Total Revenue
+                            </span>
+                            <span
+                                class="flex items-center space-x-1 border border-gray-300 rounded px-1.5 py-0.5 text-[10px] font-semibold text-gray-600">
+                                <i class="fas fa-chart-line text-[10px]">
+                                </i>
+                                <span>
+                                    +12.5%
+                                </span>
+                            </span>
+                        </div>
+                        <div class="font-extrabold text-lg text-gray-900 mb-0.5">
+                            $1,250.00
+                        </div>
+                        <div class="flex items-center space-x-1 text-xs font-semibold text-gray-700 mb-1">
+                            <span>
+                                Trending up this month
+                            </span>
+                            <i class="fas fa-arrow-up-right">
+                            </i>
+                        </div>
+                        <div class="text-gray-400 text-xs">
+                            Visitors for the last 6 months
+                        </div>
+                    </div>
+                    <div class="border border-gray-200 rounded-lg p-4">
+                        <div class="flex justify-between items-center text-gray-500 text-xs mb-1">
+                            <span>
+                                New Customers
+                            </span>
+                            <span
+                                class="flex items-center space-x-1 border border-gray-300 rounded px-1.5 py-0.5 text-[10px] font-semibold text-gray-600">
+                                <i class="fas fa-arrow-down-right text-[10px]">
+                                </i>
+                                <span>
+                                    -20%
+                                </span>
+                            </span>
+                        </div>
+                        <div class="font-extrabold text-lg text-gray-900 mb-0.5">
+                            1,234
+                        </div>
+                        <div class="flex items-center space-x-1 text-xs font-semibold text-gray-700 mb-1">
+                            <span>
+                                Down 20% this period
+                            </span>
+                            <i class="fas fa-arrow-down-right">
+                            </i>
+                        </div>
+                        <div class="text-gray-400 text-xs">
+                            Acquisition needs attention
+                        </div>
+                    </div>
+                    <div class="border border-gray-200 rounded-lg p-4">
+                        <div class="flex justify-between items-center text-gray-500 text-xs mb-1">
+                            <span>
+                                Active Accounts
+                            </span>
+                            <span
+                                class="flex items-center space-x-1 border border-gray-300 rounded px-1.5 py-0.5 text-[10px] font-semibold text-gray-600">
+                                <i class="fas fa-chart-line text-[10px]">
+                                </i>
+                                <span>
+                                    +12.5%
+                                </span>
+                            </span>
+                        </div>
+                        <div class="font-extrabold text-lg text-gray-900 mb-0.5">
+                            45,678
+                        </div>
+                        <div class="flex items-center space-x-1 text-xs font-semibold text-gray-700 mb-1">
+                            <span>
+                                Strong user retention
+                            </span>
+                            <i class="fas fa-arrow-up-right">
+                            </i>
+                        </div>
+                        <div class="text-gray-400 text-xs">
+                            Engagement exceed targets
+                        </div>
+                    </div>
+                    <div class="border border-gray-200 rounded-lg p-4">
+                        <div class="flex justify-between items-center text-gray-500 text-xs mb-1">
+                            <span>
+                                Growth Rate
+                            </span>
+                            <span
+                                class="flex items-center space-x-1 border border-gray-300 rounded px-1.5 py-0.5 text-[10px] font-semibold text-gray-600">
+                                <i class="fas fa-chart-line text-[10px]">
+                                </i>
+                                <span>
+                                    +4.5%
+                                </span>
+                            </span>
+                        </div>
+                        <div class="font-extrabold text-lg text-gray-900 mb-0.5">
+                            4.5%
+                        </div>
+                        <div class="flex items-center space-x-1 text-xs font-semibold text-gray-700 mb-1">
+                            <span>
+                                Steady performance increase
+                            </span>
+                            <i class="fas fa-arrow-up-right">
+                            </i>
+                        </div>
+                        <div class="text-gray-400 text-xs">
+                            Meets growth projections
+                        </div>
+                    </div>
+                </section>
+                <section class="mb-6 border border-gray-200 rounded-lg p-4">
+                    <div class="mb-1 font-semibold text-gray-900 text-sm">
+                        Total Visitors
+                    </div>
+                    <div class="text-gray-500 text-xs mb-4">
+                        Total for the last 3 months
+                    </div>
+                    <div class="flex justify-end space-x-2 mb-4">
+                        <button
+                            class="text-xs font-semibold text-gray-700 border border-gray-300 rounded px-3 py-1 hover:bg-gray-100 focus:outline-none"
+                            type="button">
+                            Last 3 months
+                        </button>
+                        <button aria-current="true"
+                            class="text-xs font-semibold text-gray-700 border border-gray-300 rounded bg-gray-100 px-3 py-1 cursor-default"
+                            type="button">
+                            Last 30 days
+                        </button>
+                        <button
+                            class="text-xs font-semibold text-gray-700 border border-gray-300 rounded px-3 py-1 hover:bg-gray-100 focus:outline-none"
+                            type="button">
+                            Last 7 days
+                        </button>
+                    </div>
+                    <div id="chart" class="w-full rounded" style="height:160px;">
+                    </div>
+                </section>
+                <section class="mb-3 flex flex-wrap items-center justify-between gap-2">
+                    <div class="flex flex-wrap gap-2">
+                        <button aria-current="true"
+                            class="text-[10px] font-semibold text-gray-900 border border-gray-300 rounded px-2 py-0.5 bg-gray-100 cursor-default"
+                            type="button">
+                            Outline
+                        </button>
+                        <button
+                            class="text-[10px] font-semibold text-gray-700 border border-gray-300 rounded px-2 py-0.5 hover:bg-gray-100 focus:outline-none"
+                            type="button">
+                            Past Performance
+                            <span
+                                class="ml-1 inline-block rounded-full bg-gray-300 text-gray-700 text-[9px] font-semibold px-1.5 py-0.5">
+                                3
+                            </span>
+                        </button>
+                        <button
+                            class="text-[10px] font-semibold text-gray-700 border border-gray-300 rounded px-2 py-0.5 hover:bg-gray-100 focus:outline-none"
+                            type="button">
+                            Key Personnel
+                            <span
+                                class="ml-1 inline-block rounded-full bg-gray-300 text-gray-700 text-[9px] font-semibold px-1.5 py-0.5">
+                                2
+                            </span>
+                        </button>
+                        <button
+                            class="text-[10px] font-semibold text-gray-700 border border-gray-300 rounded px-2 py-0.5 hover:bg-gray-100 focus:outline-none"
+                            type="button">
+                            Focus Documents
+                        </button>
+                    </div>
+                    <div class="flex items-center space-x-2">
+                        <button
+                            class="flex items-center space-x-1 text-xs font-semibold text-gray-700 border border-gray-300 rounded px-2 py-1 hover:bg-gray-100 focus:outline-none"
+                            type="button">
+                            <i class="fas fa-columns text-xs">
+                            </i>
+                            <span>
+                                Customize Columns
+                            </span>
+                            <i class="fas fa-chevron-down text-xs">
+                            </i>
+                        </button>
+                        <button
+                            class="text-xs font-semibold text-gray-700 border border-gray-300 rounded px-3 py-1 hover:bg-gray-100 focus:outline-none"
+                            type="button">
+                            + Add Section
+                        </button>
+                    </div>
+                </section>
+                <div class="overflow-x-auto border border-gray-200 rounded-lg">
+                    <table class="w-full border-collapse table-auto text-xs text-gray-700">
+                        <thead class="bg-gray-100 text-gray-600 font-semibold select-none">
+                            <tr>
+                                <th class="w-12 px-3 py-2 text-left">
+                                    <input id="select-all" type="checkbox" />
+                                    <label class="sr-only" for="select-all">
+                                        Select all rows
+                                    </label>
+                                </th>
+                                <th class="px-3 py-2 text-left min-w-[180px]">
+                                    Header
+                                </th>
+                                <th class="px-3 py-2 text-left min-w-[120px]">
+                                    Section Type
+                                </th>
+                                <th class="px-3 py-2 text-left min-w-[100px]">
+                                    Status
+                                </th>
+                                <th class="px-3 py-2 text-right min-w-[40px]">
+                                    Target
+                                </th>
+                                <th class="px-3 py-2 text-right min-w-[40px]">
+                                    Limit
+                                </th>
+                                <th class="px-3 py-2 text-left min-w-[140px]">
+                                    Reviewer
+                                </th>
+                                <th class="w-12 px-3 py-2">
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-100">
+                            <tr class="hover:bg-gray-50">
+                                <td class="px-3 py-2 align-top">
+                                    <div class="flex items-center space-x-2">
+                                        <i class="fas fa-grip-vertical text-gray-300 cursor-move">
+                                        </i>
+                                        <input id="row-1" type="checkbox" />
+                                        <label class="sr-only" for="row-1">
+                                            Select Competitor Comparison
+                                        </label>
+                                    </div>
+                                </td>
+                                <td class="px-3 py-2 font-semibold text-gray-900">
+                                    Competitor Comparison
+                                </td>
+                                <td class="px-3 py-2">
+                                    <span
+                                        class="inline-block rounded border border-gray-300 bg-gray-100 px-2 py-0.5 text-[10px] font-semibold text-gray-600 select-none">
+                                        Research
+                                    </span>
+                                </td>
+                                <td class="px-3 py-2">
+                                    <span
+                                        class="inline-flex items-center space-x-1 rounded border border-gray-300 bg-white px-2 py-0.5 text-[10px] font-semibold text-gray-400 select-none">
+                                        <i class="fas fa-sync-alt animate-spin text-gray-400 text-[10px]">
+                                        </i>
+                                        <span>
+                                            In Process
+                                        </span>
+                                    </span>
+                                </td>
+                                <td class="px-3 py-2 text-right font-semibold">
+                                    21
+                                </td>
+                                <td class="px-3 py-2 text-right font-semibold">
+                                    19
+                                </td>
+                                <td class="px-3 py-2 text-gray-900">
+                                    Assign reviewer
+                                </td>
+                                <td class="px-3 py-2 text-center text-gray-400 cursor-pointer">
+                                    <i class="fas fa-ellipsis-v">
+                                    </i>
+                                </td>
+                            </tr>
+                            <tr class="hover:bg-gray-50">
+                                <td class="px-3 py-2 align-top">
+                                    <div class="flex items-center space-x-2">
+                                        <i class="fas fa-grip-vertical text-gray-300 cursor-move">
+                                        </i>
+                                        <input id="row-2" type="checkbox" />
+                                        <label class="sr-only" for="row-2">
+                                            Select Maintenance Plan
+                                        </label>
+                                    </div>
+                                </td>
+                                <td class="px-3 py-2 font-semibold text-gray-900">
+                                    Maintenance Plan
+                                </td>
+                                <td class="px-3 py-2">
+                                    <span
+                                        class="inline-block rounded border border-gray-300 bg-gray-100 px-2 py-0.5 text-[10px] font-semibold text-gray-600 select-none">
+                                        Technical content
+                                    </span>
+                                </td>
+                                <td class="px-3 py-2">
+                                    <span
+                                        class="inline-flex items-center space-x-1 rounded border border-green-300 bg-green-50 px-2 py-0.5 text-[10px] font-semibold text-green-600 select-none">
+                                        <i class="fas fa-check-circle text-green-600 text-[10px]">
+                                        </i>
+                                        <span>
+                                            Done
+                                        </span>
+                                    </span>
+                                </td>
+                                <td class="px-3 py-2 text-right font-semibold">
+                                    16
+                                </td>
+                                <td class="px-3 py-2 text-right font-semibold">
+                                    23
+                                </td>
+                                <td class="px-3 py-2 text-gray-900">
+                                    Alex Thompson
+                                </td>
+                                <td class="px-3 py-2 text-center text-gray-400 cursor-pointer">
+                                    <i class="fas fa-ellipsis-v">
+                                    </i>
+                                </td>
+                            </tr>
+                            <tr class="hover:bg-gray-50">
+                                <td class="px-3 py-2 align-top">
+                                    <div class="flex items-center space-x-2">
+                                        <i class="fas fa-grip-vertical text-gray-300 cursor-move">
+                                        </i>
+                                        <input id="row-3" type="checkbox" />
+                                        <label class="sr-only" for="row-3">
+                                            Select User Personas
+                                        </label>
+                                    </div>
+                                </td>
+                                <td class="px-3 py-2 font-semibold text-gray-900">
+                                    User Personas
+                                </td>
+                                <td class="px-3 py-2">
+                                    <span
+                                        class="inline-block rounded border border-gray-300 bg-gray-100 px-2 py-0.5 text-[10px] font-semibold text-gray-600 select-none">
+                                        Research
+                                    </span>
+                                </td>
+                                <td class="px-3 py-2">
+                                    <span
+                                        class="inline-flex items-center space-x-1 rounded border border-gray-300 bg-white px-2 py-0.5 text-[10px] font-semibold text-gray-400 select-none">
+                                        <i class="fas fa-sync-alt animate-spin text-gray-400 text-[10px]">
+                                        </i>
+                                        <span>
+                                            In Process
+                                        </span>
+                                    </span>
+                                </td>
+                                <td class="px-3 py-2 text-right font-semibold">
+                                    27
+                                </td>
+                                <td class="px-3 py-2 text-right font-semibold">
+                                    24
+                                </td>
+                                <td class="px-3 py-2 text-gray-900">
+                                    Nina Patel
+                                </td>
+                                <td class="px-3 py-2 text-center text-gray-400 cursor-pointer">
+                                    <i class="fas fa-ellipsis-v">
+                                    </i>
+                                </td>
+                            </tr>
+                            <tr class="hover:bg-gray-50">
+                                <td class="px-3 py-2 align-top">
+                                    <div class="flex items-center space-x-2">
+                                        <i class="fas fa-grip-vertical text-gray-300 cursor-move">
+                                        </i>
+                                        <input id="row-4" type="checkbox" />
+                                        <label class="sr-only" for="row-4">
+                                            Select Accessibility Compliance
+                                        </label>
+                                    </div>
+                                </td>
+                                <td class="px-3 py-2 font-semibold text-gray-900">
+                                    Accessibility Compliance
+                                </td>
+                                <td class="px-3 py-2">
+                                    <span
+                                        class="inline-block rounded border border-gray-300 bg-gray-100 px-2 py-0.5 text-[10px] font-semibold text-gray-600 select-none">
+                                        Legal
+                                    </span>
+                                </td>
+                                <td class="px-3 py-2">
+                                    <span
+                                        class="inline-flex items-center space-x-1 rounded border border-green-300 bg-green-50 px-2 py-0.5 text-[10px] font-semibold text-green-600 select-none">
+                                        <i class="fas fa-check-circle text-green-600 text-[10px]">
+                                        </i>
+                                        <span>
+                                            Done
+                                        </span>
+                                    </span>
+                                </td>
+                                <td class="px-3 py-2 text-right font-semibold">
+                                    18
+                                </td>
+                                <td class="px-3 py-2 text-right font-semibold">
+                                    21
+                                </td>
+                                <td class="px-3 py-2 text-gray-900">
+                                    Assign reviewer
+                                </td>
+                                <td class="px-3 py-2 text-center text-gray-400 cursor-pointer">
+                                    <i class="fas fa-ellipsis-v">
+                                    </i>
+                                </td>
+                            </tr>
+                            <tr class="hover:bg-gray-50">
+                                <td class="px-3 py-2 align-top">
+                                    <div class="flex items-center space-x-2">
+                                        <i class="fas fa-grip-vertical text-gray-300 cursor-move">
+                                        </i>
+                                        <input id="row-5" type="checkbox" />
+                                        <label class="sr-only" for="row-5">
+                                            Select Performance Metrics
+                                        </label>
+                                    </div>
+                                </td>
+                                <td class="px-3 py-2 font-semibold text-gray-900">
+                                    Performance Metrics
+                                </td>
+                                <td class="px-3 py-2">
+                                    <span
+                                        class="inline-block rounded border border-gray-300 bg-gray-100 px-2 py-0.5 text-[10px] font-semibold text-gray-600 select-none">
+                                        Technical content
+                                    </span>
+                                </td>
+                                <td class="px-3 py-2">
+                                    <span
+                                        class="inline-flex items-center space-x-1 rounded border border-gray-300 bg-white px-2 py-0.5 text-[10px] font-semibold text-gray-400 select-none">
+                                        <i class="fas fa-sync-alt animate-spin text-gray-400 text-[10px]">
+                                        </i>
+                                        <span>
+                                            In Process
+                                        </span>
+                                    </span>
+                                </td>
+                                <td class="px-3 py-2 text-right font-semibold">
+                                    23
+                                </td>
+                                <td class="px-3 py-2 text-right font-semibold">
+                                    26
+                                </td>
+                                <td class="px-3 py-2 text-gray-900">
+                                    David Kim
+                                </td>
+                                <td class="px-3 py-2 text-center text-gray-400 cursor-pointer">
+                                    <i class="fas fa-ellipsis-v">
+                                    </i>
+                                </td>
+                            </tr>
+                            <tr class="hover:bg-gray-50">
+                                <td class="px-3 py-2 align-top">
+                                    <div class="flex items-center space-x-2">
+                                        <i class="fas fa-grip-vertical text-gray-300 cursor-move">
+                                        </i>
+                                        <input id="row-6" type="checkbox" />
+                                        <label class="sr-only" for="row-6">
+                                            Select Disaster Recovery Plan
+                                        </label>
+                                    </div>
+                                </td>
+                                <td class="px-3 py-2 font-semibold text-gray-900">
+                                    Disaster Recovery Plan
+                                </td>
+                                <td class="px-3 py-2">
+                                    <span
+                                        class="inline-block rounded border border-gray-300 bg-gray-100 px-2 py-0.5 text-[10px] font-semibold text-gray-600 select-none">
+                                        Technical content
+                                    </span>
+                                </td>
+                                <td class="px-3 py-2">
+                                    <span
+                                        class="inline-flex items-center space-x-1 rounded border border-green-300 bg-green-50 px-2 py-0.5 text-[10px] font-semibold text-green-600 select-none">
+                                        <i class="fas fa-check-circle text-green-600 text-[10px]">
+                                        </i>
+                                        <span>
+                                            Done
+                                        </span>
+                                    </span>
+                                </td>
+                                <td class="px-3 py-2 text-right font-semibold">
+                                    14
+                                </td>
+                                <td class="px-3 py-2 text-right font-semibold">
+                                    17
+                                </td>
+                                <td class="px-3 py-2 text-gray-900">
+                                    Jamik Tashpulatov
+                                </td>
+                                <td class="px-3 py-2 text-center text-gray-400 cursor-pointer">
+                                    <i class="fas fa-ellipsis-v">
+                                    </i>
+                                </td>
+                            </tr>
+                            <tr class="hover:bg-gray-50">
+                                <td class="px-3 py-2 align-top">
+                                    <div class="flex items-center space-x-2">
+                                        <i class="fas fa-grip-vertical text-gray-300 cursor-move">
+                                        </i>
+                                        <input id="row-7" type="checkbox" />
+                                        <label class="sr-only" for="row-7">
+                                            Select Third-party Integrations
+                                        </label>
+                                    </div>
+                                </td>
+                                <td class="px-3 py-2 font-semibold text-gray-900">
+                                    Third-party Integrations
+                                </td>
+                                <td class="px-3 py-2">
+                                    <span
+                                        class="inline-block rounded border border-gray-300 bg-gray-100 px-2 py-0.5 text-[10px] font-semibold text-gray-600 select-none">
+                                        Technical content
+                                    </span>
+                                </td>
+                                <td class="px-3 py-2">
+                                    <span
+                                        class="inline-flex items-center space-x-1 rounded border border-gray-300 bg-white px-2 py-0.5 text-[10px] font-semibold text-gray-400 select-none">
+                                        <i class="fas fa-sync-alt animate-spin text-gray-400 text-[10px]">
+                                        </i>
+                                        <span>
+                                            In Process
+                                        </span>
+                                    </span>
+                                </td>
+                                <td class="px-3 py-2 text-right font-semibold">
+                                    25
+                                </td>
+                                <td class="px-3 py-2 text-right font-semibold">
+                                    28
+                                </td>
+                                <td class="px-3 py-2 text-gray-900">
+                                    Eddie Lake
+                                </td>
+                                <td class="px-3 py-2 text-center text-gray-400 cursor-pointer">
+                                    <i class="fas fa-ellipsis-v">
+                                    </i>
+                                </td>
+                            </tr>
+                            <tr class="hover:bg-gray-50">
+                                <td class="px-3 py-2 align-top">
+                                    <div class="flex items-center space-x-2">
+                                        <i class="fas fa-grip-vertical text-gray-300 cursor-move">
+                                        </i>
+                                        <input id="row-8" type="checkbox" />
+                                        <label class="sr-only" for="row-8">
+                                            Select User Feedback Summary
+                                        </label>
+                                    </div>
+                                </td>
+                                <td class="px-3 py-2 font-semibold text-gray-900">
+                                    User Feedback Summary
+                                </td>
+                                <td class="px-3 py-2">
+                                    <span
+                                        class="inline-block rounded border border-gray-300 bg-gray-100 px-2 py-0.5 text-[10px] font-semibold text-gray-600 select-none">
+                                        Research
+                                    </span>
+                                </td>
+                                <td class="px-3 py-2">
+                                    <span
+                                        class="inline-flex items-center space-x-1 rounded border border-green-300 bg-green-50 px-2 py-0.5 text-[10px] font-semibold text-green-600 select-none">
+                                        <i class="fas fa-check-circle text-green-600 text-[10px]">
+                                        </i>
+                                        <span>
+                                            Done
+                                        </span>
+                                    </span>
+                                </td>
+                                <td class="px-3 py-2 text-right font-semibold">
+                                    20
+                                </td>
+                                <td class="px-3 py-2 text-right font-semibold">
+                                    15
+                                </td>
+                                <td class="px-3 py-2 text-gray-900">
+                                    Assign reviewer
+                                </td>
+                                <td class="px-3 py-2 text-center text-gray-400 cursor-pointer">
+                                    <i class="fas fa-ellipsis-v">
+                                    </i>
+                                </td>
+                            </tr>
+                            <tr class="hover:bg-gray-50">
+                                <td class="px-3 py-2 align-top">
+                                    <div class="flex items-center space-x-2">
+                                        <i class="fas fa-grip-vertical text-gray-300 cursor-move">
+                                        </i>
+                                        <input id="row-9" type="checkbox" />
+                                        <label class="sr-only" for="row-9">
+                                            Select Localization Strategy
+                                        </label>
+                                    </div>
+                                </td>
+                                <td class="px-3 py-2 font-semibold text-gray-900">
+                                    Localization Strategy
+                                </td>
+                                <td class="px-3 py-2">
+                                    <span
+                                        class="inline-block rounded border border-gray-300 bg-gray-100 px-2 py-0.5 text-[10px] font-semibold text-gray-600 select-none">
+                                        Narrative
+                                    </span>
+                                </td>
+                                <td class="px-3 py-2">
+                                    <span
+                                        class="inline-flex items-center space-x-1 rounded border border-gray-300 bg-white px-2 py-0.5 text-[10px] font-semibold text-gray-400 select-none">
+                                        <i class="fas fa-sync-alt animate-spin text-gray-400 text-[10px]">
+                                        </i>
+                                        <span>
+                                            In Process
+                                        </span>
+                                    </span>
+                                </td>
+                                <td class="px-3 py-2 text-right font-semibold">
+                                    12
+                                </td>
+                                <td class="px-3 py-2 text-right font-semibold">
+                                    19
+                                </td>
+                                <td class="px-3 py-2 text-gray-900">
+                                    Maria Garcia
+                                </td>
+                                <td class="px-3 py-2 text-center text-gray-400 cursor-pointer">
+                                    <i class="fas fa-ellipsis-v">
+                                    </i>
+                                </td>
+                            </tr>
+                            <tr class="hover:bg-gray-50">
+                                <td class="px-3 py-2 align-top">
+                                    <div class="flex items-center space-x-2">
+                                        <i class="fas fa-grip-vertical text-gray-300 cursor-move">
+                                        </i>
+                                        <input id="row-10" type="checkbox" />
+                                        <label class="sr-only" for="row-10">
+                                            Select Mobile Compatibility
+                                        </label>
+                                    </div>
+                                </td>
+                                <td class="px-3 py-2 font-semibold text-gray-900">
+                                    Mobile Compatibility
+                                </td>
+                                <td class="px-3 py-2">
+                                    <span
+                                        class="inline-block rounded border border-gray-300 bg-gray-100 px-2 py-0.5 text-[10px] font-semibold text-gray-600 select-none">
+                                        Technical content
+                                    </span>
+                                </td>
+                                <td class="px-3 py-2">
+                                    <span
+                                        class="inline-flex items-center space-x-1 rounded border border-green-300 bg-green-50 px-2 py-0.5 text-[10px] font-semibold text-green-600 select-none">
+                                        <i class="fas fa-check-circle text-green-600 text-[10px]">
+                                        </i>
+                                        <span>
+                                            Done
+                                        </span>
+                                    </span>
+                                </td>
+                                <td class="px-3 py-2 text-right font-semibold">
+                                    28
+                                </td>
+                                <td class="px-3 py-2 text-right font-semibold">
+                                    31
+                                </td>
+                                <td class="px-3 py-2 text-gray-900">
+                                    James Wilson
+                                </td>
+                                <td class="px-3 py-2 text-center text-gray-400 cursor-pointer">
+                                    <i class="fas fa-ellipsis-v">
+                                    </i>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <footer class="mt-3 flex items-center justify-between text-xs text-gray-500 select-none">
+                    <div>
+                        0 of 68 row(s) selected.
+                    </div>
+                    <div class="flex items-center space-x-4">
+                        <div class="flex items-center space-x-1">
+                            <span class="font-semibold text-gray-900">
+                                Rows per page
+                            </span>
+                            <select aria-label="Rows per page"
+                                class="border border-gray-300 rounded text-xs text-gray-700 px-2 py-1 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                                name="rows-per-page">
+                                <option selected="" value="10">
+                                    10
+                                </option>
+                                <option value="20">
+                                    20
+                                </option>
+                                <option value="50">
+                                    50
+                                </option>
+                            </select>
+                        </div>
+                        <div>
+                            <span class="font-semibold text-gray-900">
+                                Page 4 of 7
+                            </span>
+                        </div>
+                        <div class="flex items-center space-x-1 text-gray-700">
+                            <button aria-label="First page"
+                                class="border border-gray-300 rounded px-2 py-1 hover:bg-gray-100 focus:outline-none"
+                                type="button">
+                                <i class="fas fa-angle-double-left">
+                                </i>
+                            </button>
+                            <button aria-label="Previous page"
+                                class="border border-gray-300 rounded px-2 py-1 hover:bg-gray-100 focus:outline-none"
+                                type="button">
+                                <i class="fas fa-angle-left">
+                                </i>
+                            </button>
+                            <button aria-label="Next page"
+                                class="border border-gray-300 rounded px-2 py-1 hover:bg-gray-100 focus:outline-none"
+                                type="button">
+                                <i class="fas fa-angle-right">
+                                </i>
+                            </button>
+                            <button aria-label="Last page"
+                                class="border border-gray-300 rounded px-2 py-1 hover:bg-gray-100 focus:outline-none"
+                                type="button">
+                                <i class="fas fa-angle-double-right">
+                                </i>
+                            </button>
+                        </div>
+                    </div>
+                </footer>
+            </main>
+        </div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var options = {
+                chart: {
+                    type: 'area',
+                    height: 160,
+                    toolbar: { show: false },
+                    zoom: { enabled: false },
+                    sparkline: { enabled: true }
+                },
+                colors: ['#6b7280', '#9ca3af'], // gray-500 and gray-400 for gradient
+                dataLabels: { enabled: false },
+                stroke: {
+                    curve: 'smooth',
+                    width: 2,
+                    colors: ['#4b5563', '#6b7280'] // darker grays for lines
+                },
+                fill: {
+                    type: 'gradient',
+                    gradient: {
+                        shadeIntensity: 1,
+                        opacityFrom: 0.7,
+                        opacityTo: 0,
+                        stops: [0, 90, 100]
+                    }
+                },
+                series: [
+                    {
+                        name: 'Visitors 1',
+                        data: [30, 10, 40, 35, 20, 30, 45]
+                    },
+                    {
+                        name: 'Visitors 2',
+                        data: [20, 5, 25, 20, 15, 20, 30]
+                    }
+                ],
+                xaxis: {
+                    categories: ['Jun 24', 'Jun 25', 'Jun 26', 'Jun 27', 'Jun 28', 'Jun 29', 'Jun 30'],
+                    labels: {
+                        style: {
+                            colors: '#9ca3af',
+                            fontSize: '10px'
+                        }
+                    },
+                    axisBorder: {
+                        show: true,
+                        color: '#e5e7eb'
+                    },
+                    axisTicks: {
+                        show: true,
+                        color: '#e5e7eb'
+                    }
+                },
+                yaxis: {
+                    show: false
+                },
+                grid: {
+                    show: true,
+                    borderColor: '#e5e7eb',
+                    strokeDashArray: 0,
+                    position: 'back',
+                    xaxis: {
+                        lines: {
+                            show: true
+                        }
+                    },
+                    yaxis: {
+                        lines: {
+                            show: false
+                        }
+                    },
+                    row: {
+                        colors: undefined,
+                        opacity: 0.5
+                    },
+                    column: {
+                        colors: undefined,
+                        opacity: 0.5
+                    }
+                },
+                tooltip: {
+                    enabled: true,
+                    theme: 'light',
+                    x: {
+                        format: 'MMM dd'
+                    }
+                }
+            };
+
+            var chart = new ApexCharts(document.querySelector("#chart"), options);
+            chart.render();
+        });
+    </script>
+</body>
+
+</html>
