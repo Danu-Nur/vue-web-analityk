@@ -3,14 +3,14 @@
     <!-- Features Section -->
     <section class="feature-gradient py-10" id="features">
         <div class="container mx-auto px-6 py-20">
-            <div class="max-w-2xl mx-auto text-center mb-16">
+            <div class="max-w-2xl mx-auto text-center mb-16 fade-in">
                 <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4 drop-shadow-lg">Powerful Features, Simple
                     Setup</h2>
                 <p class="text-gray-600 drop-shadow-lg">Everything you need to understand your visitors
                     without compromising their privacy.</p>
             </div>
 
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 fade-in">
                 <!-- Feature 1 -->
                 <div class="glass-card rounded-xl p-8 hover-glow transition-all">
                     <div class="w-14 h-14 rounded-full bg-gray-100 flex items-center justify-center mb-6">
