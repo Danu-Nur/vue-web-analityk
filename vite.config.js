@@ -21,6 +21,8 @@ export default defineConfig({
         manualChunks: {
           vue: ['vue', 'vue-router'],
           apexcharts: ['apexcharts'],
+          // 'chart-js': ['chart.js'],
+          // 'vue-chartjs': ['vue-chartjs'],
           // 'vue3-apexcharts': ['vue3-apexcharts'],
           papaparse: ['papaparse'],
           'xlsx': ['xlsx'],
