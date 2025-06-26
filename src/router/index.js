@@ -4,7 +4,7 @@ const routes = [
     {
         path: '/',
         name: 'landing',
-        component: () => import('../pages/landing/Landing.vue')
+        component: () => import('../pages/landingnew/LandingNew.vue')
     },
     {
         path: '/login',
