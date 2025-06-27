@@ -12,12 +12,12 @@ const togglePricing = () => {
     <!-- Pricing Section -->
     <section id="pricing" class="pricing-gradient pricing-pattern py-10 ">
         <div class="container max-w-6xl mx-auto px-6 py-20">
-            <div class="max-w-2xl mx-auto text-center mb-12 drop-shadow-lg">
+            <div class="max-w-2xl mx-auto text-center mb-12 drop-shadow-lg fade-up">
                 <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Simple, Transparent Pricing</h2>
                 <p class="text-gray-600">Start with our free plan and upgrade as your needs grow.</p>
             </div>
 
-            <div class="flex justify-center mb-12">
+            <div class="flex justify-center mb-12 fade-up">
                 <div class="inline-flex bg-gray-200 rounded-full p-1">
                     <button aria-pressed="true" type="button" id="monthly-toggle" @click="togglePricing"
                         :class="isMonthly ? activeClass : inActiveClass"
@@ -35,7 +35,7 @@ const togglePricing = () => {
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                 <!-- Basic Plan -->
-                <div class="bg-white shadow-sm rounded-xl hover-glow transition-all">
+                <div class="bg-white shadow-sm rounded-xl hover-glow transition-all fade-up">
                     <div class="h-full p-8 shadow-lg rounded-xl  lg:shadow-xl">
                         <h3 class="text-xl font-semibold text-gray-900 mb-2">Free</h3>
                         <p class="text-gray-600 mb-6">Perfect for personal websites and small projects</p>
@@ -86,7 +86,7 @@ const togglePricing = () => {
 
                 <!-- Popular Plan -->
                 <div
-                    class="bg-white shadow-sm rounded-xl border-2 border-indigo-300 relative hover-glow transition-all transform scale-105">
+                    class="bg-white shadow-sm rounded-xl border-2 border-indigo-300 relative hover-glow transition-all fade-up transform scale-105">
                     <div class=" h-full rounded-xl p-8 shadow-lg lg:shadow-xl">
                         <div
                             class="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-indigo-500 text-white text-xs font-semibold px-3 py-1 rounded-full">
@@ -149,7 +149,7 @@ const togglePricing = () => {
                 </div>
 
                 <!-- Enterprise Plan -->
-                <div class="bg-white shadow-sm rounded-xl hover-glow transition-all">
+                <div class="bg-white shadow-sm rounded-xl hover-glow transition-all fade-up">
                     <div class="shadow-xl  p-8 lg:shadow-xl ">
                         <h3 class="text-xl font-semibold text-gray-900 mb-2">Business</h3>
                         <p class="text-gray-600 mb-6">For agencies and high-traffic websites</p>

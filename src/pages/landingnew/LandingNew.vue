@@ -9,11 +9,13 @@ import Pricing from '../../layouts/landingnew/Pricing.vue';
 import Faq from '../../layouts/landingnew/Faq.vue';
 import FinalCTA from '../../layouts/landingnew/FinalCTA.vue';
 import FooterNew from '../../layouts/landingnew/FooterNew.vue';
+import Footer from '../../layouts/frontlayout/Footer.vue';
 import { onMounted, onUnmounted } from 'vue';
 
 // Setup Intersection Observer for fade-in effect
 onMounted(() => {
     const fadeElements = document.querySelectorAll('.fade-in');
+    const fadeUps = document.querySelectorAll('.fade-up');
 
     const observer = new IntersectionObserver(
         (entries) => {
@@ -28,6 +30,10 @@ onMounted(() => {
     );
 
     fadeElements.forEach((element) => {
+        observer.observe(element);
+    });
+
+    fadeUps.forEach((element) => {
         observer.observe(element);
     });
 
@@ -49,5 +55,6 @@ onMounted(() => {
         <Faq />
         <FinalCTA />
         <FooterNew />
+        <Footer/>
     </div>
 </template>

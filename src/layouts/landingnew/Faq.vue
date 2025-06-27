@@ -41,7 +41,7 @@ const toggleAccordion = (index) => {
 <template>
     <!-- FAQ Section -->
     <section id="faq" class="faq-gradient px-8 py-10">
-        <div class="container bg-white rounded-2xl mx-auto pt-20 px-6 shadow-xl">
+        <div class="container bg-white rounded-2xl mx-auto pt-20 px-6 shadow-xl fade-up">
             <div class="text-center mb-16 drop-shadow-lg">
                 <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Frequently Asked Questions</h2>
                 <p class="text-gray-600">

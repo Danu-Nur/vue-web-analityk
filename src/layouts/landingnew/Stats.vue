@@ -1,7 +1,7 @@
 <script setup></script>
 <template>
     <section class="stats-gradient px-8 py-16">
-        <div class="container bg-white rounded-2xl mx-auto pt-20 px-6 shadow-xl fade-in">
+        <div class="container bg-white rounded-2xl mx-auto pt-20 px-6 shadow-xl fade-up">
             <p class="text-center text-gray-500 mb-12 tracking-wide uppercase drop-shadow-lg">Trusted by Data-Driven
                 Teams</p>
             <div class="px-4 py-16 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-20">

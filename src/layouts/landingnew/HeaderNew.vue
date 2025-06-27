@@ -19,7 +19,7 @@
                         Get Started
                     </button>
                     <button id="mobile-menu-button" class="md:hidden">
-                        <i class="fas fa-bars text-gray-700"></i>
+                        <i class="bi bi-list text-xl text-gray-900"></i>
                     </button>
                 </div>
             </div>

@@ -4,7 +4,7 @@
     <section id="demo" class="preview-gradient py-10">
         <div class="container mx-auto px-6 py-20">
             <div class="flex flex-col lg:flex-row items-center gap-12">
-                <div class="lg:w-1/2">
+                <div class="lg:w-1/2 fade-up">
                     <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6 drop-shadow-lg">See exactly what's
                         happening on your site</h2>
                     <p class="text-gray-600 mb-8 drop-shadow-lg">
@@ -64,7 +64,7 @@
                         </a>
                     </div>
                 </div>
-                <div class="lg:w-1/2 relative floating shadow-xl">
+                <div class="lg:w-1/2 relative floating shadow-xl fade-up">
                     <div class="dashboard-preview bg-gray-800 rounded-xl overflow-hidden">
                         <div class="bg-gray-900 h-10 flex items-center px-4">
                             <div class="flex space-x-2">

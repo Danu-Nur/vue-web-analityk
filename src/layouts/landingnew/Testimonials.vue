@@ -4,7 +4,7 @@ import SectionIcon from '../../components/icon/SectionIcon.vue';
 <template>
     <!-- Testimonials Section -->
     <section id="testimonials" class="testimonials-gradient px-8 py-10">
-        <div class="container bg-white rounded-2xl mx-auto py-20 px-6 shadow-xl">
+        <div class="container bg-white rounded-2xl mx-auto py-20 px-6 shadow-xl fade-up">
             <div class="text-center max-w-3xl mx-auto drop-shadow-lg">
                 <span
                     class="inline-flex items-center rounded-full border border-gray-300 px-3 py-1 shadow-sm font-medium text-gray-800 mb-3 select-none drop-shadow-lg">
@@ -15,7 +15,8 @@ import SectionIcon from '../../components/icon/SectionIcon.vue';
                     Our happy clients
                 </h2>
                 <p class="text-base text-gray-700 mb-8">
-                    Hear from clients who’ve experienced remarkable transformations with Webyansh.
+                    Join thousands of businesses who trust TrafficVerse
+                    for their web analytics needs.
                 </p>
             </div>
             <div class="flex justify-center space-x-3 flex-wrap mx-auto mb-12 drop-shadow-lg">
@@ -65,17 +66,12 @@ import SectionIcon from '../../components/icon/SectionIcon.vue';
                     width="40" />
             </div>
             <div class="flex justify-center space-x-6 max-w-5xl h-full mx-auto overflow-auto">
-                <div class="flex-shrink-0 w-72 p-3 rounded-lg bg-white text-gray-600 shadow-sm" style="opacity: 0.3">
+                <div class="flex-shrink-0 justify-center content-center w-72 p-3 rounded-lg bg-white text-gray-600 shadow-sm" style="opacity: 0.3">
                     <div class="border rounded-xl p-3 drop-shadow-lg">
                         <p class="text-sm leading-relaxed">
-                            "I highly recommend Divyansh as a website developer. His exceptional design and development
-                            skills,
-                            attention to detail, and ability to create user-friendly websites make him a valuable asset
-                            to
-                            any
-                            marketing team. If you're looking for a reliable developer to bring your web projects to
-                            life,
-                            Divyansh is the one to pick."
+                            "Insightlytics has transformed how we understand our website
+                        visitors. The real-time data is invaluable for our marketing team, and the privacy-focused
+                        approach aligns perfectly with our company values."
                         </p>
                         <div class="flex items-center mt-6 space-x-3">
                             <img alt="Portrait of Sachin Chhabra, a man with glasses and beard"
@@ -87,20 +83,19 @@ import SectionIcon from '../../components/icon/SectionIcon.vue';
                                     Sachin Chhabra
                                 </p>
                                 <p>
-                                    Founder, Marketplace-Company
+                                    Marketing Director, TechCorp
                                 </p>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div
-                    class="flex-shrink-0 w-72 p-3 rounded-lg bg-white text-gray-700 relative corner-angles mx-auto my-8">
+                    class="flex-shrink-0 justify-center content-center w-72 p-3 rounded-lg bg-white text-gray-700 relative corner-angles mx-auto my-8">
                     <div class="border rounded-xl p-3 drop-shadow-lg">
                         <p class="leading-relaxed text-start">
-                            "Div is a brilliant mind to work with. His expertise and experience in Web designing is
-                            very creative. I worked with Div for over a month on my company's Web design and he reported
-                            on time as well as with new ideas flowing through that made my day easier. Looking forward
-                            to work with him again on future projects."
+                            "As a developer, I appreciate how lightweight Insightlytics is
+                        compared to other analytics tools. The API is well-documented, and the dashboard gives me
+                        exactly the data I need without any bloat."
                         </p>
                         <div class="flex items-center mt-6 space-x-3">
                             <img alt="Portrait of Mohammad Farhan Kalim, a man with beard and light blue shirt"
@@ -117,7 +112,7 @@ import SectionIcon from '../../components/icon/SectionIcon.vue';
                     <div class="corner-bottom-left" aria-hidden="true"></div>
                     <div class="corner-bottom-right" aria-hidden="true"></div>
                 </div>
-                <div class="flex-shrink-0 w-72 p-3 rounded-lg bg-white text-gray-600 shadow-sm" style="opacity: 0.3">
+                <div class="flex-shrink-0 justify-center content-center w-72 p-3 rounded-lg bg-white text-gray-600 shadow-sm" style="opacity: 0.3">
                     <div class="border rounded-xl p-3 drop-shadow-lg">
                         <p class="text-sm leading-relaxed">
                             "\"He's a wonderful individual, very highly recommendable professional. One more important

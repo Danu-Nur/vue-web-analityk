@@ -1,17 +1,17 @@
 <template>
     <section id="hero" class="hero-gradient relative overflow-hidden">
         <div class="container mx-auto px-6 py-20 md:py-32 relative">
-            <div class="max-w-3xl mx-auto text-center drop-shadow-lg">
-                <h1 class="text-4xl md:text-6xl font-bold text-gray-900 mb-6 drop-shadow-lg fade-in">
+            <div class="max-w-3xl mx-auto text-center drop-shadow-lg fade-up">
+                <h1 class="text-4xl md:text-6xl font-bold text-gray-900 mb-6 drop-shadow-lg">
                     Understand your visitors & Grow with <span class="text-indigo-500">insights.</span>
                 </h1>
-                <p class="text-xl text-gray-600 max-w-2xl mx-auto fade-in">
+                <p class="text-xl text-gray-600 max-w-2xl mx-auto">
                     Privacy-friendly, real-time web analytics for websites.
                 </p>
-                <p class="text-xl text-gray-600 mb-10 max-w-2xl mx-auto fade-in">
+                <p class="text-xl text-gray-600 mb-10 max-w-2xl mx-auto">
                     No credit card required. 14-day free trial.
                 </p>
-                <div class="flex flex-col sm:flex-row justify-center gap-4 fade-in">
+                <div class="flex flex-col sm:flex-row justify-center gap-4">
                     <button
                         class="px-8 py-3 drop-shadow-lg bg-white/90 border border-gray-200 rounded-lg hover:shadow-md transition-all hover:bg-white">
                         Get Started Free
@@ -27,9 +27,9 @@
             </div>
 
             <div class="mt-20 md:mt-24 mx-auto">
-                <div class="w-full h-max flex justify-center fade-in">
+                <div class="w-full h-max flex justify-center">
                     <div class="max-w-screen md:w-3/5 flex justify-center">
-                        <div class="relative floating w-full h-max shadow-xl">
+                        <div class="relative floating w-full h-max shadow-xl fade-up">
                             <div class="dashboard-preview bg-white rounded-lg overflow-hidden w-full max-w-screen">
                                 <div class="bg-gray-100 h-16 flex items-center px-4">
                                     <div class="flex space-x-2">
