@@ -1,5 +1,49 @@
 <script setup>
 import SectionIcon from '../../components/icon/SectionIcon.vue';
+import { ref, computed } from 'vue'
+
+// List data testimonial
+const testimonials = [
+    {
+        name: 'Sachin Chhabra',
+        role: 'Marketing Director, TechCorp',
+        img: 'https://storage.googleapis.com/a1aa/image/c899415a-11eb-42e6-5ff4-fc253cb5defe.jpg',
+        content:
+            '"Insightlytics has transformed how we understand our website visitors. The real-time data is invaluable for our marketing team, and the privacy-focused approach aligns perfectly with our company values."',
+    },
+    {
+        name: 'Mohammad Farhan Kalim',
+        role: 'Founder & CEO at Sorise EdTech',
+        img: 'https://storage.googleapis.com/a1aa/image/943d5f72-fc6e-43d6-49fb-b8216765aef7.jpg',
+        content:
+            '"As a developer, I appreciate how lightweight Insightlytics is compared to other analytics tools. The API is well-documented, and the dashboard gives me exactly the data I need without any bloat."',
+    },
+    {
+        name: 'Boney George',
+        role: 'Co-Founder, Aureon Solutions',
+        img: 'https://storage.googleapis.com/a1aa/image/4885d203-d50f-4f29-f1ac-9bb565a129a4.jpg',
+        content:
+            `"He's a wonderful individual... The transformation from the old to new was amazing and I would really highly recommend everyone to take the services of Webyansh."`,
+    },
+]
+
+const currentIndex = ref(0)
+
+// Get 3 cards: [prev, active, next]
+const visibleTestimonials = computed(() => {
+    const len = testimonials.length
+    const prev = (currentIndex.value - 1 + len) % len
+    const current = currentIndex.value
+    const next = (currentIndex.value + 1) % len
+    return [testimonials[prev], testimonials[current], testimonials[next]]
+})
+
+const next = () => {
+    currentIndex.value = (currentIndex.value + 1) % testimonials.length
+}
+const prev = () => {
+    currentIndex.value = (currentIndex.value - 1 + testimonials.length) % testimonials.length
+}
 </script>
 <template>
     <!-- Testimonials Section -->
@@ -65,90 +109,34 @@ import SectionIcon from '../../components/icon/SectionIcon.vue';
                     src="https://storage.googleapis.com/a1aa/image/8c7eaba7-3765-47be-a32a-fe76f47b2952.jpg"
                     width="40" />
             </div>
-            <div class="flex justify-center space-x-6 max-w-5xl h-full mx-auto overflow-auto">
-                <div class="flex-shrink-0 justify-center content-center w-72 p-3 rounded-lg bg-white text-gray-600 shadow-sm" style="opacity: 0.3">
-                    <div class="border rounded-xl p-3 drop-shadow-lg">
-                        <p class="text-sm leading-relaxed">
-                            "Insightlytics has transformed how we understand our website
-                        visitors. The real-time data is invaluable for our marketing team, and the privacy-focused
-                        approach aligns perfectly with our company values."
+            <div class="flex justify-center gap-6 items-stretch max-w-5xl mx-auto">
+                <div v-for="(testimonial, i) in visibleTestimonials" :key="i" :class="i === 1 ? 'corner-angles' : ''"
+                    class="flex-shrink-0 justify-center content-center w-72 p-3 rounded-lg bg-white text-gray-700 relative mx-auto my-8 transition-all duration-700 ease-in-out"
+                    :style="{ opacity: i === 1 ? 1 : 0.3, transform: i === 1 ? 'scale(1)' : 'scale(0.95)' }">
+                    <div class="bg-white rounded-xl p-6 shadow-lg fade-slide">
+                        <p class="text-gray-600 mb-4 leading-relaxed">
+                            {{ testimonial.content }}
                         </p>
                         <div class="flex items-center mt-6 space-x-3">
-                            <img alt="Portrait of Sachin Chhabra, a man with glasses and beard"
-                                class="w-10 h-10 rounded-full object-cover" height="40"
-                                src="https://storage.googleapis.com/a1aa/image/c899415a-11eb-42e6-5ff4-fc253cb5defe.jpg"
-                                width="40" />
-                            <div class="text-sm text-gray-500">
-                                <p class="font-normal text-gray-700">
-                                    Sachin Chhabra
-                                </p>
-                                <p>
-                                    Marketing Director, TechCorp
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div
-                    class="flex-shrink-0 justify-center content-center w-72 p-3 rounded-lg bg-white text-gray-700 relative corner-angles mx-auto my-8">
-                    <div class="border rounded-xl p-3 drop-shadow-lg">
-                        <p class="leading-relaxed text-start">
-                            "As a developer, I appreciate how lightweight Insightlytics is
-                        compared to other analytics tools. The API is well-documented, and the dashboard gives me
-                        exactly the data I need without any bloat."
-                        </p>
-                        <div class="flex items-center mt-6 space-x-3">
-                            <img alt="Portrait of Mohammad Farhan Kalim, a man with beard and light blue shirt"
-                                class="w-10 h-10 rounded-full object-cover"
-                                src="https://storage.googleapis.com/a1aa/image/943d5f72-fc6e-43d6-49fb-b8216765aef7.jpg"
-                                width="40" height="40" />
+                            <img :src="testimonial.img" alt="Photo" class="w-12 h-12 rounded-full object-cover" />
                             <div class="text-sm text-gray-900">
-                                <p class="font-semibold">Mohammad Farhan Kalim</p>
-                                <p>Founder & CEO at Sorise EdTech</p>
+                                <p class="font-semibold">{{ testimonial.name }}</p>
+                                <p>{{ testimonial.role }}</p>
                             </div>
                         </div>
                     </div>
-                    <!-- Bottom corner containers for pseudo-elements -->
-                    <div class="corner-bottom-left" aria-hidden="true"></div>
-                    <div class="corner-bottom-right" aria-hidden="true"></div>
-                </div>
-                <div class="flex-shrink-0 justify-center content-center w-72 p-3 rounded-lg bg-white text-gray-600 shadow-sm" style="opacity: 0.3">
-                    <div class="border rounded-xl p-3 drop-shadow-lg">
-                        <p class="text-sm leading-relaxed">
-                            "\"He's a wonderful individual, very highly recommendable professional. One more important
-                            thing
-                            I
-                            would like to quote is he was very much proactive in regards to his workflow. We already had
-                            a
-                            website which was on WordPress. The transformation from the old to new was amazing and I
-                            would
-                            really highly recommend everyone to take the services of Webyansh. I am sure you will not be
-                            disappointed.\""
-                        </p>
-                        <div class="flex items-center mt-6 space-x-3">
-                            <img alt="Portrait of Boney George, a man with beard and checkered shirt"
-                                class="w-10 h-10 rounded-full object-cover" height="40"
-                                src="https://storage.googleapis.com/a1aa/image/4885d203-d50f-4f29-f1ac-9bb565a129a4.jpg"
-                                width="40" />
-                            <div class="text-sm text-gray-400">
-                                <p class="font-normal text-gray-500">
-                                    Boney George
-                                </p>
-                                <p>
-                                    Co-Founder, Aureon Solutions
-                                </p>
-                            </div>
-                        </div>
-                    </div>
+                    <div :class="i === 1 ? '' : 'hidden'" class="corner-bottom-left" aria-hidden="true"></div>
+                    <div :class="i === 1 ? '' : 'hidden'" class="corner-bottom-right" aria-hidden="true"></div>
                 </div>
             </div>
 
+            <!-- Controls -->
             <div class="flex justify-center mt-8 space-x-6">
-                <button aria-label="Previous testimonial"
+                <button @click="prev" aria-label="Previous testimonial"
                     class="w-10 h-10 rounded-full bg-white border border-gray-300 text-gray-600 hover:text-gray-900 flex items-center justify-center">
                     <i class="bi bi-chevron-left"></i>
                 </button>
-                <button aria-label="Next testimonial"
+                <button @click="next" aria-label="Next testimonial"
                     class="w-10 h-10 rounded-full bg-white border border-gray-300 text-gray-600 hover:text-gray-900 flex items-center justify-center">
                     <i class="bi bi-chevron-right"></i>
                 </button>
@@ -200,5 +188,21 @@ import SectionIcon from '../../components/icon/SectionIcon.vue';
     border-right: 2px solid rgb(252, 165, 165);
     width: 12px;
     height: 12px;
+}
+
+.fade-slide {
+    animation: fadeInSlide 0.5s ease-out forwards;
+}
+
+@keyframes fadeInSlide {
+    0% {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 </style>
