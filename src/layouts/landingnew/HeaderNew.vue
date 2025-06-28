@@ -91,11 +91,11 @@ onUnmounted(() => {
                     ]">FAQ</a>
                 </div>
                 <div class="flex items-center space-x-4">
-                    <a href="#" class="hidden md:block text-gray-700 hover:text-gray-900 drop-shadow-lg">Log in</a>
-                    <button
+                    <router-link to="/login" class="hidden md:block text-gray-700 hover:text-gray-900 drop-shadow-lg">Log in</router-link>
+                    <router-link to="/login"
                         class="px-4 py-2 rounded-lg border border-gray-200 hover:border-gray-300 hover:shadow-sm transition-all drop-shadow-lg">
                         Get Started
-                    </button>
+                    </router-link>
                     <button id="mobile-menu-button" class="md:hidden">
                         <i class="bi bi-list text-xl text-gray-900"></i>
                     </button>
