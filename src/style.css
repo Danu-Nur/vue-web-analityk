@@ -37,7 +37,7 @@
     }
 
     .animate-marquee {
-        animation: marquee 30s linear infinite;
+        animation: marquee 50s linear infinite;
     }
 }
 
@@ -124,12 +124,12 @@
 
 /* Preview section background */
 .preview-gradient {
-    background: linear-gradient(180deg, #fefbffc0 0%, #fdfbf8d1 100%);
+    background: linear-gradient(180deg, #fefbffc0 0%, #f9f8fdd1 100%);
 }
 
 /* Testimonial section background - tambahan baru */
 .testimonials-gradient {
-    background: linear-gradient(180deg, #fdfbf8d1 0%, #fefffadb 100%);
+    background: linear-gradient(180deg, #f9f8fdd1 0%, #fefffadb 100%);
 }
 
 /* FAQ section background - soft dark */
@@ -162,7 +162,7 @@
 .accordion-content {
     max-height: 0;
     overflow: hidden;
-    transition: max-height 0.3s ease;
+    transition: max-height 0.1s ease;
 }
 
 .accordion-content.active {

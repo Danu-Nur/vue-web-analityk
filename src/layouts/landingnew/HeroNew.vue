@@ -3,10 +3,10 @@
         <div class="container mx-auto px-6 py-20 md:py-32 relative">
             <div class="max-w-3xl mx-auto text-center drop-shadow-lg fade-up">
                 <h1 class="text-4xl md:text-6xl font-bold text-gray-900 mb-6 drop-shadow-lg">
-                    Understand your visitors & Grow with <span class="text-indigo-500">insights.</span>
+                    Understand your visitors & Grow with <span class="text-indigo-500">Smarter.</span>
                 </h1>
                 <p class="text-xl text-gray-600 max-w-2xl mx-auto">
-                    Privacy-friendly, real-time web analytics for websites.
+                    Privacy-first, real-time web analytics for websites.
                 </p>
                 <p class="text-xl text-gray-600 mb-10 max-w-2xl mx-auto">
                     No credit card required. 14-day free trial.
