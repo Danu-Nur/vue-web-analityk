@@ -35,7 +35,7 @@ function handleLogin() {
                 <!-- <i class="bi bi-collection"></i> -->
                 <i class="bi bi-activity"></i>
                 <h1 class="mb-1 text-2xl font-bold text-gray-800 dark:text-gray-100">
-                    Welcome to Acme Inc.
+                    Welcome to TrafficVerse
                 </h1>
                 <p class="mb-6 text-gray-600 text-md dark:text-gray-300">
                     Don’t have an account?

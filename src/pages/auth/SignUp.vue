@@ -53,7 +53,7 @@ function handleSignUp() {
             <div class="text-center">
                 <i class="text-2xl text-gray-700 bi bi-person-plus dark:text-gray-200"></i>
                 <h1 class="mb-1 text-2xl font-bold text-gray-800 dark:text-gray-100">
-                    Sign Up for Acme Inc.
+                    Sign Up for TrafficVerse
                 </h1>
                 <p class="mb-6 text-sm text-gray-600 dark:text-gray-300">
                     Already have an account?
