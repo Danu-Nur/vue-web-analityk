@@ -1,8 +1,8 @@
 <script setup>
 import SectionIcon from '../../components/icon/SectionIcon.vue';
-import { ref, computed } from 'vue'
+import { ref, onMounted, onBeforeUnmount, computed } from 'vue'
 
-// List data testimonial
+// Original testimonials
 const testimonials = [
     {
         name: 'Sachin Chhabra',
@@ -27,26 +27,80 @@ const testimonials = [
     },
 ]
 
-const currentIndex = ref(0)
+// Extended list: clone head and tail for infinite scroll
+const extendedTestimonials = computed(() => [
+    testimonials[testimonials.length - 1], // Last (for prev loop)
+    ...testimonials,
+    testimonials[0], // First (for next loop)
+])
 
-// Get 3 cards: [prev, active, next]
-const visibleTestimonials = computed(() => {
-    const len = testimonials.length
-    const prev = (currentIndex.value - 1 + len) % len
-    const current = currentIndex.value
-    const next = (currentIndex.value + 1) % len
-    return [testimonials[prev], testimonials[current], testimonials[next]]
+const currentIndex = ref(1) // Start at actual first testimonial (index 1)
+const sliderRef = ref(null)
+
+const updateSlider = () => {
+    if (sliderRef.value) {
+        sliderRef.value.style.transform = `translateX(-${(100 / 3) * currentIndex.value}%)`
+    }
+}
+
+// Handle next
+const next = () => {
+    if (sliderRef.value) {
+        currentIndex.value++
+        sliderRef.value.style.transition = 'transform 0.7s ease-in-out'
+        updateSlider()
+
+        if (currentIndex.value === extendedTestimonials.value.length - 1) {
+            setTimeout(() => {
+                sliderRef.value.style.transition = 'none'
+                currentIndex.value = 1
+                updateSlider()
+            }, 700)
+        }
+    }
+}
+
+// Handle prev
+const prev = () => {
+    if (sliderRef.value) {
+        currentIndex.value--
+        sliderRef.value.style.transition = 'transform 0.7s ease-in-out'
+        updateSlider()
+
+        if (currentIndex.value === 0) {
+            setTimeout(() => {
+                sliderRef.value.style.transition = 'none'
+                currentIndex.value = extendedTestimonials.value.length - 1
+                updateSlider()
+            }, 700)
+        }
+    }
+}
+
+// Autoplay
+let intervalId = null
+onMounted(() => {
+    intervalId = setInterval(next, 6000)
+})
+onBeforeUnmount(() => {
+    clearInterval(intervalId)
 })
 
-const next = () => {
-    currentIndex.value = (currentIndex.value + 1) % testimonials.length
+// Swipe support
+let startX = 0
+const onTouchStart = (e) => {
+    startX = e.touches[0].clientX
 }
-const prev = () => {
-    currentIndex.value = (currentIndex.value - 1 + testimonials.length) % testimonials.length
+const onTouchEnd = (e) => {
+    const endX = e.changedTouches[0].clientX
+    const diff = startX - endX
+    if (diff > 50) next()
+    else if (diff < -50) prev()
 }
 </script>
+
+
 <template>
-    <!-- Testimonials Section -->
     <section id="testimonials" class="testimonials-gradient px-8 py-10">
         <div class="container bg-white rounded-2xl mx-auto py-20 px-6 shadow-xl fade-up">
             <div class="text-center max-w-3xl mx-auto drop-shadow-lg">
@@ -109,34 +163,40 @@ const prev = () => {
                     src="https://storage.googleapis.com/a1aa/image/8c7eaba7-3765-47be-a32a-fe76f47b2952.jpg"
                     width="40" />
             </div>
-            <div class="flex justify-center gap-6 items-stretch max-w-5xl mx-auto">
-                <div v-for="(testimonial, i) in visibleTestimonials" :key="i" :class="i === 1 ? 'corner-angles' : ''"
-                    class="flex-shrink-0 justify-center content-center w-72 p-3 rounded-lg bg-white text-gray-700 relative mx-auto my-8 transition-all duration-700 ease-in-out"
-                    :style="{ opacity: i === 1 ? 1 : 0.3, transform: i === 1 ? 'scale(1)' : 'scale(0.95)' }">
-                    <div class="bg-white rounded-xl p-6 shadow-lg fade-slide">
-                        <p class="text-gray-600 mb-4 leading-relaxed">
-                            {{ testimonial.content }}
-                        </p>
-                        <div class="flex items-center mt-6 space-x-3">
-                            <img :src="testimonial.img" alt="Photo" class="w-12 h-12 rounded-full object-cover" />
-                            <div class="text-sm text-gray-900">
-                                <p class="font-semibold">{{ testimonial.name }}</p>
-                                <p>{{ testimonial.role }}</p>
+
+            <div class="relative overflow-hidden max-w-6xl mx-auto" @touchstart="onTouchStart" @touchend="onTouchEnd">
+                <ul ref="sliderRef" class="flex transition-transform duration-700 ease-in-out"
+                    :style="`transform: translateX(-${(100 / 3) * (currentIndex)}%)`">
+                    <li v-for="(t, i) in extendedTestimonials" :key="i"
+                        class="flex-shrink-0 w-1/3 p-3 rounded-lg bg-white text-gray-700 relative" :class="{
+                            'opacity-100 scale-100 z-10': i === currentIndex + 1,
+                            'opacity-50 scale-90 blur-sm z-0': i !== currentIndex + 1,
+                            'corner-angles': i === currentIndex + 1
+                        }">
+                        <div class="bg-white rounded-xl p-6 shadow-lg border border-gray-200">
+                            <p class="text-gray-700 mb-4 leading-relaxed">{{ t.content }}</p>
+                            <div class="flex items-center mt-6 space-x-3">
+                                <img :src="t.img" alt="Photo" class="w-12 h-12 rounded-full object-cover" />
+                                <div class="text-sm text-gray-900">
+                                    <p class="font-semibold">{{ t.name }}</p>
+                                    <p>{{ t.role }}</p>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div :class="i === 1 ? '' : 'hidden'" class="corner-bottom-left" aria-hidden="true"></div>
-                    <div :class="i === 1 ? '' : 'hidden'" class="corner-bottom-right" aria-hidden="true"></div>
-                </div>
+                        <div :class="i === currentIndex + 1 ? '' : 'hidden'" class="corner-bottom-left"
+                            aria-hidden="true"></div>
+                        <div :class="i === currentIndex + 1 ? '' : 'hidden'" class="corner-bottom-right"
+                            aria-hidden="true"></div>
+                    </li>
+                </ul>
             </div>
 
-            <!-- Controls -->
             <div class="flex justify-center mt-8 space-x-6">
-                <button @click="prev" aria-label="Previous testimonial"
+                <button @click="prev"
                     class="w-10 h-10 rounded-full bg-white border border-gray-300 text-gray-600 hover:text-gray-900 flex items-center justify-center">
                     <i class="bi bi-chevron-left"></i>
                 </button>
-                <button @click="next" aria-label="Next testimonial"
+                <button @click="next"
                     class="w-10 h-10 rounded-full bg-white border border-gray-300 text-gray-600 hover:text-gray-900 flex items-center justify-center">
                     <i class="bi bi-chevron-right"></i>
                 </button>
@@ -144,6 +204,7 @@ const prev = () => {
         </div>
     </section>
 </template>
+
 <style scoped>
 .corner-angles::before,
 .corner-angles::after,

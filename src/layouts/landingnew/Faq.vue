@@ -50,9 +50,9 @@ const toggleAccordion = (index) => {
                 </p>
             </div>
 
-            <div class="max-w-3xl mx-auto">
+            <div class="max-w-3xl h-max mx-auto pb-22">
                 <!-- FAQ Items -->
-                <div v-for="(faq, index) in faqs" :key="index" class="border-b border-gray-200 py-6 drop-shadow-lg">
+                <div v-for="(faq, index) in faqs" :key="index" class="border-b border-gray-200 py-6">
                     <button class="faq-toggle flex justify-between items-center w-full text-left"
                         @click="toggleAccordion(index)">
                         <h3 class="text-lg font-medium text-gray-900">{{ faq.question }}</h3>
@@ -62,7 +62,7 @@ const toggleAccordion = (index) => {
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
                         </svg>
                     </button>
-                    <div class="accordion-content mt-4 overflow-hidden transition-all duration-300"
+                    <div class="accordion-content mt-4 overflow-hidden transition-all duration-100"
                         :class="{ 'max-h-0': activeIndex !== index, 'max-h-screen active': activeIndex === index }">
                         <p class="text-gray-600">{{ faq.answer }}</p>
                     </div>

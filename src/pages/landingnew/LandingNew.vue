@@ -5,6 +5,7 @@ import Stats from '../../layouts/landingnew/Stats.vue';
 import Features from '../../layouts/landingnew/Features.vue';
 import DemoPreview from '../../layouts/landingnew/DemoPreview.vue';
 import Testimonials from '../../layouts/landingnew/Testimonials.vue';
+import TestimonialsV2 from '../../layouts/landingnew/TestimonialsV2.vue';
 import Pricing from '../../layouts/landingnew/Pricing.vue';
 import Faq from '../../layouts/landingnew/Faq.vue';
 import FinalCTA from '../../layouts/landingnew/FinalCTA.vue';
@@ -50,7 +51,7 @@ onMounted(() => {
         <Stats />
         <Features />
         <DemoPreview />
-        <Testimonials />
+        <TestimonialsV2 />
         <Pricing />
         <Faq />
         <FinalCTA />

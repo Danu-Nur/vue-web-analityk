@@ -22,7 +22,7 @@ const Datatable = defineAsyncComponent(() =>
     import('../../../components/datatables/DataTable.vue')
 )
 
-const tabs = ['Overview', 'Analytics', 'Reports', 'Notifications']
+const tabs = ['Overview', 'Analytics', 'Live View', 'Sessions / Users','Funnels','Reports','Events','Errors & Bots','Settings / API Key','Billing / Subscriptions']
 const activeTab = ref('Overview')
 const isMenuOpen = ref(false);
 
@@ -334,9 +334,9 @@ const items = [
             <!-- Tabs Header -->
             <div class="flex items-center mb-6 overflow-x-auto">
                 <div
-                    class="flex items-start bg-gray-100 gap-2 p-1 rounded-md justify-between min-w-full md:min-w-0 w-max">
+                    class="flex items-start bg-gray-100 gap-2 p-1 rounded-md justify-between w-max">
                     <button v-for="tab in tabs" :key="tab" @click="activeTab = tab" :class="[
-                        'rounded-md py-1 px-2 md:px-4 ',
+                        'rounded-md py-1 px-2 md:px-4 text-nowrap',
                         activeTab === tab
                             ? 'bg-white text-gray-800 font-semibold'
                             : 'text-gray-400 hover:text-gray-600'
