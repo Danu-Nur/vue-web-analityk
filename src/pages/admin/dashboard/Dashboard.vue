@@ -22,16 +22,16 @@ const Datatable = defineAsyncComponent(() =>
     import('../../../components/datatables/DataTable.vue')
 )
 
-const tabs = ['Overview', 'Analytics', 'Live View', 'Sessions / Users','Funnels','Reports','Events','Errors & Bots','Settings / API Key','Billing / Subscriptions']
+const tabs = ['Overview', 'Analytics', 'Live View', 'Sessions / Users', 'Funnels', 'Reports', 'Events', 'Errors & Bots', 'Settings / API Key', 'Billing / Subscriptions']
 const activeTab = ref('Overview')
 const isMenuOpen = ref(false);
 
 // Summary cards data
 const summaryCards = ref([
-    { title: 'Total Revenue', value: '$45,231.89', change: '+20.1% from last month', icon: 'bi-currency-dollar' },
-    { title: 'Subscriptions', value: '+2350', change: '+180.1% from last month', icon: 'bi-people' },
-    { title: 'Sales', value: '+12,234', change: '+19% from last month', icon: 'bi-credit-card' },
-    { title: 'Active Now', value: '+573', change: '+201 since last hour', icon: 'bi-graph-up' },
+    { title: 'Page Views', value: '12,345', change: 'Total pageviews recorded today', rekap: '+20.1%', icon: 'bi-eye' },
+    { title: 'Unique Visitors', value: '4,567', change: 'Number of unique visitors tracked', rekap: '+180.1%', icon: 'bi-people' },
+    { title: 'Bounce Rate', value: '37.5%', change: 'Percentage of visitors who left quickly', rekap: '+19%', icon: 'bi-box-arrow-right' },
+    { title: 'Avg. Duration', value: '3m 45s', change: 'Average session duration', rekap: '+10%', icon: 'bi-clock' },
 ]);
 
 const toggleMenu = () => {
@@ -114,7 +114,7 @@ const headers = [
     { text: 'Plaza Name', value: 'plaza', sortable: true },
     { text: 'URL', value: 'url', sortable: true },
     { text: 'Date & time', value: 'date', sortable: true },
-    { text: 'Visitors', value: 'visit', sortable: true},
+    { text: 'Visitors', value: 'visit', sortable: true },
     { text: '24h Visitors', value: 'visitorperhours', sortable: true, class: 'text-blue-500 text-center', formatter: (val) => val.length.toString() },
 ];
 
@@ -333,12 +333,11 @@ const items = [
 
             <!-- Tabs Header -->
             <div class="flex items-center mb-6 overflow-x-auto">
-                <div
-                    class="flex items-start bg-gray-100 gap-2 p-1 rounded-md justify-between w-max">
+                <div class="flex items-start bg-gray-100 gap-2 p-1 rounded-md justify-between w-max">
                     <button v-for="tab in tabs" :key="tab" @click="activeTab = tab" :class="[
                         'rounded-md py-1 px-2 md:px-4 text-nowrap',
                         activeTab === tab
-                            ? 'bg-white text-gray-800 font-semibold'
+                            ? 'bg-gradient-to-r from-primary-600 to-indigo-500 text-white'
                             : 'text-gray-400 hover:text-gray-600'
                     ]" type="button">
                         {{ tab }}
@@ -376,7 +375,18 @@ const items = [
                         <i :class="card.icon" class="text-gray-400 text-xl"></i>
                     </div>
                     <p class="text-2xl sm:text-3xl font-extrabold text-gray-900 mb-1">{{ card.value }}</p>
-                    <p class="text-sm text-gray-500">{{ card.change }}</p>
+                    <div class="flex justify-between">
+                        <p class="text-sm text-gray-500">{{ card.change }}</p>
+                        <span
+                            class="flex items-center border border-gray-300 h-max rounded px-1 py-0.5 text-[10px] font-semibold text-gray-600">
+                            <i class="fas fa-chart-line text-[10px]">
+                            </i>
+                            <span>
+                                {{ card.rekap }}
+                            </span>
+                        </span>
+                    </div>
+
                 </article>
             </section>
 

@@ -6,7 +6,7 @@
             <div class="max-w-4xl mx-auto text-center drop-shadow-lg">
                 <h2 class="text-3xl md:text-4xl font-bold mb-6">Ready to understand your users better?</h2>
                 <p class="text-lg text-white/80 mb-10">
-                    Join over 1,200+ businesses who use Insightlytics to
+                    Join over 1,200+ businesses who use TrafficVerse to
                     make data-driven decisions while respecting their visitors' privacy.
                 </p>
                 <div class="flex flex-col sm:flex-row justify-center gap-4">

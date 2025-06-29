@@ -1,0 +1,1378 @@
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <title>
+        Web Analytics Dashboard
+    </title>
+    <script src="https://cdn.tailwindcss.com">
+    </script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;display=swap" rel="stylesheet" />
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #e0e7ff 0%, #f9fafb 100%);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* Glassmorphism card style */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: saturate(180%) blur(12px);
+            -webkit-backdrop-filter: saturate(180%) blur(12px);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.1);
+            border-radius: 1rem;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        /* Scrollbar for tables */
+        .scrollbar-thin::-webkit-scrollbar {
+            height: 6px;
+            width: 6px;
+        }
+
+        .scrollbar-thin::-webkit-scrollbar-thumb {
+            background-color: rgba(100, 116, 139, 0.5);
+            border-radius: 3px;
+        }
+
+        .scrollbar-thin::-webkit-scrollbar-track {
+            background: transparent;
+        }
+    </style>
+</head>
+
+<body class="min-h-screen text-gray-800 selection:bg-indigo-300 selection:text-indigo-900">
+    <div class="min-h-screen flex flex-col">
+        <!-- Header with tabs -->
+        <header class="bg-white/70 backdrop-blur-md sticky top-0 z-30 shadow-sm">
+            <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <ul class="flex overflow-x-auto no-scrollbar whitespace-nowrap text-sm font-semibold text-gray-700"
+                    role="tablist">
+                    <li role="presentation">
+                        <button aria-controls="tab-overview" aria-selected="true"
+                            class="inline-flex items-center gap-2 px-4 py-3 border-b-4 border-indigo-600 text-indigo-700 focus:outline-none"
+                            data-tab="overview" id="tab-overview-btn" role="tab">
+                            <i class="fas fa-chart-line">
+                            </i>
+                            Overview
+                        </button>
+                    </li>
+                    <li role="presentation">
+                        <button aria-controls="tab-analytics" aria-selected="false"
+                            class="inline-flex items-center gap-2 px-4 py-3 border-b-4 border-transparent hover:border-indigo-400 hover:text-indigo-600 focus:outline-none"
+                            data-tab="analytics" id="tab-analytics-btn" role="tab">
+                            <i class="fas fa-chart-bar">
+                            </i>
+                            Analytics
+                        </button>
+                    </li>
+                    <li role="presentation">
+                        <button aria-controls="tab-liveview" aria-selected="false"
+                            class="inline-flex items-center gap-2 px-4 py-3 border-b-4 border-transparent hover:border-indigo-400 hover:text-indigo-600 focus:outline-none"
+                            data-tab="liveview" id="tab-liveview-btn" role="tab">
+                            <i class="fas fa-broadcast-tower">
+                            </i>
+                            Live View
+                        </button>
+                    </li>
+                    <li role="presentation">
+                        <button aria-controls="tab-sessions" aria-selected="false"
+                            class="inline-flex items-center gap-2 px-4 py-3 border-b-4 border-transparent hover:border-indigo-400 hover:text-indigo-600 focus:outline-none"
+                            data-tab="sessions" id="tab-sessions-btn" role="tab">
+                            <i class="fas fa-users">
+                            </i>
+                            Sessions
+                        </button>
+                    </li>
+                    <li role="presentation">
+                        <button aria-controls="tab-funnels" aria-selected="false"
+                            class="inline-flex items-center gap-2 px-4 py-3 border-b-4 border-transparent hover:border-indigo-400 hover:text-indigo-600 focus:outline-none"
+                            data-tab="funnels" id="tab-funnels-btn" role="tab">
+                            <i class="fas fa-filter">
+                            </i>
+                            Funnels
+                        </button>
+                    </li>
+                    <li role="presentation">
+                        <button aria-controls="tab-events" aria-selected="false"
+                            class="inline-flex items-center gap-2 px-4 py-3 border-b-4 border-transparent hover:border-indigo-400 hover:text-indigo-600 focus:outline-none"
+                            data-tab="events" id="tab-events-btn" role="tab">
+                            <i class="fas fa-mouse-pointer">
+                            </i>
+                            Events
+                        </button>
+                    </li>
+                    <li role="presentation">
+                        <button aria-controls="tab-errorsbots" aria-selected="false"
+                            class="inline-flex items-center gap-2 px-4 py-3 border-b-4 border-transparent hover:border-indigo-400 hover:text-indigo-600 focus:outline-none"
+                            data-tab="errorsbots" id="tab-errorsbots-btn" role="tab">
+                            <i class="fas fa-bug">
+                            </i>
+                            Errors &amp; Bots
+                        </button>
+                    </li>
+                    <li role="presentation">
+                        <button aria-controls="tab-reports" aria-selected="false"
+                            class="inline-flex items-center gap-2 px-4 py-3 border-b-4 border-transparent hover:border-indigo-400 hover:text-indigo-600 focus:outline-none"
+                            data-tab="reports" id="tab-reports-btn" role="tab">
+                            <i class="fas fa-file-alt">
+                            </i>
+                            Reports
+                        </button>
+                    </li>
+                    <li role="presentation">
+                        <button aria-controls="tab-settingsapi" aria-selected="false"
+                            class="inline-flex items-center gap-2 px-4 py-3 border-b-4 border-transparent hover:border-indigo-400 hover:text-indigo-600 focus:outline-none"
+                            data-tab="settingsapi" id="tab-settingsapi-btn" role="tab">
+                            <i class="fas fa-cogs">
+                            </i>
+                            Settings &amp; API
+                        </button>
+                    </li>
+                    <li role="presentation">
+                        <button aria-controls="tab-billing" aria-selected="false"
+                            class="inline-flex items-center gap-2 px-4 py-3 border-b-4 border-transparent hover:border-indigo-400 hover:text-indigo-600 focus:outline-none"
+                            data-tab="billing" id="tab-billing-btn" role="tab">
+                            <i class="fas fa-credit-card">
+                            </i>
+                            Billing
+                        </button>
+                    </li>
+                </ul>
+            </nav>
+        </header>
+        <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+            <!-- Overview Tab -->
+            <section aria-labelledby="tab-overview-btn" class="tab-content" id="tab-overview" role="tabpanel">
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
+                    <div class="glass-card p-5 flex flex-col justify-between shadow-md">
+                        <div class="flex items-center justify-between">
+                            <div class="text-indigo-600 text-3xl">
+                                <i class="fas fa-eye">
+                                </i>
+                            </div>
+                            <div class="text-indigo-400 text-sm font-semibold uppercase tracking-wide">
+                                Pageviews
+                            </div>
+                        </div>
+                        <div class="mt-4 text-3xl font-bold text-gray-900">
+                            1,245,678
+                        </div>
+                        <div class="text-sm text-gray-500 mt-1">
+                            Last 30 days
+                        </div>
+                    </div>
+                    <div class="glass-card p-5 flex flex-col justify-between shadow-md">
+                        <div class="flex items-center justify-between">
+                            <div class="text-green-600 text-3xl">
+                                <i class="fas fa-user-friends">
+                                </i>
+                            </div>
+                            <div class="text-green-400 text-sm font-semibold uppercase tracking-wide">
+                                Unique Visitors
+                            </div>
+                        </div>
+                        <div class="mt-4 text-3xl font-bold text-gray-900">
+                            789,432
+                        </div>
+                        <div class="text-sm text-gray-500 mt-1">
+                            Last 30 days
+                        </div>
+                    </div>
+                    <div class="glass-card p-5 flex flex-col justify-between shadow-md">
+                        <div class="flex items-center justify-between">
+                            <div class="text-red-600 text-3xl">
+                                <i class="fas fa-sign-out-alt">
+                                </i>
+                            </div>
+                            <div class="text-red-400 text-sm font-semibold uppercase tracking-wide">
+                                Bounce Rate
+                            </div>
+                        </div>
+                        <div class="mt-4 text-3xl font-bold text-gray-900">
+                            42.7%
+                        </div>
+                        <div class="text-sm text-gray-500 mt-1">
+                            Last 30 days
+                        </div>
+                    </div>
+                    <div class="glass-card p-5 flex flex-col justify-between shadow-md">
+                        <div class="flex items-center justify-between">
+                            <div class="text-yellow-600 text-3xl">
+                                <i class="fas fa-clock">
+                                </i>
+                            </div>
+                            <div class="text-yellow-400 text-sm font-semibold uppercase tracking-wide">
+                                Avg. Duration
+                            </div>
+                        </div>
+                        <div class="mt-4 text-3xl font-bold text-gray-900">
+                            3m 45s
+                        </div>
+                        <div class="text-sm text-gray-500 mt-1">
+                            Last 30 days
+                        </div>
+                    </div>
+                </div>
+                <div class="glass-card p-6 shadow-md">
+                    <h2 class="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
+                        <i class="fas fa-chart-line text-indigo-600">
+                        </i>
+                        Pageviews Over Time
+                    </h2>
+                    <img alt="Line chart showing pageviews over time with a smooth upward trend and data points"
+                        class="w-full rounded-lg" height="300" loading="lazy"
+                        src="https://storage.googleapis.com/a1aa/image/0b9b276a-9fa8-455b-167d-ca1762ac2f44.jpg"
+                        width="1000" />
+                </div>
+            </section>
+            <!-- Analytics Tab -->
+            <section aria-labelledby="tab-analytics-btn" class="tab-content hidden" id="tab-analytics" role="tabpanel">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+                    <div class="glass-card p-6 shadow-md overflow-x-auto scrollbar-thin">
+                        <h2 class="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
+                            <i class="fas fa-file-alt text-indigo-600">
+                            </i>
+                            Top Pages
+                        </h2>
+                        <table class="w-full text-left text-sm text-gray-700">
+                            <thead class="border-b border-gray-300">
+                                <tr>
+                                    <th class="py-2 px-3 font-semibold">
+                                        URL
+                                    </th>
+                                    <th class="py-2 px-3 font-semibold">
+                                        Views
+                                    </th>
+                                    <th class="py-2 px-3 font-semibold">
+                                        Duration
+                                    </th>
+                                    <th class="py-2 px-3 font-semibold">
+                                        Bounce
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="border-b border-gray-200 hover:bg-indigo-50">
+                                    <td class="py-2 px-3 truncate max-w-xs">
+                                        /home
+                                    </td>
+                                    <td class="py-2 px-3">
+                                        45,678
+                                    </td>
+                                    <td class="py-2 px-3">
+                                        2m 30s
+                                    </td>
+                                    <td class="py-2 px-3">
+                                        38%
+                                    </td>
+                                </tr>
+                                <tr class="border-b border-gray-200 hover:bg-indigo-50">
+                                    <td class="py-2 px-3 truncate max-w-xs">
+                                        /products
+                                    </td>
+                                    <td class="py-2 px-3">
+                                        32,145
+                                    </td>
+                                    <td class="py-2 px-3">
+                                        3m 10s
+                                    </td>
+                                    <td class="py-2 px-3">
+                                        41%
+                                    </td>
+                                </tr>
+                                <tr class="border-b border-gray-200 hover:bg-indigo-50">
+                                    <td class="py-2 px-3 truncate max-w-xs">
+                                        /blog/how-to-use
+                                    </td>
+                                    <td class="py-2 px-3">
+                                        28,900
+                                    </td>
+                                    <td class="py-2 px-3">
+                                        4m 5s
+                                    </td>
+                                    <td class="py-2 px-3">
+                                        29%
+                                    </td>
+                                </tr>
+                                <tr class="border-b border-gray-200 hover:bg-indigo-50">
+                                    <td class="py-2 px-3 truncate max-w-xs">
+                                        /contact
+                                    </td>
+                                    <td class="py-2 px-3">
+                                        15,234
+                                    </td>
+                                    <td class="py-2 px-3">
+                                        1m 45s
+                                    </td>
+                                    <td class="py-2 px-3">
+                                        50%
+                                    </td>
+                                </tr>
+                                <tr class="border-b border-gray-200 hover:bg-indigo-50">
+                                    <td class="py-2 px-3 truncate max-w-xs">
+                                        /about
+                                    </td>
+                                    <td class="py-2 px-3">
+                                        12,876
+                                    </td>
+                                    <td class="py-2 px-3">
+                                        2m 15s
+                                    </td>
+                                    <td class="py-2 px-3">
+                                        35%
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="glass-card p-6 shadow-md flex flex-col">
+                        <h2 class="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
+                            <i class="fas fa-chart-bar text-indigo-600">
+                            </i>
+                            Top Pages Views Bar Chart
+                        </h2>
+                        <img alt="Bar chart showing top pages with bars representing views count for each page"
+                            class="w-full h-auto rounded-lg flex-grow" height="400" loading="lazy"
+                            src="https://storage.googleapis.com/a1aa/image/2c675473-5f1b-4e5f-698e-c21bcc24d681.jpg"
+                            width="600" />
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    <div class="glass-card p-6 shadow-md flex flex-col">
+                        <h2 class="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
+                            <i class="fas fa-globe-americas text-indigo-600">
+                            </i>
+                            Geo Location Map
+                        </h2>
+                        <img alt="World map showing data per country with color-coded regions indicating traffic volume"
+                            class="w-full h-auto rounded-lg flex-grow" height="400" loading="lazy"
+                            src="https://storage.googleapis.com/a1aa/image/d311f1c6-1f50-4393-7ee2-df66807997d2.jpg"
+                            width="600" />
+                    </div>
+                    <div class="glass-card p-6 shadow-md flex flex-col">
+                        <h2 class="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
+                            <i class="fas fa-mobile-alt text-indigo-600">
+                            </i>
+                            Device Types Pie Chart
+                        </h2>
+                        <img alt="Pie chart showing distribution of device types including desktop, mobile, and tablet"
+                            class="w-full h-auto rounded-lg flex-grow" height="400" loading="lazy"
+                            src="https://storage.googleapis.com/a1aa/image/2d279154-1f76-440b-0711-07fd8f518b7c.jpg"
+                            width="600" />
+                    </div>
+                </div>
+            </section>
+            <!-- Live View Tab -->
+            <section aria-labelledby="tab-liveview-btn" class="tab-content hidden" id="tab-liveview" role="tabpanel">
+                <div class="glass-card p-6 shadow-md mb-6 overflow-x-auto scrollbar-thin">
+                    <h2 class="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
+                        <i class="fas fa-users text-indigo-600">
+                        </i>
+                        Active Users
+                    </h2>
+                    <table class="w-full text-left text-sm text-gray-700">
+                        <thead class="border-b border-gray-300">
+                            <tr>
+                                <th class="py-2 px-3 font-semibold">
+                                    IP
+                                </th>
+                                <th class="py-2 px-3 font-semibold">
+                                    Page
+                                </th>
+                                <th class="py-2 px-3 font-semibold">
+                                    Device
+                                </th>
+                                <th class="py-2 px-3 font-semibold">
+                                    Location
+                                </th>
+                                <th class="py-2 px-3 font-semibold">
+                                    Duration
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="border-b border-gray-200 hover:bg-indigo-50">
+                                <td class="py-2 px-3">
+                                    192.168.1.12
+                                </td>
+                                <td class="py-2 px-3 truncate max-w-xs">
+                                    /products/item-123
+                                </td>
+                                <td class="py-2 px-3">
+                                    Mobile
+                                </td>
+                                <td class="py-2 px-3">
+                                    New York, USA
+                                </td>
+                                <td class="py-2 px-3">
+                                    5m 12s
+                                </td>
+                            </tr>
+                            <tr class="border-b border-gray-200 hover:bg-indigo-50">
+                                <td class="py-2 px-3">
+                                    172.16.0.45
+                                </td>
+                                <td class="py-2 px-3 truncate max-w-xs">
+                                    /blog/how-to-use
+                                </td>
+                                <td class="py-2 px-3">
+                                    Desktop
+                                </td>
+                                <td class="py-2 px-3">
+                                    London, UK
+                                </td>
+                                <td class="py-2 px-3">
+                                    3m 45s
+                                </td>
+                            </tr>
+                            <tr class="border-b border-gray-200 hover:bg-indigo-50">
+                                <td class="py-2 px-3">
+                                    10.0.0.8
+                                </td>
+                                <td class="py-2 px-3 truncate max-w-xs">
+                                    /checkout
+                                </td>
+                                <td class="py-2 px-3">
+                                    Tablet
+                                </td>
+                                <td class="py-2 px-3">
+                                    Berlin, Germany
+                                </td>
+                                <td class="py-2 px-3">
+                                    1m 20s
+                                </td>
+                            </tr>
+                            <tr class="border-b border-gray-200 hover:bg-indigo-50">
+                                <td class="py-2 px-3">
+                                    203.0.113.22
+                                </td>
+                                <td class="py-2 px-3 truncate max-w-xs">
+                                    /home
+                                </td>
+                                <td class="py-2 px-3">
+                                    Desktop
+                                </td>
+                                <td class="py-2 px-3">
+                                    Sydney, Australia
+                                </td>
+                                <td class="py-2 px-3">
+                                    7m 5s
+                                </td>
+                            </tr>
+                            <tr class="border-b border-gray-200 hover:bg-indigo-50">
+                                <td class="py-2 px-3">
+                                    198.51.100.14
+                                </td>
+                                <td class="py-2 px-3 truncate max-w-xs">
+                                    /contact
+                                </td>
+                                <td class="py-2 px-3">
+                                    Mobile
+                                </td>
+                                <td class="py-2 px-3">
+                                    Toronto, Canada
+                                </td>
+                                <td class="py-2 px-3">
+                                    2m 30s
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="glass-card p-6 shadow-md">
+                    <h2 class="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
+                        <i class="fas fa-chart-line text-indigo-600">
+                        </i>
+                        Live Visitor Count
+                    </h2>
+                    <img alt="Line chart showing live visitor count with fluctuating data points over time"
+                        class="w-full rounded-lg" height="300" loading="lazy"
+                        src="https://storage.googleapis.com/a1aa/image/65f3353a-1898-416e-35d3-39c753069a49.jpg"
+                        width="1000" />
+                </div>
+            </section>
+            <!-- Sessions Tab -->
+            <section aria-labelledby="tab-sessions-btn" class="tab-content hidden" id="tab-sessions" role="tabpanel">
+                <div class="glass-card p-6 shadow-md mb-6 overflow-x-auto scrollbar-thin">
+                    <h2 class="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
+                        <i class="fas fa-list text-indigo-600">
+                        </i>
+                        Session List
+                    </h2>
+                    <table class="w-full text-left text-sm text-gray-700">
+                        <thead class="border-b border-gray-300">
+                            <tr>
+                                <th class="py-2 px-3 font-semibold">
+                                    Session ID
+                                </th>
+                                <th class="py-2 px-3 font-semibold">
+                                    Pages
+                                </th>
+                                <th class="py-2 px-3 font-semibold">
+                                    Device
+                                </th>
+                                <th class="py-2 px-3 font-semibold">
+                                    Duration
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="border-b border-gray-200 hover:bg-indigo-50">
+                                <td class="py-2 px-3 truncate max-w-xs">
+                                    sess_01a2b3c4d5
+                                </td>
+                                <td class="py-2 px-3">
+                                    5
+                                </td>
+                                <td class="py-2 px-3">
+                                    Desktop
+                                </td>
+                                <td class="py-2 px-3">
+                                    12m 30s
+                                </td>
+                            </tr>
+                            <tr class="border-b border-gray-200 hover:bg-indigo-50">
+                                <td class="py-2 px-3 truncate max-w-xs">
+                                    sess_06e7f8g9h0
+                                </td>
+                                <td class="py-2 px-3">
+                                    3
+                                </td>
+                                <td class="py-2 px-3">
+                                    Mobile
+                                </td>
+                                <td class="py-2 px-3">
+                                    7m 15s
+                                </td>
+                            </tr>
+                            <tr class="border-b border-gray-200 hover:bg-indigo-50">
+                                <td class="py-2 px-3 truncate max-w-xs">
+                                    sess_11i2j3k4l5
+                                </td>
+                                <td class="py-2 px-3">
+                                    8
+                                </td>
+                                <td class="py-2 px-3">
+                                    Tablet
+                                </td>
+                                <td class="py-2 px-3">
+                                    20m 5s
+                                </td>
+                            </tr>
+                            <tr class="border-b border-gray-200 hover:bg-indigo-50">
+                                <td class="py-2 px-3 truncate max-w-xs">
+                                    sess_16m7n8o9p0
+                                </td>
+                                <td class="py-2 px-3">
+                                    4
+                                </td>
+                                <td class="py-2 px-3">
+                                    Desktop
+                                </td>
+                                <td class="py-2 px-3">
+                                    9m 40s
+                                </td>
+                            </tr>
+                            <tr class="border-b border-gray-200 hover:bg-indigo-50">
+                                <td class="py-2 px-3 truncate max-w-xs">
+                                    sess_21q2r3s4t5
+                                </td>
+                                <td class="py-2 px-3">
+                                    6
+                                </td>
+                                <td class="py-2 px-3">
+                                    Mobile
+                                </td>
+                                <td class="py-2 px-3">
+                                    15m 10s
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="glass-card p-6 shadow-md mb-6 overflow-x-auto scrollbar-thin">
+                    <h2 class="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
+                        <i class="fas fa-route text-indigo-600">
+                        </i>
+                        User Journey Path
+                    </h2>
+                    <table class="w-full text-left text-sm text-gray-700">
+                        <thead class="border-b border-gray-300">
+                            <tr>
+                                <th class="py-2 px-3 font-semibold">
+                                    Session ID
+                                </th>
+                                <th class="py-2 px-3 font-semibold">
+                                    Journey Steps
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="border-b border-gray-200 hover:bg-indigo-50 align-top">
+                                <td class="py-2 px-3 truncate max-w-xs">
+                                    sess_01a2b3c4d5
+                                </td>
+                                <td class="py-2 px-3">
+                                    <nav aria-label="breadcrumb"
+                                        class="flex flex-wrap gap-1 text-indigo-700 text-sm font-medium">
+                                        <span class="px-2 py-1 bg-indigo-100 rounded-md">
+                                            Home
+                                        </span>
+                                        <span class="text-indigo-400">
+                                            →
+                                        </span>
+                                        <span class="px-2 py-1 bg-indigo-100 rounded-md">
+                                            Products
+                                        </span>
+                                        <span class="text-indigo-400">
+                                            →
+                                        </span>
+                                        <span class="px-2 py-1 bg-indigo-100 rounded-md">
+                                            Item 123
+                                        </span>
+                                        <span class="text-indigo-400">
+                                            →
+                                        </span>
+                                        <span class="px-2 py-1 bg-indigo-100 rounded-md">
+                                            Checkout
+                                        </span>
+                                    </nav>
+                                </td>
+                            </tr>
+                            <tr class="border-b border-gray-200 hover:bg-indigo-50 align-top">
+                                <td class="py-2 px-3 truncate max-w-xs">
+                                    sess_06e7f8g9h0
+                                </td>
+                                <td class="py-2 px-3">
+                                    <nav aria-label="breadcrumb"
+                                        class="flex flex-wrap gap-1 text-indigo-700 text-sm font-medium">
+                                        <span class="px-2 py-1 bg-indigo-100 rounded-md">
+                                            Home
+                                        </span>
+                                        <span class="text-indigo-400">
+                                            →
+                                        </span>
+                                        <span class="px-2 py-1 bg-indigo-100 rounded-md">
+                                            Blog
+                                        </span>
+                                        <span class="text-indigo-400">
+                                            →
+                                        </span>
+                                        <span class="px-2 py-1 bg-indigo-100 rounded-md">
+                                            How to Use
+                                        </span>
+                                    </nav>
+                                </td>
+                            </tr>
+                            <tr class="border-b border-gray-200 hover:bg-indigo-50 align-top">
+                                <td class="py-2 px-3 truncate max-w-xs">
+                                    sess_11i2j3k4l5
+                                </td>
+                                <td class="py-2 px-3">
+                                    <nav aria-label="breadcrumb"
+                                        class="flex flex-wrap gap-1 text-indigo-700 text-sm font-medium">
+                                        <span class="px-2 py-1 bg-indigo-100 rounded-md">
+                                            Landing
+                                        </span>
+                                        <span class="text-indigo-400">
+                                            →
+                                        </span>
+                                        <span class="px-2 py-1 bg-indigo-100 rounded-md">
+                                            Signup
+                                        </span>
+                                        <span class="text-indigo-400">
+                                            →
+                                        </span>
+                                        <span class="px-2 py-1 bg-indigo-100 rounded-md">
+                                            Dashboard
+                                        </span>
+                                    </nav>
+                                </td>
+                            </tr>
+                            <tr class="border-b border-gray-200 hover:bg-indigo-50 align-top">
+                                <td class="py-2 px-3 truncate max-w-xs">
+                                    sess_16m7n8o9p0
+                                </td>
+                                <td class="py-2 px-3">
+                                    <nav aria-label="breadcrumb"
+                                        class="flex flex-wrap gap-1 text-indigo-700 text-sm font-medium">
+                                        <span class="px-2 py-1 bg-indigo-100 rounded-md">
+                                            Home
+                                        </span>
+                                        <span class="text-indigo-400">
+                                            →
+                                        </span>
+                                        <span class="px-2 py-1 bg-indigo-100 rounded-md">
+                                            Contact
+                                        </span>
+                                    </nav>
+                                </td>
+                            </tr>
+                            <tr class="border-b border-gray-200 hover:bg-indigo-50 align-top">
+                                <td class="py-2 px-3 truncate max-w-xs">
+                                    sess_21q2r3s4t5
+                                </td>
+                                <td class="py-2 px-3">
+                                    <nav aria-label="breadcrumb"
+                                        class="flex flex-wrap gap-1 text-indigo-700 text-sm font-medium">
+                                        <span class="px-2 py-1 bg-indigo-100 rounded-md">
+                                            Home
+                                        </span>
+                                        <span class="text-indigo-400">
+                                            →
+                                        </span>
+                                        <span class="px-2 py-1 bg-indigo-100 rounded-md">
+                                            Products
+                                        </span>
+                                        <span class="text-indigo-400">
+                                            →
+                                        </span>
+                                        <span class="px-2 py-1 bg-indigo-100 rounded-md">
+                                            Item 456
+                                        </span>
+                                    </nav>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="glass-card p-6 shadow-md">
+                    <h2 class="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
+                        <i class="fas fa-fire text-indigo-600">
+                        </i>
+                        Click Heatmap (Session View)
+                    </h2>
+                    <img alt="Heatmap image showing click intensity on a webpage for a specific user session with red and yellow hotspots"
+                        class="w-full rounded-lg" height="300" loading="lazy"
+                        src="https://storage.googleapis.com/a1aa/image/496f26a1-4fcb-4ece-04d3-b656dd8c44d6.jpg"
+                        width="1000" />
+                </div>
+            </section>
+            <!-- Funnels Tab -->
+            <section aria-labelledby="tab-funnels-btn" class="tab-content hidden" id="tab-funnels" role="tabpanel">
+                <div class="glass-card p-6 shadow-md mb-6 overflow-x-auto scrollbar-thin">
+                    <h2 class="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
+                        <i class="fas fa-filter text-indigo-600">
+                        </i>
+                        Funnels
+                    </h2>
+                    <table class="w-full text-left text-sm text-gray-700">
+                        <thead class="border-b border-gray-300">
+                            <tr>
+                                <th class="py-2 px-3 font-semibold">
+                                    Name
+                                </th>
+                                <th class="py-2 px-3 font-semibold">
+                                    Started
+                                </th>
+                                <th class="py-2 px-3 font-semibold">
+                                    Completed
+                                </th>
+                                <th class="py-2 px-3 font-semibold">
+                                    Drop-off
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="border-b border-gray-200 hover:bg-indigo-50">
+                                <td class="py-2 px-3 truncate max-w-xs">
+                                    Signup Funnel
+                                </td>
+                                <td class="py-2 px-3">
+                                    12,345
+                                </td>
+                                <td class="py-2 px-3">
+                                    8,765
+                                </td>
+                                <td class="py-2 px-3">
+                                    29%
+                                </td>
+                            </tr>
+                            <tr class="border-b border-gray-200 hover:bg-indigo-50">
+                                <td class="py-2 px-3 truncate max-w-xs">
+                                    Checkout Funnel
+                                </td>
+                                <td class="py-2 px-3">
+                                    9,876
+                                </td>
+                                <td class="py-2 px-3">
+                                    6,543
+                                </td>
+                                <td class="py-2 px-3">
+                                    34%
+                                </td>
+                            </tr>
+                            <tr class="border-b border-gray-200 hover:bg-indigo-50">
+                                <td class="py-2 px-3 truncate max-w-xs">
+                                    Newsletter Signup
+                                </td>
+                                <td class="py-2 px-3">
+                                    5,432
+                                </td>
+                                <td class="py-2 px-3">
+                                    4,321
+                                </td>
+                                <td class="py-2 px-3">
+                                    20%
+                                </td>
+                            </tr>
+                            <tr class="border-b border-gray-200 hover:bg-indigo-50">
+                                <td class="py-2 px-3 truncate max-w-xs">
+                                    Product Demo
+                                </td>
+                                <td class="py-2 px-3">
+                                    3,210
+                                </td>
+                                <td class="py-2 px-3">
+                                    2,100
+                                </td>
+                                <td class="py-2 px-3">
+                                    35%
+                                </td>
+                            </tr>
+                            <tr class="border-b border-gray-200 hover:bg-indigo-50">
+                                <td class="py-2 px-3 truncate max-w-xs">
+                                    Feedback Funnel
+                                </td>
+                                <td class="py-2 px-3">
+                                    1,234
+                                </td>
+                                <td class="py-2 px-3">
+                                    987
+                                </td>
+                                <td class="py-2 px-3">
+                                    20%
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="glass-card p-6 shadow-md">
+                    <h2 class="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
+                        <i class="fas fa-project-diagram text-indigo-600">
+                        </i>
+                        Funnel Step Chart
+                    </h2>
+                    <img alt="Funnel step chart showing user drop-off at each step with a sankey or bar style visualization"
+                        class="w-full rounded-lg" height="300" loading="lazy"
+                        src="https://storage.googleapis.com/a1aa/image/8d174e5c-ec9f-4b76-ce2d-d7e16b917225.jpg"
+                        width="1000" />
+                </div>
+            </section>
+            <!-- Events Tab -->
+            <section aria-labelledby="tab-events-btn" class="tab-content hidden" id="tab-events" role="tabpanel">
+                <div class="glass-card p-6 shadow-md mb-6 overflow-x-auto scrollbar-thin">
+                    <h2 class="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
+                        <i class="fas fa-mouse-pointer text-indigo-600">
+                        </i>
+                        Click Events
+                    </h2>
+                    <table class="w-full text-left text-sm text-gray-700">
+                        <thead class="border-b border-gray-300">
+                            <tr>
+                                <th class="py-2 px-3 font-semibold">
+                                    Selector
+                                </th>
+                                <th class="py-2 px-3 font-semibold">
+                                    Position
+                                </th>
+                                <th class="py-2 px-3 font-semibold">
+                                    Time
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="border-b border-gray-200 hover:bg-indigo-50">
+                                <td class="py-2 px-3 truncate max-w-xs">
+                                    #btn-submit
+                                </td>
+                                <td class="py-2 px-3">
+                                    x: 120, y: 340
+                                </td>
+                                <td class="py-2 px-3">
+                                    2024-06-01 14:23:45
+                                </td>
+                            </tr>
+                            <tr class="border-b border-gray-200 hover:bg-indigo-50">
+                                <td class="py-2 px-3 truncate max-w-xs">
+                                    .nav-link-home
+                                </td>
+                                <td class="py-2 px-3">
+                                    x: 50, y: 20
+                                </td>
+                                <td class="py-2 px-3">
+                                    2024-06-01 14:24:10
+                                </td>
+                            </tr>
+                            <tr class="border-b border-gray-200 hover:bg-indigo-50">
+                                <td class="py-2 px-3 truncate max-w-xs">
+                                    #search-input
+                                </td>
+                                <td class="py-2 px-3">
+                                    x: 300, y: 100
+                                </td>
+                                <td class="py-2 px-3">
+                                    2024-06-01 14:25:05
+                                </td>
+                            </tr>
+                            <tr class="border-b border-gray-200 hover:bg-indigo-50">
+                                <td class="py-2 px-3 truncate max-w-xs">
+                                    .btn-cart
+                                </td>
+                                <td class="py-2 px-3">
+                                    x: 400, y: 220
+                                </td>
+                                <td class="py-2 px-3">
+                                    2024-06-01 14:26:30
+                                </td>
+                            </tr>
+                            <tr class="border-b border-gray-200 hover:bg-indigo-50">
+                                <td class="py-2 px-3 truncate max-w-xs">
+                                    #footer-link-contact
+                                </td>
+                                <td class="py-2 px-3">
+                                    x: 10, y: 600
+                                </td>
+                                <td class="py-2 px-3">
+                                    2024-06-01 14:27:15
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="glass-card p-6 shadow-md overflow-x-auto scrollbar-thin">
+                    <h2 class="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
+                        <i class="fas fa-scroll text-indigo-600">
+                        </i>
+                        Scroll &amp; Custom Events
+                    </h2>
+                    <table class="w-full text-left text-sm text-gray-700">
+                        <thead class="border-b border-gray-300">
+                            <tr>
+                                <th class="py-2 px-3 font-semibold">
+                                    Event Type
+                                </th>
+                                <th class="py-2 px-3 font-semibold">
+                                    Details
+                                </th>
+                                <th class="py-2 px-3 font-semibold">
+                                    Time
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="border-b border-gray-200 hover:bg-indigo-50">
+                                <td class="py-2 px-3">
+                                    Scroll
+                                </td>
+                                <td class="py-2 px-3">
+                                    Scrolled to 75% of page
+                                </td>
+                                <td class="py-2 px-3">
+                                    2024-06-01 14:28:00
+                                </td>
+                            </tr>
+                            <tr class="border-b border-gray-200 hover:bg-indigo-50">
+                                <td class="py-2 px-3">
+                                    Custom
+                                </td>
+                                <td class="py-2 px-3">
+                                    Clicked promo banner
+                                </td>
+                                <td class="py-2 px-3">
+                                    2024-06-01 14:29:10
+                                </td>
+                            </tr>
+                            <tr class="border-b border-gray-200 hover:bg-indigo-50">
+                                <td class="py-2 px-3">
+                                    Scroll
+                                </td>
+                                <td class="py-2 px-3">
+                                    Scrolled to 50% of page
+                                </td>
+                                <td class="py-2 px-3">
+                                    2024-06-01 14:30:05
+                                </td>
+                            </tr>
+                            <tr class="border-b border-gray-200 hover:bg-indigo-50">
+                                <td class="py-2 px-3">
+                                    Custom
+                                </td>
+                                <td class="py-2 px-3">
+                                    Form submitted
+                                </td>
+                                <td class="py-2 px-3">
+                                    2024-06-01 14:31:20
+                                </td>
+                            </tr>
+                            <tr class="border-b border-gray-200 hover:bg-indigo-50">
+                                <td class="py-2 px-3">
+                                    Scroll
+                                </td>
+                                <td class="py-2 px-3">
+                                    Scrolled to 90% of page
+                                </td>
+                                <td class="py-2 px-3">
+                                    2024-06-01 14:32:45
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+            <!-- Errors & Bots Tab -->
+            <section aria-labelledby="tab-errorsbots-btn" class="tab-content hidden" id="tab-errorsbots"
+                role="tabpanel">
+                <div class="glass-card p-6 shadow-md mb-6 overflow-x-auto scrollbar-thin">
+                    <h2 class="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
+                        <i class="fas fa-exclamation-triangle text-indigo-600">
+                        </i>
+                        Client-side Errors
+                    </h2>
+                    <table class="w-full text-left text-sm text-gray-700">
+                        <thead class="border-b border-gray-300">
+                            <tr>
+                                <th class="py-2 px-3 font-semibold">
+                                    Message
+                                </th>
+                                <th class="py-2 px-3 font-semibold">
+                                    Stack Trace
+                                </th>
+                                <th class="py-2 px-3 font-semibold">
+                                    Time
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="border-b border-gray-200 hover:bg-indigo-50 align-top">
+                                <td class="py-2 px-3 truncate max-w-xs">
+                                    TypeError: Cannot read property 'foo' of undefined
+                                </td>
+                                <td class="py-2 px-3 truncate max-w-xs">
+                                    at app.js:45:12
+                                </td>
+                                <td class="py-2 px-3">
+                                    2024-06-01 13:45:22
+                                </td>
+                            </tr>
+                            <tr class="border-b border-gray-200 hover:bg-indigo-50 align-top">
+                                <td class="py-2 px-3 truncate max-w-xs">
+                                    ReferenceError: bar is not defined
+                                </td>
+                                <td class="py-2 px-3 truncate max-w-xs">
+                                    at main.js:78:5
+                                </td>
+                                <td class="py-2 px-3">
+                                    2024-06-01 14:10:11
+                                </td>
+                            </tr>
+                            <tr class="border-b border-gray-200 hover:bg-indigo-50 align-top">
+                                <td class="py-2 px-3 truncate max-w-xs">
+                                    SyntaxError: Unexpected token &lt;
+                                </td>
+                                <td class="py-2 px-3 truncate max-w-xs">
+                                    at index.html:1:1
+                                </td>
+                                <td class="py-2 px-3">
+                                    2024-06-01 14:20:33
+                                </td>
+                            </tr>
+                            <tr class="border-b border-gray-200 hover:bg-indigo-50 align-top">
+                                <td class="py-2 px-3 truncate max-w-xs">
+                                    TypeError: Cannot set property 'value' of null
+                                </td>
+                                <td class="py-2 px-3 truncate max-w-xs">
+                                    at form.js:22:10
+                                </td>
+                                <td class="py-2 px-3">
+                                    2024-06-01 14:35:47
+                                </td>
+                            </tr>
+                            <tr class="border-b border-gray-200 hover:bg-indigo-50 align-top">
+                                <td class="py-2 px-3 truncate max-w-xs">
+                                    RangeError: Maximum call stack size exceeded
+                                </td>
+                                <td class="py-2 px-3 truncate max-w-xs">
+                                    at recursive.js:10:3
+                                </td>
+                                <td class="py-2 px-3">
+                                    2024-06-01 14:50:12
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="glass-card p-6 shadow-md overflow-x-auto scrollbar-thin">
+                    <h2 class="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
+                        <i class="fas fa-robot text-indigo-600">
+                        </i>
+                        Bot Detection
+                    </h2>
+                    <table class="w-full text-left text-sm text-gray-700">
+                        <thead class="border-b border-gray-300">
+                            <tr>
+                                <th class="py-2 px-3 font-semibold">
+                                    Bot Name
+                                </th>
+                                <th class="py-2 px-3 font-semibold">
+                                    Verified
+                                </th>
+                                <th class="py-2 px-3 font-semibold">
+                                    Session ID
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="border-b border-gray-200 hover:bg-indigo-50">
+                                <td class="py-2 px-3">
+                                    Googlebot
+                                </td>
+                                <td class="py-2 px-3 text-green-600 font-semibold">
+                                    Yes
+                                </td>
+                                <td class="py-2 px-3 truncate max-w-xs">
+                                    sess_01a2b3c4d5
+                                </td>
+                            </tr>
+                            <tr class="border-b border-gray-200 hover:bg-indigo-50">
+                                <td class="py-2 px-3">
+                                    Bingbot
+                                </td>
+                                <td class="py-2 px-3 text-green-600 font-semibold">
+                                    Yes
+                                </td>
+                                <td class="py-2 px-3 truncate max-w-xs">
+                                    sess_06e7f8g9h0
+                                </td>
+                            </tr>
+                            <tr class="border-b border-gray-200 hover:bg-indigo-50">
+                                <td class="py-2 px-3">
+                                    AhrefsBot
+                                </td>
+                                <td class="py-2 px-3 text-red-600 font-semibold">
+                                    No
+                                </td>
+                                <td class="py-2 px-3 truncate max-w-xs">
+                                    sess_11i2j3k4l5
+                                </td>
+                            </tr>
+                            <tr class="border-b border-gray-200 hover:bg-indigo-50">
+                                <td class="py-2 px-3">
+                                    YandexBot
+                                </td>
+                                <td class="py-2 px-3 text-green-600 font-semibold">
+                                    Yes
+                                </td>
+                                <td class="py-2 px-3 truncate max-w-xs">
+                                    sess_16m7n8o9p0
+                                </td>
+                            </tr>
+                            <tr class="border-b border-gray-200 hover:bg-indigo-50">
+                                <td class="py-2 px-3">
+                                    CustomBot
+                                </td>
+                                <td class="py-2 px-3 text-red-600 font-semibold">
+                                    No
+                                </td>
+                                <td class="py-2 px-3 truncate max-w-xs">
+                                    sess_21q2r3s4t5
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+            <!-- Reports Tab -->
+            <section aria-labelledby="tab-reports-btn" class="tab-content hidden" id="tab-reports" role="tabpanel">
+                <div
+                    class="glass-card p-6 shadow-md flex flex-col items-center justify-center min-h-[300px] text-gray-500 text-center">
+                    <i class="fas fa-file-alt fa-3x mb-4 text-indigo-400">
+                    </i>
+                    <p class="text-lg font-semibold">
+                        Reports section coming soon.
+                    </p>
+                    <p class="mt-2 max-w-md">
+                        Generate and download detailed analytics reports here.
+                    </p>
+                </div>
+            </section>
+            <!-- Settings & API Tab -->
+            <section aria-labelledby="tab-settingsapi-btn" class="tab-content hidden" id="tab-settingsapi"
+                role="tabpanel">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+                    <div class="glass-card p-6 shadow-md overflow-x-auto scrollbar-thin">
+                        <h2 class="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
+                            <i class="fas fa-key text-indigo-600">
+                            </i>
+                            API Keys
+                        </h2>
+                        <table class="w-full text-left text-sm text-gray-700">
+                            <thead class="border-b border-gray-300">
+                                <tr>
+                                    <th class="py-2 px-3 font-semibold">
+                                        Key
+                                    </th>
+                                    <th class="py-2 px-3 font-semibold">
+                                        Domain
+                                    </th>
+                                    <th class="py-2 px-3 font-semibold">
+                                        Status
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="border-b border-gray-200 hover:bg-indigo-50">
+                                    <td class="py-2 px-3 truncate max-w-xs">
+                                        abcd1234efgh5678
+                                    </td>
+                                    <td class="py-2 px-3 truncate max-w-xs">
+                                        example.com
+                                    </td>
+                                    <td class="py-2 px-3 text-green-600 font-semibold">
+                                        Active
+                                    </td>
+                                </tr>
+                                <tr class="border-b border-gray-200 hover:bg-indigo-50">
+                                    <td class="py-2 px-3 truncate max-w-xs">
+                                        ijkl9012mnop3456
+                                    </td>
+                                    <td class="py-2 px-3 truncate max-w-xs">
+                                        testsite.org
+                                    </td>
+                                    <td class="py-2 px-3 text-red-600 font-semibold">
+                                        Revoked
+                                    </td>
+                                </tr>
+                                <tr class="border-b border-gray-200 hover:bg-indigo-50">
+                                    <td class="py-2 px-3 truncate max-w-xs">
+                                        qrst7890uvwx1234
+                                    </td>
+                                    <td class="py-2 px-3 truncate max-w-xs">
+                                        mysite.net
+                                    </td>
+                                    <td class="py-2 px-3 text-green-600 font-semibold">
+                                        Active
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="glass-card p-6 shadow-md flex flex-col">
+                        <h2 class="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
+                            <i class="fas fa-code text-indigo-600">
+                            </i>
+                            API Usage Instructions
+                        </h2>
+                        <pre class="bg-indigo-50 rounded-lg p-4 text-xs sm:text-sm overflow-x-auto font-mono text-indigo-900"
+                            tabindex="0">
+curl -X GET "https://api.example.com/v1/analytics" \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -H "Content-Type: application/json"
+            </pre>
+                    </div>
+                </div>
+            </section>
+            <!-- Billing Tab -->
+            <section aria-labelledby="tab-billing-btn" class="tab-content hidden" id="tab-billing" role="tabpanel">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    <div class="glass-card p-6 shadow-md flex flex-col justify-center">
+                        <h2 class="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
+                            <i class="fas fa-box-open text-indigo-600">
+                            </i>
+                            Current Plan Overview
+                        </h2>
+                        <div class="text-gray-700 text-base">
+                            <p>
+                                <span class="font-semibold">
+                                    Plan Name:
+                                </span>
+                                Pro Analytics
+                            </p>
+                            <p>
+                                <span class="font-semibold">
+                                    Price:
+                                </span>
+                                $49.99 / month
+                            </p>
+                            <p>
+                                <span class="font-semibold">
+                                    Duration:
+                                </span>
+                                Billed monthly
+                            </p>
+                        </div>
+                    </div>
+                    <div class="glass-card p-6 shadow-md flex flex-col justify-center items-center space-y-4">
+                        <h2 class="text-lg font-semibold text-gray-900 mb-2 flex items-center gap-2">
+                            <i class="fas fa-arrow-up text-indigo-600">
+                            </i>
+                            Upgrade / Subscription
+                        </h2>
+                        <p class="text-gray-700 text-center max-w-sm">
+                            Upgrade your plan to access more features, higher limits, and priority support.
+                        </p>
+                        <button
+                            class="inline-flex items-center gap-2 px-5 py-3 bg-indigo-600 text-white font-semibold rounded-lg shadow-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                            type="button">
+                            <i class="fas fa-credit-card">
+                            </i>
+                            Upgrade Plan
+                        </button>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+    <script>
+        // Tab switching logic
+        const tabs = document.querySelectorAll('[role="tab"]');
+        const tabPanels = document.querySelectorAll('[role="tabpanel"]');
+
+        tabs.forEach((tab) => {
+            tab.addEventListener('click', () => {
+                // Deselect all tabs
+                tabs.forEach((t) => {
+                    t.setAttribute('aria-selected', 'false');
+                    t.classList.remove('border-indigo-600', 'text-indigo-700');
+                    t.classList.add('border-transparent', 'hover:border-indigo-400', 'hover:text-indigo-600');
+                });
+                // Hide all tab panels
+                tabPanels.forEach((panel) => panel.classList.add('hidden'));
+
+                // Select clicked tab
+                tab.setAttribute('aria-selected', 'true');
+                tab.classList.add('border-indigo-600', 'text-indigo-700');
+                tab.classList.remove('border-transparent', 'hover:border-indigo-400', 'hover:text-indigo-600');
+
+                // Show associated panel
+                const tabName = tab.dataset.tab;
+                const panel = document.getElementById(`tab-${tabName}`);
+                if (panel) panel.classList.remove('hidden');
+            });
+        });
+
+        // Accessibility: keyboard navigation for tabs
+        let tabFocus = 0;
+        tabs.forEach((tab, i) => {
+            tab.addEventListener('keydown', (e) => {
+                if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') {
+                    tabs[tabFocus].setAttribute('tabindex', -1);
+                    if (e.key === 'ArrowRight') {
+                        tabFocus = (tabFocus + 1) % tabs.length;
+                    } else if (e.key === 'ArrowLeft') {
+                        tabFocus = (tabFocus - 1 + tabs.length) % tabs.length;
+                    }
+                    tabs[tabFocus].setAttribute('tabindex', 0);
+                    tabs[tabFocus].focus();
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

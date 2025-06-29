@@ -1,0 +1,1437 @@
+<html lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1" name="viewport"/>
+  <title>
+   Dashboard Layout
+  </title>
+  <script src="https://cdn.tailwindcss.com">
+  </script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&amp;display=swap" rel="stylesheet"/>
+  <style>
+   body {
+      font-family: 'Inter', sans-serif;
+    }
+  </style>
+ </head>
+ <body class="bg-gray-50 min-h-screen text-gray-800">
+  <header class="bg-white shadow sticky top-0 z-30">
+   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16">
+    <h1 class="text-xl font-semibold text-indigo-600">
+     Dashboard
+    </h1>
+    <nav class="space-x-4 text-gray-600 text-sm font-medium hidden sm:flex">
+     <a class="hover:text-indigo-600" href="#overview">
+      Overview
+     </a>
+     <a class="hover:text-indigo-600" href="#analytics">
+      Analytics
+     </a>
+     <a class="hover:text-indigo-600" href="#live-view">
+      Live View
+     </a>
+     <a class="hover:text-indigo-600" href="#sessions-users">
+      Sessions / Users
+     </a>
+     <a class="hover:text-indigo-600" href="#funnels">
+      Funnels
+     </a>
+     <a class="hover:text-indigo-600" href="#reports">
+      Reports
+     </a>
+     <a class="hover:text-indigo-600" href="#events">
+      Events
+     </a>
+     <a class="hover:text-indigo-600" href="#errors-bots">
+      Errors &amp; Bots
+     </a>
+     <a class="hover:text-indigo-600" href="#settings-api">
+      Settings / API Key
+     </a>
+     <a class="hover:text-indigo-600" href="#billing-subscriptions">
+      Billing / Subscriptions
+     </a>
+    </nav>
+    <button class="sm:hidden text-gray-600 focus:outline-none" id="mobile-menu-button">
+     <i class="fas fa-bars fa-lg">
+     </i>
+    </button>
+   </div>
+   <nav class="sm:hidden hidden bg-white border-t border-gray-200" id="mobile-menu">
+    <a class="block px-4 py-2 text-gray-700 hover:bg-indigo-50" href="#overview">
+     Overview
+    </a>
+    <a class="block px-4 py-2 text-gray-700 hover:bg-indigo-50" href="#analytics">
+     Analytics
+    </a>
+    <a class="block px-4 py-2 text-gray-700 hover:bg-indigo-50" href="#live-view">
+     Live View
+    </a>
+    <a class="block px-4 py-2 text-gray-700 hover:bg-indigo-50" href="#sessions-users">
+     Sessions / Users
+    </a>
+    <a class="block px-4 py-2 text-gray-700 hover:bg-indigo-50" href="#funnels">
+     Funnels
+    </a>
+    <a class="block px-4 py-2 text-gray-700 hover:bg-indigo-50" href="#reports">
+     Reports
+    </a>
+    <a class="block px-4 py-2 text-gray-700 hover:bg-indigo-50" href="#events">
+     Events
+    </a>
+    <a class="block px-4 py-2 text-gray-700 hover:bg-indigo-50" href="#errors-bots">
+     Errors &amp; Bots
+    </a>
+    <a class="block px-4 py-2 text-gray-700 hover:bg-indigo-50" href="#settings-api">
+     Settings / API Key
+    </a>
+    <a class="block px-4 py-2 text-gray-700 hover:bg-indigo-50" href="#billing-subscriptions">
+     Billing / Subscriptions
+    </a>
+   </nav>
+  </header>
+  <main class="max-w-7xl mx-auto p-4 space-y-12">
+   <!-- 1. Overview -->
+   <section class="space-y-8" id="overview">
+    <h2 class="text-2xl font-semibold text-indigo-700">
+     1. Overview
+    </h2>
+    <!-- Section 1: Summary Cards -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+     <div class="bg-white rounded-lg shadow p-4 flex flex-col justify-between">
+      <div class="flex items-center space-x-3">
+       <i class="fas fa-eye text-indigo-500 text-3xl">
+       </i>
+       <div>
+        <p class="text-sm font-medium text-gray-500">
+         Pageviews Today
+        </p>
+        <p class="text-2xl font-semibold text-gray-900">
+         12,345
+        </p>
+       </div>
+      </div>
+      <p class="mt-2 text-xs text-gray-400">
+       Total pageviews recorded today
+      </p>
+     </div>
+     <div class="bg-white rounded-lg shadow p-4 flex flex-col justify-between">
+      <div class="flex items-center space-x-3">
+       <i class="fas fa-users text-indigo-500 text-3xl">
+       </i>
+       <div>
+        <p class="text-sm font-medium text-gray-500">
+         Unique Visitors
+        </p>
+        <p class="text-2xl font-semibold text-gray-900">
+         4,567
+        </p>
+       </div>
+      </div>
+      <p class="mt-2 text-xs text-gray-400">
+       Number of unique visitors tracked
+      </p>
+     </div>
+     <div class="bg-white rounded-lg shadow p-4 flex flex-col justify-between">
+      <div class="flex items-center space-x-3">
+       <i class="fas fa-sign-out-alt text-indigo-500 text-3xl">
+       </i>
+       <div>
+        <p class="text-sm font-medium text-gray-500">
+         Bounce Rate
+        </p>
+        <p class="text-2xl font-semibold text-gray-900">
+         37.5%
+        </p>
+       </div>
+      </div>
+      <p class="mt-2 text-xs text-gray-400">
+       Percentage of visitors who left quickly
+      </p>
+     </div>
+     <div class="bg-white rounded-lg shadow p-4 flex flex-col justify-between">
+      <div class="flex items-center space-x-3">
+       <i class="fas fa-clock text-indigo-500 text-3xl">
+       </i>
+       <div>
+        <p class="text-sm font-medium text-gray-500">
+         Avg. Duration
+        </p>
+        <p class="text-2xl font-semibold text-gray-900">
+         3m 45s
+        </p>
+       </div>
+      </div>
+      <p class="mt-2 text-xs text-gray-400">
+       Average session duration
+      </p>
+     </div>
+    </div>
+    <!-- Section 2: Pageviews Line Chart -->
+    <div class="bg-white rounded-lg shadow p-6">
+     <h3 class="text-lg font-semibold text-gray-700 mb-4">
+      Pageviews Over Time
+     </h3>
+     <img alt="Line chart showing pageviews over time with a rising trend line and data points" class="w-full h-72 object-contain" height="300" loading="lazy" src="https://storage.googleapis.com/a1aa/image/03be9107-e691-463f-8bcb-7a4965bed4a2.jpg" width="1000"/>
+    </div>
+   </section>
+   <!-- 2. Analytics -->
+   <section class="space-y-8" id="analytics">
+    <h2 class="text-2xl font-semibold text-indigo-700">
+     2. Analytics
+    </h2>
+    <!-- Section 1: Top Pages -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+     <div class="bg-white rounded-lg shadow p-4 overflow-x-auto">
+      <h3 class="text-lg font-semibold text-gray-700 mb-4">
+       Top Pages
+      </h3>
+      <table class="min-w-full text-left text-sm">
+       <thead class="bg-indigo-50 text-indigo-600 font-semibold">
+        <tr>
+         <th class="px-4 py-2 border-b border-indigo-100">
+          URL
+         </th>
+         <th class="px-4 py-2 border-b border-indigo-100">
+          Views
+         </th>
+         <th class="px-4 py-2 border-b border-indigo-100">
+          Duration
+         </th>
+         <th class="px-4 py-2 border-b border-indigo-100">
+          Bounce
+         </th>
+        </tr>
+       </thead>
+       <tbody>
+        <tr class="hover:bg-indigo-50">
+         <td class="px-4 py-2 border-b border-gray-100 truncate max-w-xs">
+          /home
+         </td>
+         <td class="px-4 py-2 border-b border-gray-100">
+          5,432
+         </td>
+         <td class="px-4 py-2 border-b border-gray-100">
+          4m 12s
+         </td>
+         <td class="px-4 py-2 border-b border-gray-100">
+          25%
+         </td>
+        </tr>
+        <tr class="hover:bg-indigo-50 bg-indigo-50">
+         <td class="px-4 py-2 border-b border-gray-100 truncate max-w-xs">
+          /products
+         </td>
+         <td class="px-4 py-2 border-b border-gray-100">
+          3,210
+         </td>
+         <td class="px-4 py-2 border-b border-gray-100">
+          3m 30s
+         </td>
+         <td class="px-4 py-2 border-b border-gray-100">
+          30%
+         </td>
+        </tr>
+        <tr class="hover:bg-indigo-50">
+         <td class="px-4 py-2 border-b border-gray-100 truncate max-w-xs">
+          /blog/how-to-use
+         </td>
+         <td class="px-4 py-2 border-b border-gray-100">
+          2,100
+         </td>
+         <td class="px-4 py-2 border-b border-gray-100">
+          5m 10s
+         </td>
+         <td class="px-4 py-2 border-b border-gray-100">
+          20%
+         </td>
+        </tr>
+        <tr class="hover:bg-indigo-50 bg-indigo-50">
+         <td class="px-4 py-2 border-b border-gray-100 truncate max-w-xs">
+          /contact
+         </td>
+         <td class="px-4 py-2 border-b border-gray-100">
+          1,500
+         </td>
+         <td class="px-4 py-2 border-b border-gray-100">
+          2m 45s
+         </td>
+         <td class="px-4 py-2 border-b border-gray-100">
+          40%
+         </td>
+        </tr>
+        <tr class="hover:bg-indigo-50">
+         <td class="px-4 py-2 border-b border-gray-100 truncate max-w-xs">
+          /about
+         </td>
+         <td class="px-4 py-2 border-b border-gray-100">
+          1,200
+         </td>
+         <td class="px-4 py-2 border-b border-gray-100">
+          3m 00s
+         </td>
+         <td class="px-4 py-2 border-b border-gray-100">
+          35%
+         </td>
+        </tr>
+       </tbody>
+      </table>
+     </div>
+     <div class="bg-white rounded-lg shadow p-6 flex flex-col">
+      <h3 class="text-lg font-semibold text-gray-700 mb-4">
+       Top Pages Bar Chart
+      </h3>
+      <img alt="Bar chart showing top pages with bars representing views for each page" class="w-full h-72 object-contain" height="400" loading="lazy" src="https://storage.googleapis.com/a1aa/image/a476ee9a-5a6d-4794-e667-d0c3931e7775.jpg" width="600"/>
+     </div>
+    </div>
+    <!-- Section 2: Geo Location + Device -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+     <div class="bg-white rounded-lg shadow p-6">
+      <h3 class="text-lg font-semibold text-gray-700 mb-4">
+       Geo Location Map
+      </h3>
+      <img alt="World map showing geo locations of visitors with colored dots representing visitor density" class="w-full h-72 object-contain" height="400" loading="lazy" src="https://storage.googleapis.com/a1aa/image/8228149f-8058-4159-8a4f-33b8529febb3.jpg" width="600"/>
+     </div>
+     <div class="bg-white rounded-lg shadow p-6">
+      <h3 class="text-lg font-semibold text-gray-700 mb-4">
+       Device Type Distribution
+      </h3>
+      <img alt="Pie chart showing distribution of device types such as mobile, tablet, desktop" class="w-full h-72 object-contain" height="400" loading="lazy" src="https://storage.googleapis.com/a1aa/image/e096f432-bd32-4289-561c-b1d23ac88414.jpg" width="600"/>
+     </div>
+    </div>
+   </section>
+   <!-- 3. Live View -->
+   <section class="space-y-8" id="live-view">
+    <h2 class="text-2xl font-semibold text-indigo-700">
+     3. Live View
+    </h2>
+    <!-- Section 1: Active Users Table -->
+    <div class="bg-white rounded-lg shadow p-4 overflow-x-auto">
+     <h3 class="text-lg font-semibold text-gray-700 mb-4">
+      Active Users
+     </h3>
+     <table class="min-w-full text-left text-sm">
+      <thead class="bg-indigo-50 text-indigo-600 font-semibold">
+       <tr>
+        <th class="px-4 py-2 border-b border-indigo-100">
+         IP
+        </th>
+        <th class="px-4 py-2 border-b border-indigo-100">
+         Page
+        </th>
+        <th class="px-4 py-2 border-b border-indigo-100">
+         Time Active
+        </th>
+        <th class="px-4 py-2 border-b border-indigo-100">
+         Country
+        </th>
+        <th class="px-4 py-2 border-b border-indigo-100">
+         Device
+        </th>
+       </tr>
+      </thead>
+      <tbody>
+       <tr class="hover:bg-indigo-50">
+        <td class="px-4 py-2 border-b border-gray-100">
+         192.168.1.1
+        </td>
+        <td class="px-4 py-2 border-b border-gray-100 truncate max-w-xs">
+         /home
+        </td>
+        <td class="px-4 py-2 border-b border-gray-100">
+         5m 12s
+        </td>
+        <td class="px-4 py-2 border-b border-gray-100">
+         United States
+        </td>
+        <td class="px-4 py-2 border-b border-gray-100">
+         Desktop
+        </td>
+       </tr>
+       <tr class="hover:bg-indigo-50 bg-indigo-50">
+        <td class="px-4 py-2 border-b border-gray-100">
+         172.16.0.5
+        </td>
+        <td class="px-4 py-2 border-b border-gray-100 truncate max-w-xs">
+         /products
+        </td>
+        <td class="px-4 py-2 border-b border-gray-100">
+         3m 45s
+        </td>
+        <td class="px-4 py-2 border-b border-gray-100">
+         Germany
+        </td>
+        <td class="px-4 py-2 border-b border-gray-100">
+         Mobile
+        </td>
+       </tr>
+       <tr class="hover:bg-indigo-50">
+        <td class="px-4 py-2 border-b border-gray-100">
+         10.0.0.12
+        </td>
+        <td class="px-4 py-2 border-b border-gray-100 truncate max-w-xs">
+         /blog/how-to-use
+        </td>
+        <td class="px-4 py-2 border-b border-gray-100">
+         7m 20s
+        </td>
+        <td class="px-4 py-2 border-b border-gray-100">
+         Canada
+        </td>
+        <td class="px-4 py-2 border-b border-gray-100">
+         Tablet
+        </td>
+       </tr>
+       <tr class="hover:bg-indigo-50 bg-indigo-50">
+        <td class="px-4 py-2 border-b border-gray-100">
+         203.0.113.7
+        </td>
+        <td class="px-4 py-2 border-b border-gray-100 truncate max-w-xs">
+         /contact
+        </td>
+        <td class="px-4 py-2 border-b border-gray-100">
+         2m 10s
+        </td>
+        <td class="px-4 py-2 border-b border-gray-100">
+         Australia
+        </td>
+        <td class="px-4 py-2 border-b border-gray-100">
+         Desktop
+        </td>
+       </tr>
+       <tr class="hover:bg-indigo-50">
+        <td class="px-4 py-2 border-b border-gray-100">
+         198.51.100.22
+        </td>
+        <td class="px-4 py-2 border-b border-gray-100 truncate max-w-xs">
+         /about
+        </td>
+        <td class="px-4 py-2 border-b border-gray-100">
+         4m 05s
+        </td>
+        <td class="px-4 py-2 border-b border-gray-100">
+         United Kingdom
+        </td>
+        <td class="px-4 py-2 border-b border-gray-100">
+         Mobile
+        </td>
+       </tr>
+      </tbody>
+     </table>
+    </div>
+    <!-- Section 2: Live Count Graph -->
+    <div class="bg-white rounded-lg shadow p-6">
+     <h3 class="text-lg font-semibold text-gray-700 mb-4">
+      Realtime Active Users
+     </h3>
+     <img alt="Realtime line chart showing number of active users over time with fluctuating line" class="w-full h-72 object-contain" height="300" loading="lazy" src="https://storage.googleapis.com/a1aa/image/212f9a29-3d62-430a-be88-5907b571b468.jpg" width="1000"/>
+    </div>
+   </section>
+   <!-- 4. Sessions / Users -->
+   <section class="space-y-8" id="sessions-users">
+    <h2 class="text-2xl font-semibold text-indigo-700">
+     4. Sessions / Users
+    </h2>
+    <!-- Section 1: Session Table -->
+    <div class="bg-white rounded-lg shadow p-4 overflow-x-auto">
+     <h3 class="text-lg font-semibold text-gray-700 mb-4">
+      Sessions
+     </h3>
+     <table class="min-w-full text-left text-sm">
+      <thead class="bg-indigo-50 text-indigo-600 font-semibold">
+       <tr>
+        <th class="px-4 py-2 border-b border-indigo-100">
+         Session ID
+        </th>
+        <th class="px-4 py-2 border-b border-indigo-100">
+         Start Time
+        </th>
+        <th class="px-4 py-2 border-b border-indigo-100">
+         Duration
+        </th>
+        <th class="px-4 py-2 border-b border-indigo-100">
+         Pages
+        </th>
+        <th class="px-4 py-2 border-b border-indigo-100">
+         Device
+        </th>
+       </tr>
+      </thead>
+      <tbody>
+       <tr class="hover:bg-indigo-50">
+        <td class="px-4 py-2 border-b border-gray-100 truncate max-w-xs">
+         sess_00123abc
+        </td>
+        <td class="px-4 py-2 border-b border-gray-100">
+         2024-06-01 08:15
+        </td>
+        <td class="px-4 py-2 border-b border-gray-100">
+         12m 30s
+        </td>
+        <td class="px-4 py-2 border-b border-gray-100">
+         5
+        </td>
+        <td class="px-4 py-2 border-b border-gray-100">
+         Desktop
+        </td>
+       </tr>
+       <tr class="hover:bg-indigo-50 bg-indigo-50">
+        <td class="px-4 py-2 border-b border-gray-100 truncate max-w-xs">
+         sess_00456def
+        </td>
+        <td class="px-4 py-2 border-b border-gray-100">
+         2024-06-01 09:00
+        </td>
+        <td class="px-4 py-2 border-b border-gray-100">
+         8m 45s
+        </td>
+        <td class="px-4 py-2 border-b border-gray-100">
+         3
+        </td>
+        <td class="px-4 py-2 border-b border-gray-100">
+         Mobile
+        </td>
+       </tr>
+       <tr class="hover:bg-indigo-50">
+        <td class="px-4 py-2 border-b border-gray-100 truncate max-w-xs">
+         sess_00789ghi
+        </td>
+        <td class="px-4 py-2 border-b border-gray-100">
+         2024-06-01 09:30
+        </td>
+        <td class="px-4 py-2 border-b border-gray-100">
+         15m 10s
+        </td>
+        <td class="px-4 py-2 border-b border-gray-100">
+         7
+        </td>
+        <td class="px-4 py-2 border-b border-gray-100">
+         Tablet
+        </td>
+       </tr>
+       <tr class="hover:bg-indigo-50 bg-indigo-50">
+        <td class="px-4 py-2 border-b border-gray-100 truncate max-w-xs">
+         sess_01011jkl
+        </td>
+        <td class="px-4 py-2 border-b border-gray-100">
+         2024-06-01 10:00
+        </td>
+        <td class="px-4 py-2 border-b border-gray-100">
+         5m 20s
+        </td>
+        <td class="px-4 py-2 border-b border-gray-100">
+         2
+        </td>
+        <td class="px-4 py-2 border-b border-gray-100">
+         Desktop
+        </td>
+       </tr>
+       <tr class="hover:bg-indigo-50">
+        <td class="px-4 py-2 border-b border-gray-100 truncate max-w-xs">
+         sess_01314mno
+        </td>
+        <td class="px-4 py-2 border-b border-gray-100">
+         2024-06-01 10:30
+        </td>
+        <td class="px-4 py-2 border-b border-gray-100">
+         20m 00s
+        </td>
+        <td class="px-4 py-2 border-b border-gray-100">
+         10
+        </td>
+        <td class="px-4 py-2 border-b border-gray-100">
+         Mobile
+        </td>
+       </tr>
+      </tbody>
+     </table>
+    </div>
+    <!-- Section 2: Journey Path -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+     <div class="bg-white rounded-lg shadow p-4 overflow-x-auto">
+      <h3 class="text-lg font-semibold text-gray-700 mb-4">
+       User Journey URLs
+      </h3>
+      <table class="min-w-full text-left text-sm">
+       <thead class="bg-indigo-50 text-indigo-600 font-semibold">
+        <tr>
+         <th class="px-4 py-2 border-b border-indigo-100">
+          Session ID
+         </th>
+         <th class="px-4 py-2 border-b border-indigo-100">
+          Visited URLs
+         </th>
+        </tr>
+       </thead>
+       <tbody>
+        <tr class="hover:bg-indigo-50">
+         <td class="px-4 py-2 border-b border-gray-100 truncate max-w-xs">
+          sess_00123abc
+         </td>
+         <td class="px-4 py-2 border-b border-gray-100">
+          /home → /products → /checkout
+         </td>
+        </tr>
+        <tr class="hover:bg-indigo-50 bg-indigo-50">
+         <td class="px-4 py-2 border-b border-gray-100 truncate max-w-xs">
+          sess_00456def
+         </td>
+         <td class="px-4 py-2 border-b border-gray-100">
+          /blog/how-to-use → /about
+         </td>
+        </tr>
+        <tr class="hover:bg-indigo-50">
+         <td class="px-4 py-2 border-b border-gray-100 truncate max-w-xs">
+          sess_00789ghi
+         </td>
+         <td class="px-4 py-2 border-b border-gray-100">
+          /home → /contact → /about
+         </td>
+        </tr>
+        <tr class="hover:bg-indigo-50 bg-indigo-50">
+         <td class="px-4 py-2 border-b border-gray-100 truncate max-w-xs">
+          sess_01011jkl
+         </td>
+         <td class="px-4 py-2 border-b border-gray-100">
+          /products → /cart
+         </td>
+        </tr>
+        <tr class="hover:bg-indigo-50">
+         <td class="px-4 py-2 border-b border-gray-100 truncate max-w-xs">
+          sess_01314mno
+         </td>
+         <td class="px-4 py-2 border-b border-gray-100">
+          /home → /products → /blog/how-to-use → /checkout
+         </td>
+        </tr>
+       </tbody>
+      </table>
+     </div>
+     <div class="bg-white rounded-lg shadow p-6 flex flex-col">
+      <h3 class="text-lg font-semibold text-gray-700 mb-4">
+       Journey Step Chart
+      </h3>
+      <img alt="Step chart or breadcrumb view showing user journey steps in sequence with arrows" class="w-full h-72 object-contain" height="400" loading="lazy" src="https://storage.googleapis.com/a1aa/image/7e338740-c7be-4d6a-6b8f-d6f220aa083e.jpg" width="600"/>
+     </div>
+    </div>
+   </section>
+   <!-- 5. Funnels -->
+   <section class="space-y-8" id="funnels">
+    <h2 class="text-2xl font-semibold text-indigo-700">
+     5. Funnels
+    </h2>
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+     <!-- Section 1: Funnel Table -->
+     <div class="bg-white rounded-lg shadow p-4 overflow-x-auto">
+      <h3 class="text-lg font-semibold text-gray-700 mb-4">
+       Funnel Table
+      </h3>
+      <table class="min-w-full text-left text-sm">
+       <thead class="bg-indigo-50 text-indigo-600 font-semibold">
+        <tr>
+         <th class="px-4 py-2 border-b border-indigo-100">
+          Funnel Name
+         </th>
+         <th class="px-4 py-2 border-b border-indigo-100">
+          Start
+         </th>
+         <th class="px-4 py-2 border-b border-indigo-100">
+          Drop (%)
+         </th>
+         <th class="px-4 py-2 border-b border-indigo-100">
+          Completed
+         </th>
+        </tr>
+       </thead>
+       <tbody>
+        <tr class="hover:bg-indigo-50">
+         <td class="px-4 py-2 border-b border-gray-100">
+          Signup Funnel
+         </td>
+         <td class="px-4 py-2 border-b border-gray-100">
+          1,000
+         </td>
+         <td class="px-4 py-2 border-b border-gray-100">
+          40%
+         </td>
+         <td class="px-4 py-2 border-b border-gray-100">
+          600
+         </td>
+        </tr>
+        <tr class="hover:bg-indigo-50 bg-indigo-50">
+         <td class="px-4 py-2 border-b border-gray-100">
+          Checkout Funnel
+         </td>
+         <td class="px-4 py-2 border-b border-gray-100">
+          800
+         </td>
+         <td class="px-4 py-2 border-b border-gray-100">
+          50%
+         </td>
+         <td class="px-4 py-2 border-b border-gray-100">
+          400
+         </td>
+        </tr>
+        <tr class="hover:bg-indigo-50">
+         <td class="px-4 py-2 border-b border-gray-100">
+          Subscription Funnel
+         </td>
+         <td class="px-4 py-2 border-b border-gray-100">
+          500
+         </td>
+         <td class="px-4 py-2 border-b border-gray-100">
+          30%
+         </td>
+         <td class="px-4 py-2 border-b border-gray-100">
+          350
+         </td>
+        </tr>
+        <tr class="hover:bg-indigo-50 bg-indigo-50">
+         <td class="px-4 py-2 border-b border-gray-100">
+          Feedback Funnel
+         </td>
+         <td class="px-4 py-2 border-b border-gray-100">
+          300
+         </td>
+         <td class="px-4 py-2 border-b border-gray-100">
+          20%
+         </td>
+         <td class="px-4 py-2 border-b border-gray-100">
+          240
+         </td>
+        </tr>
+        <tr class="hover:bg-indigo-50">
+         <td class="px-4 py-2 border-b border-gray-100">
+          Referral Funnel
+         </td>
+         <td class="px-4 py-2 border-b border-gray-100">
+          200
+         </td>
+         <td class="px-4 py-2 border-b border-gray-100">
+          10%
+         </td>
+         <td class="px-4 py-2 border-b border-gray-100">
+          180
+         </td>
+        </tr>
+       </tbody>
+      </table>
+     </div>
+     <!-- Section 2: Funnel Steps Chart -->
+     <div class="bg-white rounded-lg shadow p-6 flex flex-col">
+      <h3 class="text-lg font-semibold text-gray-700 mb-4">
+       Funnel Steps Chart
+      </h3>
+      <img alt="Sankey or drop-off bar chart showing funnel steps and user drop-off rates" class="w-full h-72 object-contain" height="400" loading="lazy" src="https://storage.googleapis.com/a1aa/image/3360f9d4-f410-4a17-de2e-25d08219d0b1.jpg" width="600"/>
+     </div>
+    </div>
+   </section>
+   <!-- 6. Reports -->
+   <section class="space-y-8" id="reports">
+    <h2 class="text-2xl font-semibold text-indigo-700">
+     6. Reports
+    </h2>
+    <div class="bg-white rounded-lg shadow p-4 overflow-x-auto">
+     <h3 class="text-lg font-semibold text-gray-700 mb-4">
+      Exported Reports
+     </h3>
+     <table class="min-w-full text-left text-sm">
+      <thead class="bg-indigo-50 text-indigo-600 font-semibold">
+       <tr>
+        <th class="px-4 py-2 border-b border-indigo-100">
+         Date
+        </th>
+        <th class="px-4 py-2 border-b border-indigo-100">
+         Type
+        </th>
+        <th class="px-4 py-2 border-b border-indigo-100">
+         Period
+        </th>
+        <th class="px-4 py-2 border-b border-indigo-100">
+         File
+        </th>
+       </tr>
+      </thead>
+      <tbody>
+       <tr class="hover:bg-indigo-50">
+        <td class="px-4 py-2 border-b border-gray-100">
+         2024-05-31
+        </td>
+        <td class="px-4 py-2 border-b border-gray-100">
+         Pageviews
+        </td>
+        <td class="px-4 py-2 border-b border-gray-100">
+         May 2024
+        </td>
+        <td class="px-4 py-2 border-b border-gray-100">
+         <a class="text-indigo-600 hover:underline" href="#">
+          pageviews_may2024.csv
+         </a>
+        </td>
+       </tr>
+       <tr class="hover:bg-indigo-50 bg-indigo-50">
+        <td class="px-4 py-2 border-b border-gray-100">
+         2024-05-30
+        </td>
+        <td class="px-4 py-2 border-b border-gray-100">
+         Click Events
+        </td>
+        <td class="px-4 py-2 border-b border-gray-100">
+         May 2024
+        </td>
+        <td class="px-4 py-2 border-b border-gray-100">
+         <a class="text-indigo-600 hover:underline" href="#">
+          clicks_may2024.csv
+         </a>
+        </td>
+       </tr>
+       <tr class="hover:bg-indigo-50">
+        <td class="px-4 py-2 border-b border-gray-100">
+         2024-05-29
+        </td>
+        <td class="px-4 py-2 border-b border-gray-100">
+         Geo Locations
+        </td>
+        <td class="px-4 py-2 border-b border-gray-100">
+         May 2024
+        </td>
+        <td class="px-4 py-2 border-b border-gray-100">
+         <a class="text-indigo-600 hover:underline" href="#">
+          geo_may2024.csv
+         </a>
+        </td>
+       </tr>
+       <tr class="hover:bg-indigo-50 bg-indigo-50">
+        <td class="px-4 py-2 border-b border-gray-100">
+         2024-05-28
+        </td>
+        <td class="px-4 py-2 border-b border-gray-100">
+         Funnels
+        </td>
+        <td class="px-4 py-2 border-b border-gray-100">
+         May 2024
+        </td>
+        <td class="px-4 py-2 border-b border-gray-100">
+         <a class="text-indigo-600 hover:underline" href="#">
+          funnels_may2024.csv
+         </a>
+        </td>
+       </tr>
+       <tr class="hover:bg-indigo-50">
+        <td class="px-4 py-2 border-b border-gray-100">
+         2024-05-27
+        </td>
+        <td class="px-4 py-2 border-b border-gray-100">
+         Custom Events
+        </td>
+        <td class="px-4 py-2 border-b border-gray-100">
+         May 2024
+        </td>
+        <td class="px-4 py-2 border-b border-gray-100">
+         <a class="text-indigo-600 hover:underline" href="#">
+          custom_events_may2024.csv
+         </a>
+        </td>
+       </tr>
+      </tbody>
+     </table>
+    </div>
+   </section>
+   <!-- 7. Events -->
+   <section class="space-y-8" id="events">
+    <h2 class="text-2xl font-semibold text-indigo-700">
+     7. Events
+    </h2>
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+     <!-- Section 1: Click Events -->
+     <div class="bg-white rounded-lg shadow p-4 overflow-x-auto">
+      <h3 class="text-lg font-semibold text-gray-700 mb-4">
+       Click Events
+      </h3>
+      <table class="min-w-full text-left text-sm">
+       <thead class="bg-indigo-50 text-indigo-600 font-semibold">
+        <tr>
+         <th class="px-4 py-2 border-b border-indigo-100">
+          Selector
+         </th>
+         <th class="px-4 py-2 border-b border-indigo-100">
+          X
+         </th>
+         <th class="px-4 py-2 border-b border-indigo-100">
+          Y
+         </th>
+         <th class="px-4 py-2 border-b border-indigo-100">
+          Time
+         </th>
+        </tr>
+       </thead>
+       <tbody>
+        <tr class="hover:bg-indigo-50">
+         <td class="px-4 py-2 border-b border-gray-100 truncate max-w-xs">
+          #btn-submit
+         </td>
+         <td class="px-4 py-2 border-b border-gray-100">
+          120
+         </td>
+         <td class="px-4 py-2 border-b border-gray-100">
+          340
+         </td>
+         <td class="px-4 py-2 border-b border-gray-100">
+          2024-06-01 10:15:30
+         </td>
+        </tr>
+        <tr class="hover:bg-indigo-50 bg-indigo-50">
+         <td class="px-4 py-2 border-b border-gray-100 truncate max-w-xs">
+          .nav-link-home
+         </td>
+         <td class="px-4 py-2 border-b border-gray-100">
+          50
+         </td>
+         <td class="px-4 py-2 border-b border-gray-100">
+          200
+         </td>
+         <td class="px-4 py-2 border-b border-gray-100">
+          2024-06-01 10:16:10
+         </td>
+        </tr>
+        <tr class="hover:bg-indigo-50">
+         <td class="px-4 py-2 border-b border-gray-100 truncate max-w-xs">
+          #search-input
+         </td>
+         <td class="px-4 py-2 border-b border-gray-100">
+          300
+         </td>
+         <td class="px-4 py-2 border-b border-gray-100">
+          150
+         </td>
+         <td class="px-4 py-2 border-b border-gray-100">
+          2024-06-01 10:17:05
+         </td>
+        </tr>
+        <tr class="hover:bg-indigo-50 bg-indigo-50">
+         <td class="px-4 py-2 border-b border-gray-100 truncate max-w-xs">
+          .footer-link-contact
+         </td>
+         <td class="px-4 py-2 border-b border-gray-100">
+          400
+         </td>
+         <td class="px-4 py-2 border-b border-gray-100">
+          500
+         </td>
+         <td class="px-4 py-2 border-b border-gray-100">
+          2024-06-01 10:18:20
+         </td>
+        </tr>
+        <tr class="hover:bg-indigo-50">
+         <td class="px-4 py-2 border-b border-gray-100 truncate max-w-xs">
+          #btn-cancel
+         </td>
+         <td class="px-4 py-2 border-b border-gray-100">
+          220
+         </td>
+         <td class="px-4 py-2 border-b border-gray-100">
+          330
+         </td>
+         <td class="px-4 py-2 border-b border-gray-100">
+          2024-06-01 10:19:45
+         </td>
+        </tr>
+       </tbody>
+      </table>
+     </div>
+     <!-- Section 1: Click Events Chart Heatmap -->
+     <div class="bg-white rounded-lg shadow p-6 flex flex-col">
+      <h3 class="text-lg font-semibold text-gray-700 mb-4">
+       Click Events Heatmap
+      </h3>
+      <img alt="Heatmap visualization showing intensity of click events on a webpage with red and yellow hotspots" class="w-full h-72 object-contain" height="400" loading="lazy" src="https://storage.googleapis.com/a1aa/image/1d7b8a12-b049-4132-96e6-089f2414728d.jpg" width="600"/>
+     </div>
+    </div>
+    <!-- Section 2: Scroll Events + Custom Events -->
+    <div class="bg-white rounded-lg shadow p-4 overflow-x-auto">
+     <h3 class="text-lg font-semibold text-gray-700 mb-4">
+      Scroll Events &amp; Custom Events
+     </h3>
+     <table class="min-w-full text-left text-sm">
+      <thead class="bg-indigo-50 text-indigo-600 font-semibold">
+       <tr>
+        <th class="px-4 py-2 border-b border-indigo-100">
+         Event
+        </th>
+        <th class="px-4 py-2 border-b border-indigo-100">
+         % Scroll
+        </th>
+        <th class="px-4 py-2 border-b border-indigo-100">
+         Time
+        </th>
+       </tr>
+      </thead>
+      <tbody>
+       <tr class="hover:bg-indigo-50">
+        <td class="px-4 py-2 border-b border-gray-100">
+         scroll
+        </td>
+        <td class="px-4 py-2 border-b border-gray-100">
+         75%
+        </td>
+        <td class="px-4 py-2 border-b border-gray-100">
+         2024-06-01 10:20:00
+        </td>
+       </tr>
+       <tr class="hover:bg-indigo-50 bg-indigo-50">
+        <td class="px-4 py-2 border-b border-gray-100">
+         custom:video-play
+        </td>
+        <td class="px-4 py-2 border-b border-gray-100">
+         -
+        </td>
+        <td class="px-4 py-2 border-b border-gray-100">
+         2024-06-01 10:21:15
+        </td>
+       </tr>
+       <tr class="hover:bg-indigo-50">
+        <td class="px-4 py-2 border-b border-gray-100">
+         scroll
+        </td>
+        <td class="px-4 py-2 border-b border-gray-100">
+         50%
+        </td>
+        <td class="px-4 py-2 border-b border-gray-100">
+         2024-06-01 10:22:30
+        </td>
+       </tr>
+       <tr class="hover:bg-indigo-50 bg-indigo-50">
+        <td class="px-4 py-2 border-b border-gray-100">
+         custom:form-submit
+        </td>
+        <td class="px-4 py-2 border-b border-gray-100">
+         -
+        </td>
+        <td class="px-4 py-2 border-b border-gray-100">
+         2024-06-01 10:23:45
+        </td>
+       </tr>
+       <tr class="hover:bg-indigo-50">
+        <td class="px-4 py-2 border-b border-gray-100">
+         scroll
+        </td>
+        <td class="px-4 py-2 border-b border-gray-100">
+         90%
+        </td>
+        <td class="px-4 py-2 border-b border-gray-100">
+         2024-06-01 10:24:50
+        </td>
+       </tr>
+      </tbody>
+     </table>
+    </div>
+   </section>
+   <!-- 8. Errors & Bots -->
+   <section class="space-y-8" id="errors-bots">
+    <h2 class="text-2xl font-semibold text-indigo-700">
+     8. Errors &amp; Bots
+    </h2>
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+     <!-- Section 1: Client Errors -->
+     <div class="bg-white rounded-lg shadow p-4 overflow-x-auto">
+      <h3 class="text-lg font-semibold text-gray-700 mb-4">
+       Client Errors
+      </h3>
+      <table class="min-w-full text-left text-sm">
+       <thead class="bg-indigo-50 text-indigo-600 font-semibold">
+        <tr>
+         <th class="px-4 py-2 border-b border-indigo-100">
+          Session
+         </th>
+         <th class="px-4 py-2 border-b border-indigo-100">
+          Message
+         </th>
+         <th class="px-4 py-2 border-b border-indigo-100">
+          Stack
+         </th>
+         <th class="px-4 py-2 border-b border-indigo-100">
+          Time
+         </th>
+        </tr>
+       </thead>
+       <tbody>
+        <tr class="hover:bg-indigo-50">
+         <td class="px-4 py-2 border-b border-gray-100 truncate max-w-xs">
+          sess_00123abc
+         </td>
+         <td class="px-4 py-2 border-b border-gray-100">
+          TypeError: undefined is not a function
+         </td>
+         <td class="px-4 py-2 border-b border-gray-100 truncate max-w-xs">
+          app.js:45:12
+         </td>
+         <td class="px-4 py-2 border-b border-gray-100">
+          2024-06-01 09:15:00
+         </td>
+        </tr>
+        <tr class="hover:bg-indigo-50 bg-indigo-50">
+         <td class="px-4 py-2 border-b border-gray-100 truncate max-w-xs">
+          sess_00456def
+         </td>
+         <td class="px-4 py-2 border-b border-gray-100">
+          ReferenceError: x is not defined
+         </td>
+         <td class="px-4 py-2 border-b border-gray-100 truncate max-w-xs">
+          main.js:88:5
+         </td>
+         <td class="px-4 py-2 border-b border-gray-100">
+          2024-06-01 09:45:30
+         </td>
+        </tr>
+        <tr class="hover:bg-indigo-50">
+         <td class="px-4 py-2 border-b border-gray-100 truncate max-w-xs">
+          sess_00789ghi
+         </td>
+         <td class="px-4 py-2 border-b border-gray-100">
+          SyntaxError: Unexpected token
+         </td>
+         <td class="px-4 py-2 border-b border-gray-100 truncate max-w-xs">
+          index.js:12:3
+         </td>
+         <td class="px-4 py-2 border-b border-gray-100">
+          2024-06-01 10:00:10
+         </td>
+        </tr>
+        <tr class="hover:bg-indigo-50 bg-indigo-50">
+         <td class="px-4 py-2 border-b border-gray-100 truncate max-w-xs">
+          sess_01011jkl
+         </td>
+         <td class="px-4 py-2 border-b border-gray-100">
+          RangeError: Maximum call stack size exceeded
+         </td>
+         <td class="px-4 py-2 border-b border-gray-100 truncate max-w-xs">
+          utils.js:150:20
+         </td>
+         <td class="px-4 py-2 border-b border-gray-100">
+          2024-06-01 10:10:45
+         </td>
+        </tr>
+        <tr class="hover:bg-indigo-50">
+         <td class="px-4 py-2 border-b border-gray-100 truncate max-w-xs">
+          sess_01314mno
+         </td>
+         <td class="px-4 py-2 border-b border-gray-100">
+          Error: Network request failed
+         </td>
+         <td class="px-4 py-2 border-b border-gray-100 truncate max-w-xs">
+          network.js:33:7
+         </td>
+         <td class="px-4 py-2 border-b border-gray-100">
+          2024-06-01 10:20:30
+         </td>
+        </tr>
+       </tbody>
+      </table>
+     </div>
+     <!-- Section 2: Bot Detection -->
+     <div class="bg-white rounded-lg shadow p-4 overflow-x-auto">
+      <h3 class="text-lg font-semibold text-gray-700 mb-4">
+       Bot Detection
+      </h3>
+      <table class="min-w-full text-left text-sm">
+       <thead class="bg-indigo-50 text-indigo-600 font-semibold">
+        <tr>
+         <th class="px-4 py-2 border-b border-indigo-100">
+          Bot
+         </th>
+         <th class="px-4 py-2 border-b border-indigo-100">
+          Verified
+         </th>
+         <th class="px-4 py-2 border-b border-indigo-100">
+          Session ID
+         </th>
+        </tr>
+       </thead>
+       <tbody>
+        <tr class="hover:bg-indigo-50">
+         <td class="px-4 py-2 border-b border-gray-100">
+          Googlebot
+         </td>
+         <td class="px-4 py-2 border-b border-gray-100">
+          Yes
+         </td>
+         <td class="px-4 py-2 border-b border-gray-100 truncate max-w-xs">
+          sess_00123abc
+         </td>
+        </tr>
+        <tr class="hover:bg-indigo-50 bg-indigo-50">
+         <td class="px-4 py-2 border-b border-gray-100">
+          Bingbot
+         </td>
+         <td class="px-4 py-2 border-b border-gray-100">
+          Yes
+         </td>
+         <td class="px-4 py-2 border-b border-gray-100 truncate max-w-xs">
+          sess_00456def
+         </td>
+        </tr>
+        <tr class="hover:bg-indigo-50">
+         <td class="px-4 py-2 border-b border-gray-100">
+          UnknownBot
+         </td>
+         <td class="px-4 py-2 border-b border-gray-100">
+          No
+         </td>
+         <td class="px-4 py-2 border-b border-gray-100 truncate max-w-xs">
+          sess_00789ghi
+         </td>
+        </tr>
+        <tr class="hover:bg-indigo-50 bg-indigo-50">
+         <td class="px-4 py-2 border-b border-gray-100">
+          YandexBot
+         </td>
+         <td class="px-4 py-2 border-b border-gray-100">
+          Yes
+         </td>
+         <td class="px-4 py-2 border-b border-gray-100 truncate max-w-xs">
+          sess_01011jkl
+         </td>
+        </tr>
+        <tr class="hover:bg-indigo-50">
+         <td class="px-4 py-2 border-b border-gray-100">
+          DuckDuckBot
+         </td>
+         <td class="px-4 py-2 border-b border-gray-100">
+          Yes
+         </td>
+         <td class="px-4 py-2 border-b border-gray-100 truncate max-w-xs">
+          sess_01314mno
+         </td>
+        </tr>
+       </tbody>
+      </table>
+     </div>
+    </div>
+   </section>
+   <!-- 9. Settings / API Key -->
+   <section class="space-y-8" id="settings-api">
+    <h2 class="text-2xl font-semibold text-indigo-700">
+     9. Settings / API Key
+    </h2>
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+     <!-- Section 1: API Keys Table -->
+     <div class="bg-white rounded-lg shadow p-4 overflow-x-auto">
+      <h3 class="text-lg font-semibold text-gray-700 mb-4">
+       API Keys
+      </h3>
+      <table class="min-w-full text-left text-sm">
+       <thead class="bg-indigo-50 text-indigo-600 font-semibold">
+        <tr>
+         <th class="px-4 py-2 border-b border-indigo-100">
+          Project
+         </th>
+         <th class="px-4 py-2 border-b border-indigo-100">
+          Key
+         </th>
+         <th class="px-4 py-2 border-b border-indigo-100">
+          Domain
+         </th>
+         <th class="px-4 py-2 border-b border-indigo-100">
+          Status
+         </th>
+        </tr>
+       </thead>
+       <tbody>
+        <tr class="hover:bg-indigo-50">
+         <td class="px-4 py-2 border-b border-gray-100">
+          Project Alpha
+         </td>
+         <td class="px-4 py-2 border-b border-gray-100 truncate max-w-xs">
+          abcd1234efgh5678ijkl
+         </td>
+         <td class="px-4 py-2 border-b border-gray-100">
+          alpha.example.com
+         </td>
+         <td class="px-4 py-2 border-b border-gray-100 text-green-600 font-semibold">
+          Active
+         </td>
+        </tr>
+        <tr class="hover:bg-indigo-50 bg-indigo-50">
+         <td class="px-4 py-2 border-b border-gray-100">
+          Project Beta
+         </td>
+         <td class="px-4 py-2 border-b border-gray-100 truncate max-w-xs">
+          mnop1234qrst5678uvwx
+         </td>
+         <td class="px-4 py-2 border-b border-gray-100">
+          beta.example.com
+         </td>
+         <td class="px-4 py-2 border-b border-gray-100 text-red-600 font-semibold">
+          Inactive
+         </td>
+        </tr>
+        <tr class="hover:bg-indigo-50">
+         <td class="px-4 py-2 border-b border-gray-100">
+          Project Gamma
+         </td>
+         <td class="px-4 py-2 border-b border-gray-100 truncate max-w-xs">
+          yzab1234cdef5678ghij
+         </td>
+         <td class="px-4 py-2 border-b border-gray-100">
+          gamma.example.com
+         </td>
+         <td class="px-4 py-2 border-b border-gray-100 text-green-600 font-semibold">
+          Active
+         </td>
+        </tr>
+        <tr class="hover:bg-indigo-50 bg-indigo-50">
+         <td class="px-4 py-2 border-b border-gray-100">
+          Project Delta
+         </td>
+         <td class="px-4 py-2 border-b border-gray-100 truncate max-w-xs">
+          klmn1234opqr5678stuv
+         </td>
+         <td class="px-4 py-2 border-b border-gray-100">
+          delta.example.com
+         </td>
+         <td class="px-4 py-2 border-b border-gray-100 text-green-600 font-semibold">
+          Active
+         </td>
+        </tr>
+        <tr class="hover:bg-indigo-50">
+         <td class="px-4 py-2 border-b border-gray-100">
+          Project Epsilon
+         </td>
+         <td class="px-4 py-2 border-b border-gray-100 truncate max-w-xs">
+          wxyz1234abcd5678efgh
+         </td>
+         <td class="px-4 py-2 border-b border-gray-100">
+          epsilon.example.com
+         </td>
+         <td class="px-4 py-2 border-b border-gray-100 text-red-600 font-semibold">
+          Inactive
+         </td>
+        </tr>
+       </tbody>
+      </table>
+     </div>
+     <!-- Section 2: Guide Section -->
+     <div class="bg-white rounded-lg shadow p-6 flex flex-col space-y-4">
+      <h3 class="text-lg font-semibold text-gray-700">
+       Guide
+      </h3>
+      <div class="bg-indigo-50 rounded p-4 text-gray-700 text-sm leading-relaxed">
+       <p>
+        💡 Cara pakai &lt;script&gt;: Tambahkan tag &lt;script&gt; dengan API key Anda di halaman web Anda untuk mulai tracking.
+       </p>
+       <p class="mt-2">
+        🔒 Whitelist domain: Pastikan domain Anda sudah terdaftar di pengaturan API key agar data dapat dikirim dengan aman.
+       </p>
+       <p class="mt-2">
+        📡 Gunakan endpoint API untuk mengakses data secara real-time dan integrasi dengan sistem Anda.
+       </p>
+       <p class="mt-2">
+        🛠️ Hubungi support jika mengalami kendala atau butuh bantuan konfigurasi.
+       </p>
+      </div>
+     </div>
+    </div>
+   </section>
+   <!-- 10. Billing / Subscriptions -->
+   <section class="space-y-8" id="billing-subscriptions">
+    <h2 class="text-2xl font-semibold text-indigo-700">
+     10. Billing / Subscriptions
+    </h2>
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+     <!-- Section 1: Active Plan -->
+     <div class="bg-white rounded-lg shadow p-4 overflow-x-auto">
+      <h3 class="text-lg font-semibold text-gray-700 mb-4">
+       Active Plan
+      </h3>
+      <table class="min-w-full text-left text-sm">
+       <thead class="bg-indigo-50 text-indigo-600 font-semibold">
+        <tr>
+         <th class="px-4 py-2 border-b border-indigo-100">
+          Plan
+         </th>
+         <th class="px-4 py-2 border-b border-indigo-100">
+          Duration
+         </th>
+         <th class="px-4 py-2 border-b border-indigo-100">
+          Limit
+         </th>
+         <th class="px-4 py-2 border-b border-indigo-100">
+          Status
+         </th>
+        </tr>
+       </thead>
+       <tbody>
+        <tr class="hover:bg-indigo-50">
+         <td class="px-4 py-2 border-b border-gray-100">
+          Basic
+         </td>
+         <td class="px-4 py-2 border-b border-gray-100">
+          Monthly
+         </td>
+         <td class="px-4 py-2 border-b border-gray-100">
+          10,000 pageviews
+         </td>
+         <td class="px-4 py-2 border-b border-gray-100 text-green-600 font-semibold">
+          Active
+         </td>
+        </tr>
+        <tr class="hover:bg-indigo-50 bg-indigo-50">
+         <td class="px-4 py-2 border-b border-gray-100">
+          Pro
+         </td>
+         <td class="px-4 py-2 border-b border-gray-100">
+          Yearly
+         </td>
+         <td class="px-4 py-2 border-b border-gray-100">
+          100,000 pageviews
+         </td>
+         <td class="px-4 py-2 border-b border-gray-100 text-gray-500 font-semibold">
+          Inactive
+         </td>
+        </tr>
+        <tr class="hover:bg-indigo-50">
+         <td class="px-4 py-2 border-b border-gray-100">
+          Enterprise
+         </td>
+         <td class="px-4 py-2 border-b border-gray-100">
+          Yearly
+         </td>
+         <td class="px-4 py-2 border-b border-gray-100">
+          Unlimited
+         </td>
+         <td class="px-4 py-2 border-b border-gray-100 text-gray-500 font-semibold">
+          Inactive
+         </td>
+        </tr>
+       </tbody>
+      </table>
+     </div>
+     <!-- Section 2: Upgrade Option (CTA) -->
+     <div class="bg-white rounded-lg shadow p-6 flex flex-col justify-center items-center space-y-6 text-center">
+      <h3 class="text-lg font-semibold text-gray-700">
+       Upgrade Your Plan
+      </h3>
+      <p class="text-gray-600 max-w-md">
+       Upgrade your subscription to unlock more features, higher limits, and priority support. Start your free trial today!
+      </p>
+      <button class="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3 px-6 rounded shadow focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2" type="button">
+       Upgrade Plan
+      </button>
+      <button class="bg-gray-200 hover:bg-gray-300 text-gray-700 font-semibold py-2 px-4 rounded shadow focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2" type="button">
+       Start Free Trial
+      </button>
+     </div>
+    </div>
+   </section>
+  </main>
+  <script>
+   const mobileMenuButton = document.getElementById('mobile-menu-button');
+    const mobileMenu = document.getElementById('mobile-menu');
+
+    mobileMenuButton.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
+  </script>
+ </body>
+</html>

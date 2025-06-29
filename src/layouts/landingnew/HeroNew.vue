@@ -3,7 +3,8 @@
         <div class="container mx-auto px-6 py-20 md:py-32 relative">
             <div class="max-w-3xl mx-auto text-center drop-shadow-lg fade-up">
                 <h1 class="text-4xl md:text-6xl font-bold text-gray-900 mb-6 drop-shadow-lg">
-                    Understand your visitors & Grow with <span class="text-indigo-500">Smarter.</span>
+                    Understand your visitors & Grow with <span
+                        class="bg-gradient-to-r from-blue-600 via-violet-500 to-red-500 bg-clip-text text-transparent">Smarter.</span>
                 </h1>
                 <p class="text-xl text-gray-600 max-w-2xl mx-auto">
                     Privacy-first, real-time web analytics for websites.
@@ -30,7 +31,8 @@
                 <div class="w-full h-max flex justify-center">
                     <div class="max-w-screen md:w-3/5 flex justify-center">
                         <div class="relative floating w-full h-max shadow-xl fade-up">
-                            <div class="dashboard-preview bg-white rounded-lg overflow-hidden w-full max-w-screen">
+                            <div
+                                class="dashboard-preview shadow-[0px_0px_90px_0px_rgba(113,_58,_253,_0.14)] bg-white rounded-lg overflow-hidden w-full max-w-screen">
                                 <div class="bg-gray-100 h-16 flex items-center px-4">
                                     <div class="flex space-x-2">
                                         <div class="w-3.5 h-3.5 rounded-full bg-red-400"></div>
@@ -107,6 +109,7 @@
                                     <div class="flex justify-between text-xs text-gray-500">
                                         <p>Last updated: Just now</p>
                                         <p>Today, 01:30 PM WIB</p>
+                                        <p>{{ now_time }}</p>
                                     </div>
                                 </div>
                             </div>
@@ -127,6 +130,9 @@
 <script setup>
 import { onMounted, ref } from 'vue';
 import Chart from 'chart.js/auto';
+
+var today = new Date();
+var now_time = (today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds()).toString()
 
 const metrics = ref([
     { title: 'Real-time visitors', value: '3,682', trend: 57.1 },

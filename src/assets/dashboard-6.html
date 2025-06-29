@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analytics Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        .glass-card {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .tab-active {
+            position: relative;
+        }
+
+        .tab-active:after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+            border-radius: 3px 3px 0 0;
+        }
+
+        .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+        }
+
+        .scrollbar-hide {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        .animate-pulse {
+            animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.5;
+            }
+        }
+    </style>
+</head>
+
+<body class="bg-gray-950 text-gray-100 font-sans">
+    <div class="min-h-screen flex flex-col">
+        <!-- Header -->
+        <header class="bg-gray-900 border-b border-gray-800 py-4 px-6">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-4">
+                    <div
+                        class="text-2xl font-bold bg-gradient-to-r from-blue-500 to-purple-600 bg-clip-text text-transparent">
+                        AnalyticsPro
+                    </div>
+                    <div class="hidden md:flex items-center space-x-1 text-sm text-gray-400">
+                        <span class="px-2 py-1 rounded bg-gray-800 text-gray-300">PRO</span>
+                        <span>•</span>
+                        <span>yourdomain.com</span>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <button class="p-2 rounded-full hover:bg-gray-800">
+                        <i class="fas fa-bell text-gray-400"></i>
+                    </button>
+                    <div class="flex items-center space-x-2">
+                        <div class="w-8 h-8 rounded-full bg-gradient-to-r from-blue-500 to-purple-600"></div>
+                        <span class="hidden md:inline text-sm">Admin</span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <div class="flex flex-1 overflow-hidden">
+            <!-- Sidebar -->
+            <aside class="hidden md:block w-64 bg-gray-900 border-r border-gray-800 p-4 overflow-y-auto">
+                <nav class="space-y-1">
+                    <div class="px-3 py-2 text-xs font-semibold text-gray-500 uppercase tracking-wider">
+                        Main
+                    </div>
+                    <a href="#" class="flex items-center space-x-3 px-3 py-2 rounded-lg bg-gray-800 text-blue-400">
+                        <i class="fas fa-tachometer-alt w-5"></i>
+                        <span>Dashboard</span>
+                    </a>
+                    <a href="#"
+                        class="flex items-center space-x-3 px-3 py-2 rounded-lg hover:bg-gray-800 text-gray-400 hover:text-gray-200">
+                        <i class="fas fa-chart-line w-5"></i>
+                        <span>Analytics</span>
+                    </a>
+                    <a href="#"
+                        class="flex items-center space-x-3 px-3 py-2 rounded-lg hover:bg-gray-800 text-gray-400 hover:text-gray-200">
+                        <i class="fas fa-globe w-5"></i>
+                        <span>Live View</span>
+                    </a>
+                    <a href="#"
+                        class="flex items-center space-x-3 px-3 py-2 rounded-lg hover:bg-gray-800 text-gray-400 hover:text-gray-200">
+                        <i class="fas fa-users w-5"></i>
+                        <span>Sessions</span>
+                    </a>
+                    <div class="px-3 py-2 text-xs font-semibold text-gray-500 uppercase tracking-wider">
+                        Tracking
+                    </div>
+                    <a href="#"
+                        class="flex items-center space-x-3 px-3 py-2 rounded-lg hover:bg-gray-800 text-gray-400 hover:text-gray-200">
+                        <i class="fas fa-filter w-5"></i>
+                        <span>Funnels</span>
+                    </a>
+                    <a href="#"
+                        class="flex items-center space-x-3 px-3 py-2 rounded-lg hover:bg-gray-800 text-gray-400 hover:text-gray-200">
+                        <i class="fas fa-mouse-pointer w-5"></i>
+                        <span>Events</span>
+                    </a>
+                    <a href="#"
+                        class="flex items-center space-x-3 px-3 py-2 rounded-lg hover:bg-gray-800 text-gray-400 hover:text-gray-200">
+                        <i class="fas fa-bug w-5"></i>
+                        <span>Errors & Bots</span>
+                    </a>
+                    <div class="px-3 py-2 text-xs font-semibold text-gray-500 uppercase tracking-wider">
+                        Management
+                    </div>
+                    <a href="#"
+                        class="flex items-center space-x-3 px-3 py-2 rounded-lg hover:bg-gray-800 text-gray-400 hover:text-gray-200">
+                        <i class="fas fa-file-alt w-5"></i>
+                        <span>Reports</span>
+                    </a>
+                    <a href="#"
+                        class="flex items-center space-x-3 px-3 py-2 rounded-lg hover:bg-gray-800 text-gray-400 hover:text-gray-200">
+                        <i class="fas fa-cog w-5"></i>
+                        <span>Settings & API</span>
+                    </a>
+                    <a href="#"
+                        class="flex items-center space-x-3 px-3 py-2 rounded-lg hover:bg-gray-800 text-gray-400 hover:text-gray-200">
+                        <i class="fas fa-credit-card w-5"></i>
+                        <span>Billing</span>
+                    </a>
+                </nav>
+            </aside>
+
+            <!-- Main Panel -->
+            <main class="flex-1 overflow-auto p-4 md:p-6">
+                <!-- Date Picker & Filters -->
+                <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4">
+                    <div>
+                        <h1 class="text-2xl font-bold">Dashboard</h1>
+                        <p class="text-gray-400 text-sm">Analytics overview for your website</p>
+                    </div>
+                    <div class="flex flex-col sm:flex-row gap-3 w-full md:w-auto">
+                        <div class="relative">
+                            <select
+                                class="bg-gray-800 border border-gray-700 text-gray-300 rounded-lg px-4 py-2 pr-8 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 appearance-none">
+                                <option>Last 7 days</option>
+                                <option>Last 30 days</option>
+                                <option>Last 90 days</option>
+                                <option>Custom range</option>
+                            </select>
+                            <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
+                                <i class="fas fa-chevron-down text-gray-400"></i>
+                            </div>
+                        </div>
+                        <button
+                            class="bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-blue-400 text-white px-4 py-2 rounded-lg flex items-center justify-center gap-2">
+                            <i class="fas fa-download"></i>
+                            <span>Export</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Mobile Tabs -->
+                <div class="md:hidden mb-6 overflow-x-auto scrollbar-hide">
+                    <div class="flex space-x-4 pb-2">
+                        <button class="px-3 py-2 text-sm font-medium whitespace-nowrap tab-active text-blue-400">
+                            <i class="fas fa-tachometer-alt mr-2"></i>Overview
+                        </button>
+                        <button
+                            class="px-3 py-2 text-sm font-medium whitespace-nowrap text-gray-400 hover:text-gray-200">
+                            <i class="fas fa-chart-line mr-2"></i>Analytics
+                        </button>
+                        <button
+                            class="px-3 py-2 text-sm font-medium whitespace-nowrap text-gray-400 hover:text-gray-200">
+                            <i class="fas fa-globe mr-2"></i>Live
+                        </button>
+                        <button
+                            class="px-3 py-2 text-sm font-medium whitespace-nowrap text-gray-400 hover:text-gray-200">
+                            <i class="fas fa-users mr-2"></i>Sessions
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Desktop Tabs -->
+                <div class="hidden md:flex border-b border-gray-800 mb-6">
+                    <nav class="flex space-x-8">
+                        <button class="px-1 py-3 text-sm font-medium tab-active text-blue-400">
+                            Overview
+                        </button>
+                        <button class="px-1 py-3 text-sm font-medium text-gray-400 hover:text-gray-200">
+                            Analytics
+                        </button>
+                        <button class="px-1 py-3 text-sm font-medium text-gray-400 hover:text-gray-200">
+                            Live View
+                        </button>
+                        <button class="px-1 py-3 text-sm font-medium text-gray-400 hover:text-gray-200">
+                            Sessions
+                        </button>
+                        <button class="px-1 py-3 text-sm font-medium text-gray-400 hover:text-gray-200">
+                            Funnels
+                        </button>
+                        <button class="px-1 py-3 text-sm font-medium text-gray-400 hover:text-gray-200">
+                            Events
+                        </button>
+                        <button class="px-1 py-3 text-sm font-medium text-gray-400 hover:text-gray-200">
+                            Errors & Bots
+                        </button>
+                        <button class="px-1 py-3 text-sm font-medium text-gray-400 hover:text-gray-200">
+                            Reports
+                        </button>
+                        <button class="px-1 py-3 text-sm font-medium text-gray-400 hover:text-gray-200">
+                            Settings & API
+                        </button>
+                        <button class="px-1 py-3 text-sm font-medium text-gray-400 hover:text-gray-200">
+                            Billing
+                        </button>
+                    </nav>
+                </div>
+
+                <!-- Overview Section -->
+                <section id="overview">
+                    <!-- Summary Cards -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+                        <!-- Pageviews Card -->
+                        <div class="glass-card rounded-xl p-5">
+                            <div class="flex justify-between items-start">
+                                <div>
+                                    <p class="text-sm text-gray-400">Pageviews</p>
+                                    <h3 class="text-2xl font-bold mt-1">24,582</h3>
+                                </div>
+                                <div class="p-2 rounded-lg bg-blue-900/30 text-blue-400">
+                                    <i class="fas fa-eye"></i>
+                                </div>
+                            </div>
+                            <div class="mt-4 flex items-center text-sm">
+                                <span class="text-green-400 flex items-center">
+                                    <i class="fas fa-arrow-up mr-1"></i> 12.5%
+                                </span>
+                                <span class="text-gray-400 ml-2">vs last period</span>
+                            </div>
+                        </div>
+
+                        <!-- Unique Visitors Card -->
+                        <div class="glass-card rounded-xl p-5">
+                            <div class="flex justify-between items-start">
+                                <div>
+                                    <p class="text-sm text-gray-400">Unique Visitors</p>
+                                    <h3 class="text-2xl font-bold mt-1">8,742</h3>
+                                </div>
+                                <div class="p-2 rounded-lg bg-purple-900/30 text-purple-400">
+                                    <i class="fas fa-users"></i>
+                                </div>
+                            </div>
+                            <div class="mt-4 flex items-center text-sm">
+                                <span class="text-green-400 flex items-center">
+                                    <i class="fas fa-arrow-up mr-1"></i> 8.3%
+                                </span>
+                                <span class="text-gray-400 ml-2">vs last period</span>
+                            </div>
+                        </div>
+
+                        <!-- Bounce Rate Card -->
+                        <div class="glass-card rounded-xl p-5">
+                            <div class="flex justify-between items-start">
+                                <div>
+                                    <p class="text-sm text-gray-400">Bounce Rate</p>
+                                    <h3 class="text-2xl font-bold mt-1">42.6%</h3>
+                                </div>
+                                <div class="p-2 rounded-lg bg-amber-900/30 text-amber-400">
+                                    <i class="fas fa-sign-out-alt"></i>
+                                </div>
+                            </div>
+                            <div class="mt-4 flex items-center text-sm">
+                                <span class="text-red-400 flex items-center">
+                                    <i class="fas fa-arrow-down mr-1"></i> 2.1%
+                                </span>
+                                <span class="text-gray-400 ml-2">vs last period</span>
+                            </div>
+                        </div>
+
+                        <!-- Avg. Duration Card -->
+                        <div class="glass-card rounded-xl p-5">
+                            <div class="flex justify-between items-start">
+                                <div>
+                                    <p class="text-sm text-gray-400">Avg. Duration</p>
+                                    <h3 class="text-2xl font-bold mt-1">2m 45s</h3>
+                                </div>
+                                <div class="p-2 rounded-lg bg-emerald-900/30 text-emerald-400">
+                                    <i class="fas fa-clock"></i>
+                                </div>
+                            </div>
+                            <div class="mt-4 flex items-center text-sm">
+                                <span class="text-green-400 flex items-center">
+                                    <i class="fas fa-arrow-up mr-1"></i> 5.7%
+                                </span>
+                                <span class="text-gray-400 ml-2">vs last period</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Pageviews Chart -->
+                    <div class="glass-card rounded-xl p-5 mb-6">
+                        <div class="flex justify-between items-center mb-4">
+                            <h3 class="font-medium">Pageviews Over Time</h3>
+                            <div class="flex space-x-2">
+                                <button class="px-3 py-1 text-xs rounded-lg bg-gray-800 text-gray-300">Day</button>
+                                <button
+                                    class="px-3 py-1 text-xs rounded-lg hover:bg-gray-800 text-gray-400">Week</button>
+                                <button
+                                    class="px-3 py-1 text-xs rounded-lg hover:bg-gray-800 text-gray-400">Month</button>
+                            </div>
+                        </div>
+                        <div class="h-80">
+                            <canvas id="pageviewsChart"></canvas>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Analytics Section (Hidden by default) -->
+                <section id="analytics" class="hidden">
+                    <!-- Top Pages & Bar Chart -->
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+                        <!-- Top Pages Table -->
+                        <div class="glass-card rounded-xl p-5">
+                            <div class="flex justify-between items-center mb-4">
+                                <h3 class="font-medium">Top Pages</h3>
+                                <button class="text-sm text-blue-400 hover:text-blue-300">View All</button>
+                            </div>
+                            <div class="overflow-x-auto">
+                                <table class="min-w-full divide-y divide-gray-800">
+                                    <thead>
+                                        <tr>
+                                            <th
+                                                class="px-4 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
+                                                URL</th>
+                                            <th
+                                                class="px-4 py-3 text-right text-xs font-medium text-gray-400 uppercase tracking-wider">
+                                                Views</th>
+                                            <th
+                                                class="px-4 py-3 text-right text-xs font-medium text-gray-400 uppercase tracking-wider">
+                                                Duration</th>
+                                            <th
+                                                class="px-4 py-3 text-right text-xs font-medium text-gray-400 uppercase tracking-wider">
+                                                Bounce</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="divide-y divide-gray-800">
+                                        <tr>
+                                            <td class="px-4 py-3 whitespace-nowrap text-sm font-medium text-gray-100">
+                                                /home</td>
+                                            <td class="px-4 py-3 whitespace-nowrap text-sm text-right text-gray-300">
+                                                8,742</td>
+                                            <td class="px-4 py-3 whitespace-nowrap text-sm text-right text-gray-300">1m
+                                                23s</td>
+                                            <td class="px-4 py-3 whitespace-nowrap text-sm text-right text-red-400">48%
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="px-4 py-3 whitespace-nowrap text-sm font-medium text-gray-100">
+                                                /pricing</td>
+                                            <td class="px-4 py-3 whitespace-nowrap text-sm text-right text-gray-300">
+                                                5,621</td>
+                                            <td class="px-4 py-3 whitespace-nowrap text-sm text-right text-gray-300">2m
+                                                15s</td>
+                                            <td class="px-4 py-3 whitespace-nowrap text-sm text-right text-amber-400">
+                                                36%</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="px-4 py-3 whitespace-nowrap text-sm font-medium text-gray-100">
+                                                /blog</td>
+                                            <td class="px-4 py-3 whitespace-nowrap text-sm text-right text-gray-300">
+                                                4,892</td>
+                                            <td class="px-4 py-3 whitespace-nowrap text-sm text-right text-gray-300">3m
+                                                42s</td>
+                                            <td class="px-4 py-3 whitespace-nowrap text-sm text-right text-emerald-400">
+                                                22%</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="px-4 py-3 whitespace-nowrap text-sm font-medium text-gray-100">
+                                                /contact</td>
+                                            <td class="px-4 py-3 whitespace-nowrap text-sm text-right text-gray-300">
+                                                2,456</td>
+                                            <td class="px-4 py-3 whitespace-nowrap text-sm text-right text-gray-300">1m
+                                                58s</td>
+                                            <td class="px-4 py-3 whitespace-nowrap text-sm text-right text-amber-400">
+                                                41%</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="px-4 py-3 whitespace-nowrap text-sm font-medium text-gray-100">
+                                                /features</td>
+                                            <td class="px-4 py-3 whitespace-nowrap text-sm text-right text-gray-300">
+                                                1,983</td>
+                                            <td class="px-4 py-3 whitespace-nowrap text-sm text-right text-gray-300">2m
+                                                31s</td>
+                                            <td class="px-4 py-3 whitespace-nowrap text-sm text-right text-amber-400">
+                                                39%</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <!-- Top Pages Bar Chart -->
+                        <div class="glass-card rounded-xl p-5">
+                            <div class="flex justify-between items-center mb-4">
+                                <h3 class="font-medium">Top Pages Performance</h3>
+                                <div class="flex space-x-2">
+                                    <button
+                                        class="px-3 py-1 text-xs rounded-lg bg-gray-800 text-gray-300">Views</button>
+                                    <button
+                                        class="px-3 py-1 text-xs rounded-lg hover:bg-gray-800 text-gray-400">Duration</button>
+                                </div>
+                            </div>
+                            <div class="h-80">
+                                <canvas id="topPagesChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Geo Map & Device Pie Chart -->
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                        <!-- Geo Map -->
+                        <div class="glass-card rounded-xl p-5">
+                            <div class="flex justify-between items-center mb-4">
+                                <h3 class="font-medium">Visitor Locations</h3>
+                                <button class="text-sm text-blue-400 hover:text-blue-300">View Map</button>
+                            </div>
+                            <div class="h-80 flex items-center justify-center">
+                                <div class="text-center">
+                                    <div
+                                        class="mx-auto w-48 h-48 rounded-full bg-gray-800 flex items-center justify-center mb-4">
+                                        <i class="fas fa-globe-americas text-4xl text-blue-400"></i>
+                                    </div>
+                                    <p class="text-gray-400">Interactive map visualization</p>
+                                    <p class="text-sm text-gray-500">Click "View Map" for detailed geographic data</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Device Pie Chart -->
+                        <div class="glass-card rounded-xl p-5">
+                            <div class="flex justify-between items-center mb-4">
+                                <h3 class="font-medium">Device Distribution</h3>
+                                <button class="text-sm text-blue-400 hover:text-blue-300">View Details</button>
+                            </div>
+                            <div class="h-80">
+                                <canvas id="deviceChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Other sections would follow the same pattern -->
+                <!-- They are hidden by default and can be shown by switching tabs -->
+            </main>
+        </div>
+    </div>
+
+    <script>
+        // Tab switching functionality
+        document.addEventListener('DOMContentLoaded', function () {
+            // Initialize charts
+            initCharts();
+
+            // Tab switching for mobile
+            const mobileTabs = document.querySelectorAll('.md\\:hidden button');
+            mobileTabs.forEach(tab => {
+                tab.addEventListener('click', function () {
+                    mobileTabs.forEach(t => t.classList.remove('tab-active', 'text-blue-400'));
+                    mobileTabs.forEach(t => t.classList.add('text-gray-400'));
+                    this.classList.add('tab-active', 'text-blue-400');
+                    this.classList.remove('text-gray-400');
+
+                    // Here you would show/hide the appropriate content sections
+                });
+            });
+
+            // Tab switching for desktop
+            const desktopTabs = document.querySelectorAll('.hidden.md\\:flex button');
+            desktopTabs.forEach(tab => {
+                tab.addEventListener('click', function () {
+                    desktopTabs.forEach(t => t.classList.remove('tab-active', 'text-blue-400'));
+                    desktopTabs.forEach(t => t.classList.add('text-gray-400'));
+                    this.classList.add('tab-active', 'text-blue-400');
+                    this.classList.remove('text-gray-400');
+
+                    // Here you would show/hide the appropriate content sections
+                });
+            });
+        });
+
+        function initCharts() {
+            // Pageviews Line Chart
+            const pageviewsCtx = document.getElementById('pageviewsChart').getContext('2d');
+            new Chart(pageviewsCtx, {
+                type: 'line',
+                data: {
+                    labels: ['Jan 1', 'Jan 2', 'Jan 3', 'Jan 4', 'Jan 5', 'Jan 6', 'Jan 7'],
+                    datasets: [{
+                        label: 'Pageviews',
+                        data: [3200, 4200, 5100, 5800, 6200, 7500, 8100],
+                        borderColor: '#3b82f6',
+                        backgroundColor: 'rgba(59, 130, 246, 0.1)',
+                        borderWidth: 2,
+                        tension: 0.3,
+                        fill: true,
+                        pointBackgroundColor: '#3b82f6',
+                        pointRadius: 3,
+                        pointHoverRadius: 5
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            mode: 'index',
+                            intersect: false,
+                            backgroundColor: 'rgba(17, 24, 39, 0.9)',
+                            titleColor: '#f3f4f6',
+                            bodyColor: '#e5e7eb',
+                            borderColor: '#374151',
+                            borderWidth: 1,
+                            padding: 12,
+                            usePointStyle: true
+                        }
+                    },
+                    scales: {
+                        x: {
+                            grid: {
+                                display: false,
+                                drawBorder: false
+                            },
+                            ticks: {
+                                color: '#9ca3af'
+                            }
+                        },
+                        y: {
+                            grid: {
+                                color: 'rgba(55, 65, 81, 0.5)',
+                                drawBorder: false
+                            },
+                            ticks: {
+                                color: '#9ca3af',
+                                callback: function (value) {
+                                    return value >= 1000 ? (value / 1000).toFixed(0) + 'k' : value;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Top Pages Bar Chart
+            const topPagesCtx = document.getElementById('topPagesChart').getContext('2d');
+            new Chart(topPagesCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['/home', '/pricing', '/blog', '/contact', '/features'],
+                    datasets: [{
+                        label: 'Pageviews',
+                        data: [8742, 5621, 4892, 2456, 1983],
+                        backgroundColor: [
+                            'rgba(59, 130, 246, 0.7)',
+                            'rgba(99, 102, 241, 0.7)',
+                            'rgba(139, 92, 246, 0.7)',
+                            'rgba(168, 85, 247, 0.7)',
+                            'rgba(217, 70, 239, 0.7)'
+                        ],
+                        borderColor: [
+                            'rgba(59, 130, 246, 1)',
+                            'rgba(99, 102, 241, 1)',
+                            'rgba(139, 92, 246, 1)',
+                            'rgba(168, 85, 247, 1)',
+                            'rgba(217, 70, 239, 1)'
+                        ],
+                        borderWidth: 1,
+                        borderRadius: 4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            backgroundColor: 'rgba(17, 24, 39, 0.9)',
+                            titleColor: '#f3f4f6',
+                            bodyColor: '#e5e7eb',
+                            borderColor: '#374151',
+                            borderWidth: 1,
+                            padding: 12,
+                            usePointStyle: true
+                        }
+                    },
+                    scales: {
+                        x: {
+                            grid: {
+                                display: false,
+                                drawBorder: false
+                            },
+                            ticks: {
+                                color: '#9ca3af'
+                            }
+                        },
+                        y: {
+                            grid: {
+                                color: 'rgba(55, 65, 81, 0.5)',
+                                drawBorder: false
+                            },
+                            ticks: {
+                                color: '#9ca3af',
+                                callback: function (value) {
+                                    return value >= 1000 ? (value / 1000).toFixed(0) + 'k' : value;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Device Pie Chart
+            const deviceCtx = document.getElementById('deviceChart').getContext('2d');
+            new Chart(deviceCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Desktop', 'Mobile', 'Tablet', 'Other'],
+                    datasets: [{
+                        data: [58, 32, 8, 2],
+                        backgroundColor: [
+                            'rgba(59, 130, 246, 0.7)',
+                            'rgba(16, 185, 129, 0.7)',
+                            'rgba(245, 158, 11, 0.7)',
+                            'rgba(156, 163, 175, 0.7)'
+                        ],
+                        borderColor: [
+                            'rgba(59, 130, 246, 1)',
+                            'rgba(16, 185, 129, 1)',
+                            'rgba(245, 158, 11, 1)',
+                            'rgba(156, 163, 175, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    cutout: '70%',
+                    plugins: {
+                        legend: {
+                            position: 'right',
+                            labels: {
+                                color: '#e5e7eb',
+                                padding: 16,
+                                usePointStyle: true,
+                                pointStyle: 'circle'
+                            }
+                        },
+                        tooltip: {
+                            backgroundColor: 'rgba(17, 24, 39, 0.9)',
+                            titleColor: '#f3f4f6',
+                            bodyColor: '#e5e7eb',
+                            borderColor: '#374151',
+                            borderWidth: 1,
+                            padding: 12,
+                            usePointStyle: true,
+                            callbacks: {
+                                label: function (context) {
+                                    return `${context.label}: ${context.raw}%`;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Analytics Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        primary: {
+                            500: '#3B82F6', // Blue for buttons and highlights
+                            600: '#2563EB',
+                        },
+                        accent: {
+                            500: '#8B5CF6', // Purple for gradients
+                        },
+                        card: {
+                            bg: 'rgba(255, 255, 255, 0.8)',
+                            border: 'rgba(255, 255, 255, 0.1)',
+                        },
+                    },
+                    boxShadow: {
+                        glass: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.05)',
+                    },
+                    backdropBlur: {
+                        glass: '10px',
+                    },
+                },
+            },
+        };
+    </script>
+</head>
+
+<body class="min-h-screen bg-gradient-to-b from-gray-50 to-gray-200">
+    <nav class="bg-card-bg border-card border shadow-glass backdrop-blur-glass sticky top-0 z-10">
+        <div class="max-w-7xl mx-auto px-4 py-3">
+            <div class="flex flex-wrap gap-2">
+                <a href="#overview"
+                    class="px-4 py-2 rounded-lg text-sm font-medium bg-gradient-to-r from-primary-500 to-accent-500 text-white">Overview</a>
+                <a href="#analytics"
+                    class="px-4 py-2 rounded-lg text-sm font-medium bg-gray-100 text-gray-700 hover:bg-gray-200">Analytics</a>
+                <a href="#live-view"
+                    class="px-4 py-2 rounded-lg text-sm font-medium bg-gray-100 text-gray-700 hover:bg-gray-200">Live
+                    View</a>
+                <a href="#sessions"
+                    class="px-4 py-2 rounded-lg text-sm font-medium bg-gray-100 text-gray-700 hover:bg-gray-200">Sessions</a>
+                <a href="#funnels"
+                    class="px-4 py-2 rounded-lg text-sm font-medium bg-gray-100 text-gray-700 hover:bg-gray-200">Funnels</a>
+                <a href="#events"
+                    class="px-4 py-2 rounded-lg text-sm font-medium bg-gray-100 text-gray-700 hover:bg-gray-200">Events</a>
+                <a href="#errors-bots"
+                    class="px-4 py-2 rounded-lg text-sm font-medium bg-gray-100 text-gray-700 hover:bg-gray-200">Errors
+                    & Bots</a>
+                <a href="#reports"
+                    class="px-4 py-2 rounded-lg text-sm font-medium bg-gray-100 text-gray-700 hover:bg-gray-200">Reports</a>
+                <a href="#settings-api"
+                    class="px-4 py-2 rounded-lg text-sm font-medium bg-gray-100 text-gray-700 hover:bg-gray-200">Settings
+                    & API</a>
+                <a href="#billing"
+                    class="px-4 py-2 rounded-lg text-sm font-medium bg-gray-100 text-gray-700 hover:bg-gray-200">Billing</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="max-w-7xl mx-auto px-4 py-6">
+        <!-- Overview -->
+        <section id="overview" class="mb-12">
+            <h1 class="text-2xl font-bold text-gray-900 mb-6">Overview</h1>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+                <div class="bg-card-bg border-card border p-6 rounded-xl shadow-glass backdrop-blur-glass">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <h3 class="text-sm font-medium text-gray-600">Pageviews</h3>
+                            <p class="text-2xl font-semibold text-gray-900">1,200</p>
+                        </div>
+                        <svg class="h-8 w-8 text-primary-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                            stroke-width="1.5">
+                            <path
+                                d="M12 15a3 3 0 100-6 3 3 0 000 6zM12 4c4.67 0 8.67 2.67 10.4 6.6a.75.75 0 010 .8C20.67 15.33 16.67 18 12 18c-4.67 0-8.67-2.67-10.4-6.6a.75.75 0 010-.8C3.33 6.67 7.33 4 12 4z" />
+                        </svg>
+                    </div>
+                </div>
+                <div class="bg-card-bg border-card border p-6 rounded-xl shadow-glass backdrop-blur-glass">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <h3 class="text-sm font-medium text-gray-600">Unique Visitors</h3>
+                            <p class="text-2xl font-semibold text-gray-900">850</p>
+                        </div>
+                        <svg class="h-8 w-8 text-primary-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                            stroke-width="1.5">
+                            <path
+                                d="M12 12a4 4 0 100-8 4 4 0 000 8zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
+                        </svg>
+                    </div>
+                </div>
+                <div class="bg-card-bg border-card border p-6 rounded-xl shadow-glass backdrop-blur-glass">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <h3 class="text-sm font-medium text-gray-600">Bounce Rate</h3>
+                            <p class="text-2xl font-semibold text-gray-900">45%</p>
+                        </div>
+                        <svg class="h-8 w-8 text-primary-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                            stroke-width="1.5">
+                            <path d="M6 18L18 6M10 6h8v8" />
+                        </svg>
+                    </div>
+                </div>
+                <div class="bg-card-bg border-card border p-6 rounded-xl shadow-glass backdrop-blur-glass">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <h3 class="text-sm font-medium text-gray-600">Avg. Duration</h3>
+                            <p class="text-2xl font-semibold text-gray-900">2m 30s</p>
+                        </div>
+                        <svg class="h-8 w-8 text-primary-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                            stroke-width="1.5">
+                            <path
+                                d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm1-13h-2v6l5.25 3.15.75-1.23-4.5-2.67V7z" />
+                        </svg>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-card-bg border-card border p-6 rounded-xl shadow-glass backdrop-blur-glass">
+                <h3 class="text-lg font-semibold text-gray-900 mb-4">Pageviews Over Time</h3>
+                <div class="h-64 flex items-center justify-center">
+                    <p class="text-gray-500">[ Line Chart Placeholder ]</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Analytics -->
+        <section id="analytics" class="mb-12 hidden">
+            <h1 class="text-2xl font-bold text-gray-900 mb-6">Analytics</h1>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-6">
+                <div class="bg-card-bg border-card border p-6 rounded-xl shadow-glass backdrop-blur-glass">
+                    <h3 class="text- font-semibold text-gray-900 mb-4">Top Pages</h3>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left text-sm">
+                            <thead>
+                                <tr class="text-gray-600">
+                                    <th class="p-3 font-medium">URL</th>
+                                    <th class="p-3 font-medium">Views</th>
+                                    <th class="p-3 font-medium">Duration</th>
+                                    <th class="p-3 font-medium">Bounce</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="border-t border-gray-100">
+                                    <td class="p-3">/home</td>
+                                    <td class="p-3">500</td>
+                                    <td class="p-3">1m 20s</td>
+                                    <td class="p-3">30%</td>
+                                </tr>
+                                <tr class="border-t border-gray-100">
+                                    <td class="p-3">/products</td>
+                                    <td class="p-3">300</td>
+                                    <td class="p-3">2m 10s</td>
+                                    <td class="p-3">40%</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="bg-card-bg border-card border p-6 rounded-xl shadow-glass backdrop-blur-glass">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-4">Top Pages</h3>
+                    <div class="h-64 flex items-center justify-center">
+                        <p class="text-gray-500">[ Bar Chart Placeholder ]</p>
+                    </div>
+                </div>
+            </div>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+                <div class="bg-card-bg border-card border p-6 rounded-xl shadow-glass backdrop-blur-glass">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-4">Geo Location</h3>
+                    <div class="h-64 flex items-center justify-center">
+                        <p class="text-gray-500">[ Map Chart Placeholder ]</p>
+                    </div>
+                </div>
+                <div class="bg-card-bg border-card border p-6 rounded-xl shadow-glass backdrop-blur-glass">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-4">Device Types</h3>
+                    <div class="h-64 flex items-center justify-center">
+                        <p class="text-gray-500">[ Pie Chart Placeholder ]</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Live View -->
+        <section id="live-view" class="mb-12 hidden">
+            <h1 class="text-2xl font-bold text-gray-900 mb-6">Live View</h1>
+            <div class="bg-card-bg border-card border p-6 rounded-xl shadow-glass backdrop-blur-glass mb-6">
+                <h3 class="text-lg font-semibold text-gray-900 mb-4">Active Users</h3>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left text-sm">
+                        <thead>
+                            <tr class="text-gray-600">
+                                <th class="p-3 font-medium">IP</th>
+                                <th class="p-3 font-medium">Page</th>
+                                <th class="p-3 font-medium">Device</th>
+                                <th class="p-3 font-medium">Location</th>
+                                <th class="p-3 font-medium">Duration</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="border-t border-gray-100">
+                                <td class="p-3">192.168.1.1</td>
+                                <td class="p-3">/home</td>
+                                <td class="p-3">Mobile</td>
+                                <td class="p-3">US</td>
+                                <td class="p-3">5m</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="bg-card-bg border-card border p-6 rounded-xl shadow-glass backdrop-blur-glass">
+                <h3 class="text-lg font-semibold text-gray-900 mb-4">Live Visitor Count</h3>
+                <div class="h-64 flex items-center justify-center">
+                    <p class="text-gray-500">[ Line Chart Placeholder ]</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sessions -->
+        <section id="sessions" class="mb-12 hidden">
+            <h1 class="text-2xl font-bold text-gray-900 mb-6">Sessions</h1>
+            <div class="bg-card-bg border-card border p-6 rounded-xl shadow-glass backdrop-blur-glass mb-6">
+                <h3 class="text-lg font-semibold text-gray-900 mb-4">Session List</h3>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left text-sm">
+                        <thead>
+                            <tr class="text-gray-600">
+                                <th class="p-3 font-medium">Session ID</th>
+                                <th class="p-3 font-medium">Pages</th>
+                                <th class="p-3 font-medium">Device</th>
+                                <th class="p-3 font-medium">Duration</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="border-t border-gray-100">
+                                <td class="p-3 text-center text-gray-500" colspan="4">No data available</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+                <div class="bg-card-bg border-card border p-6 rounded-xl shadow-glass backdrop-blur-glass">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-4">User Journey Path</h3>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left text-sm">
+                            <thead>
+                                <tr class="text-gray-600">
+                                    <th class="p-3 font-medium">Step</th>
+                                    <th class="p-3 font-medium">URL</th>
+                                    <th class="p-3 font-medium">Time</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="border-t border-gray-100">
+                                    <td class="p-3 text-center text-gray-500" colspan="3">No data available</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="bg-card-bg border-card border p-6 rounded-xl shadow-glass backdrop-blur-glass">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-4">Session Heatmap</h3>
+                    <div class="h-64 flex items-center justify-center">
+                        <p class="text-gray-500">[ Heatmap Placeholder ]</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Funnels -->
+        <section id="funnels" class="mb-12 hidden">
+            <h1 class="text-2xl font-bold text-gray-900 mb-6">Funnels</h1>
+            <div class="bg-card-bg border-card border p-6 rounded-xl shadow-glass backdrop-blur-glass mb-6">
+                <h3 class="text-lg font-semibold text-gray-900 mb-4">Funnels</h3>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left text-sm">
+                        <thead>
+                            <tr class="text-gray-600">
+                                <th class="p-3 font-medium">Name</th>
+                                <th class="p-3 font-medium">Started</th>
+                                <th class="p-3 font-medium">Completed</th>
+                                <th class="p-3 font-medium">Drop-off</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="border-t border-gray-100">
+                                <td class="p-3 text-center text-gray-500" colspan="4">No data available</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="bg-card-bg border-card border p-6 rounded-xl shadow-glass backdrop-blur-glass">
+                <h3 class="text-lg font-semibold text-gray-900 mb-4">Funnel Steps</h3>
+                <div class="h-64 flex items-center justify-center">
+                    <p class="text-gray-500">[ Sankey Chart Placeholder ]</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Events -->
+        <section id="events" class="mb-12 hidden">
+            <h1 class="text-2xl font-bold text-gray-900 mb-6">Events</h1>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+                <div class="bg-card-bg border-card border p-6 rounded-xl shadow-glass backdrop-blur-glass">
+                    <h3 class="text
+
+-lg font-semibold text-gray-900 mb-4">Click Events</h3>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left text-sm">
+                            <thead>
+                                <tr class="text-gray-600">
+                                    <th class="p-3 font-medium">Selector</th>
+                                    <th class="p-3 font-medium">Position</th>
+                                    <th class="p-3 font-medium">Time</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="border-t border-gray-100">
+                                    <td class="p-3 text-center text-gray-500" colspan="3">No data available</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="bg-card-bg border-card border p-6 rounded-xl shadow-glass backdrop-blur-glass">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-4">Scroll & Custom Events</h3>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left text-sm">
+                            <thead>
+                                <tr class="text-gray-600">
+                                    <th class="p-3 font-medium">Event</th>
+                                    <th class="p-3 font-medium">% Scroll</th>
+                                    <th class="p-3 font-medium">Time</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="border-t border-gray-100">
+                                    <td class="p-3 text-center text-gray-500" colspan="3">No data available</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Errors & Bots -->
+        <section id="errors-bots" class="mb-12 hidden">
+            <h1 class="text-2xl font-bold text-gray-900 mb-6">Errors & Bots</h1>
+            <div class="bg-card-bg border-card border p-6 rounded-xl shadow-glass backdrop-blur-glass mb-6">
+                <h3 class="text-lg font-semibold text-gray-900 mb-4">Client-Side Errors</h3>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left text-sm">
+                        <thead>
+                            <tr class="text-gray-600">
+                                <th class="p-3 font-medium">Message</th>
+                                <th class="p-3 font-medium">Stack Trace</th>
+                                <th class="p-3 font-medium">Time</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="border-t border-gray-100">
+                                <td class="p-3 text-center text-gray-500" colspan="3">No data available</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="bg-card-bg border-card border p-6 rounded-xl shadow-glass backdrop-blur-glass">
+                <h3 class="text-lg font-semibold text-gray-900 mb-4">Bot Detection</h3>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left text-sm">
+                        <thead>
+                            <tr class="text-gray-600">
+                                <th class="p-3 font-medium">Bot Name</th>
+                                <th class="p-3 font-medium">Verified</th>
+                                <th class="p-3 font-medium">Session ID</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="border-t border-gray-100">
+                                <td class="p-3 text-center text-gray-500" colspan="3">No data available</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- Reports -->
+        <section id="reports" class="mb-12 hidden">
+            <h1 class="text-2xl font-bold text-gray-900 mb-6">Reports</h1>
+            <div class="bg-card-bg border-card border p-6 rounded-xl shadow-glass backdrop-blur-glass">
+                <h3 class="text-lg font-semibold text-gray-900 mb-4">Exported Reports</h3>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left text-sm">
+                        <thead>
+                            <tr class="text-gray-600">
+                                <th class="p-3 font-medium">Date</th>
+                                <th class="p-3 font-medium">Type</th>
+                                <th class="p-3 font-medium">Period</th>
+                                <th class="p-3 font-medium">File</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="border-t border-gray-100">
+                                <td class="p-3 text-center text-gray-500" colspan="4">No data available</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- Settings & API -->
+        <section id="settings-api" class="mb-12 hidden">
+            <h1 class="text-2xl font-bold text-gray-900 mb-6">Settings & API</h1>
+            <div class="bg-card-bg border-card border p-6 rounded-xl shadow-glass backdrop-blur-glass mb-6">
+                <h3 class="text-lg font-semibold text-gray-900 mb-4">API Keys</h3>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left text-sm">
+                        <thead>
+                            <tr class="text-gray-600">
+                                <th class="p-3 font-medium">Key</th>
+                                <th class="p-3 font-medium">Domain</th>
+                                <th class="p-3 font-medium">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="border-t border-gray-100">
+                                <td class="p-3 text-center text-gray-500" colspan="3">No data available</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="bg-card-bg border-card border p-6 rounded-xl shadow-glass backdrop-blur-glass">
+                <h3 class="text-lg font-semibold text-gray-900 mb-4">Integration Guide</h3>
+                <pre class="bg-gray-100 p-4 rounded-lg text-sm">
+          &lt;script src="https://analytics.example.com/script.js"&gt;&lt;/script&gt;
+        </pre>
+                <p class="mt-2 text-sm text-gray-600">Add this script to your website and configure your domain in the
+                    settings.</p>
+            </div>
+        </section>
+
+        <!-- Billing -->
+        <section id="billing" class="mb-12 hidden">
+            <h1 class="text-2xl font-bold text-gray-900 mb-6">Billing</h1>
+            <div class="bg-card-bg border-card border p-6 rounded-xl shadow-glass backdrop-blur-glass mb-6">
+                <h3 class="text-lg font-semibold text-gray-900 mb-4">Current Plan</h3>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left text-sm">
+                        <thead>
+                            <tr class="text-gray-600">
+                                <th class="p-3 font-medium">Plan Name</th>
+                                <th class="p-3 font-medium">Price</th>
+                                <th class="p-3 font-medium">Duration</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="border-t border-gray-100">
+                                <td class="p-3 text-center text-gray-500" colspan="3">No data available</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div
+                class="bg-gradient-to-r from-primary-500 to-accent-500 p-6 rounded-xl shadow-glass backdrop-blur-glass text-white">
+                <h3 class="text-lg font-semibold">Upgrade Your Plan</h3>
+                <p class="mt-2 text-sm">Unlock more features with our premium plans.</p>
+                <button
+                    class="mt-4 px-4 py-2 bg-white text-primary-600 rounded-lg font-medium hover:bg-gray-100 transition">Upgrade
+                    Now</button>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        // Simple JavaScript to toggle section visibility
+        document.querySelectorAll('nav a').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const targetId = link.getAttribute('href').substring(1);
+                document.querySelectorAll('main section').forEach(section => {
+                    section.classList.add('hidden');
+                });
+                document.getElementById(targetId).classList.remove('hidden');
+                document.querySelectorAll('nav a').forEach(a => {
+                    a.classList.remove('bg-gradient-to-r', 'from-primary-500', 'to-accent-500', 'text-white');
+                    a.classList.add('bg-gray-100', 'text-gray-700', 'hover:bg-gray-200');
+                });
+                link.classList.remove('bg-gray-100', 'text-gray-700', 'hover:bg-gray-200');
+                link.classList.add('bg-gradient-to-r', 'from-primary-500', 'to-accent-500', 'text-white');
+            });
+        });
+    </script>
+</body>
+
+</html>

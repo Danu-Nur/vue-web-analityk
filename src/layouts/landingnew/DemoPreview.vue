@@ -65,7 +65,7 @@
                     </div>
                 </div>
                 <div class="lg:w-1/2 relative floating shadow-xl fade-up">
-                    <div class="dashboard-preview bg-gray-800 rounded-xl overflow-hidden">
+                    <div class="dashboard-preview shadow-[0px_0px_90px_0px_rgba(113,_58,_253,_0.14)] bg-gray-800 rounded-xl overflow-hidden">
                         <div class="bg-gray-900 h-10 flex items-center px-4">
                             <div class="flex space-x-2">
                                 <div class="w-3 h-3 rounded-full bg-red-400"></div>
