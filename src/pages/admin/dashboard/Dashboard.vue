@@ -1,6 +1,6 @@
 <script setup>
 import { ref, onMounted, defineAsyncComponent } from 'vue';
-import DropdownSearch from '../../../layouts/ui/DropdownSearch.vue';
+import DropdownSearch from '../../../components/ui/DropdownSearch.vue';
 import { TransitionRoot, TransitionChild } from '@headlessui/vue';
 
 const dateRangePicker = defineAsyncComponent(() =>

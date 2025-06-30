@@ -1,6 +1,6 @@
 <script setup>
-import AnimateRightOnScroll from '../ui/AnimateRightOnScroll.vue';
-import AnimateLeftOnScroll from '../ui/AnimateLeftOnScroll.vue';
+import AnimateRightOnScroll from '../../components/ui/AnimateRightOnScroll.vue';
+import AnimateLeftOnScroll from '../../components/ui/AnimateLeftOnScroll.vue';
 </script>
 <template>
     <section>

@@ -2,7 +2,7 @@
 import { ref, watch } from 'vue';
 import ApplicationLogo from '../../components/icon/ApplicationLogo.vue';
 import ThemeToggle from '../../components/ui/ThemeToggle.vue';
-import Dropdown from '../ui/DropdownComponent.vue';
+import Dropdown from '../../components/ui/DropdownComponent.vue';
 import { TransitionRoot, TransitionChild } from '@headlessui/vue';
 
 const isMenuOpen = ref(false);
