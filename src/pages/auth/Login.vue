@@ -1,7 +1,7 @@
 <script setup>
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
-import ThemeToggle from '../../layouts/ui/ThemeToggle.vue';
+import ThemeToggle from '../../components/ui/ThemeToggle.vue';
 
 const router = useRouter()
 // Reactive state to track password visibility

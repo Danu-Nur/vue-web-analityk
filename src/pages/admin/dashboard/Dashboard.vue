@@ -4,7 +4,7 @@ import DropdownSearch from '../../../layouts/ui/DropdownSearch.vue';
 import { TransitionRoot, TransitionChild } from '@headlessui/vue';
 
 const dateRangePicker = defineAsyncComponent(() =>
-    import('../../../components/calendar/DateRangePicker.vue')
+    import('../../../components/ui/DateRangePicker.vue')
 );
 
 // Importing the BarChart component asynchronously
