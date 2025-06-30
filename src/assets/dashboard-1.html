@@ -1,0 +1,2722 @@
+<html class="scroll-smooth" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <title>
+        Web Analytics Dashboard
+    </title>
+    <script src="https://cdn.tailwindcss.com">
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&amp;family=DM+Sans&amp;display=swap"
+        rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
+    <style>
+        html,
+        body {
+            font-family: "Inter", "DM Sans", sans-serif;
+            background: linear-gradient(135deg, #e0e7ff 0%, #fefefe 100%);
+            min-height: 100vh;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* Glassmorphism card style */
+        .glass-card {
+            background: rgba(255 255 255 / 0.6);
+            backdrop-filter: saturate(180%) blur(12px);
+            -webkit-backdrop-filter: saturate(180%) blur(12px);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.1);
+            border-radius: 0.75rem;
+            border: 1px solid rgba(255 255 255 / 0.3);
+        }
+
+        /* Scrollbar for horizontal tables */
+        .scrollbar-thin::-webkit-scrollbar {
+            height: 6px;
+        }
+
+        .scrollbar-thin::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .scrollbar-thin::-webkit-scrollbar-thumb {
+            background-color: rgba(100, 116, 139, 0.4);
+            border-radius: 10px;
+        }
+
+        /* Hide scrollbar for Firefox */
+        .scrollbar-thin {
+            scrollbar-width: thin;
+            scrollbar-color: rgba(100, 116, 139, 0.4) transparent;
+        }
+
+        /* Chart container aspect ratio */
+        .aspect-ratio-16-9 {
+            position: relative;
+            width: 100%;
+            padding-bottom: 56.25%;
+        }
+
+        .aspect-ratio-16-9>* {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Sidebar scrollbar */
+        .sidebar-scroll::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .sidebar-scroll::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .sidebar-scroll::-webkit-scrollbar-thumb {
+            background-color: rgba(100, 116, 139, 0.3);
+            border-radius: 10px;
+        }
+
+        .sidebar-scroll {
+            scrollbar-width: thin;
+            scrollbar-color: rgba(100, 116, 139, 0.3) transparent;
+        }
+    </style>
+</head>
+
+<body class="text-slate-800 dark:text-slate-200">
+    <div class="flex h-screen overflow-hidden bg-gradient-to-br from-indigo-50 to-white">
+        <!-- Sidebar -->
+        <aside aria-label="Sidebar"
+            class="sidebar-scroll fixed inset-y-0 left-0 z-30 w-64 overflow-y-auto bg-white/60 backdrop-blur-md border-r border-white/30 glass-card hidden md:flex flex-col"
+            id="sidebar">
+            <div class="flex items-center justify-center h-16 border-b border-white/30 px-6">
+                <img alt="Web Analytics logo, stylized WA letters in purple square" class="w-8 h-8 rounded-md mr-2"
+                    height="32" src="https://storage.googleapis.com/a1aa/image/d6e3b6d0-de0a-4f40-3b94-7916a925dae1.jpg"
+                    width="32" />
+                <h1 class="text-xl font-semibold tracking-wide text-indigo-700 select-none">
+                    Web Analytics
+                </h1>
+            </div>
+            <nav class="flex flex-col mt-6 px-2 space-y-1">
+                <button aria-current="page"
+                    class="menu-btn flex items-center w-full px-4 py-3 rounded-lg text-indigo-700 bg-indigo-100 font-semibold hover:bg-indigo-200 focus:outline-none focus:ring-2 focus:ring-indigo-400"
+                    data-menu="dashboard">
+                    <i class="fas fa-tachometer-alt mr-3 text-indigo-600">
+                    </i>
+                    Dashboard
+                </button>
+                <button
+                    class="menu-btn flex items-center w-full px-4 py-3 rounded-lg text-slate-700 hover:text-indigo-700 hover:bg-indigo-50 focus:outline-none focus:ring-2 focus:ring-indigo-400"
+                    data-menu="visitors">
+                    <i class="fas fa-users mr-3 text-indigo-500">
+                    </i>
+                    Visitors
+                </button>
+                <button
+                    class="menu-btn flex items-center w-full px-4 py-3 rounded-lg text-slate-700 hover:text-indigo-700 hover:bg-indigo-50 focus:outline-none focus:ring-2 focus:ring-indigo-400"
+                    data-menu="behavior">
+                    <i class="fas fa-mouse-pointer mr-3 text-indigo-500">
+                    </i>
+                    Behavior
+                </button>
+                <button
+                    class="menu-btn flex items-center w-full px-4 py-3 rounded-lg text-slate-700 hover:text-indigo-700 hover:bg-indigo-50 focus:outline-none focus:ring-2 focus:ring-indigo-400"
+                    data-menu="conversions">
+                    <i class="fas fa-chart-line mr-3 text-indigo-500">
+                    </i>
+                    Conversions
+                </button>
+                <button
+                    class="menu-btn flex items-center w-full px-4 py-3 rounded-lg text-slate-700 hover:text-indigo-700 hover:bg-indigo-50 focus:outline-none focus:ring-2 focus:ring-indigo-400"
+                    data-menu="diagnostics">
+                    <i class="fas fa-bug mr-3 text-indigo-500">
+                    </i>
+                    Diagnostics
+                </button>
+                <button
+                    class="menu-btn flex items-center w-full px-4 py-3 rounded-lg text-slate-700 hover:text-indigo-700 hover:bg-indigo-50 focus:outline-none focus:ring-2 focus:ring-indigo-400"
+                    data-menu="settings">
+                    <i class="fas fa-cogs mr-3 text-indigo-500">
+                    </i>
+                    Settings &amp; API
+                </button>
+                <button
+                    class="menu-btn flex items-center w-full px-4 py-3 rounded-lg text-slate-700 hover:text-indigo-700 hover:bg-indigo-50 focus:outline-none focus:ring-2 focus:ring-indigo-400"
+                    data-menu="billing">
+                    <i class="fas fa-wallet mr-3 text-indigo-500">
+                    </i>
+                    Billing &amp; Plan
+                </button>
+                <button
+                    class="menu-btn flex items-center w-full px-4 py-3 rounded-lg text-slate-700 hover:text-indigo-700 hover:bg-indigo-50 focus:outline-none focus:ring-2 focus:ring-indigo-400"
+                    data-menu="affiliate">
+                    <i class="fas fa-handshake mr-3 text-indigo-500">
+                    </i>
+                    Affiliate / Partnership
+                </button>
+            </nav>
+            <div class="mt-auto px-6 py-4 text-xs text-indigo-600 select-none">
+                © 2024 Web Analytics
+            </div>
+        </aside>
+        <!-- Mobile top nav -->
+        <header
+            class="md:hidden fixed top-0 left-0 right-0 z-40 flex items-center justify-between bg-white/60 backdrop-blur-md border-b border-white/30 glass-card px-4 h-14">
+            <button aria-label="Open menu" class="text-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-400"
+                id="mobile-menu-btn">
+                <i class="fas fa-bars fa-lg">
+                </i>
+            </button>
+            <div class="flex items-center space-x-2">
+                <img alt="Web Analytics logo, stylized WA letters in purple square" class="w-7 h-7 rounded-md"
+                    height="28" src="https://storage.googleapis.com/a1aa/image/d6e3b6d0-de0a-4f40-3b94-7916a925dae1.jpg"
+                    width="28" />
+                <h1 class="text-lg font-semibold text-indigo-700 select-none">
+                    Web Analytics
+                </h1>
+            </div>
+            <div class="w-7">
+            </div>
+        </header>
+        <!-- Mobile sidebar overlay -->
+        <div aria-hidden="true" class="fixed inset-0 z-30 bg-black bg-opacity-30 hidden" id="mobile-sidebar-overlay">
+        </div>
+        <!-- Mobile sidebar -->
+        <aside aria-label="Mobile Sidebar"
+            class="fixed inset-y-0 left-0 z-40 w-64 overflow-y-auto bg-white/60 backdrop-blur-md border-r border-white/30 glass-card transform -translate-x-full transition-transform duration-300 ease-in-out md:hidden"
+            id="mobile-sidebar">
+            <div class="flex items-center justify-between h-14 border-b border-white/30 px-4">
+                <div class="flex items-center space-x-2">
+                    <img alt="Web Analytics logo, stylized WA letters in purple square" class="w-7 h-7 rounded-md"
+                        height="28"
+                        src="https://storage.googleapis.com/a1aa/image/d6e3b6d0-de0a-4f40-3b94-7916a925dae1.jpg"
+                        width="28" />
+                    <h1 class="text-lg font-semibold text-indigo-700 select-none">
+                        Web Analytics
+                    </h1>
+                </div>
+                <button aria-label="Close menu"
+                    class="text-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-400"
+                    id="mobile-menu-close">
+                    <i class="fas fa-times fa-lg">
+                    </i>
+                </button>
+            </div>
+            <nav class="flex flex-col mt-4 px-2 space-y-1">
+                <button aria-current="page"
+                    class="mobile-menu-btn flex items-center w-full px-4 py-3 rounded-lg text-indigo-700 bg-indigo-100 font-semibold hover:bg-indigo-200 focus:outline-none focus:ring-2 focus:ring-indigo-400"
+                    data-menu="dashboard">
+                    <i class="fas fa-tachometer-alt mr-3 text-indigo-600">
+                    </i>
+                    Dashboard
+                </button>
+                <button
+                    class="mobile-menu-btn flex items-center w-full px-4 py-3 rounded-lg text-slate-700 hover:text-indigo-700 hover:bg-indigo-50 focus:outline-none focus:ring-2 focus:ring-indigo-400"
+                    data-menu="visitors">
+                    <i class="fas fa-users mr-3 text-indigo-500">
+                    </i>
+                    Visitors
+                </button>
+                <button
+                    class="mobile-menu-btn flex items-center w-full px-4 py-3 rounded-lg text-slate-700 hover:text-indigo-700 hover:bg-indigo-50 focus:outline-none focus:ring-2 focus:ring-indigo-400"
+                    data-menu="behavior">
+                    <i class="fas fa-mouse-pointer mr-3 text-indigo-500">
+                    </i>
+                    Behavior
+                </button>
+                <button
+                    class="mobile-menu-btn flex items-center w-full px-4 py-3 rounded-lg text-slate-700 hover:text-indigo-700 hover:bg-indigo-50 focus:outline-none focus:ring-2 focus:ring-indigo-400"
+                    data-menu="conversions">
+                    <i class="fas fa-chart-line mr-3 text-indigo-500">
+                    </i>
+                    Conversions
+                </button>
+                <button
+                    class="mobile-menu-btn flex items-center w-full px-4 py-3 rounded-lg text-slate-700 hover:text-indigo-700 hover:bg-indigo-50 focus:outline-none focus:ring-2 focus:ring-indigo-400"
+                    data-menu="diagnostics">
+                    <i class="fas fa-bug mr-3 text-indigo-500">
+                    </i>
+                    Diagnostics
+                </button>
+                <button
+                    class="mobile-menu-btn flex items-center w-full px-4 py-3 rounded-lg text-slate-700 hover:text-indigo-700 hover:bg-indigo-50 focus:outline-none focus:ring-2 focus:ring-indigo-400"
+                    data-menu="settings">
+                    <i class="fas fa-cogs mr-3 text-indigo-500">
+                    </i>
+                    Settings &amp; API
+                </button>
+                <button
+                    class="mobile-menu-btn flex items-center w-full px-4 py-3 rounded-lg text-slate-700 hover:text-indigo-700 hover:bg-indigo-50 focus:outline-none focus:ring-2 focus:ring-indigo-400"
+                    data-menu="billing">
+                    <i class="fas fa-wallet mr-3 text-indigo-500">
+                    </i>
+                    Billing &amp; Plan
+                </button>
+                <button
+                    class="mobile-menu-btn flex items-center w-full px-4 py-3 rounded-lg text-slate-700 hover:text-indigo-700 hover:bg-indigo-50 focus:outline-none focus:ring-2 focus:ring-indigo-400"
+                    data-menu="affiliate">
+                    <i class="fas fa-handshake mr-3 text-indigo-500">
+                    </i>
+                    Affiliate / Partnership
+                </button>
+            </nav>
+            <div class="mt-auto px-6 py-4 text-xs text-indigo-600 select-none">
+                © 2024 Web Analytics
+            </div>
+        </aside>
+        <!-- Main content -->
+        <main class="flex-1 overflow-y-auto pt-16 md:pt-0 md:ml-64 px-4 md:px-8 pb-8" id="main-content" tabindex="-1">
+            <!-- DASHBOARD -->
+            <section class="section-content max-w-7xl mx-auto space-y-8" data-section="dashboard">
+                <h2 class="text-2xl font-semibold text-indigo-700 mb-4 flex items-center space-x-3">
+                    <i class="fas fa-tachometer-alt">
+                    </i>
+                    <span>
+                        Dashboard Overview &amp; Analytics
+                    </span>
+                </h2>
+                <!-- Section 1: 4 metric cards -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
+                    <div class="glass-card p-5 flex flex-col">
+                        <div class="flex items-center justify-between mb-3">
+                            <h3 class="text-sm font-semibold text-indigo-700 flex items-center space-x-2">
+                                <i class="fas fa-eye">
+                                </i>
+                                <span>
+                                    Pageviews
+                                </span>
+                            </h3>
+                            <i class="fas fa-chart-line text-indigo-400">
+                            </i>
+                        </div>
+                        <p class="text-3xl font-bold text-indigo-900">
+                            1,245,678
+                        </p>
+                        <p class="text-xs text-indigo-600 mt-1">
+                            +5.4% from last week
+                        </p>
+                    </div>
+                    <div class="glass-card p-5 flex flex-col">
+                        <div class="flex items-center justify-between mb-3">
+                            <h3 class="text-sm font-semibold text-indigo-700 flex items-center space-x-2">
+                                <i class="fas fa-user-friends">
+                                </i>
+                                <span>
+                                    Visitors
+                                </span>
+                            </h3>
+                            <i class="fas fa-users text-indigo-400">
+                            </i>
+                        </div>
+                        <p class="text-3xl font-bold text-indigo-900">
+                            89,432
+                        </p>
+                        <p class="text-xs text-indigo-600 mt-1">
+                            +3.1% from last week
+                        </p>
+                    </div>
+                    <div class="glass-card p-5 flex flex-col">
+                        <div class="flex items-center justify-between mb-3">
+                            <h3 class="text-sm font-semibold text-indigo-700 flex items-center space-x-2">
+                                <i class="fas fa-sign-out-alt">
+                                </i>
+                                <span>
+                                    Bounce Rate
+                                </span>
+                            </h3>
+                            <i class="fas fa-percentage text-indigo-400">
+                            </i>
+                        </div>
+                        <p class="text-3xl font-bold text-indigo-900">
+                            42.7%
+                        </p>
+                        <p class="text-xs text-indigo-600 mt-1">
+                            -1.2% from last week
+                        </p>
+                    </div>
+                    <div class="glass-card p-5 flex flex-col">
+                        <div class="flex items-center justify-between mb-3">
+                            <h3 class="text-sm font-semibold text-indigo-700 flex items-center space-x-2">
+                                <i class="fas fa-clock">
+                                </i>
+                                <span>
+                                    Avg. Duration
+                                </span>
+                            </h3>
+                            <i class="fas fa-hourglass-half text-indigo-400">
+                            </i>
+                        </div>
+                        <p class="text-3xl font-bold text-indigo-900">
+                            3m 45s
+                        </p>
+                        <p class="text-xs text-indigo-600 mt-1">
+                            +8.9% from last week
+                        </p>
+                    </div>
+                </div>
+                <!-- Section 2: Line chart (Pageviews over time) -->
+                <div class="glass-card p-6">
+                    <h3 class="text-lg font-semibold text-indigo-700 mb-4 flex items-center space-x-2">
+                        <i class="fas fa-chart-line">
+                        </i>
+                        <span>
+                            Pageviews Over Time
+                        </span>
+                    </h3>
+                    <div class="aspect-ratio-16-9">
+                        <img alt="Line chart showing pageviews over time with a smooth upward trend line on a soft purple background"
+                            class="rounded-md object-contain w-full h-full" height="338" loading="lazy"
+                            src="https://storage.googleapis.com/a1aa/image/20abbd67-7742-4d50-9142-5b68a1945a99.jpg"
+                            width="600" />
+                    </div>
+                </div>
+                <!-- Section 3: Top Pages Table -->
+                <div class="glass-card p-6 overflow-x-auto scrollbar-thin">
+                    <h3 class="text-lg font-semibold text-indigo-700 mb-4 flex items-center space-x-2">
+                        <i class="fas fa-file-alt">
+                        </i>
+                        <span>
+                            Top Pages
+                        </span>
+                    </h3>
+                    <table class="w-full text-left text-sm text-indigo-900">
+                        <thead class="border-b border-indigo-300">
+                            <tr>
+                                <th class="py-2 px-3 font-semibold">
+                                    URL
+                                </th>
+                                <th class="py-2 px-3 font-semibold">
+                                    Views
+                                </th>
+                                <th class="py-2 px-3 font-semibold">
+                                    Avg. Duration
+                                </th>
+                                <th class="py-2 px-3 font-semibold">
+                                    Bounce Rate
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="border-b border-indigo-100 hover:bg-indigo-50">
+                                <td class="py-2 px-3 truncate max-w-xs">
+                                    /home
+                                </td>
+                                <td class="py-2 px-3">
+                                    345,678
+                                </td>
+                                <td class="py-2 px-3">
+                                    4m 12s
+                                </td>
+                                <td class="py-2 px-3">
+                                    38.2%
+                                </td>
+                            </tr>
+                            <tr class="border-b border-indigo-100 hover:bg-indigo-50">
+                                <td class="py-2 px-3 truncate max-w-xs">
+                                    /products
+                                </td>
+                                <td class="py-2 px-3">
+                                    234,567
+                                </td>
+                                <td class="py-2 px-3">
+                                    3m 05s
+                                </td>
+                                <td class="py-2 px-3">
+                                    45.1%
+                                </td>
+                            </tr>
+                            <tr class="border-b border-indigo-100 hover:bg-indigo-50">
+                                <td class="py-2 px-3 truncate max-w-xs">
+                                    /blog/how-to-use
+                                </td>
+                                <td class="py-2 px-3">
+                                    123,456
+                                </td>
+                                <td class="py-2 px-3">
+                                    5m 22s
+                                </td>
+                                <td class="py-2 px-3">
+                                    29.7%
+                                </td>
+                            </tr>
+                            <tr class="border-b border-indigo-100 hover:bg-indigo-50">
+                                <td class="py-2 px-3 truncate max-w-xs">
+                                    /contact
+                                </td>
+                                <td class="py-2 px-3">
+                                    98,765
+                                </td>
+                                <td class="py-2 px-3">
+                                    2m 18s
+                                </td>
+                                <td class="py-2 px-3">
+                                    52.3%
+                                </td>
+                            </tr>
+                            <tr class="border-b border-indigo-100 hover:bg-indigo-50">
+                                <td class="py-2 px-3 truncate max-w-xs">
+                                    /pricing
+                                </td>
+                                <td class="py-2 px-3">
+                                    87,654
+                                </td>
+                                <td class="py-2 px-3">
+                                    3m 40s
+                                </td>
+                                <td class="py-2 px-3">
+                                    41.0%
+                                </td>
+                            </tr>
+                            <tr class="border-b border-indigo-100 hover:bg-indigo-50">
+                                <td class="py-2 px-3 truncate max-w-xs">
+                                    /features
+                                </td>
+                                <td class="py-2 px-3">
+                                    76,543
+                                </td>
+                                <td class="py-2 px-3">
+                                    4m 05s
+                                </td>
+                                <td class="py-2 px-3">
+                                    36.8%
+                                </td>
+                            </tr>
+                            <tr class="border-b border-indigo-100 hover:bg-indigo-50">
+                                <td class="py-2 px-3 truncate max-w-xs">
+                                    /about
+                                </td>
+                                <td class="py-2 px-3">
+                                    65,432
+                                </td>
+                                <td class="py-2 px-3">
+                                    3m 50s
+                                </td>
+                                <td class="py-2 px-3">
+                                    39.5%
+                                </td>
+                            </tr>
+                            <tr class="border-b border-indigo-100 hover:bg-indigo-50">
+                                <td class="py-2 px-3 truncate max-w-xs">
+                                    /faq
+                                </td>
+                                <td class="py-2 px-3">
+                                    54,321
+                                </td>
+                                <td class="py-2 px-3">
+                                    2m 45s
+                                </td>
+                                <td class="py-2 px-3">
+                                    48.7%
+                                </td>
+                            </tr>
+                            <tr class="border-b border-indigo-100 hover:bg-indigo-50">
+                                <td class="py-2 px-3 truncate max-w-xs">
+                                    /login
+                                </td>
+                                <td class="py-2 px-3">
+                                    43,210
+                                </td>
+                                <td class="py-2 px-3">
+                                    1m 30s
+                                </td>
+                                <td class="py-2 px-3">
+                                    60.2%
+                                </td>
+                            </tr>
+                            <tr class="hover:bg-indigo-50">
+                                <td class="py-2 px-3 truncate max-w-xs">
+                                    /signup
+                                </td>
+                                <td class="py-2 px-3">
+                                    32,109
+                                </td>
+                                <td class="py-2 px-3">
+                                    2m 10s
+                                </td>
+                                <td class="py-2 px-3">
+                                    55.0%
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- Section 4: Geo Map -->
+                <div class="glass-card p-6">
+                    <h3 class="text-lg font-semibold text-indigo-700 mb-4 flex items-center space-x-2">
+                        <i class="fas fa-globe-americas">
+                        </i>
+                        <span>
+                            Visitor Country Distribution
+                        </span>
+                    </h3>
+                    <img alt="World map showing visitor country distribution with soft purple color highlights on countries"
+                        class="rounded-md w-full object-contain" height="338" loading="lazy"
+                        src="https://storage.googleapis.com/a1aa/image/8cd43aa5-75b1-4b67-6213-1378bf5f92b3.jpg"
+                        width="600" />
+                </div>
+                <!-- Section 5: Device type Pie Chart -->
+                <div class="glass-card p-6 max-w-md mx-auto md:mx-0">
+                    <h3 class="text-lg font-semibold text-indigo-700 mb-4 flex items-center space-x-2">
+                        <i class="fas fa-mobile-alt">
+                        </i>
+                        <span>
+                            Device Type Distribution
+                        </span>
+                    </h3>
+                    <img alt="Pie chart showing device type distribution with segments for desktop, mobile, and tablet in soft purple shades"
+                        class="rounded-md w-full object-contain" height="400" loading="lazy"
+                        src="https://storage.googleapis.com/a1aa/image/d61c5033-94ed-4f6c-53e9-46d5ee3f42cc.jpg"
+                        width="400" />
+                </div>
+                <!-- Section 6: Referrer/UTM Source Table -->
+                <div class="glass-card p-6 overflow-x-auto scrollbar-thin">
+                    <h3 class="text-lg font-semibold text-indigo-700 mb-4 flex items-center space-x-2">
+                        <i class="fas fa-link">
+                        </i>
+                        <span>
+                            Referrer / UTM Source
+                        </span>
+                    </h3>
+                    <table class="w-full text-left text-sm text-indigo-900">
+                        <thead class="border-b border-indigo-300">
+                            <tr>
+                                <th class="py-2 px-3 font-semibold">
+                                    Source
+                                </th>
+                                <th class="py-2 px-3 font-semibold">
+                                    Visits
+                                </th>
+                                <th class="py-2 px-3 font-semibold">
+                                    Conversions
+                                </th>
+                                <th class="py-2 px-3 font-semibold">
+                                    Revenue
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="border-b border-indigo-100 hover:bg-indigo-50">
+                                <td class="py-2 px-3 truncate max-w-xs">
+                                    google.com / utm_campaign=spring
+                                </td>
+                                <td class="py-2 px-3">
+                                    123,456
+                                </td>
+                                <td class="py-2 px-3">
+                                    12,345
+                                </td>
+                                <td class="py-2 px-3">
+                                    $45,678
+                                </td>
+                            </tr>
+                            <tr class="border-b border-indigo-100 hover:bg-indigo-50">
+                                <td class="py-2 px-3 truncate max-w-xs">
+                                    facebook.com / utm_campaign=summer
+                                </td>
+                                <td class="py-2 px-3">
+                                    98,765
+                                </td>
+                                <td class="py-2 px-3">
+                                    9,876
+                                </td>
+                                <td class="py-2 px-3">
+                                    $38,901
+                                </td>
+                            </tr>
+                            <tr class="border-b border-indigo-100 hover:bg-indigo-50">
+                                <td class="py-2 px-3 truncate max-w-xs">
+                                    twitter.com / utm_campaign=fall
+                                </td>
+                                <td class="py-2 px-3">
+                                    76,543
+                                </td>
+                                <td class="py-2 px-3">
+                                    7,654
+                                </td>
+                                <td class="py-2 px-3">
+                                    $29,876
+                                </td>
+                            </tr>
+                            <tr class="border-b border-indigo-100 hover:bg-indigo-50">
+                                <td class="py-2 px-3 truncate max-w-xs">
+                                    newsletter / utm_campaign=winter
+                                </td>
+                                <td class="py-2 px-3">
+                                    54,321
+                                </td>
+                                <td class="py-2 px-3">
+                                    5,432
+                                </td>
+                                <td class="py-2 px-3">
+                                    $21,345
+                                </td>
+                            </tr>
+                            <tr class="hover:bg-indigo-50">
+                                <td class="py-2 px-3 truncate max-w-xs">
+                                    direct / none
+                                </td>
+                                <td class="py-2 px-3">
+                                    43,210
+                                </td>
+                                <td class="py-2 px-3">
+                                    4,321
+                                </td>
+                                <td class="py-2 px-3">
+                                    $17,890
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- Section 7: Entry / Exit pages -->
+                <div class="glass-card p-6 overflow-x-auto scrollbar-thin">
+                    <h3 class="text-lg font-semibold text-indigo-700 mb-4 flex items-center space-x-2">
+                        <i class="fas fa-sign-in-alt">
+                        </i>
+                        <span>
+                            Entry / Exit Pages
+                        </span>
+                    </h3>
+                    <table class="w-full text-left text-sm text-indigo-900">
+                        <thead class="border-b border-indigo-300">
+                            <tr>
+                                <th class="py-2 px-3 font-semibold">
+                                    Page
+                                </th>
+                                <th class="py-2 px-3 font-semibold">
+                                    Entries
+                                </th>
+                                <th class="py-2 px-3 font-semibold">
+                                    Exits
+                                </th>
+                                <th class="py-2 px-3 font-semibold">
+                                    Exit Rate
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="border-b border-indigo-100 hover:bg-indigo-50">
+                                <td class="py-2 px-3 truncate max-w-xs">
+                                    /home
+                                </td>
+                                <td class="py-2 px-3">
+                                    45,678
+                                </td>
+                                <td class="py-2 px-3">
+                                    12,345
+                                </td>
+                                <td class="py-2 px-3">
+                                    27.0%
+                                </td>
+                            </tr>
+                            <tr class="border-b border-indigo-100 hover:bg-indigo-50">
+                                <td class="py-2 px-3 truncate max-w-xs">
+                                    /products
+                                </td>
+                                <td class="py-2 px-3">
+                                    34,567
+                                </td>
+                                <td class="py-2 px-3">
+                                    9,876
+                                </td>
+                                <td class="py-2 px-3">
+                                    28.5%
+                                </td>
+                            </tr>
+                            <tr class="border-b border-indigo-100 hover:bg-indigo-50">
+                                <td class="py-2 px-3 truncate max-w-xs">
+                                    /blog/how-to-use
+                                </td>
+                                <td class="py-2 px-3">
+                                    23,456
+                                </td>
+                                <td class="py-2 px-3">
+                                    7,654
+                                </td>
+                                <td class="py-2 px-3">
+                                    32.6%
+                                </td>
+                            </tr>
+                            <tr class="border-b border-indigo-100 hover:bg-indigo-50">
+                                <td class="py-2 px-3 truncate max-w-xs">
+                                    /contact
+                                </td>
+                                <td class="py-2 px-3">
+                                    12,345
+                                </td>
+                                <td class="py-2 px-3">
+                                    5,432
+                                </td>
+                                <td class="py-2 px-3">
+                                    44.0%
+                                </td>
+                            </tr>
+                            <tr class="hover:bg-indigo-50">
+                                <td class="py-2 px-3 truncate max-w-xs">
+                                    /pricing
+                                </td>
+                                <td class="py-2 px-3">
+                                    9,876
+                                </td>
+                                <td class="py-2 px-3">
+                                    4,321
+                                </td>
+                                <td class="py-2 px-3">
+                                    43.8%
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- Section 8: Hourly traffic bar chart -->
+                <div class="glass-card p-6">
+                    <h3 class="text-lg font-semibold text-indigo-700 mb-4 flex items-center space-x-2">
+                        <i class="fas fa-chart-bar">
+                        </i>
+                        <span>
+                            Hourly Traffic
+                        </span>
+                    </h3>
+                    <div class="aspect-ratio-16-9">
+                        <img alt="Bar chart showing hourly traffic with bars representing visitor counts for each hour on a soft purple background"
+                            class="rounded-md w-full object-contain" height="338" loading="lazy"
+                            src="https://storage.googleapis.com/a1aa/image/c266e7c0-da02-48b1-d2b5-89303b33b986.jpg"
+                            width="600" />
+                    </div>
+                </div>
+            </section>
+            <!-- VISITORS -->
+            <section class="section-content max-w-7xl mx-auto space-y-8 hidden" data-section="visitors">
+                <h2 class="text-2xl font-semibold text-indigo-700 mb-4 flex items-center space-x-3">
+                    <i class="fas fa-users">
+                    </i>
+                    <span>
+                        Visitors (Live View + Sessions + Geo + Device)
+                    </span>
+                </h2>
+                <!-- Section 1: Live Users Table -->
+                <div class="glass-card p-6 overflow-x-auto scrollbar-thin">
+                    <h3 class="text-lg font-semibold text-indigo-700 mb-4 flex items-center space-x-2">
+                        <i class="fas fa-user-clock">
+                        </i>
+                        <span>
+                            Live Users
+                        </span>
+                    </h3>
+                    <table class="w-full text-left text-sm text-indigo-900">
+                        <thead class="border-b border-indigo-300">
+                            <tr>
+                                <th class="py-2 px-3 font-semibold">
+                                    IP
+                                </th>
+                                <th class="py-2 px-3 font-semibold">
+                                    Page
+                                </th>
+                                <th class="py-2 px-3 font-semibold">
+                                    Location
+                                </th>
+                                <th class="py-2 px-3 font-semibold">
+                                    Duration
+                                </th>
+                                <th class="py-2 px-3 font-semibold">
+                                    Device
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="border-b border-indigo-100 hover:bg-indigo-50">
+                                <td class="py-2 px-3">
+                                    192.168.1.1
+                                </td>
+                                <td class="py-2 px-3 truncate max-w-xs">
+                                    /home
+                                </td>
+                                <td class="py-2 px-3">
+                                    New York, USA
+                                </td>
+                                <td class="py-2 px-3">
+                                    00:05:12
+                                </td>
+                                <td class="py-2 px-3">
+                                    Desktop
+                                </td>
+                            </tr>
+                            <tr class="border-b border-indigo-100 hover:bg-indigo-50">
+                                <td class="py-2 px-3">
+                                    172.16.0.2
+                                </td>
+                                <td class="py-2 px-3 truncate max-w-xs">
+                                    /products
+                                </td>
+                                <td class="py-2 px-3">
+                                    London, UK
+                                </td>
+                                <td class="py-2 px-3">
+                                    00:03:45
+                                </td>
+                                <td class="py-2 px-3">
+                                    Mobile
+                                </td>
+                            </tr>
+                            <tr class="border-b border-indigo-100 hover:bg-indigo-50">
+                                <td class="py-2 px-3">
+                                    10.0.0.3
+                                </td>
+                                <td class="py-2 px-3 truncate max-w-xs">
+                                    /blog/how-to-use
+                                </td>
+                                <td class="py-2 px-3">
+                                    Berlin, Germany
+                                </td>
+                                <td class="py-2 px-3">
+                                    00:07:20
+                                </td>
+                                <td class="py-2 px-3">
+                                    Tablet
+                                </td>
+                            </tr>
+                            <tr class="border-b border-indigo-100 hover:bg-indigo-50">
+                                <td class="py-2 px-3">
+                                    203.0.113.4
+                                </td>
+                                <td class="py-2 px-3 truncate max-w-xs">
+                                    /contact
+                                </td>
+                                <td class="py-2 px-3">
+                                    Sydney, Australia
+                                </td>
+                                <td class="py-2 px-3">
+                                    00:02:10
+                                </td>
+                                <td class="py-2 px-3">
+                                    Desktop
+                                </td>
+                            </tr>
+                            <tr class="hover:bg-indigo-50">
+                                <td class="py-2 px-3">
+                                    198.51.100.5
+                                </td>
+                                <td class="py-2 px-3 truncate max-w-xs">
+                                    /pricing
+                                </td>
+                                <td class="py-2 px-3">
+                                    Toronto, Canada
+                                </td>
+                                <td class="py-2 px-3">
+                                    00:04:55
+                                </td>
+                                <td class="py-2 px-3">
+                                    Mobile
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- Section 2: Sessions Table -->
+                <div class="glass-card p-6 overflow-x-auto scrollbar-thin">
+                    <h3 class="text-lg font-semibold text-indigo-700 mb-4 flex items-center space-x-2">
+                        <i class="fas fa-history">
+                        </i>
+                        <span>
+                            Sessions
+                        </span>
+                    </h3>
+                    <table class="w-full text-left text-sm text-indigo-900">
+                        <thead class="border-b border-indigo-300">
+                            <tr>
+                                <th class="py-2 px-3 font-semibold">
+                                    Session ID
+                                </th>
+                                <th class="py-2 px-3 font-semibold">
+                                    Start Time
+                                </th>
+                                <th class="py-2 px-3 font-semibold">
+                                    Pages Visited
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="border-b border-indigo-100 hover:bg-indigo-50">
+                                <td class="py-2 px-3 font-mono truncate max-w-xs">
+                                    a1b2c3d4e5f6
+                                </td>
+                                <td class="py-2 px-3">
+                                    2024-06-01 09:15
+                                </td>
+                                <td class="py-2 px-3">
+                                    5
+                                </td>
+                            </tr>
+                            <tr class="border-b border-indigo-100 hover:bg-indigo-50">
+                                <td class="py-2 px-3 font-mono truncate max-w-xs">
+                                    f6e5d4c3b2a1
+                                </td>
+                                <td class="py-2 px-3">
+                                    2024-06-01 09:20
+                                </td>
+                                <td class="py-2 px-3">
+                                    3
+                                </td>
+                            </tr>
+                            <tr class="border-b border-indigo-100 hover:bg-indigo-50">
+                                <td class="py-2 px-3 font-mono truncate max-w-xs">
+                                    123abc456def
+                                </td>
+                                <td class="py-2 px-3">
+                                    2024-06-01 09:25
+                                </td>
+                                <td class="py-2 px-3">
+                                    7
+                                </td>
+                            </tr>
+                            <tr class="border-b border-indigo-100 hover:bg-indigo-50">
+                                <td class="py-2 px-3 font-mono truncate max-w-xs">
+                                    789ghi012jkl
+                                </td>
+                                <td class="py-2 px-3">
+                                    2024-06-01 09:30
+                                </td>
+                                <td class="py-2 px-3">
+                                    4
+                                </td>
+                            </tr>
+                            <tr class="hover:bg-indigo-50">
+                                <td class="py-2 px-3 font-mono truncate max-w-xs">
+                                    mno345pqr678
+                                </td>
+                                <td class="py-2 px-3">
+                                    2024-06-01 09:35
+                                </td>
+                                <td class="py-2 px-3">
+                                    6
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- Section 3: Device breakdown (Table + Pie Chart) -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="glass-card p-6 overflow-x-auto scrollbar-thin">
+                        <h3 class="text-lg font-semibold text-indigo-700 mb-4 flex items-center space-x-2">
+                            <i class="fas fa-tablet-alt">
+                            </i>
+                            <span>
+                                Device Breakdown Table
+                            </span>
+                        </h3>
+                        <table class="w-full text-left text-sm text-indigo-900">
+                            <thead class="border-b border-indigo-300">
+                                <tr>
+                                    <th class="py-2 px-3 font-semibold">
+                                        Device
+                                    </th>
+                                    <th class="py-2 px-3 font-semibold">
+                                        Sessions
+                                    </th>
+                                    <th class="py-2 px-3 font-semibold">
+                                        Percentage
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="border-b border-indigo-100 hover:bg-indigo-50">
+                                    <td class="py-2 px-3">
+                                        Desktop
+                                    </td>
+                                    <td class="py-2 px-3">
+                                        45,678
+                                    </td>
+                                    <td class="py-2 px-3">
+                                        52%
+                                    </td>
+                                </tr>
+                                <tr class="border-b border-indigo-100 hover:bg-indigo-50">
+                                    <td class="py-2 px-3">
+                                        Mobile
+                                    </td>
+                                    <td class="py-2 px-3">
+                                        32,109
+                                    </td>
+                                    <td class="py-2 px-3">
+                                        37%
+                                    </td>
+                                </tr>
+                                <tr class="hover:bg-indigo-50">
+                                    <td class="py-2 px-3">
+                                        Tablet
+                                    </td>
+                                    <td class="py-2 px-3">
+                                        10,543
+                                    </td>
+                                    <td class="py-2 px-3">
+                                        11%
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="glass-card p-6 max-w-md mx-auto md:mx-0">
+                        <h3 class="text-lg font-semibold text-indigo-700 mb-4 flex items-center space-x-2">
+                            <i class="fas fa-chart-pie">
+                            </i>
+                            <span>
+                                Device Type Pie Chart
+                            </span>
+                        </h3>
+                        <img alt="Pie chart showing device type breakdown with desktop, mobile, and tablet segments in soft purple shades"
+                            class="rounded-md w-full object-contain" height="400" loading="lazy"
+                            src="https://storage.googleapis.com/a1aa/image/477e984f-afcd-44ae-6c34-b5695f3ff234.jpg"
+                            width="400" />
+                    </div>
+                </div>
+                <!-- Section 4: Timezone and Language Table -->
+                <div class="glass-card p-6 overflow-x-auto scrollbar-thin">
+                    <h3 class="text-lg font-semibold text-indigo-700 mb-4 flex items-center space-x-2">
+                        <i class="fas fa-clock">
+                        </i>
+                        <span>
+                            Timezone and Language
+                        </span>
+                    </h3>
+                    <table class="w-full text-left text-sm text-indigo-900">
+                        <thead class="border-b border-indigo-300">
+                            <tr>
+                                <th class="py-2 px-3 font-semibold">
+                                    Timezone
+                                </th>
+                                <th class="py-2 px-3 font-semibold">
+                                    Users
+                                </th>
+                                <th class="py-2 px-3 font-semibold">
+                                    Language
+                                </th>
+                                <th class="py-2 px-3 font-semibold">
+                                    Users
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="border-b border-indigo-100 hover:bg-indigo-50">
+                                <td class="py-2 px-3">
+                                    UTC-5 (EST)
+                                </td>
+                                <td class="py-2 px-3">
+                                    12,345
+                                </td>
+                                <td class="py-2 px-3">
+                                    English (US)
+                                </td>
+                                <td class="py-2 px-3">
+                                    25,678
+                                </td>
+                            </tr>
+                            <tr class="border-b border-indigo-100 hover:bg-indigo-50">
+                                <td class="py-2 px-3">
+                                    UTC+1 (CET)
+                                </td>
+                                <td class="py-2 px-3">
+                                    9,876
+                                </td>
+                                <td class="py-2 px-3">
+                                    German
+                                </td>
+                                <td class="py-2 px-3">
+                                    8,765
+                                </td>
+                            </tr>
+                            <tr class="border-b border-indigo-100 hover:bg-indigo-50">
+                                <td class="py-2 px-3">
+                                    UTC+10 (AEST)
+                                </td>
+                                <td class="py-2 px-3">
+                                    7,654
+                                </td>
+                                <td class="py-2 px-3">
+                                    English (AU)
+                                </td>
+                                <td class="py-2 px-3">
+                                    6,543
+                                </td>
+                            </tr>
+                            <tr class="border-b border-indigo-100 hover:bg-indigo-50">
+                                <td class="py-2 px-3">
+                                    UTC+0 (GMT)
+                                </td>
+                                <td class="py-2 px-3">
+                                    5,432
+                                </td>
+                                <td class="py-2 px-3">
+                                    French
+                                </td>
+                                <td class="py-2 px-3">
+                                    4,321
+                                </td>
+                            </tr>
+                            <tr class="hover:bg-indigo-50">
+                                <td class="py-2 px-3">
+                                    UTC-8 (PST)
+                                </td>
+                                <td class="py-2 px-3">
+                                    4,321
+                                </td>
+                                <td class="py-2 px-3">
+                                    Spanish
+                                </td>
+                                <td class="py-2 px-3">
+                                    3,210
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- Section 5: Geo Map with visitor clustering -->
+                <div class="glass-card p-6">
+                    <h3 class="text-lg font-semibold text-indigo-700 mb-4 flex items-center space-x-2">
+                        <i class="fas fa-map-marker-alt">
+                        </i>
+                        <span>
+                            Geo Map with Visitor Clustering
+                        </span>
+                    </h3>
+                    <img alt="World map showing visitor clustering with purple cluster dots on a soft purple background"
+                        class="rounded-md w-full object-contain" height="338" loading="lazy"
+                        src="https://storage.googleapis.com/a1aa/image/0486e055-b12d-46ab-2884-623a4f9ae796.jpg"
+                        width="600" />
+                </div>
+                <!-- Section 6: Session replay preview or journey steps (breadcrumbs) -->
+                <div class="glass-card p-6">
+                    <h3 class="text-lg font-semibold text-indigo-700 mb-4 flex items-center space-x-2">
+                        <i class="fas fa-route">
+                        </i>
+                        <span>
+                            Session Replay Preview / Journey Steps
+                        </span>
+                    </h3>
+                    <div class="flex flex-wrap gap-2 text-indigo-700 text-sm font-medium select-none">
+                        <span class="bg-indigo-100 rounded-full px-3 py-1 shadow-sm">
+                            Home
+                        </span>
+                        <span class="text-indigo-400">
+                            →
+                        </span>
+                        <span class="bg-indigo-100 rounded-full px-3 py-1 shadow-sm">
+                            Products
+                        </span>
+                        <span class="text-indigo-400">
+                            →
+                        </span>
+                        <span class="bg-indigo-100 rounded-full px-3 py-1 shadow-sm">
+                            Product Details
+                        </span>
+                        <span class="text-indigo-400">
+                            →
+                        </span>
+                        <span class="bg-indigo-100 rounded-full px-3 py-1 shadow-sm">
+                            Cart
+                        </span>
+                        <span class="text-indigo-400">
+                            →
+                        </span>
+                        <span class="bg-indigo-100 rounded-full px-3 py-1 shadow-sm">
+                            Checkout
+                        </span>
+                    </div>
+                    <div class="mt-4 aspect-ratio-16-9">
+                        <img alt="Screenshot preview of a session replay video player with timeline and controls on a soft purple background"
+                            class="rounded-md w-full object-contain" height="338" loading="lazy"
+                            src="https://storage.googleapis.com/a1aa/image/c2d3f13f-2ad5-4946-49a1-9b4069eebf3a.jpg"
+                            width="600" />
+                    </div>
+                </div>
+            </section>
+            <!-- BEHAVIOR -->
+            <section class="section-content max-w-7xl mx-auto space-y-8 hidden" data-section="behavior">
+                <h2 class="text-2xl font-semibold text-indigo-700 mb-4 flex items-center space-x-3">
+                    <i class="fas fa-mouse-pointer">
+                    </i>
+                    <span>
+                        Behavior (Events + Clicks + Scrolls)
+                    </span>
+                </h2>
+                <!-- Section 1: Click Events Table -->
+                <div class="glass-card p-6 overflow-x-auto scrollbar-thin">
+                    <h3 class="text-lg font-semibold text-indigo-700 mb-4 flex items-center space-x-2">
+                        <i class="fas fa-mouse">
+                        </i>
+                        <span>
+                            Click Events
+                        </span>
+                    </h3>
+                    <table class="w-full text-left text-sm text-indigo-900">
+                        <thead class="border-b border-indigo-300">
+                            <tr>
+                                <th class="py-2 px-3 font-semibold">
+                                    Selector
+                                </th>
+                                <th class="py-2 px-3 font-semibold">
+                                    X
+                                </th>
+                                <th class="py-2 px-3 font-semibold">
+                                    Y
+                                </th>
+                                <th class="py-2 px-3 font-semibold">
+                                    Time
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="border-b border-indigo-100 hover:bg-indigo-50">
+                                <td class="py-2 px-3 truncate max-w-xs">
+                                    #signup-button
+                                </td>
+                                <td class="py-2 px-3">
+                                    120
+                                </td>
+                                <td class="py-2 px-3">
+                                    450
+                                </td>
+                                <td class="py-2 px-3">
+                                    2024-06-01 09:15:23
+                                </td>
+                            </tr>
+                            <tr class="border-b border-indigo-100 hover:bg-indigo-50">
+                                <td class="py-2 px-3 truncate max-w-xs">
+                                    .nav-menu &gt; li:nth-child(3)
+                                </td>
+                                <td class="py-2 px-3">
+                                    300
+                                </td>
+                                <td class="py-2 px-3">
+                                    120
+                                </td>
+                                <td class="py-2 px-3">
+                                    2024-06-01 09:16:10
+                                </td>
+                            </tr>
+                            <tr class="border-b border-indigo-100 hover:bg-indigo-50">
+                                <td class="py-2 px-3 truncate max-w-xs">
+                                    #contact-link
+                                </td>
+                                <td class="py-2 px-3">
+                                    80
+                                </td>
+                                <td class="py-2 px-3">
+                                    600
+                                </td>
+                                <td class="py-2 px-3">
+                                    2024-06-01 09:17:45
+                                </td>
+                            </tr>
+                            <tr class="border-b border-indigo-100 hover:bg-indigo-50">
+                                <td class="py-2 px-3 truncate max-w-xs">
+                                    .footer-social &gt; a:nth-child(2)
+                                </td>
+                                <td class="py-2 px-3">
+                                    500
+                                </td>
+                                <td class="py-2 px-3">
+                                    700
+                                </td>
+                                <td class="py-2 px-3">
+                                    2024-06-01 09:18:30
+                                </td>
+                            </tr>
+                            <tr class="hover:bg-indigo-50">
+                                <td class="py-2 px-3 truncate max-w-xs">
+                                    #search-input
+                                </td>
+                                <td class="py-2 px-3">
+                                    200
+                                </td>
+                                <td class="py-2 px-3">
+                                    350
+                                </td>
+                                <td class="py-2 px-3">
+                                    2024-06-01 09:19:05
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- Section 2: Scroll Depth Distribution Chart -->
+                <div class="glass-card p-6 max-w-3xl mx-auto md:mx-0">
+                    <h3 class="text-lg font-semibold text-indigo-700 mb-4 flex items-center space-x-2">
+                        <i class="fas fa-scroll">
+                        </i>
+                        <span>
+                            Scroll Depth Distribution
+                        </span>
+                    </h3>
+                    <img alt="Bar chart showing scroll depth distribution with bars representing percentage of users reaching different scroll depths on a soft purple background"
+                        class="rounded-md w-full object-contain" height="338" loading="lazy"
+                        src="https://storage.googleapis.com/a1aa/image/79ac66e5-ee3a-4a25-32ed-0c40cd2ad877.jpg"
+                        width="600" />
+                </div>
+                <!-- Section 3: Top Clicked Elements Bar Chart -->
+                <div class="glass-card p-6 max-w-3xl mx-auto md:mx-0">
+                    <h3 class="text-lg font-semibold text-indigo-700 mb-4 flex items-center space-x-2">
+                        <i class="fas fa-hand-pointer">
+                        </i>
+                        <span>
+                            Top Clicked Elements
+                        </span>
+                    </h3>
+                    <img alt="Horizontal bar chart showing top clicked elements with bars representing click counts on a soft purple background"
+                        class="rounded-md w-full object-contain" height="338" loading="lazy"
+                        src="https://storage.googleapis.com/a1aa/image/ab2c3b8e-9d3b-4b1e-e5b6-35ee80152144.jpg"
+                        width="600" />
+                </div>
+                <!-- Section 4: Heatmap Preview Area -->
+                <div class="glass-card p-6 max-w-4xl mx-auto md:mx-0">
+                    <h3 class="text-lg font-semibold text-indigo-700 mb-4 flex items-center space-x-2">
+                        <i class="fas fa-fire">
+                        </i>
+                        <span>
+                            Heatmap Preview
+                        </span>
+                    </h3>
+                    <img alt="Heatmap preview showing user click intensity on a webpage with red and purple highlights on a soft purple background"
+                        class="rounded-md w-full object-contain" height="450" loading="lazy"
+                        src="https://storage.googleapis.com/a1aa/image/08c6cba9-20f2-483c-23a6-6e89ce12d618.jpg"
+                        width="800" />
+                </div>
+                <!-- Section 5: Custom Events Table -->
+                <div class="glass-card p-6 overflow-x-auto scrollbar-thin">
+                    <h3 class="text-lg font-semibold text-indigo-700 mb-4 flex items-center space-x-2">
+                        <i class="fas fa-cogs">
+                        </i>
+                        <span>
+                            Custom Events
+                        </span>
+                    </h3>
+                    <table class="w-full text-left text-sm text-indigo-900">
+                        <thead class="border-b border-indigo-300">
+                            <tr>
+                                <th class="py-2 px-3 font-semibold">
+                                    Event Name
+                                </th>
+                                <th class="py-2 px-3 font-semibold">
+                                    Payload
+                                </th>
+                                <th class="py-2 px-3 font-semibold">
+                                    Timestamp
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="border-b border-indigo-100 hover:bg-indigo-50">
+                                <td class="py-2 px-3 truncate max-w-xs">
+                                    purchase_complete
+                                </td>
+                                <td class="py-2 px-3 truncate max-w-xs">
+                                    {"orderId":12345,"amount":99.99}
+                                </td>
+                                <td class="py-2 px-3">
+                                    2024-06-01 09:20:15
+                                </td>
+                            </tr>
+                            <tr class="border-b border-indigo-100 hover:bg-indigo-50">
+                                <td class="py-2 px-3 truncate max-w-xs">
+                                    video_play
+                                </td>
+                                <td class="py-2 px-3 truncate max-w-xs">
+                                    {"videoId":"abc123","time":0}
+                                </td>
+                                <td class="py-2 px-3">
+                                    2024-06-01 09:21:30
+                                </td>
+                            </tr>
+                            <tr class="border-b border-indigo-100 hover:bg-indigo-50">
+                                <td class="py-2 px-3 truncate max-w-xs">
+                                    form_submit
+                                </td>
+                                <td class="py-2 px-3 truncate max-w-xs">
+                                    {"formId":"contact","success":true}
+                                </td>
+                                <td class="py-2 px-3">
+                                    2024-06-01 09:22:45
+                                </td>
+                            </tr>
+                            <tr class="border-b border-indigo-100 hover:bg-indigo-50">
+                                <td class="py-2 px-3 truncate max-w-xs">
+                                    newsletter_signup
+                                </td>
+                                <td class="py-2 px-3 truncate max-w-xs">
+                                    {"email":"user@example.com"}
+                                </td>
+                                <td class="py-2 px-3">
+                                    2024-06-01 09:23:50
+                                </td>
+                            </tr>
+                            <tr class="hover:bg-indigo-50">
+                                <td class="py-2 px-3 truncate max-w-xs">
+                                    add_to_cart
+                                </td>
+                                <td class="py-2 px-3 truncate max-w-xs">
+                                    {"productId":"xyz789","qty":1}
+                                </td>
+                                <td class="py-2 px-3">
+                                    2024-06-01 09:24:30
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- Section 6: Event Timeline per Session -->
+                <div class="glass-card p-6 max-w-4xl mx-auto md:mx-0">
+                    <h3 class="text-lg font-semibold text-indigo-700 mb-4 flex items-center space-x-2">
+                        <i class="fas fa-stream">
+                        </i>
+                        <span>
+                            Event Timeline per Session
+                        </span>
+                    </h3>
+                    <img alt="Stacked bar chart showing event timeline per session with different colored segments on a soft purple background"
+                        class="rounded-md w-full object-contain" height="200" loading="lazy"
+                        src="https://storage.googleapis.com/a1aa/image/8077c527-539f-4f92-addc-0e056efeb239.jpg"
+                        width="800" />
+                </div>
+            </section>
+            <!-- CONVERSIONS -->
+            <section class="section-content max-w-7xl mx-auto space-y-8 hidden" data-section="conversions">
+                <h2 class="text-2xl font-semibold text-indigo-700 mb-4 flex items-center space-x-3">
+                    <i class="fas fa-chart-line">
+                    </i>
+                    <span>
+                        Conversions (Funnels + Goals)
+                    </span>
+                </h2>
+                <!-- Section 1: Funnels Table -->
+                <div class="glass-card p-6 overflow-x-auto scrollbar-thin">
+                    <h3 class="text-lg font-semibold text-indigo-700 mb-4 flex items-center space-x-2">
+                        <i class="fas fa-filter">
+                        </i>
+                        <span>
+                            Funnels
+                        </span>
+                    </h3>
+                    <table class="w-full text-left text-sm text-indigo-900">
+                        <thead class="border-b border-indigo-300">
+                            <tr>
+                                <th class="py-2 px-3 font-semibold">
+                                    Name
+                                </th>
+                                <th class="py-2 px-3 font-semibold">
+                                    Start
+                                </th>
+                                <th class="py-2 px-3 font-semibold">
+                                    Drop %
+                                </th>
+                                <th class="py-2 px-3 font-semibold">
+                                    Completed
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="border-b border-indigo-100 hover:bg-indigo-50">
+                                <td class="py-2 px-3">
+                                    Signup Funnel
+                                </td>
+                                <td class="py-2 px-3">
+                                    10,000
+                                </td>
+                                <td class="py-2 px-3">
+                                    25%
+                                </td>
+                                <td class="py-2 px-3">
+                                    7,500
+                                </td>
+                            </tr>
+                            <tr class="border-b border-indigo-100 hover:bg-indigo-50">
+                                <td class="py-2 px-3">
+                                    Checkout Funnel
+                                </td>
+                                <td class="py-2 px-3">
+                                    8,000
+                                </td>
+                                <td class="py-2 px-3">
+                                    30%
+                                </td>
+                                <td class="py-2 px-3">
+                                    5,600
+                                </td>
+                            </tr>
+                            <tr class="border-b border-indigo-100 hover:bg-indigo-50">
+                                <td class="py-2 px-3">
+                                    Newsletter Funnel
+                                </td>
+                                <td class="py-2 px-3">
+                                    12,000
+                                </td>
+                                <td class="py-2 px-3">
+                                    20%
+                                </td>
+                                <td class="py-2 px-3">
+                                    9,600
+                                </td>
+                            </tr>
+                            <tr class="hover:bg-indigo-50">
+                                <td class="py-2 px-3">
+                                    Product Demo Funnel
+                                </td>
+                                <td class="py-2 px-3">
+                                    5,000
+                                </td>
+                                <td class="py-2 px-3">
+                                    15%
+                                </td>
+                                <td class="py-2 px-3">
+                                    4,250
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- Section 2: Funnel Steps Chart -->
+                <div class="glass-card p-6 max-w-4xl mx-auto md:mx-0">
+                    <h3 class="text-lg font-semibold text-indigo-700 mb-4 flex items-center space-x-2">
+                        <i class="fas fa-sitemap">
+                        </i>
+                        <span>
+                            Funnel Steps Chart
+                        </span>
+                    </h3>
+                    <img alt="Drop-off bar chart showing funnel steps with decreasing bars representing user drop-off on a soft purple background"
+                        class="rounded-md w-full object-contain" height="338" loading="lazy"
+                        src="https://storage.googleapis.com/a1aa/image/d7d3ca54-0c92-41ab-86ab-3c530ead5915.jpg"
+                        width="800" />
+                </div>
+                <!-- Section 3: Completed Funnels List -->
+                <div class="glass-card p-6 max-w-3xl mx-auto md:mx-0">
+                    <h3 class="text-lg font-semibold text-indigo-700 mb-4 flex items-center space-x-2">
+                        <i class="fas fa-check-circle">
+                        </i>
+                        <span>
+                            Completed Funnels
+                        </span>
+                    </h3>
+                    <ul class="list-disc list-inside text-indigo-900 space-y-1">
+                        <li>
+                            Signup Funnel - 7,500 completions
+                        </li>
+                        <li>
+                            Checkout Funnel - 5,600 completions
+                        </li>
+                        <li>
+                            Newsletter Funnel - 9,600 completions
+                        </li>
+                        <li>
+                            Product Demo Funnel - 4,250 completions
+                        </li>
+                    </ul>
+                </div>
+                <!-- Section 4: Conversion Rate per Device or Region -->
+                <div class="glass-card p-6 max-w-4xl mx-auto md:mx-0 grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <h3 class="text-lg font-semibold text-indigo-700 mb-4 flex items-center space-x-2">
+                            <i class="fas fa-mobile-alt">
+                            </i>
+                            <span>
+                                Conversion Rate per Device
+                            </span>
+                        </h3>
+                        <img alt="Bar chart showing conversion rate per device type with bars for desktop, mobile, and tablet on a soft purple background"
+                            class="rounded-md w-full object-contain" height="300" loading="lazy"
+                            src="https://storage.googleapis.com/a1aa/image/e15073f5-142f-4e39-c8d8-e2223e4a3689.jpg"
+                            width="400" />
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-semibold text-indigo-700 mb-4 flex items-center space-x-2">
+                            <i class="fas fa-globe-americas">
+                            </i>
+                            <span>
+                                Conversion Rate per Region
+                            </span>
+                        </h3>
+                        <img alt="Map chart showing conversion rate per region with color-coded regions on a soft purple background"
+                            class="rounded-md w-full object-contain" height="300" loading="lazy"
+                            src="https://storage.googleapis.com/a1aa/image/56b71e99-e0df-46a0-36a3-c87b5866fbf4.jpg"
+                            width="400" />
+                    </div>
+                </div>
+                <!-- Section 5: Path to Conversion Visualization -->
+                <div class="glass-card p-6 max-w-4xl mx-auto md:mx-0">
+                    <h3 class="text-lg font-semibold text-indigo-700 mb-4 flex items-center space-x-2">
+                        <i class="fas fa-route">
+                        </i>
+                        <span>
+                            Path to Conversion Visualization
+                        </span>
+                    </h3>
+                    <img alt="Flow diagram showing typical user paths leading to conversion with arrows and nodes on a soft purple background"
+                        class="rounded-md w-full object-contain" height="338" loading="lazy"
+                        src="https://storage.googleapis.com/a1aa/image/a580d853-68bd-427b-fb78-ea501d144b64.jpg"
+                        width="800" />
+                </div>
+            </section>
+            <!-- DIAGNOSTICS -->
+            <section class="section-content max-w-7xl mx-auto space-y-8 hidden" data-section="diagnostics">
+                <h2 class="text-2xl font-semibold text-indigo-700 mb-4 flex items-center space-x-3">
+                    <i class="fas fa-bug">
+                    </i>
+                    <span>
+                        Diagnostics (Errors + Bot + Speed)
+                    </span>
+                </h2>
+                <!-- Section 1: Client Errors Table -->
+                <div class="glass-card p-6 overflow-x-auto scrollbar-thin">
+                    <h3 class="text-lg font-semibold text-indigo-700 mb-4 flex items-center space-x-2">
+                        <i class="fas fa-exclamation-triangle">
+                        </i>
+                        <span>
+                            Client Errors
+                        </span>
+                    </h3>
+                    <table class="w-full text-left text-sm text-indigo-900">
+                        <thead class="border-b border-indigo-300">
+                            <tr>
+                                <th class="py-2 px-3 font-semibold">
+                                    Message
+                                </th>
+                                <th class="py-2 px-3 font-semibold">
+                                    Stack
+                                </th>
+                                <th class="py-2 px-3 font-semibold">
+                                    Timestamp
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="border-b border-indigo-100 hover:bg-indigo-50 align-top">
+                                <td class="py-2 px-3 max-w-xs truncate">
+                                    TypeError: Cannot read property 'foo' of undefined
+                                </td>
+                                <td class="py-2 px-3 max-w-xs truncate">
+                                    at app.js:45:12
+                                </td>
+                                <td class="py-2 px-3">
+                                    2024-06-01 09:15:23
+                                </td>
+                            </tr>
+                            <tr class="border-b border-indigo-100 hover:bg-indigo-50 align-top">
+                                <td class="py-2 px-3 max-w-xs truncate">
+                                    ReferenceError: bar is not defined
+                                </td>
+                                <td class="py-2 px-3 max-w-xs truncate">
+                                    at main.js:78:5
+                                </td>
+                                <td class="py-2 px-3">
+                                    2024-06-01 09:16:10
+                                </td>
+                            </tr>
+                            <tr class="border-b border-indigo-100 hover:bg-indigo-50 align-top">
+                                <td class="py-2 px-3 max-w-xs truncate">
+                                    SyntaxError: Unexpected token &lt;
+                                </td>
+                                <td class="py-2 px-3 max-w-xs truncate">
+                                    at index.html:1:1
+                                </td>
+                                <td class="py-2 px-3">
+                                    2024-06-01 09:17:45
+                                </td>
+                            </tr>
+                            <tr class="border-b border-indigo-100 hover:bg-indigo-50 align-top">
+                                <td class="py-2 px-3 max-w-xs truncate">
+                                    RangeError: Maximum call stack size exceeded
+                                </td>
+                                <td class="py-2 px-3 max-w-xs truncate">
+                                    at utils.js:120:20
+                                </td>
+                                <td class="py-2 px-3">
+                                    2024-06-01 09:18:30
+                                </td>
+                            </tr>
+                            <tr class="hover:bg-indigo-50 align-top">
+                                <td class="py-2 px-3 max-w-xs truncate">
+                                    Error: Network request failed
+                                </td>
+                                <td class="py-2 px-3 max-w-xs truncate">
+                                    at api.js:33:15
+                                </td>
+                                <td class="py-2 px-3">
+                                    2024-06-01 09:19:05
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- Section 2: Bot Detection Table -->
+                <div class="glass-card p-6 overflow-x-auto scrollbar-thin">
+                    <h3 class="text-lg font-semibold text-indigo-700 mb-4 flex items-center space-x-2">
+                        <i class="fas fa-robot">
+                        </i>
+                        <span>
+                            Bot Detection
+                        </span>
+                    </h3>
+                    <table class="w-full text-left text-sm text-indigo-900">
+                        <thead class="border-b border-indigo-300">
+                            <tr>
+                                <th class="py-2 px-3 font-semibold">
+                                    Bot Name
+                                </th>
+                                <th class="py-2 px-3 font-semibold">
+                                    Verified
+                                </th>
+                                <th class="py-2 px-3 font-semibold">
+                                    Session ID
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="border-b border-indigo-100 hover:bg-indigo-50">
+                                <td class="py-2 px-3">
+                                    Googlebot
+                                </td>
+                                <td class="py-2 px-3 text-green-600 font-semibold">
+                                    Yes
+                                </td>
+                                <td class="py-2 px-3 font-mono truncate max-w-xs">
+                                    a1b2c3d4e5f6
+                                </td>
+                            </tr>
+                            <tr class="border-b border-indigo-100 hover:bg-indigo-50">
+                                <td class="py-2 px-3">
+                                    Bingbot
+                                </td>
+                                <td class="py-2 px-3 text-green-600 font-semibold">
+                                    Yes
+                                </td>
+                                <td class="py-2 px-3 font-mono truncate max-w-xs">
+                                    f6e5d4c3b2a1
+                                </td>
+                            </tr>
+                            <tr class="border-b border-indigo-100 hover:bg-indigo-50">
+                                <td class="py-2 px-3">
+                                    UnknownBot
+                                </td>
+                                <td class="py-2 px-3 text-red-600 font-semibold">
+                                    No
+                                </td>
+                                <td class="py-2 px-3 font-mono truncate max-w-xs">
+                                    123abc456def
+                                </td>
+                            </tr>
+                            <tr class="border-b border-indigo-100 hover:bg-indigo-50">
+                                <td class="py-2 px-3">
+                                    AhrefsBot
+                                </td>
+                                <td class="py-2 px-3 text-green-600 font-semibold">
+                                    Yes
+                                </td>
+                                <td class="py-2 px-3 font-mono truncate max-w-xs">
+                                    789ghi012jkl
+                                </td>
+                            </tr>
+                            <tr class="hover:bg-indigo-50">
+                                <td class="py-2 px-3">
+                                    SemrushBot
+                                </td>
+                                <td class="py-2 px-3 text-green-600 font-semibold">
+                                    Yes
+                                </td>
+                                <td class="py-2 px-3 font-mono truncate max-w-xs">
+                                    mno345pqr678
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- Section 3: Bot vs Human Traffic Line Chart -->
+                <div class="glass-card p-6 max-w-4xl mx-auto md:mx-0">
+                    <h3 class="text-lg font-semibold text-indigo-700 mb-4 flex items-center space-x-2">
+                        <i class="fas fa-chart-line">
+                        </i>
+                        <span>
+                            Bot vs Human Traffic
+                        </span>
+                    </h3>
+                    <img alt="Line chart comparing bot traffic and human traffic over time with two lines in soft purple shades"
+                        class="rounded-md w-full object-contain" height="338" loading="lazy"
+                        src="https://storage.googleapis.com/a1aa/image/e5531e10-188a-4227-81f2-440f1819c9dc.jpg"
+                        width="800" />
+                </div>
+                <!-- Section 4: Page Load Speed Summary -->
+                <div class="glass-card p-6 max-w-3xl mx-auto md:mx-0 grid grid-cols-2 gap-6 text-indigo-900">
+                    <div class="flex flex-col items-center justify-center p-4 glass-card">
+                        <i class="fas fa-tachometer-alt text-indigo-600 text-4xl mb-2">
+                        </i>
+                        <p class="text-xl font-semibold">
+                            Load Time
+                        </p>
+                        <p class="text-3xl font-bold">
+                            1.2s
+                        </p>
+                    </div>
+                    <div class="flex flex-col items-center justify-center p-4 glass-card">
+                        <i class="fas fa-hourglass-half text-indigo-600 text-4xl mb-2">
+                        </i>
+                        <p class="text-xl font-semibold">
+                            Duration
+                        </p>
+                        <p class="text-3xl font-bold">
+                            3.8s
+                        </p>
+                    </div>
+                </div>
+                <!-- Section 5: JS Error Rate Pie Chart or Trend -->
+                <div class="glass-card p-6 max-w-3xl mx-auto md:mx-0">
+                    <h3 class="text-lg font-semibold text-indigo-700 mb-4 flex items-center space-x-2">
+                        <i class="fas fa-chart-pie">
+                        </i>
+                        <span>
+                            JS Error Rate
+                        </span>
+                    </h3>
+                    <img alt="Pie chart showing JavaScript error rate with error and no-error segments in soft purple shades"
+                        class="rounded-md w-full object-contain" height="338" loading="lazy"
+                        src="https://storage.googleapis.com/a1aa/image/6d80629a-0692-4e98-9c81-7104ff3e8c86.jpg"
+                        width="600" />
+                </div>
+            </section>
+            <!-- SETTINGS & API -->
+            <section class="section-content max-w-7xl mx-auto space-y-8 hidden" data-section="settings">
+                <h2 class="text-2xl font-semibold text-indigo-700 mb-4 flex items-center space-x-3">
+                    <i class="fas fa-cogs">
+                    </i>
+                    <span>
+                        Settings &amp; API
+                    </span>
+                </h2>
+                <!-- Section 1: API Keys Table -->
+                <div class="glass-card p-6 overflow-x-auto scrollbar-thin">
+                    <h3 class="text-lg font-semibold text-indigo-700 mb-4 flex items-center space-x-2">
+                        <i class="fas fa-key">
+                        </i>
+                        <span>
+                            API Keys
+                        </span>
+                    </h3>
+                    <table class="w-full text-left text-sm text-indigo-900">
+                        <thead class="border-b border-indigo-300">
+                            <tr>
+                                <th class="py-2 px-3 font-semibold">
+                                    Project
+                                </th>
+                                <th class="py-2 px-3 font-semibold">
+                                    Key
+                                </th>
+                                <th class="py-2 px-3 font-semibold">
+                                    Domain
+                                </th>
+                                <th class="py-2 px-3 font-semibold">
+                                    Status
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="border-b border-indigo-100 hover:bg-indigo-50">
+                                <td class="py-2 px-3">
+                                    Main Website
+                                </td>
+                                <td class="py-2 px-3 font-mono truncate max-w-xs">
+                                    abcd1234efgh5678
+                                </td>
+                                <td class="py-2 px-3">
+                                    example.com
+                                </td>
+                                <td class="py-2 px-3 text-green-600 font-semibold">
+                                    Active
+                                </td>
+                            </tr>
+                            <tr class="border-b border-indigo-100 hover:bg-indigo-50">
+                                <td class="py-2 px-3">
+                                    Mobile App
+                                </td>
+                                <td class="py-2 px-3 font-mono truncate max-w-xs">
+                                    ijkl9012mnop3456
+                                </td>
+                                <td class="py-2 px-3">
+                                    app.example.com
+                                </td>
+                                <td class="py-2 px-3 text-yellow-600 font-semibold">
+                                    Pending
+                                </td>
+                            </tr>
+                            <tr class="hover:bg-indigo-50">
+                                <td class="py-2 px-3">
+                                    Landing Page
+                                </td>
+                                <td class="py-2 px-3 font-mono truncate max-w-xs">
+                                    qrst7890uvwx1234
+                                </td>
+                                <td class="py-2 px-3">
+                                    landing.example.com
+                                </td>
+                                <td class="py-2 px-3 text-red-600 font-semibold">
+                                    Revoked
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- Section 2: Allowed Domains Table -->
+                <div class="glass-card p-6 overflow-x-auto scrollbar-thin max-w-3xl mx-auto md:mx-0">
+                    <h3 class="text-lg font-semibold text-indigo-700 mb-4 flex items-center space-x-2">
+                        <i class="fas fa-globe">
+                        </i>
+                        <span>
+                            Allowed Domains
+                        </span>
+                    </h3>
+                    <table class="w-full text-left text-sm text-indigo-900">
+                        <thead class="border-b border-indigo-300">
+                            <tr>
+                                <th class="py-2 px-3 font-semibold">
+                                    Domain
+                                </th>
+                                <th class="py-2 px-3 font-semibold">
+                                    Status
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="border-b border-indigo-100 hover:bg-indigo-50">
+                                <td class="py-2 px-3">
+                                    example.com
+                                </td>
+                                <td class="py-2 px-3 text-green-600 font-semibold">
+                                    Active
+                                </td>
+                            </tr>
+                            <tr class="border-b border-indigo-100 hover:bg-indigo-50">
+                                <td class="py-2 px-3">
+                                    app.example.com
+                                </td>
+                                <td class="py-2 px-3 text-green-600 font-semibold">
+                                    Active
+                                </td>
+                            </tr>
+                            <tr class="hover:bg-indigo-50">
+                                <td class="py-2 px-3">
+                                    landing.example.com
+                                </td>
+                                <td class="py-2 px-3 text-yellow-600 font-semibold">
+                                    Pending
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- Section 3: Integration Snippets (code card) -->
+                <div class="glass-card p-6 max-w-4xl mx-auto md:mx-0">
+                    <h3 class="text-lg font-semibold text-indigo-700 mb-4 flex items-center space-x-2">
+                        <i class="fas fa-code">
+                        </i>
+                        <span>
+                            Integration Snippets
+                        </span>
+                    </h3>
+                    <pre
+                        class="bg-indigo-50 text-indigo-900 rounded-md p-4 overflow-x-auto font-mono text-sm max-h-48 scrollbar-thin">&lt;script src="https://cdn.webanalytics.com/track.js"&gt;&lt;/script&gt;
+&lt;script&gt;
+  WebAnalytics.init({
+    apiKey: "abcd1234efgh5678",
+    domain: "example.com"
+  });
+&lt;/script&gt;</pre>
+                </div>
+                <!-- Section 4: Data retention policy -->
+                <div class="glass-card p-6 max-w-3xl mx-auto md:mx-0">
+                    <h3 class="text-lg font-semibold text-indigo-700 mb-4 flex items-center space-x-2">
+                        <i class="fas fa-database">
+                        </i>
+                        <span>
+                            Data Retention Policy
+                        </span>
+                    </h3>
+                    <p class="text-indigo-900 leading-relaxed">
+                        Data is retained for a period of 12 months by default. You can customize the retention period in
+                        your account settings. After the retention period, data is permanently deleted to ensure privacy
+                        and compliance with regulations.
+                    </p>
+                </div>
+                <!-- Section 5: Privacy Settings / Cookie Consent -->
+                <div class="glass-card p-6 max-w-3xl mx-auto md:mx-0">
+                    <h3 class="text-lg font-semibold text-indigo-700 mb-4 flex items-center space-x-2">
+                        <i class="fas fa-user-shield">
+                        </i>
+                        <span>
+                            Privacy Settings / Cookie Consent
+                        </span>
+                    </h3>
+                    <p class="text-indigo-900 leading-relaxed mb-4">
+                        Manage your privacy settings and configure cookie consent banners to comply with GDPR and other
+                        privacy laws.
+                    </p>
+                    <button
+                        class="inline-flex items-center px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-400"
+                        type="button">
+                        <i class="fas fa-cog mr-2">
+                        </i>
+                        Configure Settings
+                    </button>
+                </div>
+            </section>
+            <!-- BILLING & PLAN -->
+            <section class="section-content max-w-7xl mx-auto space-y-8 hidden" data-section="billing">
+                <h2 class="text-2xl font-semibold text-indigo-700 mb-4 flex items-center space-x-3">
+                    <i class="fas fa-wallet">
+                    </i>
+                    <span>
+                        Billing &amp; Plan
+                    </span>
+                </h2>
+                <!-- Section 1: Current Plan Overview -->
+                <div
+                    class="glass-card p-6 max-w-3xl mx-auto md:mx-0 grid grid-cols-1 sm:grid-cols-3 gap-6 text-indigo-900">
+                    <div class="flex flex-col items-center justify-center p-4 glass-card">
+                        <i class="fas fa-star text-indigo-600 text-4xl mb-2">
+                        </i>
+                        <p class="text-xl font-semibold">
+                            Current Plan
+                        </p>
+                        <p class="text-2xl font-bold">
+                            Pro
+                        </p>
+                    </div>
+                    <div class="flex flex-col items-center justify-center p-4 glass-card">
+                        <i class="fas fa-dollar-sign text-indigo-600 text-4xl mb-2">
+                        </i>
+                        <p class="text-xl font-semibold">
+                            Price
+                        </p>
+                        <p class="text-2xl font-bold">
+                            $49 / month
+                        </p>
+                    </div>
+                    <div class="flex flex-col items-center justify-center p-4 glass-card">
+                        <i class="fas fa-calendar-alt text-indigo-600 text-4xl mb-2">
+                        </i>
+                        <p class="text-xl font-semibold">
+                            Expiry
+                        </p>
+                        <p class="text-2xl font-bold">
+                            2024-12-31
+                        </p>
+                    </div>
+                </div>
+                <!-- Section 2: Usage Summary -->
+                <div
+                    class="glass-card p-6 max-w-3xl mx-auto md:mx-0 grid grid-cols-1 sm:grid-cols-2 gap-6 text-indigo-900">
+                    <div class="flex flex-col items-center justify-center p-4 glass-card">
+                        <i class="fas fa-chart-bar text-indigo-600 text-4xl mb-2">
+                        </i>
+                        <p class="text-xl font-semibold">
+                            Event Count
+                        </p>
+                        <p class="text-2xl font-bold">
+                            1,234,567
+                        </p>
+                    </div>
+                    <div class="flex flex-col items-center justify-center p-4 glass-card">
+                        <i class="fas fa-tasks text-indigo-600 text-4xl mb-2">
+                        </i>
+                        <p class="text-xl font-semibold">
+                            Limits
+                        </p>
+                        <p class="text-2xl font-bold">
+                            2,000,000
+                        </p>
+                    </div>
+                </div>
+                <!-- Section 3: Billing History Table -->
+                <div class="glass-card p-6 overflow-x-auto scrollbar-thin max-w-4xl mx-auto md:mx-0">
+                    <h3 class="text-lg font-semibold text-indigo-700 mb-4 flex items-center space-x-2">
+                        <i class="fas fa-receipt">
+                        </i>
+                        <span>
+                            Billing History
+                        </span>
+                    </h3>
+                    <table class="w-full text-left text-sm text-indigo-900">
+                        <thead class="border-b border-indigo-300">
+                            <tr>
+                                <th class="py-2 px-3 font-semibold">
+                                    Date
+                                </th>
+                                <th class="py-2 px-3 font-semibold">
+                                    Amount
+                                </th>
+                                <th class="py-2 px-3 font-semibold">
+                                    Status
+                                </th>
+                                <th class="py-2 px-3 font-semibold">
+                                    Invoice
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="border-b border-indigo-100 hover:bg-indigo-50">
+                                <td class="py-2 px-3">
+                                    2024-05-01
+                                </td>
+                                <td class="py-2 px-3">
+                                    $49.00
+                                </td>
+                                <td class="py-2 px-3 text-green-600 font-semibold">
+                                    Paid
+                                </td>
+                                <td class="py-2 px-3">
+                                    <a class="text-indigo-700 hover:underline" href="#">
+                                        View
+                                    </a>
+                                </td>
+                            </tr>
+                            <tr class="border-b border-indigo-100 hover:bg-indigo-50">
+                                <td class="py-2 px-3">
+                                    2024-04-01
+                                </td>
+                                <td class="py-2 px-3">
+                                    $49.00
+                                </td>
+                                <td class="py-2 px-3 text-green-600 font-semibold">
+                                    Paid
+                                </td>
+                                <td class="py-2 px-3">
+                                    <a class="text-indigo-700 hover:underline" href="#">
+                                        View
+                                    </a>
+                                </td>
+                            </tr>
+                            <tr class="border-b border-indigo-100 hover:bg-indigo-50">
+                                <td class="py-2 px-3">
+                                    2024-03-01
+                                </td>
+                                <td class="py-2 px-3">
+                                    $49.00
+                                </td>
+                                <td class="py-2 px-3 text-green-600 font-semibold">
+                                    Paid
+                                </td>
+                                <td class="py-2 px-3">
+                                    <a class="text-indigo-700 hover:underline" href="#">
+                                        View
+                                    </a>
+                                </td>
+                            </tr>
+                            <tr class="hover:bg-indigo-50">
+                                <td class="py-2 px-3">
+                                    2024-02-01
+                                </td>
+                                <td class="py-2 px-3">
+                                    $49.00
+                                </td>
+                                <td class="py-2 px-3 text-green-600 font-semibold">
+                                    Paid
+                                </td>
+                                <td class="py-2 px-3">
+                                    <a class="text-indigo-700 hover:underline" href="#">
+                                        View
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- Section 4: Upgrade CTA Card -->
+                <div
+                    class="glass-card p-6 max-w-3xl mx-auto md:mx-0 flex flex-col items-center justify-center text-center space-y-4">
+                    <h3 class="text-xl font-semibold text-indigo-700">
+                        Upgrade Your Plan
+                    </h3>
+                    <p class="text-indigo-900 max-w-md">
+                        Unlock more features and higher limits by upgrading to the Enterprise plan.
+                    </p>
+                    <button
+                        class="inline-flex items-center px-6 py-3 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-400"
+                        type="button">
+                        <i class="fas fa-arrow-up mr-2">
+                        </i>
+                        Upgrade Now
+                    </button>
+                </div>
+                <!-- Section 5: Plan Comparison Table -->
+                <div class="glass-card p-6 overflow-x-auto scrollbar-thin max-w-5xl mx-auto md:mx-0">
+                    <h3 class="text-lg font-semibold text-indigo-700 mb-4 flex items-center space-x-2">
+                        <i class="fas fa-table">
+                        </i>
+                        <span>
+                            Plan Comparison
+                        </span>
+                    </h3>
+                    <table
+                        class="w-full text-left text-sm text-indigo-900 border-collapse border border-indigo-300 rounded-md overflow-hidden">
+                        <thead class="bg-indigo-100">
+                            <tr>
+                                <th class="py-2 px-3 font-semibold border border-indigo-300">
+                                </th>
+                                <th class="py-2 px-3 font-semibold border border-indigo-300">
+                                    Free
+                                </th>
+                                <th class="py-2 px-3 font-semibold border border-indigo-300">
+                                    Pro
+                                </th>
+                                <th class="py-2 px-3 font-semibold border border-indigo-300">
+                                    Enterprise
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="border border-indigo-300">
+                                <td class="py-2 px-3 font-semibold border border-indigo-300">
+                                    Price
+                                </td>
+                                <td class="py-2 px-3 border border-indigo-300">
+                                    $0
+                                </td>
+                                <td class="py-2 px-3 border border-indigo-300">
+                                    $49 / month
+                                </td>
+                                <td class="py-2 px-3 border border-indigo-300">
+                                    Custom
+                                </td>
+                            </tr>
+                            <tr class="border border-indigo-300 bg-indigo-50">
+                                <td class="py-2 px-3 font-semibold border border-indigo-300">
+                                    Event Limit
+                                </td>
+                                <td class="py-2 px-3 border border-indigo-300">
+                                    100,000
+                                </td>
+                                <td class="py-2 px-3 border border-indigo-300">
+                                    2,000,000
+                                </td>
+                                <td class="py-2 px-3 border border-indigo-300">
+                                    Unlimited
+                                </td>
+                            </tr>
+                            <tr class="border border-indigo-300">
+                                <td class="py-2 px-3 font-semibold border border-indigo-300">
+                                    API Access
+                                </td>
+                                <td class="py-2 px-3 border border-indigo-300">
+                                    No
+                                </td>
+                                <td class="py-2 px-3 border border-indigo-300">
+                                    Yes
+                                </td>
+                                <td class="py-2 px-3 border border-indigo-300">
+                                    Yes
+                                </td>
+                            </tr>
+                            <tr class="border border-indigo-300 bg-indigo-50">
+                                <td class="py-2 px-3 font-semibold border border-indigo-300">
+                                    Support
+                                </td>
+                                <td class="py-2 px-3 border border-indigo-300">
+                                    Community
+                                </td>
+                                <td class="py-2 px-3 border border-indigo-300">
+                                    Email
+                                </td>
+                                <td class="py-2 px-3 border border-indigo-300">
+                                    Dedicated Manager
+                                </td>
+                            </tr>
+                            <tr class="border border-indigo-300">
+                                <td class="py-2 px-3 font-semibold border border-indigo-300">
+                                    Custom Reports
+                                </td>
+                                <td class="py-2 px-3 border border-indigo-300">
+                                    No
+                                </td>
+                                <td class="py-2 px-3 border border-indigo-300">
+                                    Yes
+                                </td>
+                                <td class="py-2 px-3 border border-indigo-300">
+                                    Yes
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+            <!-- AFFILIATE / PARTNERSHIP -->
+            <section class="section-content max-w-7xl mx-auto space-y-8 hidden" data-section="affiliate">
+                <h2 class="text-2xl font-semibold text-indigo-700 mb-4 flex items-center space-x-3">
+                    <i class="fas fa-handshake">
+                    </i>
+                    <span>
+                        Affiliate / Partnership
+                    </span>
+                </h2>
+                <!-- Section 1: Referral Summary Cards -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
+                    <div class="glass-card p-5 flex flex-col">
+                        <h3 class="text-sm font-semibold text-indigo-700 flex items-center space-x-2 mb-2">
+                            <i class="fas fa-link">
+                            </i>
+                            <span>
+                                Referral Link
+                            </span>
+                        </h3>
+                        <div class="flex items-center space-x-2">
+                            <input
+                                class="flex-1 bg-indigo-50 text-indigo-900 rounded-md px-3 py-2 text-xs font-mono select-all focus:outline-none"
+                                readonly="" type="text" value="https://example.com/referral/abc123" />
+                            <button aria-label="Copy referral link"
+                                class="text-indigo-600 hover:text-indigo-800 focus:outline-none"
+                                onclick="navigator.clipboard.writeText('https://example.com/referral/abc123')"
+                                type="button">
+                                <i class="fas fa-copy">
+                                </i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="glass-card p-5 flex flex-col">
+                        <h3 class="text-sm font-semibold text-indigo-700 flex items-center space-x-2 mb-2">
+                            <i class="fas fa-users">
+                            </i>
+                            <span>
+                                Total Referred Users
+                            </span>
+                        </h3>
+                        <p class="text-3xl font-bold text-indigo-900">
+                            1,234
+                        </p>
+                    </div>
+                    <div class="glass-card p-5 flex flex-col">
+                        <h3 class="text-sm font-semibold text-indigo-700 flex items-center space-x-2 mb-2">
+                            <i class="fas fa-dollar-sign">
+                            </i>
+                            <span>
+                                Total Commission
+                            </span>
+                        </h3>
+                        <p class="text-3xl font-bold text-indigo-900">
+                            $12,345
+                        </p>
+                    </div>
+                    <div class="glass-card p-5 flex flex-col">
+                        <h3 class="text-sm font-semibold text-indigo-700 flex items-center space-x-2 mb-2">
+                            <i class="fas fa-calendar-check">
+                            </i>
+                            <span>
+                                Last Payout Date
+                            </span>
+                        </h3>
+                        <p class="text-3xl font-bold text-indigo-900">
+                            2024-05-15
+                        </p>
+                    </div>
+                </div>
+                <!-- Section 2: Referred Users Table -->
+                <div class="glass-card p-6 overflow-x-auto scrollbar-thin">
+                    <h3 class="text-lg font-semibold text-indigo-700 mb-4 flex items-center space-x-2">
+                        <i class="fas fa-user-friends">
+                        </i>
+                        <span>
+                            Referred Users
+                        </span>
+                    </h3>
+                    <table class="w-full text-left text-sm text-indigo-900">
+                        <thead class="border-b border-indigo-300">
+                            <tr>
+                                <th class="py-2 px-3 font-semibold">
+                                    Name
+                                </th>
+                                <th class="py-2 px-3 font-semibold">
+                                    Email
+                                </th>
+                                <th class="py-2 px-3 font-semibold">
+                                    Join Date
+                                </th>
+                                <th class="py-2 px-3 font-semibold">
+                                    Plan
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="border-b border-indigo-100 hover:bg-indigo-50">
+                                <td class="py-2 px-3 truncate max-w-xs">
+                                    Alice Johnson
+                                </td>
+                                <td class="py-2 px-3 truncate max-w-xs">
+                                    alice@example.com
+                                </td>
+                                <td class="py-2 px-3">
+                                    2024-01-15
+                                </td>
+                                <td class="py-2 px-3">
+                                    Pro
+                                </td>
+                            </tr>
+                            <tr class="border-b border-indigo-100 hover:bg-indigo-50">
+                                <td class="py-2 px-3 truncate max-w-xs">
+                                    Bob Smith
+                                </td>
+                                <td class="py-2 px-3 truncate max-w-xs">
+                                    bob@example.com
+                                </td>
+                                <td class="py-2 px-3">
+                                    2024-02-20
+                                </td>
+                                <td class="py-2 px-3">
+                                    Free
+                                </td>
+                            </tr>
+                            <tr class="border-b border-indigo-100 hover:bg-indigo-50">
+                                <td class="py-2 px-3 truncate max-w-xs">
+                                    Carol Lee
+                                </td>
+                                <td class="py-2 px-3 truncate max-w-xs">
+                                    carol@example.com
+                                </td>
+                                <td class="py-2 px-3">
+                                    2024-03-10
+                                </td>
+                                <td class="py-2 px-3">
+                                    Enterprise
+                                </td>
+                            </tr>
+                            <tr class="border-b border-indigo-100 hover:bg-indigo-50">
+                                <td class="py-2 px-3 truncate max-w-xs">
+                                    David Kim
+                                </td>
+                                <td class="py-2 px-3 truncate max-w-xs">
+                                    david@example.com
+                                </td>
+                                <td class="py-2 px-3">
+                                    2024-04-05
+                                </td>
+                                <td class="py-2 px-3">
+                                    Pro
+                                </td>
+                            </tr>
+                            <tr class="hover:bg-indigo-50">
+                                <td class="py-2 px-3 truncate max-w-xs">
+                                    Eva Green
+                                </td>
+                                <td class="py-2 px-3 truncate max-w-xs">
+                                    eva@example.com
+                                </td>
+                                <td class="py-2 px-3">
+                                    2024-05-01
+                                </td>
+                                <td class="py-2 px-3">
+                                    Free
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- Section 3: Earnings Chart -->
+                <div class="glass-card p-6 max-w-4xl mx-auto md:mx-0">
+                    <h3 class="text-lg font-semibold text-indigo-700 mb-4 flex items-center space-x-2">
+                        <i class="fas fa-chart-area">
+                        </i>
+                        <span>
+                            Earnings Chart (Monthly Revenue)
+                        </span>
+                    </h3>
+                    <img alt="Area chart showing monthly revenue from referrals with a smooth purple gradient on a soft purple background"
+                        class="rounded-md w-full object-contain" height="338" loading="lazy"
+                        src="https://storage.googleapis.com/a1aa/image/48b0d7f6-9336-40c5-c53b-9552054c03ea.jpg"
+                        width="800" />
+                </div>
+                <!-- Section 4: Payout History Table -->
+                <div class="glass-card p-6 overflow-x-auto scrollbar-thin max-w-4xl mx-auto md:mx-0">
+                    <h3 class="text-lg font-semibold text-indigo-700 mb-4 flex items-center space-x-2">
+                        <i class="fas fa-money-check-alt">
+                        </i>
+                        <span>
+                            Payout History
+                        </span>
+                    </h3>
+                    <table class="w-full text-left text-sm text-indigo-900">
+                        <thead class="border-b border-indigo-300">
+                            <tr>
+                                <th class="py-2 px-3 font-semibold">
+                                    Amount
+                                </th>
+                                <th class="py-2 px-3 font-semibold">
+                                    Method
+                                </th>
+                                <th class="py-2 px-3 font-semibold">
+                                    Status
+                                </th>
+                                <th class="py-2 px-3 font-semibold">
+                                    Date
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="border-b border-indigo-100 hover:bg-indigo-50">
+                                <td class="py-2 px-3">
+                                    $1,200
+                                </td>
+                                <td class="py-2 px-3">
+                                    PayPal
+                                </td>
+                                <td class="py-2 px-3 text-green-600 font-semibold">
+                                    Completed
+                                </td>
+                                <td class="py-2 px-3">
+                                    2024-05-15
+                                </td>
+                            </tr>
+                            <tr class="border-b border-indigo-100 hover:bg-indigo-50">
+                                <td class="py-2 px-3">
+                                    $1,000
+                                </td>
+                                <td class="py-2 px-3">
+                                    Bank Transfer
+                                </td>
+                                <td class="py-2 px-3 text-green-600 font-semibold">
+                                    Completed
+                                </td>
+                                <td class="py-2 px-3">
+                                    2024-04-15
+                                </td>
+                            </tr>
+                            <tr class="border-b border-indigo-100 hover:bg-indigo-50">
+                                <td class="py-2 px-3">
+                                    $900
+                                </td>
+                                <td class="py-2 px-3">
+                                    PayPal
+                                </td>
+                                <td class="py-2 px-3 text-green-600 font-semibold">
+                                    Completed
+                                </td>
+                                <td class="py-2 px-3">
+                                    2024-03-15
+                                </td>
+                            </tr>
+                            <tr class="hover:bg-indigo-50">
+                                <td class="py-2 px-3">
+                                    $850
+                                </td>
+                                <td class="py-2 px-3">
+                                    Bank Transfer
+                                </td>
+                                <td class="py-2 px-3 text-green-600 font-semibold">
+                                    Completed
+                                </td>
+                                <td class="py-2 px-3">
+                                    2024-02-15
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- Section 5: How it Works (affiliate program guide card) -->
+                <div class="glass-card p-6 max-w-3xl mx-auto md:mx-0">
+                    <h3 class="text-lg font-semibold text-indigo-700 mb-4 flex items-center space-x-2">
+                        <i class="fas fa-info-circle">
+                        </i>
+                        <span>
+                            How It Works
+                        </span>
+                    </h3>
+                    <p class="text-indigo-900 leading-relaxed">
+                        Share your unique referral link with others. When they sign up and use our services, you earn
+                        commissions based on their activity. Payouts are made monthly via your selected payment method.
+                        Track your referrals and earnings here.
+                    </p>
+                </div>
+            </section>
+        </main>
+    </div>
+    <script>
+        // Sidebar menu toggle for mobile
+        const mobileMenuBtn = document.getElementById("mobile-menu-btn");
+        const mobileMenuClose = document.getElementById("mobile-menu-close");
+        const mobileSidebar = document.getElementById("mobile-sidebar");
+        const mobileSidebarOverlay = document.getElementById("mobile-sidebar-overlay");
+
+        mobileMenuBtn.addEventListener("click", () => {
+            mobileSidebar.classList.remove("-translate-x-full");
+            mobileSidebarOverlay.classList.remove("hidden");
+            document.body.style.overflow = "hidden";
+        });
+
+        mobileMenuClose.addEventListener("click", () => {
+            mobileSidebar.classList.add("-translate-x-full");
+            mobileSidebarOverlay.classList.add("hidden");
+            document.body.style.overflow = "";
+        });
+
+        mobileSidebarOverlay.addEventListener("click", () => {
+            mobileSidebar.classList.add("-translate-x-full");
+            mobileSidebarOverlay.classList.add("hidden");
+            document.body.style.overflow = "";
+        });
+
+        // Menu buttons desktop and mobile
+        const menuButtons = document.querySelectorAll(".menu-btn");
+        const mobileMenuButtons = document.querySelectorAll(".mobile-menu-btn");
+        const sections = document.querySelectorAll(".section-content");
+
+        function setActiveMenu(menu) {
+            // Desktop buttons
+            menuButtons.forEach((btn) => {
+                if (btn.dataset.menu === menu) {
+                    btn.classList.add("bg-indigo-100", "text-indigo-700", "font-semibold");
+                    btn.setAttribute("aria-current", "page");
+                } else {
+                    btn.classList.remove("bg-indigo-100", "text-indigo-700", "font-semibold");
+                    btn.removeAttribute("aria-current");
+                }
+            });
+            // Mobile buttons
+            mobileMenuButtons.forEach((btn) => {
+                if (btn.dataset.menu === menu) {
+                    btn.classList.add("bg-indigo-100", "text-indigo-700", "font-semibold");
+                    btn.setAttribute("aria-current", "page");
+                } else {
+                    btn.classList.remove("bg-indigo-100", "text-indigo-700", "font-semibold");
+                    btn.removeAttribute("aria-current");
+                }
+            });
+            // Show section
+            sections.forEach((sec) => {
+                if (sec.dataset.section === menu) {
+                    sec.classList.remove("hidden");
+                    sec.scrollTop = 0;
+                } else {
+                    sec.classList.add("hidden");
+                }
+            });
+            // Close mobile sidebar if open
+            if (!mobileSidebar.classList.contains("-translate-x-full")) {
+                mobileSidebar.classList.add("-translate-x-full");
+                mobileSidebarOverlay.classList.add("hidden");
+                document.body.style.overflow = "";
+            }
+            // Focus main content for accessibility
+            document.getElementById("main-content").focus();
+        }
+
+        menuButtons.forEach((btn) => {
+            btn.addEventListener("click", () => {
+                setActiveMenu(btn.dataset.menu);
+            });
+        });
+        mobileMenuButtons.forEach((btn) => {
+            btn.addEventListener("click", () => {
+                setActiveMenu(btn.dataset.menu);
+            });
+        });
+
+        // Initialize default active menu
+        setActiveMenu("dashboard");
+    </script>
+</body>
+
+</html>

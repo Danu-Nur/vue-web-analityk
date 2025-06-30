@@ -10,91 +10,140 @@ Vue 3 + Tailwind CSS + Vite + Pinia + ApexCharts
 ```
 project-root/
 ├── public/
-│   ├── favicon.ico
-│   └── index.html
+│   ├── favicon.ico                 # Favicon for the app
+│   └── index.html                  # Main HTML entry point
 ├── src/
 │   ├── assets/
 │   │   ├── css/
-│   │   │   └── tailwind.css
-│   │   ├── images/
-│   │   └── fonts/
+│   │   │   └── tailwind.css        # Custom Tailwind styles
+│   │   ├── images/                 # Static images (e.g., logos, icons)
+│   │   └── fonts/                  # Custom fonts (e.g., Inter, DM Sans)
 │   ├── components/
 │   │   ├── ui/
-│   │   │   ├── Alert.vue
-│   │   │   ├── Button.vue
-│   │   │   ├── Carousel.vue
-│   │   │   ├── Dropdown.vue
-│   │   │   ├── Modal.vue
-│   │   │   ├── Input.vue
-│   │   │   ├── MetricCard.vue
-│   │   │   ├── DataTable.vue
-│   │   │   ├── ApexChart.vue
-│   │   │   ├── GeoMap.vue
-│   │   │   ├── CodeBlock.vue
-│   │   │   └── Breadcrumb.vue
+│   │   │   ├── Alert.vue           # Reusable alert (success, error, warning, info)
+│   │   │   ├── Button.vue          # Reusable button with variants (primary, secondary, outline)
+│   │   │   ├── Carousel.vue        # Reusable carousel for images/cards
+│   │   │   ├── Dropdown.vue        # Reusable dropdown menu for filters
+│   │   │   ├── Modal.vue           # Reusable modal for popups
+│   │   │   ├── Input.vue           # Reusable input field (text, copyable)
+│   │   │   ├── MetricCard.vue      # Reusable metric card (e.g., Pageviews, Visitors)
+│   │   │   ├── DataTable.vue       # Reusable table with sorting/pagination
+│   │   │   ├── ApexChart.vue       # Wrapper for ApexCharts (line, pie, bar, Sankey)
+│   │   │   ├── GeoMap.vue          # Geo map component (placeholder for map library)
+│   │   │   ├── CodeBlock.vue       # Reusable code snippet display
+│   │   │   └── Breadcrumb.vue      # Session journey breadcrumbs
 │   │   ├── layout/
-│   │   │   ├── Sidebar.vue
-│   │   │   ├── Header.vue
-│   │   │   └── MainLayout.vue
+│   │   │   ├── Header.vue          # Generic header with slots for logo, nav, actions
+│   │   │   ├── Sidebar.vue         # Generic sidebar with configurable menu items
+│   │   │   ├── Footer.vue          # Generic footer with slots for content, links
+│   │   │   ├── MainLayout.vue      # Layout for admin/user dashboards with sidebar
+│   │   │   ├── LandingLayout.vue   # Layout for landing pages without sidebar
+│   │   │   └── MinimalLayout.vue   # Minimal layout for simple pages (e.g., user settings)
 │   │   ├── dashboard/
-│   │   │   ├── MetricSection.vue
-│   │   │   ├── PageviewsChart.vue
-│   │   │   ├── TopPagesTable.vue
-│   │   │   └── DevicePieChart.vue
+│   │   │   ├── MetricSection.vue   # Metric cards section
+│   │   │   ├── PageviewsChart.vue  # Line chart for pageviews
+│   │   │   ├── TopPagesTable.vue   # Top pages table
+│   │   │   ├── DevicePieChart.vue  # Device breakdown pie chart
+│   │   │   ├── GeoMapSection.vue   # Geo map for visitor distribution
+│   │   │   ├── ReferrerTable.vue   # Referrer/UTM source table
+│   │   │   ├── EntryExitPages.vue  # Entry/exit pages table
+│   │   │   └── HourlyTrafficChart.vue # Hourly traffic bar chart
 │   │   ├── visitors/
-│   │   │   ├── LiveUsersTable.vue
-│   │   │   ├── SessionsTable.vue
-│   │   │   └── DeviceBreakdown.vue
+│   │   │   ├── LiveUsersTable.vue  # Live users table
+│   │   │   ├── SessionsTable.vue   # Sessions table
+│   │   │   ├── DeviceBreakdown.vue # Device table + pie chart
+│   │   │   ├── TimezoneLanguageTable.vue # Timezone and language table
+│   │   │   ├── GeoMapClustering.vue # Geo map with visitor clustering
+│   │   │   └── SessionReplay.vue   # Session replay preview/breadcrumbs
 │   │   ├── behavior/
-│   │   │   ├── ClickEventsTable.vue
-│   │   │   └── ScrollDepthChart.vue
+│   │   │   ├── ClickEventsTable.vue # Click events table
+│   │   │   ├── ScrollDepthChart.vue # Scroll depth distribution chart
+│   │   │   ├── TopClickedChart.vue # Top clicked elements bar chart
+│   │   │   ├── HeatmapPreview.vue  # Heatmap preview area
+│   │   │   ├── CustomEventsTable.vue # Custom events table
+│   │   │   └── EventTimeline.vue   # Event timeline per session
 │   │   ├── conversions/
-│   │   │   ├── FunnelsTable.vue
-│   │   │   └── FunnelStepsChart.vue
+│   │   │   ├── FunnelsTable.vue    # Funnels table
+│   │   │   ├── FunnelStepsChart.vue # Funnel steps Sankey chart
+│   │   │   ├── CompletedFunnels.vue # Completed funnels list
+│   │   │   ├── ConversionRate.vue  # Conversion rate per device/region
+│   │   │   └── PathToConversion.vue # Path to conversion visualization
 │   │   ├── diagnostics/
-│   │   │   ├── ErrorsTable.vue
-│   │   │   └── BotVsHumanChart.vue
+│   │   │   ├── ErrorsTable.vue     # Client errors table
+│   │   │   ├── BotDetectionTable.vue # Bot detection table
+│   │   │   ├── BotVsHumanChart.vue # Bot vs human traffic line chart
+│   │   │   ├── PageLoadSummary.vue # Page load speed summary
+│   │   │   └── JSErrorRateChart.vue # JS error rate pie chart
 │   │   ├── settings/
-│   │   │   ├── ApiKeysTable.vue
-│   │   │   └── IntegrationSnippet.vue
+│   │   │   ├── ApiKeysTable.vue    # API keys table
+│   │   │   ├── AllowedDomainsTable.vue # Allowed domains table
+│   │   │   ├── IntegrationSnippet.vue # Integration code snippet
+│   │   │   ├── DataRetention.vue   # Data retention policy
+│   │   │   └── PrivacySettings.vue # Privacy settings/cookie consent
 │   │   ├── billing/
-│   │   │   ├── PlanOverview.vue
-│   │   │   └── BillingHistoryTable.vue
+│   │   │   ├── PlanOverview.vue    # Current plan overview
+│   │   │   ├── UsageSummary.vue    # Usage summary (event count, limits)
+│   │   │   ├── BillingHistoryTable.vue # Billing history table
+│   │   │   ├── UpgradeCta.vue      # Upgrade CTA card
+│   │   │   └── PlanComparison.vue  # Plan comparison table
 │   │   ├── affiliate/
-│   │   │   ├── ReferralSummary.vue
-│   │   │   └── EarningsChart.vue
+│   │   │   ├── ReferralSummary.vue # Referral summary cards
+│   │   │   ├── ReferredUsersTable.vue # Referred users table
+│   │   │   ├── EarningsChart.vue   # Earnings chart for referrals
+│   │   │   ├── PayoutHistoryTable.vue # Payout history table
+│   │   │   └── AffiliateGuide.vue  # Affiliate program guide card
 │   ├── views/
 │   │   ├── landing/
-│   │   │   ├── Home.vue
-│   │   │   └── Features.vue
-│   │   ├── admin/
-│   │   │   ├── Dashboard.vue
-│   │   │   ├── Visitors.vue
-│   │   │   ├── Behavior.vue
-│   │   │   ├── Conversions.vue
-│   │   │   ├── Diagnostics.vue
-│   │   │   ├── Settings.vue
-│   │   │   ├── Billing.vue
-│   │   │   └── Affiliate.vue
-│   │   ├── user/
-│   │   │   ├── Profile.vue
-│   │   │   └── Settings.vue
+│   │   │   ├── Home.vue            # Landing page for marketing
+│   │   │   ├── Features.vue        # Features page
+│   │   │   └── Pricing.vue         # Pricing page for marketing
+│   │   ├── dashboards/
+│   │   │   ├── admin/
+│   │   │   │   ├── Dashboard.vue   # Admin dashboard with full analytics
+│   │   │   │   ├── Visitors.vue    # Admin visitors section
+│   │   │   │   ├── Behavior.vue    # Admin behavior section
+│   │   │   │   ├── Conversions.vue # Admin conversions section
+│   │   │   │   ├── Diagnostics.vue # Admin diagnostics section
+│   │   │   │   ├── Settings.vue    # Admin settings & API section
+│   │   │   │   ├── Billing.vue     # Admin billing & plan section
+│   │   │   │   └── Affiliate.vue   # Admin affiliate/partnership section
+│   │   │   ├── user/
+│   │   │   │   ├── Dashboard.vue   # User dashboard with profile stats
+│   │   │   │   ├── Profile.vue     # User profile page
+│   │   │   │   └── Settings.vue    # User-specific settings
+│   │   │   ├── guest/
+│   │   │   │   ├── Dashboard.vue   # Guest dashboard with public stats
+│   │   │   │   ├── Login.vue       # Guest login page
+│   │   │   │   └── Signup.vue      # Guest signup page
 │   ├── router/
-│   │   └── index.js
+│   │   └── index.js               # Vue Router configuration with role-based guards
 │   ├── store/
-│   │   └── index.js
+│   │   ├── modules/
+│   │   │   ├── auth.js            # Authentication state (user role, login status)
+│   │   │   ├── admin.js           # Admin dashboard state (metrics, charts)
+│   │   │   ├── user.js            # User dashboard state (profile, settings)
+│   │   │   └── guest.js           # Guest dashboard state (public data)
+│   │   └── index.js               # Pinia store entry point
 │   ├── data/
-│   │   ├── dummyData.js
-│   │   └── constants.js
+│   │   ├── dummyData/
+│   │   │   ├── admin.js           # Dummy data for admin dashboard
+│   │   │   ├── user.js            # Dummy data for user dashboard
+│   │   │   └── guest.js           # Dummy data for guest dashboard
+│   │   └── constants/
+│   │       ├── menuItemsAdmin.js  # Admin menu items and icons
+│   │       ├── menuItemsUser.js   # User menu items
+│   │       ├── menuItemsGuest.js  # Guest menu items
+│   │       └── chartOptions.js    # Shared chart configuration options
 │   ├── utils/
-│   │   ├── chartConfig.js
-│   │   └── formatters.js
-│   ├── App.vue
-│   └── main.js
-├── tailwind.config.js
-├── vite.config.js
-├── package.json
-└── README.md
+│   │   ├── chartConfig.js         # ApexCharts configuration helpers
+│   │   ├── formatters.js          # Data formatters (e.g., time, percentage)
+│   │   └── roleUtils.js           # Role-based utility functions
+│   ├── App.vue                    # Root Vue component
+│   └── main.js                    # Entry point for Vue app
+├── tailwind.config.js             # Tailwind CSS configuration (glassmorphism utilities)
+├── vite.config.js                 # Vite configuration for Vue
+├── package.json                   # Project dependencies and scripts
+└── README.md                      # Project documentation
 ```
 
 ---
