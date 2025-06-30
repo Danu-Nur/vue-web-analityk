@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Analytics Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@3/dist/vue.global.prod.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts@3.40.0/dist/apexcharts.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .sidebar {
+            transition: transform 0.3s ease-in-out;
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                transform: translateX(-100%);
+            }
+
+            .sidebar.open {
+                transform: translateX(0);
+            }
+        }
+    </style>
+</head>
+
+<body class="bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-100">
+    <div id="app" class="min-h-screen flex">
+        <!-- Sidebar -->
+        <aside
+            :class="{'sidebar fixed inset-y-0 left-0 w-64 glass-effect z-50 md:static md:translate-x-0': true, 'open': isSidebarOpen}">
+            <div class="p-4 flex items-center justify-between">
+                <h1
+                    class="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-500">
+                    Analytics Dashboard</h1>
+                <button @click="toggleSidebar" class="md:hidden text-gray-400">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12">
+                        </path>
+                    </svg>
+                </button>
+            </div>
+            <nav class="mt-4">
+                <a v-for="item in menuItems" :key="item.name" @click="setActiveSection(item.name)"
+                    :class="{'block py-2 px-4 rounded-l-md cursor-pointer transition-colors': true, 'bg-blue-500/20 text-blue-300': activeSection === item.name, 'hover:bg-gray-700/50': activeSection !== item.name}"
+                    class="flex items-center gap-2">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" :d="item.icon"></path>
+                    </svg>
+                    {{ item.name }}
+                </a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1 p-4 md:p-8 overflow-y-auto">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-2xl font-semibold">{{ activeSection }}</h2>
+                <button @click="toggleSidebar" class="md:hidden text-gray-400">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M4 6h16M4 12h16m-7 6h7"></path>
+                    </svg>
+                </button>
+            </div>
+
+            <!-- Dashboard Section -->
+            <div v-if="activeSection === 'Dashboard'">
+                <!-- Metric Cards -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+                    <div v-for="metric in metrics" :key="metric.label" class="glass-effect rounded-lg p-4 shadow-sm">
+                        <h3 class="text-sm font-medium text-gray-400">{{ metric.label }}</h3>
+                        <p class="text-2xl font-bold">{{ metric.value }}</p>
+                        <p class="text-xs text-green-400">{{ metric.trend }} vs last period</p>
+                    </div>
+                </div>
+
+                <!-- Line Chart: Pageviews Over Time -->
+                <div class="glass-effect rounded-lg p-6 mb-6">
+                    <h3 class="text-lg font-medium mb-4">Pageviews Over Time</h3>
+                    <div id="pageviews-chart"></div>
+                </div>
+
+                <!-- Top Pages Table -->
+                <div class="glass-effect rounded-lg p-6 mb-6 overflow-x-auto">
+                    <h3 class="text-lg font-medium mb-4">Top Pages</h3>
+                    <table class="w-full text-left">
+                        <thead>
+                            <tr class="text-gray-400">
+                                <th class="py-2">URL</th>
+                                <th class="py-2">Views</th>
+                                <th class="py-2">Duration</th>
+                                <th class="py-2">Bounce</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr v-for="page in topPages" :key="page.url" class="border-t border-gray-700/50">
+                                <td class="py-2">{{ page.url }}</td>
+                                <td class="py-2">{{ page.views }}</td>
+                                <td class="py-2">{{ page.duration }}</td>
+                                <td class="py-2">{{ page.bounce }}%</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Device Type Pie Chart -->
+                <div class="glass-effect rounded-lg p-6">
+                    <h3 class="text-lg font-medium mb-4">Device Breakdown</h3>
+                    <div id="device-chart"></div>
+                </div>
+            </div>
+
+            <!-- Placeholder for Other Sections -->
+            <div v-else>
+                <h3 class="text-lg font-medium">Welcome to the {{ activeSection }} Section</h3>
+                <p class="text-gray-400">Content for this section is under development.</p>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        const { createApp } = Vue;
+
+        createApp({
+            data() {
+                return {
+                    isSidebarOpen: false,
+                    activeSection: 'Dashboard',
+                    menuItems: [
+                        { name: 'Dashboard', icon: 'M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6' },
+                        { name: 'Visitors', icon: 'M12 4.5v15m7.5-7.5h-15' },
+                        { name: 'Behavior', icon: 'M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2M9 19h6' },
+                        { name: 'Conversions', icon: 'M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z' },
+                        { name: 'Diagnostics', icon: 'M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z' },
+                        { name: 'Settings & API', icon: 'M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.573c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.573 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.573c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37a1.724 1.724 0 002.573-1.065z' },
+                        { name: 'Billing & Plan', icon: 'M2.25 8.25h19.5M2.25 9h19.5m-16.5 5.25h6m-6 2.25h3m-3.75 3h15a2.25 2.25 0 002.25-2.25V6.75A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25v10.5A2.25 2.25 0 004.5 19.5z' },
+                        { name: 'Affiliate / Partnership', icon: 'M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0111.964-3.07M12 6.375a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zm8.25 2.25a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z' }
+                    ],
+                    metrics: [
+                        { label: 'Pageviews', value: '125,340', trend: '+5.2%' },
+                        { label: 'Visitors', value: '45,120', trend: '+3.1%' },
+                        { label: 'Bounce Rate', value: '42.5%', trend: '-1.8%' },
+                        { label: 'Avg. Duration', value: '3m 45s', trend: '+0.4s' }
+                    ],
+                    topPages: [
+                        { url: '/home', views: '50,230', duration: '4m 12s', bounce: 38 },
+                        { url: '/products', views: '32,450', duration: '3m 50s', bounce: 45 },
+                        { url: '/blog', views: '25,670', duration: '2m 30s', bounce: 50 },
+                        { url: '/contact', views: '17,890', duration: '1m 45s', bounce: 60 }
+                    ],
+                    deviceData: [
+                        { name: 'Desktop', value: 60 },
+                        { name: 'Mobile', value: 30 },
+                        { name: 'Tablet', value: 10 }
+                    ]
+                };
+            },
+            methods: {
+                toggleSidebar() {
+                    this.isSidebarOpen = !this.isSidebarOpen;
+                },
+                setActiveSection(section) {
+                    this.activeSection = section;
+                    this.isSidebarOpen = false;
+                }
+            },
+            mounted() {
+                // Pageviews Line Chart
+                const pageviewsOptions = {
+                    chart: {
+                        type: 'line',
+                        height: 300,
+                        toolbar: { show: false },
+                        zoom: { enabled: false }
+                    },
+                    series: [{
+                        name: 'Pageviews',
+                        data: [12000, 15000, 13000, 17000, 20000, 18000, 22000]
+                    }],
+                    xaxis: {
+                        categories: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+                        labels: { style: { colors: '#9CA3AF' } }
+                    },
+                    yaxis: {
+                        labels: { style: { colors: '#9CA3AF' } }
+                    },
+                    stroke: {
+                        curve: 'smooth',
+                        width: 3,
+                        colors: ['#60A5FA']
+                    },
+                    grid: {
+                        borderColor: '#374151'
+                    },
+                    theme: {
+                        mode: 'dark'
+                    }
+                };
+                const pageviewsChart = new ApexCharts(document.querySelector('#pageviews-chart'), pageviewsOptions);
+                pageviewsChart.render();
+
+                // Device Pie Chart
+                const deviceOptions = {
+                    chart: {
+                        type: 'pie',
+                        height: 300
+                    },
+                    series: this.deviceData.map(d => d.value),
+                    labels: this.deviceData.map(d => d.name),
+                    colors: ['#60A5FA', '#F87171', '#FBBF24'],
+                    legend: {
+                        position: 'bottom',
+                        labels: { colors: '#9CA3AF' }
+                    },
+                    theme: {
+                        mode: 'dark'
+                    }
+                };
+                const deviceChart = new ApexCharts(document.querySelector('#device-chart'), deviceOptions);
+                deviceChart.render();
+            }
+        }).mount('#app');
+    </script>
+</body>
+
+</html>
