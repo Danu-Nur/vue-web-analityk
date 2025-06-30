@@ -1,12 +1,12 @@
 <template>
-    <div class="">
-        <TableHeader v-model:search="search" @export-csv="exportToCSV" @export-excel="exportToExcel"
-            @export-pdf="exportToPDF" @print="printTable" />
+    <TableHeader v-model:search="search" @export-csv="exportToCSV" @export-excel="exportToExcel"
+        @export-pdf="exportToPDF" @print="printTable" />
+    <div class="overflow-x-auto border border-gray-200 rounded-lg">
         <DataTable :headers="headers" :rows="paginatedRows" :sort-by="sortBy" :sort-order="sortOrder"
             @sort="handleSort" />
-        <TableFooter :total-entries="filteredRows.length" :page-size="pageSize" :current-page="currentPage"
-            @update:page-size="pageSize = $event" @update:current-page="currentPage = $event" />
     </div>
+    <TableFooter :total-entries="filteredRows.length" :page-size="pageSize" :current-page="currentPage"
+        @update:page-size="pageSize = $event" @update:current-page="currentPage = $event" />
 </template>
 
 <script setup>
