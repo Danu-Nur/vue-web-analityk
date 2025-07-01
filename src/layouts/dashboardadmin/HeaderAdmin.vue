@@ -1,40 +1,46 @@
 <script setup>
 import { ref } from 'vue';
 import { TransitionRoot, TransitionChild } from '@headlessui/vue';
+import { menu } from '../../dummydata/menu';
 import DropdownSearch from '../../components/ui/DropdownSearch.vue';
 const isMenuOpen = ref(false);
 const toggleMenu = () => {
     isMenuOpen.value = !isMenuOpen.value;
 };
+const menus = ref(menu.data)
+const activeTab = ref('Overview')
 </script>
 <template>
     <header class="sticky top-0 z-50 bg-white border-b border-gray-200">
         <nav aria-label="Primary Navigation"
-            class="mx-auto flex items-center md:justify-between px-4 sm:px-6 lg:px-12 py-3">
-            <div class="flex items-center justify-between w-full md:w-auto space-x-3">
+            class="mx-auto flex items-center xl:justify-between px-4 sm:px-6 xl:px-12 py-3">
+            <div class="flex items-center justify-beetween w-full xl:w-auto space-x-3">
                 <!-- Logo or DropdownSearch -->
                 <DropdownSearch />
+
+                <div
+                    class="hidden xl:flex items-center space-x-5 text-nowrap bg-gray-100 gap-2 p-1 rounded-md justify-between w-max">
+                    <router-link v-for="menu in menus" :key="menu" @click="activeTab = menu" to="" :class="[
+                        'rounded-md py-1 px-2 text-nowrap text-sm',
+                        activeTab === menu
+                            ? 'bg-gradient-to-r from-primary-600 to-indigo-500 text-white'
+                            : 'text-gray-400 hover:text-gray-600']">{{ menu }}</router-link>
+                </div>
+
                 <!-- Hamburger Menu for Mobile -->
-                <button class="md:hidden flex items-center justify-end me-0 text-gray-600 focus:outline-none"
+                <button class="xl:hidden flex items-center justify-end me-0 text-gray-600 focus:outline-none"
                     aria-label="Toggle navigation menu" @click="toggleMenu">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg class="w-6 h-6 sm:w-10 sm:h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M4 6h16M4 12h16m-7 6h7" />
                     </svg>
                 </button>
-
-                <div class="hidden md:flex items-center space-x-5">
-                    <a aria-current="page" class="font-semibold text-gray-900" href="#">Overview</a>
-                    <a class="text-gray-500 hover:text-gray-900" href="#">Customers</a>
-                    <a class="text-gray-500 hover:text-gray-900" href="#">Products</a>
-                    <a class="text-gray-500 hover:text-gray-900" href="#">Settings</a>
-                </div>
             </div>
 
             <!-- Desktop Navigation -->
 
             <!-- Desktop Search and Avatar -->
-            <div class="hidden md:flex items-center space-x-4">
+            <div class="hidden xl:flex items-center space-x-4">
                 <input aria-label="Search"
                     class="border border-gray-300 rounded-md py-1.5 px-3 placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-black"
                     placeholder="Search..." type="search" />
@@ -79,22 +85,14 @@ const toggleMenu = () => {
                                         class="border border-gray-300 rounded-md py-2 px-3 placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-black w-full"
                                         placeholder="Search..." type="search" />
                                 </li>
-                                <li>
-                                    <a href="#"
-                                        class="block px-3 py-2 text-gray-700 rounded hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-700 dark:hover:text-white">Overview</a>
+                                <li v-for="menu in menus" :key="menu">
+                                    <router-link
+                                        class="block px-3 py-2 text-gray-700 rounded hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-700 dark:hover:text-white"
+                                        to="">
+                                        {{ menu }}
+                                    </router-link>
                                 </li>
-                                <li>
-                                    <a href="#"
-                                        class="block px-3 py-2 text-gray-700 rounded hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-700 dark:hover:text-white">Customers</a>
-                                </li>
-                                <li>
-                                    <a href="#"
-                                        class="block px-3 py-2 text-gray-700 rounded hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-700 dark:hover:text-white">Products</a>
-                                </li>
-                                <li>
-                                    <a href="#"
-                                        class="block px-3 py-2 text-gray-700 rounded hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-700 dark:hover:text-white">Settings</a>
-                                </li>
+
                             </ul>
                         </div>
                     </TransitionChild>

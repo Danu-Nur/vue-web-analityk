@@ -55,7 +55,7 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-    <div class="relative w-full max-w-xs me-0 md:me-4">
+    <div class="relative w-screen xl:w-full xl:max-w-xs me-0 md:me-4">
         <!-- Trigger Button -->
         <button ref="buttonRef" @click="toggleDropdown"
             class="w-[200px] px-3 py-1.5 flex items-center justify-between text-sm font-medium bg-white border border-gray-200 rounded-md hover:bg-gray-50 focus:outline-none">

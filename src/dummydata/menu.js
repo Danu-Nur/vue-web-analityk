@@ -1,0 +1,1 @@
+export const menu = { data: ['Overview', 'Visitors', 'Behavior', 'Conversions', 'Diagnostics', 'Settings & API', 'Billing & Plan', 'Affiliate / Partnership'] }
