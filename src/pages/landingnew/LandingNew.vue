@@ -1,16 +1,14 @@
 <script setup>
-import Header from '../../layouts/landingnew/HeaderNew.vue';
-import HeroNew from '../../layouts/landingnew/HeroNew.vue';
-import Stats from '../../layouts/landingnew/Stats.vue';
-import Features from '../../layouts/landingnew/Features.vue';
-import DemoPreview from '../../layouts/landingnew/DemoPreview.vue';
-import Testimonials from '../../layouts/landingnew/Testimonials.vue';
-import TestimonialsV2 from '../../layouts/landingnew/TestimonialsV2.vue';
-import Pricing from '../../layouts/landingnew/Pricing.vue';
-import Faq from '../../layouts/landingnew/Faq.vue';
-import FinalCTA from '../../layouts/landingnew/FinalCTA.vue';
-import FooterNew from '../../layouts/landingnew/FooterNew.vue';
-// import Footer from '../../layouts/frontlayout/Footer.vue';
+import LandingLayout from '../../layouts/LandingLayout.vue';
+import HeroNew from '../../blocks/landing/HeroNew.vue';
+import Stats from '../../blocks/landing/Stats.vue';
+import Features from '../../blocks/landing/Features.vue';
+import DemoPreview from '../../blocks/landing/DemoPreview.vue';
+import TestimonialsV2 from '../../blocks/landing/TestimonialsV2.vue';
+import Pricing from '../../blocks/landing/Pricing.vue';
+import Faq from '../../blocks/landing/Faq.vue';
+import FinalCTA from '../../blocks/landing/FinalCTA.vue';
+
 import { onMounted, onUnmounted } from 'vue';
 
 // Setup Intersection Observer for fade-in effect
@@ -45,8 +43,7 @@ onMounted(() => {
 });
 </script>
 <template>
-    <div class="antialiased first-color text-gray-900">
-        <Header />
+    <LandingLayout>
         <HeroNew />
         <Stats />
         <Features />
@@ -55,7 +52,5 @@ onMounted(() => {
         <Pricing />
         <Faq />
         <FinalCTA />
-        <FooterNew />
-        <!-- <Footer/> -->
-    </div>
+    </LandingLayout>
 </template>

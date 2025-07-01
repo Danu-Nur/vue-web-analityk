@@ -6,6 +6,8 @@ const routes = [
         name: 'landing',
         component: () => import('../pages/landingnew/LandingNew.vue')
     },
+
+    // ========================================== AUTH ===========================================
     {
         path: '/login',
         name: 'login',
@@ -21,11 +23,20 @@ const routes = [
         name: 'forgot.password',
         component: () => import('../pages/auth/ForgotPassword.vue')
     },
+    // ========================================== END AUTH ===========================================
+
+    // ========================================== ADMIN ===========================================
     {
         path: '/admin-dashboard',
         name: 'admin.dashboard',
-        component: () => import('../pages/admin/dashboard/Dashboard.vue')
+        component: () => import('../pages/admin/Dashboard.vue')
     },
+    // {
+    //     path: '/admin-dashboard',
+    //     name: 'admin.dashboard',
+    //     component: () => import('../pages/admin/Dashboard.vue')
+    // },
+    // ========================================== END ADMIN ===========================================
 ]
 
 const router = createRouter({
