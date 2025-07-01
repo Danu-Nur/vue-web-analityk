@@ -27,9 +27,9 @@ const routes = [
 
     // ========================================== ADMIN ===========================================
     {
-        path: '/admin-dashboard',
-        name: 'admin.dashboard',
-        component: () => import('../pages/admin/Dashboard.vue')
+        path: '/admin-overview',
+        name: 'admin.overview',
+        component: () => import('../pages/admin/Overview.vue')
     },
     // {
     //     path: '/admin-dashboard',

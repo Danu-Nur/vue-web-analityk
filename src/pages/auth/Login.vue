@@ -15,7 +15,7 @@ function togglePassword() {
 function handleLogin() {
     // Add login logic here (e.g., validate email, make API call)
     console.log('Login button clicked');
-    router.push('/admin-dashboard')
+    router.push('/admin-overview')
 
 }
 </script>
