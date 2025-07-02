@@ -31,11 +31,11 @@ const routes = [
         name: 'admin.overview',
         component: () => import('../pages/admin/Overview.vue')
     },
-    // {
-    //     path: '/admin-dashboard',
-    //     name: 'admin.dashboard',
-    //     component: () => import('../pages/admin/Dashboard.vue')
-    // },
+    {
+        path: '/admin-visitor',
+        name: 'admin.visitor',
+        component: () => import('../pages/admin/Visitors.vue')
+    },
     // ========================================== END ADMIN ===========================================
 ]
 

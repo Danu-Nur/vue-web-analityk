@@ -9,6 +9,17 @@ const toggleMenu = () => {
 };
 const menus = ref(menu.data)
 const activeTab = ref('Overview')
+const emit = defineEmits(['updateTitle'])
+// Fungsi untuk mengirim teks baru
+const changeTitle = (newTitle) => {
+    emit('updateTitle', newTitle);
+};
+
+const setTab = (menu) => {
+    activeTab.value = menu;
+    changeTitle(menu);
+}
+
 </script>
 <template>
     <header class="sticky top-0 z-50 bg-white border-b border-gray-200">
@@ -20,11 +31,11 @@ const activeTab = ref('Overview')
 
                 <div
                     class="hidden xl:flex items-center text-nowrap bg-gray-100 gap-2 p-1 rounded-md justify-between w-max">
-                    <router-link v-for="menu in menus" :key="menu" @click="activeTab = menu" to="" :class="[
+                    <router-link v-for="menu in menus" :key="menu" @click="setTab(menu.name)" :to="menu.to" :class="[
                         'rounded-md py-1 px-2 text-nowrap text-sm',
-                        activeTab === menu
+                        activeTab === menu.name
                             ? 'bg-gradient-to-r from-primary-600 to-indigo-500 text-white'
-                            : 'text-gray-400 hover:text-gray-600']">{{ menu }}</router-link>
+                            : 'text-gray-400 hover:text-gray-600']">{{ menu.name }}</router-link>
                 </div>
 
                 <!-- Hamburger Menu for Mobile -->

@@ -4,6 +4,7 @@ import './style.css'
 import router from './router'
 import Alpine from 'alpinejs'
 import 'bootstrap-icons/font/bootstrap-icons.css';
+import 'leaflet/dist/leaflet.css';
 
 window.Alpine = Alpine
 
