@@ -97,14 +97,18 @@ const onEachFeature = (feature, layer) => {
     });
 };
 
-// Inisialisasi peta dan muat GeoJSON secara lazy
+// Inisialisasi peta dan muat GeoJSON secara lazy menggunakan fetch
 onMounted(async () => {
-    // Lazy load GeoJSON
+    // Lazy load GeoJSON menggunakan fetch
     try {
-        const geoModule = await import('../../../public/geoBoundariesCGAZ_ADM0.json');
+        const response = await fetch('/geoBoundariesCGAZ_ADM0.json');
+        if (!response.ok) {
+            throw new Error('Gagal memuat file GeoJSON');
+        }
+        const geoModule = await response.json();
         geoJsonData.value = {
-            ...geoModule.default,
-            features: geoModule.default.features.map((feature) => {
+            ...geoModule,
+            features: geoModule.features.map((feature) => {
                 const visitor = visitors.value.find((v) => v.country === feature.properties.shapeName);
                 return {
                     ...feature,
