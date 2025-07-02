@@ -19,7 +19,7 @@ const activeTab = ref('Overview')
                 <DropdownSearch />
 
                 <div
-                    class="hidden xl:flex items-center space-x-5 text-nowrap bg-gray-100 gap-2 p-1 rounded-md justify-between w-max">
+                    class="hidden xl:flex items-center text-nowrap bg-gray-100 gap-2 p-1 rounded-md justify-between w-max">
                     <router-link v-for="menu in menus" :key="menu" @click="activeTab = menu" to="" :class="[
                         'rounded-md py-1 px-2 text-nowrap text-sm',
                         activeTab === menu

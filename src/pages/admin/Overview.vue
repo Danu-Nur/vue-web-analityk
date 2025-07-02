@@ -4,23 +4,23 @@ import DashboardAdminLayout from '../../layouts/DashboardAdminLayout.vue';
 import SkeletonChart from '../../components/skeleton/SkeletonChart.vue';
 import SkeletonSummaryCards from '../../components/skeleton/SkeletonSummaryCards.vue';
 import SkeletonTable from '../../components/skeleton/SkeletonTable.vue';
-import { table1 } from '../../dummydata/table';
-import { lineChart, barChart } from '../../dummydata/chart';
-import { recentSaless } from '../../dummydata/recent';
+import { table1, tableTopPages, countryRegionData, referrersData, userJourneysData } from '../../dummydata/table';
+import { lineChart, barChart, deviceTypeChart, hourlyViewsChart } from '../../dummydata/chart';
+import BarChart from '../../components/apexchart/BarChart.vue';
 const SummaryCards = defineAsyncComponent(() => import('../../blocks/dashboard/admin/overview/SummaryCards.vue'))
 
 const dateRangePicker = defineAsyncComponent(() =>
     import('../../components/ui/DateRangePicker.vue')
 );
 
-// Importing the BarChart component asynchronously
-const BarChart = defineAsyncComponent(() =>
-    import('../../components/apexchart/BarChart.vue')
-)
-
 // Importing the LineChart component asynchronously
 const LineChart = defineAsyncComponent(() =>
-    import('../../components/apexchart/LineChart.vue')
+    import('../../components/apexchart/AreaChart.vue')
+)
+
+// Importing the PieChart component asynchronously
+const PieChart = defineAsyncComponent(() =>
+    import('../../components/apexchart/PieChart.vue')
 )
 
 // Importing the Datatable component asynchronously
@@ -28,14 +28,28 @@ const Datatable = defineAsyncComponent(() =>
     import('../../components/datatables/DataTable.vue')
 )
 
-const tabs = ['Overview', 'Analytics', 'Live View', 'Sessions / Users', 'Funnels', 'Reports', 'Events', 'Errors & Bots', 'Settings / API Key', 'Billing / Subscriptions']
-
-// Recent sales data
-const recentSales = ref(recentSaless.data);
+// chart data
 const lineChartData = ref(lineChart)
 const barChartData = ref(barChart)
+const dataDevicePieChart = ref(deviceTypeChart)
+const dataHourlyBarChart = ref(hourlyViewsChart)
+
+
+// table dummy with chart
 const headers = ref(table1.headers)
 const items = ref(table1.items)
+
+// table top pages
+const dataTableTopPages = ref(tableTopPages)
+
+// country region count
+const dataCountryRegions = ref(countryRegionData)
+
+// table top pages
+const dataReferrers = ref(referrersData)
+
+// country region count
+const dataUserJourneys = ref(userJourneysData)
 
 </script>
 
@@ -70,40 +84,6 @@ const items = ref(table1.items)
             </div>
         </div>
 
-        <!-- Tabs Header -->
-        <!-- <div class="flex items-center mb-6 overflow-x-auto">
-                <div class="flex items-start bg-gray-100 gap-2 p-1 rounded-md justify-between w-max">
-                    <button v-for="tab in tabs" :key="tab" @click="activeTab = tab" :class="[
-                        'rounded-md py-1 px-2 md:px-4 text-nowrap',
-                        activeTab === tab
-                            ? 'bg-gradient-to-r from-primary-600 to-indigo-500 text-white'
-                            : 'text-gray-400 hover:text-gray-600'
-                    ]" type="button">
-                        {{ tab }}
-                    </button>
-                </div>
-            </div> -->
-
-        <!-- Tabs Content -->
-        <!-- <div class="bg-white p-4 rounded-md shadow">
-                <div v-if="activeTab === 'Overview'">
-                    <h2 class="text-xl font-bold mb-2">Overview</h2>
-                    <p>Konten overview ditampilkan di sini.</p>
-                </div>
-                <div v-else-if="activeTab === 'Analytics'">
-                    <h2 class="text-xl font-bold mb-2">Analytics</h2>
-                    <p>Konten analytics ditampilkan di sini.</p>
-                </div>
-                <div v-else-if="activeTab === 'Reports'">
-                    <h2 class="text-xl font-bold mb-2">Reports</h2>
-                    <p>Konten reports ditampilkan di sini.</p>
-                </div>
-                <div v-else-if="activeTab === 'Notifications'">
-                    <h2 class="text-xl font-bold mb-2">Notifications</h2>
-                    <p>Konten notifikasi ditampilkan di sini.</p>
-                </div>
-            </div> -->
-
         <!-- Summary Cards -->
         <Suspense>
             <template #default>
@@ -115,10 +95,9 @@ const items = ref(table1.items)
         </Suspense>
 
         <!-- Main Content Grid -->
-        <section aria-label="Main content" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 mb-6">
-            <article aria-label="Overview chart"
-                class="border border-gray-200 rounded-lg p-4 lg:col-span-2 flex flex-col">
-                <h2 class="font-semibold text-gray-900 mb-4">Overview</h2>
+        <section aria-label="Main content" class=" mb-6">
+            <article aria-label="Overview chart" class="border border-gray-200 rounded-lg p-4 flex flex-col">
+                <h2 class="font-semibold text-gray-900 mb-4">Overtime Visitors</h2>
                 <Suspense>
                     <template #default>
                         <LineChart :title="lineChartData.title" :categories="lineChartData.categories"
@@ -129,51 +108,109 @@ const items = ref(table1.items)
                     </template>
                 </Suspense>
             </article>
-            <article aria-label="Recent Sales" class="border border-gray-200 rounded-lg p-4">
-                <h2 class="font-semibold text-gray-900 mb-4">Overview</h2>
-                <Suspense>
-                    <template #default>
-                        <BarChart :title="barChartData.title" :categories="barChartData.categories"
-                            :seriesData="barChartData.seriesData" />
-                    </template>
-                    <template #fallback>
-                        <SkeletonChart chartType="bar" />
+        </section>
 
-                    </template>
-                </Suspense>
+        <section aria-label="Main content" class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 sm:gap-6 mb-6">
+            <article aria-label="Top Pages" class="border border-gray-200 sm:col-span-2 rounded-lg p-4">
+                <!-- <div class="flex flex-col justify-between h-full"> -->
+                <h2 class="font-semibold text-gray-900 mb-1">Top Pages</h2>
+                <div>
+                    <Suspense>
+                        <template #default>
+                            <Datatable :headers="dataTableTopPages.headers" :items="dataTableTopPages.items"
+                                title="All Transactions" />
+                        </template>
+                        <template #fallback>
+                            <SkeletonTable />
+                        </template>
+                    </Suspense>
+                </div>
+                <!-- </div> -->
+            </article>
+            <article aria-label="Visitor Country Distribution" class="border border-gray-200 rounded-lg p-4">
+                <!-- <div class="flex flex-col justify-between h-full"> -->
+                <h2 class="font-semibold text-gray-900 mb-1">Visitor Country Distribution</h2>
+                <div>
+                    <Suspense>
+                        <template #default>
+                            <Datatable :headers="dataCountryRegions.headers" :items="dataCountryRegions.items"
+                                title="All Transactions" />
+                        </template>
+                        <template #fallback>
+                            <SkeletonTable />
+                        </template>
+                    </Suspense>
+                </div>
+                <!-- </div> -->
+            </article>
+            <article aria-label="Device Type Distribution" class="border border-gray-200 rounded-lg p-4">
+                <h2 class="font-semibold text-gray-900 mb-1">Device Type Distribution</h2>
+                <div class="flex flex-col justify-center h-full">
+                    <div>
+                        <Suspense>
+                            <template #default>
+                                <PieChart :title="dataDevicePieChart.title" :categories="dataDevicePieChart.categories"
+                                    :seriesData="dataDevicePieChart.seriesData" />
+                            </template>
+                            <template #fallback>
+                                <SkeletonChart chartType="pie" />
+                            </template>
+                        </Suspense>
+                    </div>
+                </div>
             </article>
         </section>
-        <section aria-label="Main content" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
-            <article aria-label="Recent Sales" class="border border-gray-200 lg:col-span-3 rounded-lg p-4">
-                <h2 class="font-semibold text-gray-900 mb-1">Recent Sales</h2>
-                <p class="text-xs text-gray-500 mb-4">You made 265 sales this month.</p>
-                <Suspense>
-                    <template #default>
-                        <Datatable :headers="headers" :items="items" title="All Transactions" />
-                    </template>
-                    <template #fallback>
-                        <SkeletonTable />
-                    </template>
-                </Suspense>
+        <section aria-label="Main content" class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 sm:gap-6 mb-6">
+            <article aria-label="" class="border border-gray-200 rounded-lg p-4">
+                <!-- <div class="flex flex-col justify-between h-full"> -->
+                <h2 class="font-semibold text-gray-900 mb-1">Referrer / UTM Source</h2>
+                <div>
+                    <Suspense>
+                        <template #default>
+                            <Datatable :headers="dataReferrers.headers" :items="dataReferrers.items"
+                                title="All Transactions" />
+                        </template>
+                        <template #fallback>
+                            <SkeletonTable />
+                        </template>
+                    </Suspense>
+                </div>
+                <!-- </div> -->
             </article>
-            <article aria-label="Recent Sales" class="border border-gray-200 rounded-lg p-4">
-                <h2 class="font-semibold text-gray-900 mb-1">Recent Sales</h2>
-                <p class="text-xs text-gray-500 mb-4">You made 265 sales this month.</p>
-                <ul class="space-y-4">
-                    <li v-for="sale in recentSales" :key="sale.email" class="flex items-center justify-between">
-                        <div class="flex items-center space-x-3">
-                            <img :alt="sale.avatarAlt" class="w-8 h-8 rounded-full object-cover" :height="32"
-                                :width="32" loading="lazy" :src="sale.avatar" />
-                            <div>
-                                <p class="font-semibold text-gray-900 leading-tight">{{ sale.name }}</p>
-                                <p class="text-xs text-gray-400 leading-tight">{{ sale.email }}</p>
-                            </div>
-                        </div>
-                        <p class="font-semibold text-gray-900">{{ sale.amount }}</p>
-                    </li>
-                </ul>
+            <article aria-label="Entry / Exit Pages" class="border border-gray-200 rounded-lg p-4">
+                <!-- <div class="flex flex-col justify-between h-full"> -->
+                <h2 class="font-semibold text-gray-900 mb-1">Entry / Exit Pages</h2>
+                <div>
+                    <Suspense>
+                        <template #default>
+                            <Datatable :headers="dataUserJourneys.headers" :items="dataUserJourneys.items"
+                                title="All Transactions" />
+                        </template>
+                        <template #fallback>
+                            <SkeletonTable />
+                        </template>
+                    </Suspense>
+                </div>
+                <!-- </div> -->
+            </article>
+            <article aria-label="Hourly Traffic" class="border sm:col-span-2 border-gray-200 rounded-lg p-4">
+                <!-- <div class="flex flex-col justify-between h-full"> -->
+                <h2 class="font-semibold text-gray-900 mb-1">Hourly Traffic</h2>
+                <div>
+                    <Suspense>
+                        <template #default>
+                            <BarChart :title="dataHourlyBarChart.title" :categories="dataHourlyBarChart.categories"
+                                :seriesData="dataHourlyBarChart.seriesData" />
+                        </template>
+                        <template #fallback>
+                            <SkeletonChart chartType="line" />
+                        </template>
+                    </Suspense>
+                </div>
+                <!-- </div> -->
             </article>
         </section>
+
     </DashboardAdminLayout>
 </template>
 <style></style>

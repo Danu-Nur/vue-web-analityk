@@ -8,3 +8,17 @@ export const barChart = {
     categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
     seriesData: [220, 330, 290, 500, 310, 400, 450, 380, 600, 520, 610, 700]
 }
+export const deviceTypeChart = {
+    title: 'Device Type Distribution',
+    categories: ['Desktop', 'Mobile', 'Tablet', 'Laptop', 'Smartphone', 'iPad', 'Other'],
+    seriesData: [45, 50, 5, 30, 55, 10, 2]
+};
+
+export const hourlyViewsChart = {
+    title: 'Page Views per Hour (July 02, 2025)',
+    categories: Array.from({ length: 24 }, (_, i) => i.toString().padStart(2, '0')),
+    seriesData: [
+        50, 60, 70, 80, 90, 100, 120, 150, 180, 200, 220, 250, // 00:00 - 11:00
+        300, 350, 400, 450, 500, 480, 460, 440, 420, 400, 380, 360 // 12:00 - 23:00
+    ]
+};

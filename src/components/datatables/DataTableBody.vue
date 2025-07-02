@@ -1,26 +1,28 @@
 <template>
     <div class="overflow-x-auto">
         <table class="w-full border-collapse table-auto text-xs text-gray-700">
-            <thead class="bg-gray-100 text-gray-600 font-semibold select-non">
+            <thead class="bg-gray-100 text-gray-600 font-semibold select-none">
                 <tr>
-                    <th v-for="(header, index) in headers" :key="index"
-                        :class="index === headers.length - 1 && header.text === '24h Visitors' ? 'text-center' : 'text-left'"
-                        class="text-nowrap px-3 py-2 cursor-pointer"
-                        @click="header.sortable && toggleSort(header.value)">
+                    <th v-for="(header, index) in headers" :key="header.value" :class="[
+                        index === headers.length - 1 && header.text === '24h Visitors' ? 'text-center' : 'text-left',
+                        'text-nowrap px-3 py-2 cursor-pointer'
+                    ]" @click="header.sortable !== false && toggleSort(header.value)">
                         {{ header.text }}
-                        <span v-if="sortBy === header.value">{{ sortOrder === 'asc' ? '↑' : '↓' }}</span>
+                        <span v-if="sortBy === header.value" class="ml-1">
+                            <i :class="sortOrder === 'asc' ? 'bi bi-arrow-up' : 'bi bi-arrow-down'"></i>
+                        </span>
                     </th>
                 </tr>
             </thead>
             <tbody class="divide-y divide-gray-100">
-                <tr v-for="(row, index) in rows" :key="index"
-                    class="hover:bg-gray-50 border-t border-gray-200">
-                    <td v-for="header in headers" :key="header.value" class="text-nowrap py-1 px-2 text-gray-700"
+                <tr v-for="row in rows" :key="generateRowKey(row)" class="hover:bg-gray-50 border-t border-gray-200">
+                    <td v-for="header in headers" :key="header.value" class="text-nowrap py-2 px-3 text-gray-700"
                         :class="header.class">
-                        <template v-if="header.value === 'visitorperhours'">
+                        <template v-if="header.value === 'visitorperhours' && row[header.value]">
                             <Suspense>
                                 <template #default>
-                                    <LineChart :title="`Page Views per Hour for ${row.plaza} (${row.date})`"
+                                    <LineChart
+                                        :title="`Page Views per Hour for ${row.plaza || 'Unknown'} (${row.date || 'N/A'})`"
                                         :categories="getChartCategories(row.visitorperhours)"
                                         :seriesData="getChartSeriesData(row.visitorperhours)" />
                                 </template>
@@ -70,13 +72,18 @@ function toggleSort(key) {
     });
 }
 
+// Generate a unique key for each row
+function generateRowKey(row) {
+    return `${row.lane || ''}_${row.plaza || ''}_${row.date || ''}_${JSON.stringify(row.visitorperhours || [])}`;
+}
+
 // Function to extract chart categories (hours) from visitorperhours
 function getChartCategories(visitorperhours) {
     if (!visitorperhours || !Array.isArray(visitorperhours)) return [];
 
     // Extract hours and sort them
     const hours = visitorperhours
-        .map(item => {
+        .map((item) => {
             const date = new Date(item.date);
             return date.getHours(); // Get hour (0-23)
         })
@@ -84,7 +91,7 @@ function getChartCategories(visitorperhours) {
         .sort((a, b) => a - b); // Sort numerically
 
     // Format hours as 'HH:00' (e.g., '08:00', '09:00')
-    return hours.map(hour => `${hour.toString().padStart(2, '0')}:00`);
+    return hours.map((hour) => `${hour.toString().padStart(2, '0')}:00`);
 }
 
 // Function to extract chart series data (visitor counts per hour)
@@ -105,6 +112,6 @@ function getChartSeriesData(visitorperhours) {
         .sort((a, b) => a - b);
 
     // Create series data aligned with sorted hours
-    return hours.map(hour => hourCounts[hour] || 0);
+    return hours.map((hour) => hourCounts[hour] || 0);
 }
 </script>

@@ -12,23 +12,23 @@ const props = defineProps({
     seriesData: { type: Array, default: () => [] },
     colors: {
         type: Array,
-        default: () => ['#000000','#F59E0B'] // Default colors (blue, green, amber)
+        default: () => ['#000000', '#F59E0B'] // Default colors (blue, green, amber)
     }
 })
 
 const chartOptions = computed(() => ({
-    chart: { id: 'line-chart' },
+    chart: { id: 'line-chart',zoom: { enabled: false }, },
     title: {
         text: props.title,
         align: 'center',
-        style: { fontSize: '16px', fontWeight: 'bold' }
+        style: { fontSize: '14px', fontWeight: 'bold' }
     },
     xaxis: {
         categories: props.categories,
         labels: { style: { fontSize: '12px' } }
     },
-    stroke: { curve: 'smooth' },
-    colors: props.colors, 
+    stroke: { curve: 'smooth', width: 2, },
+    colors: props.colors,
     dataLabels: { enabled: false },
     tooltip: { shared: true, intersect: false }
 }))

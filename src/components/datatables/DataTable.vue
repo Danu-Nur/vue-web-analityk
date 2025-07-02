@@ -1,12 +1,12 @@
 <template>
-    <TableHeader v-model:search="search" @export-csv="exportToCSV" @export-excel="exportToExcel"
-        @export-pdf="exportToPDF" @print="printTable" />
+    <TableHeader v-model:search="search" v-model:page-size="pageSize" @export-csv="exportToCSV"
+        @export-excel="exportToExcel" @export-pdf="exportToPDF" @print="printTable" />
     <div class="overflow-x-auto border border-gray-200 rounded-lg">
         <DataTable :headers="headers" :rows="paginatedRows" :sort-by="sortBy" :sort-order="sortOrder"
             @sort="handleSort" />
     </div>
     <TableFooter :total-entries="filteredRows.length" :page-size="pageSize" :current-page="currentPage"
-        @update:page-size="pageSize = $event" @update:current-page="currentPage = $event" />
+        @update:page-size="updatePageSize($event)" @update:current-page="currentPage = $event" />
 </template>
 
 <script setup>
@@ -41,19 +41,21 @@ const filteredRows = computed(() => {
     let result = [...props.items];
     if (search.value) {
         result = result.filter((item) =>
-            Object.values(item).some((val) => String(val).toLowerCase().includes(search.value.toLowerCase()))
+            Object.values(item).some((val) =>
+                String(val).toLowerCase().includes(search.value.toLowerCase())
+            )
         );
     }
     if (sortBy.value) {
         result.sort((a, b) => {
-            const valA = sortBy.value === 'visitorperhours' ? a[sortBy.value].length : a[sortBy.value];
-            const valB = sortBy.value === 'visitorperhours' ? b[sortBy.value].length : b[sortBy.value];
-            if (typeof valA === 'number') {
+            const valA = sortBy.value === 'visitorperhours' ? a[sortBy.value]?.length || 0 : a[sortBy.value];
+            const valB = sortBy.value === 'visitorperhours' ? b[sortBy.value]?.length || 0 : b[sortBy.value];
+            if (typeof valA === 'number' && typeof valB === 'number') {
                 return sortOrder.value === 'asc' ? valA - valB : valB - valA;
             }
             return sortOrder.value === 'asc'
-                ? String(valA).localeCompare(String(valB))
-                : String(valB).localeCompare(String(valA));
+                ? String(valA || '').localeCompare(String(valB || ''))
+                : String(valB || '').localeCompare(String(valA || ''));
         });
     }
     return result;
@@ -65,36 +67,49 @@ const paginatedRows = computed(() => {
     return filteredRows.value.slice(start, end);
 });
 
+function updatePageSize(newPageSize) {
+    pageSize.value = newPageSize;
+    currentPage.value = 1; // Reset to first page when pageSize changes
+}
+
 function handleSort({ key, order }) {
     sortBy.value = key;
     sortOrder.value = order;
+    currentPage.value = 1; // Reset to first page when sorting
 }
 
 // Export CSV
 async function exportToCSV() {
     const { unparse } = await import('papaparse');
     const { saveAs } = await import('file-saver');
-    const csv = unparse(filteredRows.value);
+    const csv = unparse(filteredRows.value.map(row => ({
+        ...row,
+        visitorperhours: row.visitorperhours ? row.visitorperhours.length : 0,
+    })));
     const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
-    saveAs(blob, 'recent-travels-january-2025.csv');
+    saveAs(blob, `${props.title.toLowerCase().replace(/\s+/g, '-')}.csv`);
 }
 
 // Export Excel
 async function exportToExcel() {
     const XLSX = await import('xlsx');
     const { saveAs } = await import('file-saver');
-    const ws = XLSX.utils.json_to_sheet(filteredRows.value);
+    const ws = XLSX.utils.json_to_sheet(filteredRows.value.map(row => ({
+        ...row,
+        visitorperhours: row.visitorperhours ? row.visitorperhours.length : 0,
+    })));
     const wb = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(wb, ws, 'January 2025');
+    XLSX.utils.book_append_sheet(wb, ws, props.title);
     const excelBuffer = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
     const blob = new Blob([excelBuffer], { type: 'application/octet-stream' });
-    saveAs(blob, 'recent-travels-january-2025.xlsx');
+    saveAs(blob, `${props.title.toLowerCase().replace(/\s+/g, '-')}.xlsx`);
 }
 
 // Export PDF
 async function exportToPDF() {
     const { default: jsPDF } = await import('jspdf');
     const { default: autoTable } = await import('jspdf-autotable');
+    Ascending
     const doc = new jsPDF();
     autoTable(doc, {
         head: [props.headers.map((header) => header.text)],
@@ -105,7 +120,7 @@ async function exportToPDF() {
             })
         ),
     });
-    doc.save('recent-travels-january-2025.pdf');
+    doc.save(`${props.title.toLowerCase().replace(/\s+/g, '-')}.pdf`);
 }
 
 // Print Table
@@ -114,7 +129,7 @@ function printTable() {
     printWindow.document.write(`
     <html>
       <head>
-        <title>Print Table</title>
+        <title>Print ${props.title}</title>
         <style>
           body { font-family: Arial, sans-serif; }
           table { width: 100%; border-collapse: collapse; font-size: 14px; }
@@ -130,7 +145,7 @@ function printTable() {
         </style>
       </head>
       <body>
-        <h1>Toll Transactions - January 2025</h1>
+        <h1>${props.title}</h1>
         <table>
           <thead>
             <tr>
@@ -144,7 +159,7 @@ function printTable() {
                   <tr>
                     ${props.headers
                         .map((header) => {
-                            const value = row[header.value];
+                            const value = header.value === 'visitorperhours' ? (row[header.value]?.length || 0) : row[header.value];
                             const formattedValue = header.formatter ? header.formatter(value) : value;
                             return `<td class="${header.class || ''}">${formattedValue}</td>`;
                         })
