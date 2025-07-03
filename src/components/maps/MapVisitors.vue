@@ -16,16 +16,16 @@ onMounted(async () => {
     await nextTick();
 
     // Inisialisasi peta
-    map = L.map('map', {
+    map = L.map('visitorMaps', {
         center: [-6.2088, 106.8456],
-        zoom: 10,
+        zoom: 5,
         zoomControl: true,
     });
 
     // Tambahkan tile layer
-    // L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    //     attribution: '&copy; OpenStreetMap contributors',
-    // }).addTo(map);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; OpenStreetMap contributors',
+    }).addTo(map);
 
     // Tambahkan marker awal
     visitors.value.forEach(visitor => {
@@ -61,13 +61,8 @@ onUnmounted(() => {
 </script>
 
 <template>
-    <div id="map" class="leaflet-container"></div>
+    <div id="visitorMaps" class="w-full h-[500px]"></div>
 </template>
 
 <style scoped>
-#map {
-    width: 100%;
-    height: 500px;
-    /* Tinggi lebih besar untuk visibilitas */
-}
 </style>

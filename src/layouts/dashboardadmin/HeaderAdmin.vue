@@ -1,6 +1,7 @@
 <script setup>
 import { ref } from 'vue';
 import { TransitionRoot, TransitionChild } from '@headlessui/vue';
+import { useRoute } from 'vue-router';
 import { menu } from '../../dummydata/menu';
 import DropdownSearch from '../../components/ui/DropdownSearch.vue';
 const isMenuOpen = ref(false);
@@ -8,17 +9,10 @@ const toggleMenu = () => {
     isMenuOpen.value = !isMenuOpen.value;
 };
 const menus = ref(menu.data)
-const activeTab = ref('Overview')
-const emit = defineEmits(['updateTitle'])
-// Fungsi untuk mengirim teks baru
-const changeTitle = (newTitle) => {
-    emit('updateTitle', newTitle);
-};
+const route = useRoute();
+const pageTitle = ref(route.meta.title);
 
-const setTab = (menu) => {
-    activeTab.value = menu;
-    changeTitle(menu);
-}
+// console.log(activeTab.value, pageTitle.value, activeTab.value === pageTitle.value);
 
 </script>
 <template>
@@ -31,9 +25,9 @@ const setTab = (menu) => {
 
                 <div
                     class="hidden xl:flex items-center text-nowrap bg-gray-100 gap-2 p-1 rounded-md justify-between w-max">
-                    <router-link v-for="menu in menus" :key="menu" @click="setTab(menu.name)" :to="menu.to" :class="[
+                    <router-link v-for="menu in menus" :key="menu" :to="menu.to" :class="[
                         'rounded-md py-1 px-2 text-nowrap text-sm',
-                        activeTab === menu.name
+                        menu.name === pageTitle
                             ? 'bg-gradient-to-r from-primary-600 to-indigo-500 text-white'
                             : 'text-gray-400 hover:text-gray-600']">{{ menu.name }}</router-link>
                 </div>

@@ -4,11 +4,15 @@ import DashboardAdminLayout from '../../layouts/DashboardAdminLayout.vue';
 import SkeletonChart from '../../components/skeleton/SkeletonChart.vue';
 import SkeletonSummaryCards from '../../components/skeleton/SkeletonSummaryCards.vue';
 import SkeletonTable from '../../components/skeleton/SkeletonTable.vue';
+import SkeletonMaps from '../../components/skeleton/SkeletonMaps.vue';
 import { table1, tableTopPages, countryRegionData, referrersData, userJourneysData } from '../../dummydata/table';
 import { lineChart, barChart, deviceTypeChart, hourlyViewsChart } from '../../dummydata/chart';
-import BarChart from '../../components/apexchart/BarChart.vue';
+
 const SummaryCards = defineAsyncComponent(() => import('../../blocks/dashboard/admin/overview/SummaryCards.vue'))
 
+const MapChoroplethAsync = defineAsyncComponent(() =>
+    import('../../components/maps/MapChoropleth.vue')
+)
 
 // Importing the LineChart component asynchronously
 const LineChart = defineAsyncComponent(() =>
@@ -29,7 +33,7 @@ const Datatable = defineAsyncComponent(() =>
 const lineChartData = ref(lineChart)
 const barChartData = ref(barChart)
 const dataDevicePieChart = ref(deviceTypeChart)
-const dataHourlyBarChart = ref(hourlyViewsChart)
+
 
 
 // table dummy with chart
@@ -53,7 +57,7 @@ const dataUserJourneys = ref(userJourneysData)
 <template>
     <DashboardAdminLayout>
         <!-- Main Content -->
-        
+
 
         <!-- Summary Cards -->
         <Suspense>
@@ -82,22 +86,22 @@ const dataUserJourneys = ref(userJourneysData)
         </section>
 
         <section aria-label="Main content" class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 sm:gap-6 mb-6">
-            <article aria-label="Top Pages" class="border border-gray-200 sm:col-span-2 rounded-lg p-4">
-                <!-- <div class="flex flex-col justify-between h-full"> -->
-                <h2 class="font-semibold text-gray-900 mb-1">Top Pages</h2>
-                <div>
-                    <Suspense>
-                        <template #default>
-                            <Datatable :headers="dataTableTopPages.headers" :items="dataTableTopPages.items"
-                                title="All Transactions" />
-                        </template>
-                        <template #fallback>
-                            <SkeletonTable />
-                        </template>
-                    </Suspense>
-                </div>
+            <article aria-label="Hourly Traffic" class="border sm:col-span-2 border-gray-200 rounded-lg p-4">
+                <h2 class="font-semibold text-gray-900 mb-4">Visitor Country Distribution</h2>
+                <!-- <div> -->
+                <Suspense>
+                    <template #default>
+                        <MapChoroplethAsync />
+                    </template>
+                    <template #fallback>
+                        <div class="flex h-[500px]">
+                            <SkeletonMaps />
+                        </div>
+                    </template>
+                </Suspense>
                 <!-- </div> -->
             </article>
+
             <article aria-label="Visitor Country Distribution" class="border border-gray-200 rounded-lg p-4">
                 <!-- <div class="flex flex-col justify-between h-full"> -->
                 <h2 class="font-semibold text-gray-900 mb-1">Visitor Country Distribution</h2>
@@ -165,17 +169,17 @@ const dataUserJourneys = ref(userJourneysData)
                 </div>
                 <!-- </div> -->
             </article>
-            <article aria-label="Hourly Traffic" class="border sm:col-span-2 border-gray-200 rounded-lg p-4">
+            <article aria-label="Top Pages" class="border border-gray-200 sm:col-span-2 rounded-lg p-4">
                 <!-- <div class="flex flex-col justify-between h-full"> -->
-                <h2 class="font-semibold text-gray-900 mb-1">Hourly Traffic</h2>
+                <h2 class="font-semibold text-gray-900 mb-1">Top Pages</h2>
                 <div>
                     <Suspense>
                         <template #default>
-                            <BarChart :title="dataHourlyBarChart.title" :categories="dataHourlyBarChart.categories"
-                                :seriesData="dataHourlyBarChart.seriesData" />
+                            <Datatable :headers="dataTableTopPages.headers" :items="dataTableTopPages.items"
+                                title="All Transactions" />
                         </template>
                         <template #fallback>
-                            <SkeletonChart chartType="line" />
+                            <SkeletonTable />
                         </template>
                     </Suspense>
                 </div>

@@ -9,13 +9,6 @@ export default defineConfig({
     tailwindcss(),
   ],
   build: {
-    // minify: 'terser', // Use terser for better minification
-    // terserOptions: {
-    //   compress: {
-    //     drop_console: true, // Remove console.logs
-    //     drop_debugger: true,
-    //   },
-    // },
     rollupOptions: {
       output: {
         manualChunks: {
@@ -30,6 +23,7 @@ export default defineConfig({
           'file-saver': ['file-saver'],
           'jspdf': ['jspdf'],
           'jspdf-autotable': ['jspdf-autotable'],
+          'leaflet': ['leaflet'],
         },
       },
     },

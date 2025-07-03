@@ -1,5 +1,6 @@
 <script setup>
 import { ref, defineAsyncComponent } from 'vue';
+import { useRoute } from 'vue-router';
 import HeaderAdmin from './dashboardadmin/HeaderAdmin.vue';
 
 const dateRangePicker = defineAsyncComponent(() =>
@@ -7,15 +8,11 @@ const dateRangePicker = defineAsyncComponent(() =>
 );
 
 // Variabel reaktif untuk menyimpan teks judul
-const pageTitle = ref('');
-
-// Fungsi untuk menangani event dari HeaderAdmin
-const handleUpdateTitle = (newTitle) => {
-    pageTitle.value = newTitle; // Memperbarui teks judul
-};
+const route = useRoute();
+const pageTitle = ref(route.meta.title || 'Map');
 </script>
 <template>
-    <div class="bg-white text-gray-900">
+    <div class="bg-white text-gray-900 h-full min-h-screen">
         <HeaderAdmin @update-title="handleUpdateTitle" />
         <main class="mx-auto px-4 sm:px-6 lg:px-12 py-6">
             <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-6">
