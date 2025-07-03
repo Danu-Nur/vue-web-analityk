@@ -61,7 +61,7 @@ onUnmounted(() => {
 </script>
 
 <template>
-    <div id="visitorMaps" class="w-full h-[500px]"></div>
+    <div id="visitorMaps" class="w-full h-[500px] z-40"></div>
 </template>
 
 <style scoped>

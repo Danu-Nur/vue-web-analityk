@@ -57,7 +57,7 @@ const pageTitle = ref(route.meta.title);
 
         <!-- Mobile Navigation Menu -->
         <TransitionRoot as="template" :show="isMenuOpen">
-            <div class="relative z-50 xl:hidden">
+            <div class="relative xl:hidden  z-50">
                 <TransitionChild as="template" enter="transition-opacity ease-linear duration-300"
                     enter-from="opacity-0" enter-to="opacity-100" leave="transition-opacity ease-linear duration-300"
                     leave-from="opacity-100" leave-to="opacity-0">
@@ -93,8 +93,12 @@ const pageTitle = ref(route.meta.title);
                                 <li v-for="menu in menus" :key="menu">
                                     <router-link
                                         class="block px-3 py-2 text-gray-700 rounded hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-700 dark:hover:text-white"
-                                        to="">
-                                        {{ menu }}
+                                        :to="menu.to" :class="[
+                                            'rounded-md py-1 px-2 text-nowrap text-sm',
+                                            menu.name === pageTitle
+                                                ? 'bg-gradient-to-r from-primary-600 to-indigo-500 text-white'
+                                                : 'text-gray-400 hover:text-gray-600']">
+                                        {{ menu.name }}
                                     </router-link>
                                 </li>
 

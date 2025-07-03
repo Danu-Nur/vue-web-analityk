@@ -1,4 +1,3 @@
-```vue
 <script setup>
 import { onMounted, onUnmounted, ref, reactive } from 'vue';
 import L from 'leaflet';
@@ -157,7 +156,7 @@ onUnmounted(() => {
 </script>
 
 <template>
-    <div id="map" class="w-full h-[500px]"></div>
+    <div id="map" class="w-full h-[500px] z-40"></div>
 </template>
 
 <style scoped>
@@ -191,4 +190,3 @@ onUnmounted(() => {
     opacity: 0.7;
 }
 </style>
-```
