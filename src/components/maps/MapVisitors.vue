@@ -2,11 +2,12 @@
 import { onMounted, onUnmounted, ref, nextTick } from 'vue';
 import L from 'leaflet';
 
-const visitors = ref([
-    { id: 1, lat: -6.2088, lng: 106.8456, city: 'Jakarta', time: '2025-07-02 13:30' },
-    { id: 2, lat: -7.7956, lng: 110.3695, city: 'Yogyakarta', time: '2025-07-02 13:31' },
-    { id: 3, lat: -8.6705, lng: 115.2126, city: 'Denpasar', time: '2025-07-02 13:32' },
-]);
+const props = defineProps(
+    {
+        datamaps: { type: Array, default: () => [], },
+    }
+)
+const visitors = ref(props.datamaps);
 
 let map = null;
 let interval = null;
@@ -64,5 +65,4 @@ onUnmounted(() => {
     <div id="visitorMaps" class="w-full h-[500px] z-40"></div>
 </template>
 
-<style scoped>
-</style>
+<style scoped></style>

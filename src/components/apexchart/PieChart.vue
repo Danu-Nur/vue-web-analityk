@@ -17,6 +17,10 @@ const props = defineProps({
         default: () => [],
         validator: (series) => series.every((item) => typeof item === 'number' && item >= 0),
     },
+    satuan: {
+        type: String,
+        default: '',
+    }
 });
 
 const chartOptions = computed(() => ({
@@ -80,7 +84,7 @@ const chartOptions = computed(() => ({
     tooltip: {
         theme: 'light',
         y: {
-            formatter: (val) => `${val}%`,
+            formatter: (val) => `${val}${props.satuan}`,
         },
     },
     responsive: [{

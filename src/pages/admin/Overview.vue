@@ -6,7 +6,7 @@ import SkeletonSummaryCards from '../../components/skeleton/SkeletonSummaryCards
 import SkeletonTable from '../../components/skeleton/SkeletonTable.vue';
 import SkeletonMaps from '../../components/skeleton/SkeletonMaps.vue';
 import { table1, tableTopPages, countryRegionData, referrersData, userJourneysData } from '../../dummydata/table';
-import { lineChart, barChart, deviceTypeChart, hourlyViewsChart } from '../../dummydata/chart';
+import { lineChart, barChart, deviceTypeChart } from '../../dummydata/chart';
 
 const SummaryCards = defineAsyncComponent(() => import('../../blocks/dashboard/admin/overview/SummaryCards.vue'))
 
@@ -125,7 +125,7 @@ const dataUserJourneys = ref(userJourneysData)
                         <Suspense>
                             <template #default>
                                 <PieChart :title="dataDevicePieChart.title" :categories="dataDevicePieChart.categories"
-                                    :seriesData="dataDevicePieChart.seriesData" />
+                                    :seriesData="dataDevicePieChart.seriesData" satuan="%" />
                             </template>
                             <template #fallback>
                                 <SkeletonChart chartType="pie" />

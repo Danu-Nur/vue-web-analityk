@@ -52,3 +52,10 @@ export const indonesiaGeoJSON = {
     ],
 };
 
+export const mapsVisitor = {
+    data: [
+        { id: 1, lat: -6.2088, lng: 106.8456, city: 'Jakarta', time: '2025-07-02 13:30' },
+        { id: 2, lat: -7.7956, lng: 110.3695, city: 'Yogyakarta', time: '2025-07-02 13:31' },
+        { id: 3, lat: -8.6705, lng: 115.2126, city: 'Denpasar', time: '2025-07-02 13:32' },
+    ]
+}

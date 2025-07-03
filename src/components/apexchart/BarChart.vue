@@ -1,5 +1,5 @@
 <template>
-    <VueApexCharts type="bar" class="h-full" :options="chartOptions" :series="series" />
+    <VueApexCharts type="bar" class="h-full" :height="props.height" :options="chartOptions" :series="series" />
 </template>
 
 <script setup>
@@ -12,12 +12,15 @@ const props = defineProps({
     seriesData: { type: Array, default: () => [] },
     colors: {
         type: Array,
-        default: () => ['#000000','#F59E0B'] // Default colors (blue, green, amber)
+        default: () => ['#000000', '#F59E0B'] // Default colors (blue, green, amber)
+    },
+    height: {
+        type: Number, default: 450
     }
 })
 
 const chartOptions = computed(() => ({
-    chart: { id: 'bar-chart' },
+    chart: { id: 'bar-chart', height: 500 },
     title: {
         text: props.title,
         align: 'center',

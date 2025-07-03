@@ -12,6 +12,7 @@ export const deviceTypeChart = {
     title: 'Device Type Distribution',
     categories: ['Desktop', 'Mobile', 'Tablet', 'Laptop', 'Smartphone', 'iPad', 'Other'],
     seriesData: [45, 50, 5, 30, 55, 10, 2]
+    
 };
 
 export const hourlyViewsChart = {
