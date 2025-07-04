@@ -3,6 +3,7 @@ import { ref, defineAsyncComponent } from 'vue';
 import DashboardAdminLayout from '../../layouts/DashboardAdminLayout.vue';
 import SkeletonMaps from '../../components/skeleton/SkeletonMaps.vue';
 import SkeletonChart from '../../components/skeleton/SkeletonChart.vue';
+import SkeletonTable from '../../components/skeleton/SkeletonTable.vue';
 import { hourlyViewsChart } from '../../dummydata/chart';
 import { liveUsers, sessionsSummary, deviceBreakdown, timezonesAndLanguage, mapRealTime, userJourney } from '../../dummydata/pages2/dataPages2';
 const dataHourlyBarChart = ref(hourlyViewsChart)

@@ -13,7 +13,7 @@ const pageTitle = ref(route.meta.title || 'Map');
 </script>
 <template>
     <div class="bg-white text-gray-900 h-full min-h-screen">
-        <HeaderAdmin @update-title="handleUpdateTitle" />
+        <HeaderAdmin/>
         <main class="mx-auto px-4 sm:px-6 lg:px-12 py-6">
             <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-6">
                 <h1 class="text-2xl sm:text-3xl font-extrabold leading-tight text-gray-900 mb-4 md:mb-0">{{ pageTitle }}
