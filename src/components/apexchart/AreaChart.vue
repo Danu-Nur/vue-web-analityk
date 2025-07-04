@@ -9,10 +9,15 @@ import VueApexCharts from 'vue3-apexcharts'
 const props = defineProps({
     title: { type: String, default: 'Area Chart' },
     categories: { type: Array, default: () => [] },
-    seriesData: { type: Array, default: () => [] },
+    // seriesData: { type: Array, default: () => [] },
+    seriesData: {
+        type: Array,
+        default: () => [{ name: 'Series 1', data: [] }], // Default to single series
+        validator: (series) => series.every(s => s.name && Array.isArray(s.data))
+    },
     colors: {
         type: Array,
-        default: () => ['#4b5563', '#9ca3af'] // Gray-600 and gray-400 for gradient
+        default: () => ['#F59E0B','#000000'] // Gray-600 and gray-400 for gradient
     }
 })
 
@@ -95,10 +100,18 @@ const chartOptions = computed(() => ({
     }
 }))
 
-const series = computed(() => [
-    {
-        name: props.title,
-        data: props.seriesData.length ? props.seriesData : [0, 0, 0, 0, 0, 0, 0]
+const series = computed(() => {
+    // Check if seriesData is a single array (backward compatibility) or array of series objects
+    if (Array.isArray(props.seriesData) && props.seriesData.length > 0 && !props.seriesData[0].name) {
+        return [{ name: props.title, data: props.seriesData }]
     }
-])
+    return props.seriesData
+})
+
+// const series = computed(() => [
+//     {
+//         name: props.title,
+//         data: props.seriesData.length ? props.seriesData : [0, 0, 0, 0, 0, 0, 0]
+//     }
+// ])
 </script>

@@ -9,18 +9,23 @@ import VueApexCharts from 'vue3-apexcharts'
 const props = defineProps({
     title: { type: String, default: 'Bar Chart' },
     categories: { type: Array, default: () => [] },
-    seriesData: { type: Array, default: () => [] },
+    seriesData: {
+        type: Array,
+        default: () => [{ name: 'Series 1', data: [] }], // Default to single series
+        validator: (series) => series.every(s => s.name && Array.isArray(s.data))
+    },
     colors: {
         type: Array,
-        default: () => ['#000000', '#F59E0B'] // Default colors (blue, green, amber)
+        default: () => ['#F59E0B','#000000'] // Default colors (blue, green, amber)
     },
     height: {
-        type: Number, default: 450
+        type: Number,
+        default: 450
     }
 })
 
 const chartOptions = computed(() => ({
-    chart: { id: 'bar-chart', height: 500 },
+    chart: { id: 'bar-chart', height: props.height },
     title: {
         text: props.title,
         align: 'center',
@@ -34,10 +39,10 @@ const chartOptions = computed(() => ({
         bar: {
             horizontal: false,
             columnWidth: '55%',
-            borderRadius: 4 // Adds slight rounding to bars
+            borderRadius: 4
         }
     },
-    colors: props.colors, // Use colors from props
+    colors: props.colors,
     dataLabels: { enabled: false },
     tooltip: {
         shared: true,
@@ -45,10 +50,16 @@ const chartOptions = computed(() => ({
         style: { fontSize: '12px' }
     },
     grid: {
-        borderColor: '#e5e7eb', // Light grid lines
+        borderColor: '#e5e7eb',
         strokeDashArray: 4
     }
 }))
 
-const series = computed(() => [{ name: props.title, data: props.seriesData }])
+const series = computed(() => {
+    // Check if seriesData is a single array (backward compatibility) or array of series objects
+    if (Array.isArray(props.seriesData) && props.seriesData.length > 0 && !props.seriesData[0].name) {
+        return [{ name: props.title, data: props.seriesData }]
+    }
+    return props.seriesData
+})
 </script>
