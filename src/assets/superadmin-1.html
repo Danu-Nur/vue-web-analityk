@@ -1,0 +1,1424 @@
+<html class="scroll-smooth" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <title>
+        Superadmin Dashboard - SaaS Admin
+    </title>
+    <script src="https://cdn.tailwindcss.com">
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter&amp;family=DM+Sans&amp;display=swap" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
+    <style>
+        body {
+            font-family: 'Inter', 'DM Sans', sans-serif;
+            background-color: #f9fafb;
+            color: #111827;
+        }
+
+        /* Scrollbar for sidebar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background-color: #d1d5db;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+
+<body class="min-h-screen flex flex-col">
+    <!-- HEADER -->
+    <header class="bg-white border-b border-gray-300 sticky top-0 z-30">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16">
+            <div class="flex items-center space-x-3">
+                <img alt="Logo Superadmin area, white letters SA on black background" class="w-10 h-10 rounded"
+                    height="40" src="https://storage.googleapis.com/a1aa/image/7bf090b3-1472-41a4-f408-6ddef5ff997d.jpg"
+                    width="40" />
+                <h1 class="text-xl font-semibold tracking-wide text-gray-900">
+                    SUPERADMIN AREA
+                </h1>
+            </div>
+            <nav class="hidden md:flex space-x-6 text-gray-700 font-medium text-sm">
+                <a class="hover:text-black border-b-2 border-transparent hover:border-black transition"
+                    href="#dashboard">
+                    Dashboard
+                </a>
+                <a class="hover:text-black border-b-2 border-transparent hover:border-black transition" href="#users">
+                    Users
+                </a>
+                <a class="hover:text-black border-b-2 border-transparent hover:border-black transition" href="#clients">
+                    Clients
+                </a>
+                <a class="hover:text-black border-b-2 border-transparent hover:border-black transition"
+                    href="#subscriptions">
+                    Subscriptions
+                </a>
+                <a class="hover:text-black border-b-2 border-transparent hover:border-black transition" href="#plans">
+                    Plans
+                </a>
+                <a class="hover:text-black border-b-2 border-transparent hover:border-black transition" href="#apikeys">
+                    API Keys
+                </a>
+                <a class="hover:text-black border-b-2 border-transparent hover:border-black transition" href="#system">
+                    System
+                </a>
+            </nav>
+            <button class="md:hidden text-gray-700 hover:text-black focus:outline-none focus:ring-2 focus:ring-black"
+                id="mobile-menu-button">
+                <i class="fas fa-bars fa-lg">
+                </i>
+            </button>
+        </div>
+    </header>
+    <!-- MOBILE NAVIGATION -->
+    <nav class="md:hidden bg-white border-b border-gray-300 hidden" id="mobile-menu">
+        <div class="flex flex-col space-y-1 px-4 py-2 text-gray-700 font-medium text-base">
+            <a class="py-2 border-b border-gray-200 hover:bg-gray-100" href="#dashboard">
+                Dashboard
+            </a>
+            <a class="py-2 border-b border-gray-200 hover:bg-gray-100" href="#users">
+                Users
+            </a>
+            <a class="py-2 border-b border-gray-200 hover:bg-gray-100" href="#clients">
+                Clients
+            </a>
+            <a class="py-2 border-b border-gray-200 hover:bg-gray-100" href="#subscriptions">
+                Subscriptions
+            </a>
+            <a class="py-2 border-b border-gray-200 hover:bg-gray-100" href="#plans">
+                Plans
+            </a>
+            <a class="py-2 border-b border-gray-200 hover:bg-gray-100" href="#apikeys">
+                API Keys
+            </a>
+            <a class="py-2 border-b border-gray-200 hover:bg-gray-100" href="#system">
+                System
+            </a>
+        </div>
+    </nav>
+    <div class="flex flex-1 overflow-hidden">
+        <!-- SIDEBAR -->
+        <aside class="hidden lg:flex flex-col w-64 bg-white border-r border-gray-300 overflow-y-auto">
+            <div class="px-6 py-6">
+                <h2 class="text-lg font-semibold text-gray-900 mb-4">
+                    Navigation
+                </h2>
+                <nav class="flex flex-col space-y-2 text-gray-700 text-sm font-medium">
+                    <a class="flex items-center px-3 py-2 rounded hover:bg-gray-100 hover:text-black transition"
+                        href="#dashboard">
+                        <i class="fas fa-chart-pie mr-3 w-5 text-gray-500">
+                        </i>
+                        Dashboard Overview
+                    </a>
+                    <a class="flex items-center px-3 py-2 rounded hover:bg-gray-100 hover:text-black transition"
+                        href="#users">
+                        <i class="fas fa-users mr-3 w-5 text-gray-500">
+                        </i>
+                        User Management
+                    </a>
+                    <a class="flex items-center px-3 py-2 rounded hover:bg-gray-100 hover:text-black transition"
+                        href="#clients">
+                        <i class="fas fa-building mr-3 w-5 text-gray-500">
+                        </i>
+                        Client Management
+                    </a>
+                    <a class="flex items-center px-3 py-2 rounded hover:bg-gray-100 hover:text-black transition"
+                        href="#subscriptions">
+                        <i class="fas fa-credit-card mr-3 w-5 text-gray-500">
+                        </i>
+                        Subscription Management
+                    </a>
+                    <a class="flex items-center px-3 py-2 rounded hover:bg-gray-100 hover:text-black transition"
+                        href="#plans">
+                        <i class="fas fa-list-alt mr-3 w-5 text-gray-500">
+                        </i>
+                        Plan Management
+                    </a>
+                    <a class="flex items-center px-3 py-2 rounded hover:bg-gray-100 hover:text-black transition"
+                        href="#apikeys">
+                        <i class="fas fa-key mr-3 w-5 text-gray-500">
+                        </i>
+                        API Key Oversight
+                    </a>
+                    <a class="flex items-center px-3 py-2 rounded hover:bg-gray-100 hover:text-black transition"
+                        href="#system">
+                        <i class="fas fa-cogs mr-3 w-5 text-gray-500">
+                        </i>
+                        System Diagnostics
+                    </a>
+                </nav>
+            </div>
+        </aside>
+        <!-- MAIN CONTENT -->
+        <main class="flex-1 overflow-y-auto p-6 max-w-full">
+            <!-- DASHBOARD OVERVIEW -->
+            <section class="mb-12" id="dashboard">
+                <h2 class="text-2xl font-semibold mb-6 border-b border-gray-300 pb-2">
+                    Dashboard Overview (Global Analytics)
+                </h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Total Users -->
+                    <div class="bg-white rounded-lg shadow p-5 flex items-center space-x-4 border border-gray-200">
+                        <div class="p-3 bg-indigo-100 text-indigo-700 rounded-full">
+                            <i class="fas fa-users fa-2x">
+                            </i>
+                        </div>
+                        <div>
+                            <p class="text-sm font-medium text-gray-500">
+                                Total Users
+                            </p>
+                            <p class="text-2xl font-semibold text-gray-900">
+                                12,345
+                            </p>
+                        </div>
+                    </div>
+                    <!-- Total Clients -->
+                    <div class="bg-white rounded-lg shadow p-5 flex items-center space-x-4 border border-gray-200">
+                        <div class="p-3 bg-green-100 text-green-700 rounded-full">
+                            <i class="fas fa-building fa-2x">
+                            </i>
+                        </div>
+                        <div>
+                            <p class="text-sm font-medium text-gray-500">
+                                Total Clients
+                            </p>
+                            <p class="text-2xl font-semibold text-gray-900">
+                                1,234
+                            </p>
+                        </div>
+                    </div>
+                    <!-- MRR / Revenue -->
+                    <div class="bg-white rounded-lg shadow p-5 flex items-center space-x-4 border border-gray-200">
+                        <div class="p-3 bg-yellow-100 text-yellow-700 rounded-full">
+                            <i class="fas fa-dollar-sign fa-2x">
+                            </i>
+                        </div>
+                        <div>
+                            <p class="text-sm font-medium text-gray-500">
+                                MRR / Revenue
+                            </p>
+                            <p class="text-2xl font-semibold text-gray-900">
+                                $456,789
+                            </p>
+                        </div>
+                    </div>
+                    <!-- Active Subscriptions -->
+                    <div class="bg-white rounded-lg shadow p-5 flex items-center space-x-4 border border-gray-200">
+                        <div class="p-3 bg-blue-100 text-blue-700 rounded-full">
+                            <i class="fas fa-box fa-2x">
+                            </i>
+                        </div>
+                        <div>
+                            <p class="text-sm font-medium text-gray-500">
+                                Active Subscriptions
+                            </p>
+                            <p class="text-2xl font-semibold text-gray-900">
+                                987
+                            </p>
+                        </div>
+                    </div>
+                    <!-- Most Used API Keys -->
+                    <div class="bg-white rounded-lg shadow p-5 border border-gray-200">
+                        <p class="text-sm font-medium text-gray-500 mb-3">
+                            Most Used API Keys (Top 5)
+                        </p>
+                        <ul class="divide-y divide-gray-200">
+                            <li class="flex justify-between py-2">
+                                <span class="font-medium text-gray-900 truncate">
+                                    API Key: 1234-abcd-5678-efgh
+                                </span>
+                                <span class="text-indigo-600 font-semibold">
+                                    15,432 requests
+                                </span>
+                            </li>
+                            <li class="flex justify-between py-2">
+                                <span class="font-medium text-gray-900 truncate">
+                                    API Key: 9876-wxyz-5432-vuts
+                                </span>
+                                <span class="text-indigo-600 font-semibold">
+                                    12,987 requests
+                                </span>
+                            </li>
+                            <li class="flex justify-between py-2">
+                                <span class="font-medium text-gray-900 truncate">
+                                    API Key: 2468-qwer-1357-asdf
+                                </span>
+                                <span class="text-indigo-600 font-semibold">
+                                    11,234 requests
+                                </span>
+                            </li>
+                            <li class="flex justify-between py-2">
+                                <span class="font-medium text-gray-900 truncate">
+                                    API Key: 1357-zxcv-2468-poiu
+                                </span>
+                                <span class="text-indigo-600 font-semibold">
+                                    9,876 requests
+                                </span>
+                            </li>
+                            <li class="flex justify-between py-2">
+                                <span class="font-medium text-gray-900 truncate">
+                                    API Key: 8642-mnbv-9753-lkjh
+                                </span>
+                                <span class="text-indigo-600 font-semibold">
+                                    8,765 requests
+                                </span>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- Suspected Bots -->
+                    <div class="bg-white rounded-lg shadow p-5 flex items-center space-x-4 border border-gray-200">
+                        <div class="p-3 bg-red-100 text-red-700 rounded-full">
+                            <i class="fas fa-robot fa-2x">
+                            </i>
+                        </div>
+                        <div>
+                            <p class="text-sm font-medium text-gray-500">
+                                Suspected Bots
+                            </p>
+                            <p class="text-2xl font-semibold text-gray-900">
+                                123
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- USER MANAGEMENT -->
+            <section class="mb-12" id="users">
+                <h2 class="text-2xl font-semibold mb-6 border-b border-gray-300 pb-2">
+                    User Management
+                </h2>
+                <div class="flex flex-col space-y-4">
+                    <!-- Filters -->
+                    <div class="flex flex-col sm:flex-row sm:items-center sm:space-x-4 space-y-3 sm:space-y-0">
+                        <input
+                            class="flex-1 border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                            placeholder="Search by name or email" type="text" />
+                        <select
+                            class="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                            <option value="">
+                                Filter by Client
+                            </option>
+                            <option value="client1">
+                                Client 1
+                            </option>
+                            <option value="client2">
+                                Client 2
+                            </option>
+                            <option value="client3">
+                                Client 3
+                            </option>
+                            <option value="client4">
+                                Client 4
+                            </option>
+                            <option value="client5">
+                                Client 5
+                            </option>
+                        </select>
+                    </div>
+                    <!-- User Table -->
+                    <div class="overflow-x-auto rounded-lg border border-gray-300 bg-white shadow">
+                        <table class="min-w-full divide-y divide-gray-200 text-sm">
+                            <thead class="bg-gray-50">
+                                <tr>
+                                    <th class="px-4 py-3 text-left font-semibold text-gray-700" scope="col">
+                                        Name
+                                    </th>
+                                    <th class="px-4 py-3 text-left font-semibold text-gray-700" scope="col">
+                                        Email
+                                    </th>
+                                    <th class="px-4 py-3 text-left font-semibold text-gray-700" scope="col">
+                                        Role
+                                    </th>
+                                    <th class="px-4 py-3 text-left font-semibold text-gray-700" scope="col">
+                                        Client
+                                    </th>
+                                    <th class="px-4 py-3 text-center font-semibold text-gray-700" scope="col">
+                                        Actions
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-gray-200">
+                                <tr>
+                                    <td class="px-4 py-3">
+                                        Alice Johnson
+                                    </td>
+                                    <td class="px-4 py-3">
+                                        alice.johnson@example.com
+                                    </td>
+                                    <td class="px-4 py-3">
+                                        <select
+                                            class="border border-gray-300 rounded px-2 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                                            <option selected="" value="superadmin">
+                                                Superadmin
+                                            </option>
+                                            <option value="client_admin">
+                                                Client Admin
+                                            </option>
+                                            <option value="user">
+                                                User
+                                            </option>
+                                        </select>
+                                    </td>
+                                    <td class="px-4 py-3">
+                                        -
+                                    </td>
+                                    <td class="px-4 py-3 text-center space-x-2">
+                                        <button class="text-indigo-600 hover:text-indigo-900" title="Reset Password">
+                                            <i class="fas fa-key">
+                                            </i>
+                                        </button>
+                                        <button class="text-yellow-600 hover:text-yellow-900" title="Deactivate User">
+                                            <i class="fas fa-user-slash">
+                                            </i>
+                                        </button>
+                                        <button class="text-red-600 hover:text-red-900" title="Delete User">
+                                            <i class="fas fa-trash-alt">
+                                            </i>
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="px-4 py-3">
+                                        Bob Smith
+                                    </td>
+                                    <td class="px-4 py-3">
+                                        bob.smith@client1.com
+                                    </td>
+                                    <td class="px-4 py-3">
+                                        <select
+                                            class="border border-gray-300 rounded px-2 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                                            <option value="superadmin">
+                                                Superadmin
+                                            </option>
+                                            <option selected="" value="client_admin">
+                                                Client Admin
+                                            </option>
+                                            <option value="user">
+                                                User
+                                            </option>
+                                        </select>
+                                    </td>
+                                    <td class="px-4 py-3">
+                                        Client 1
+                                    </td>
+                                    <td class="px-4 py-3 text-center space-x-2">
+                                        <button class="text-indigo-600 hover:text-indigo-900" title="Reset Password">
+                                            <i class="fas fa-key">
+                                            </i>
+                                        </button>
+                                        <button class="text-yellow-600 hover:text-yellow-900" title="Deactivate User">
+                                            <i class="fas fa-user-slash">
+                                            </i>
+                                        </button>
+                                        <button class="text-red-600 hover:text-red-900" title="Delete User">
+                                            <i class="fas fa-trash-alt">
+                                            </i>
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="px-4 py-3">
+                                        Charlie Davis
+                                    </td>
+                                    <td class="px-4 py-3">
+                                        charlie.davis@client2.com
+                                    </td>
+                                    <td class="px-4 py-3">
+                                        <select
+                                            class="border border-gray-300 rounded px-2 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                                            <option value="superadmin">
+                                                Superadmin
+                                            </option>
+                                            <option value="client_admin">
+                                                Client Admin
+                                            </option>
+                                            <option selected="" value="user">
+                                                User
+                                            </option>
+                                        </select>
+                                    </td>
+                                    <td class="px-4 py-3">
+                                        Client 2
+                                    </td>
+                                    <td class="px-4 py-3 text-center space-x-2">
+                                        <button class="text-indigo-600 hover:text-indigo-900" title="Reset Password">
+                                            <i class="fas fa-key">
+                                            </i>
+                                        </button>
+                                        <button class="text-yellow-600 hover:text-yellow-900" title="Deactivate User">
+                                            <i class="fas fa-user-slash">
+                                            </i>
+                                        </button>
+                                        <button class="text-red-600 hover:text-red-900" title="Delete User">
+                                            <i class="fas fa-trash-alt">
+                                            </i>
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="px-4 py-3">
+                                        Diana Evans
+                                    </td>
+                                    <td class="px-4 py-3">
+                                        diana.evans@client3.com
+                                    </td>
+                                    <td class="px-4 py-3">
+                                        <select
+                                            class="border border-gray-300 rounded px-2 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                                            <option value="superadmin">
+                                                Superadmin
+                                            </option>
+                                            <option selected="" value="client_admin">
+                                                Client Admin
+                                            </option>
+                                            <option value="user">
+                                                User
+                                            </option>
+                                        </select>
+                                    </td>
+                                    <td class="px-4 py-3">
+                                        Client 3
+                                    </td>
+                                    <td class="px-4 py-3 text-center space-x-2">
+                                        <button class="text-indigo-600 hover:text-indigo-900" title="Reset Password">
+                                            <i class="fas fa-key">
+                                            </i>
+                                        </button>
+                                        <button class="text-yellow-600 hover:text-yellow-900" title="Deactivate User">
+                                            <i class="fas fa-user-slash">
+                                            </i>
+                                        </button>
+                                        <button class="text-red-600 hover:text-red-900" title="Delete User">
+                                            <i class="fas fa-trash-alt">
+                                            </i>
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="px-4 py-3">
+                                        Ethan Ford
+                                    </td>
+                                    <td class="px-4 py-3">
+                                        ethan.ford@client4.com
+                                    </td>
+                                    <td class="px-4 py-3">
+                                        <select
+                                            class="border border-gray-300 rounded px-2 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                                            <option value="superadmin">
+                                                Superadmin
+                                            </option>
+                                            <option value="client_admin">
+                                                Client Admin
+                                            </option>
+                                            <option selected="" value="user">
+                                                User
+                                            </option>
+                                        </select>
+                                    </td>
+                                    <td class="px-4 py-3">
+                                        Client 4
+                                    </td>
+                                    <td class="px-4 py-3 text-center space-x-2">
+                                        <button class="text-indigo-600 hover:text-indigo-900" title="Reset Password">
+                                            <i class="fas fa-key">
+                                            </i>
+                                        </button>
+                                        <button class="text-yellow-600 hover:text-yellow-900" title="Deactivate User">
+                                            <i class="fas fa-user-slash">
+                                            </i>
+                                        </button>
+                                        <button class="text-red-600 hover:text-red-900" title="Delete User">
+                                            <i class="fas fa-trash-alt">
+                                            </i>
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="px-4 py-3">
+                                        Fiona Green
+                                    </td>
+                                    <td class="px-4 py-3">
+                                        fiona.green@client5.com
+                                    </td>
+                                    <td class="px-4 py-3">
+                                        <select
+                                            class="border border-gray-300 rounded px-2 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                                            <option value="superadmin">
+                                                Superadmin
+                                            </option>
+                                            <option selected="" value="client_admin">
+                                                Client Admin
+                                            </option>
+                                            <option value="user">
+                                                User
+                                            </option>
+                                        </select>
+                                    </td>
+                                    <td class="px-4 py-3">
+                                        Client 5
+                                    </td>
+                                    <td class="px-4 py-3 text-center space-x-2">
+                                        <button class="text-indigo-600 hover:text-indigo-900" title="Reset Password">
+                                            <i class="fas fa-key">
+                                            </i>
+                                        </button>
+                                        <button class="text-yellow-600 hover:text-yellow-900" title="Deactivate User">
+                                            <i class="fas fa-user-slash">
+                                            </i>
+                                        </button>
+                                        <button class="text-red-600 hover:text-red-900" title="Delete User">
+                                            <i class="fas fa-trash-alt">
+                                            </i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+            <!-- CLIENT MANAGEMENT -->
+            <section class="mb-12" id="clients">
+                <h2 class="text-2xl font-semibold mb-6 border-b border-gray-300 pb-2">
+                    Client Management
+                </h2>
+                <div class="overflow-x-auto rounded-lg border border-gray-300 bg-white shadow">
+                    <table class="min-w-full divide-y divide-gray-200 text-sm">
+                        <thead class="bg-gray-50">
+                            <tr>
+                                <th class="px-4 py-3 text-left font-semibold text-gray-700" scope="col">
+                                    Name
+                                </th>
+                                <th class="px-4 py-3 text-left font-semibold text-gray-700" scope="col">
+                                    Domain
+                                </th>
+                                <th class="px-4 py-3 text-left font-semibold text-gray-700" scope="col">
+                                    Admin
+                                </th>
+                                <th class="px-4 py-3 text-center font-semibold text-gray-700" scope="col">
+                                    Users
+                                </th>
+                                <th class="px-4 py-3 text-center font-semibold text-gray-700" scope="col">
+                                    Subscription Status
+                                </th>
+                                <th class="px-4 py-3 text-center font-semibold text-gray-700" scope="col">
+                                    Event Usage
+                                </th>
+                                <th class="px-4 py-3 text-center font-semibold text-gray-700" scope="col">
+                                    Actions
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-200">
+                            <tr>
+                                <td class="px-4 py-3">
+                                    Client 1
+                                </td>
+                                <td class="px-4 py-3">
+                                    client1.example.com
+                                </td>
+                                <td class="px-4 py-3">
+                                    Bob Smith
+                                </td>
+                                <td class="px-4 py-3 text-center">
+                                    45
+                                </td>
+                                <td class="px-4 py-3 text-center">
+                                    <span
+                                        class="inline-block px-2 py-1 text-xs font-semibold rounded bg-green-100 text-green-800">
+                                        Active
+                                    </span>
+                                </td>
+                                <td class="px-4 py-3 text-center">
+                                    120k / 200k
+                                </td>
+                                <td class="px-4 py-3 text-center space-x-2">
+                                    <button class="text-yellow-600 hover:text-yellow-900" title="Suspend Client">
+                                        <i class="fas fa-pause-circle">
+                                        </i>
+                                    </button>
+                                    <button class="text-green-600 hover:text-green-900" title="Approve Client">
+                                        <i class="fas fa-check-circle">
+                                        </i>
+                                    </button>
+                                    <button class="text-blue-600 hover:text-blue-900" title="Extend Subscription">
+                                        <i class="fas fa-sync-alt">
+                                        </i>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="px-4 py-3">
+                                    Client 2
+                                </td>
+                                <td class="px-4 py-3">
+                                    client2.example.com
+                                </td>
+                                <td class="px-4 py-3">
+                                    Charlie Davis
+                                </td>
+                                <td class="px-4 py-3 text-center">
+                                    30
+                                </td>
+                                <td class="px-4 py-3 text-center">
+                                    <span
+                                        class="inline-block px-2 py-1 text-xs font-semibold rounded bg-yellow-100 text-yellow-800">
+                                        Pending
+                                    </span>
+                                </td>
+                                <td class="px-4 py-3 text-center">
+                                    80k / 150k
+                                </td>
+                                <td class="px-4 py-3 text-center space-x-2">
+                                    <button class="text-yellow-600 hover:text-yellow-900" title="Suspend Client">
+                                        <i class="fas fa-pause-circle">
+                                        </i>
+                                    </button>
+                                    <button class="text-green-600 hover:text-green-900" title="Approve Client">
+                                        <i class="fas fa-check-circle">
+                                        </i>
+                                    </button>
+                                    <button class="text-blue-600 hover:text-blue-900" title="Extend Subscription">
+                                        <i class="fas fa-sync-alt">
+                                        </i>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="px-4 py-3">
+                                    Client 3
+                                </td>
+                                <td class="px-4 py-3">
+                                    client3.example.com
+                                </td>
+                                <td class="px-4 py-3">
+                                    Diana Evans
+                                </td>
+                                <td class="px-4 py-3 text-center">
+                                    50
+                                </td>
+                                <td class="px-4 py-3 text-center">
+                                    <span
+                                        class="inline-block px-2 py-1 text-xs font-semibold rounded bg-green-100 text-green-800">
+                                        Active
+                                    </span>
+                                </td>
+                                <td class="px-4 py-3 text-center">
+                                    140k / 200k
+                                </td>
+                                <td class="px-4 py-3 text-center space-x-2">
+                                    <button class="text-yellow-600 hover:text-yellow-900" title="Suspend Client">
+                                        <i class="fas fa-pause-circle">
+                                        </i>
+                                    </button>
+                                    <button class="text-green-600 hover:text-green-900" title="Approve Client">
+                                        <i class="fas fa-check-circle">
+                                        </i>
+                                    </button>
+                                    <button class="text-blue-600 hover:text-blue-900" title="Extend Subscription">
+                                        <i class="fas fa-sync-alt">
+                                        </i>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="px-4 py-3">
+                                    Client 4
+                                </td>
+                                <td class="px-4 py-3">
+                                    client4.example.com
+                                </td>
+                                <td class="px-4 py-3">
+                                    Ethan Ford
+                                </td>
+                                <td class="px-4 py-3 text-center">
+                                    20
+                                </td>
+                                <td class="px-4 py-3 text-center">
+                                    <span
+                                        class="inline-block px-2 py-1 text-xs font-semibold rounded bg-red-100 text-red-800">
+                                        Suspended
+                                    </span>
+                                </td>
+                                <td class="px-4 py-3 text-center">
+                                    50k / 100k
+                                </td>
+                                <td class="px-4 py-3 text-center space-x-2">
+                                    <button class="text-yellow-600 hover:text-yellow-900" title="Suspend Client">
+                                        <i class="fas fa-pause-circle">
+                                        </i>
+                                    </button>
+                                    <button class="text-green-600 hover:text-green-900" title="Approve Client">
+                                        <i class="fas fa-check-circle">
+                                        </i>
+                                    </button>
+                                    <button class="text-blue-600 hover:text-blue-900" title="Extend Subscription">
+                                        <i class="fas fa-sync-alt">
+                                        </i>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="px-4 py-3">
+                                    Client 5
+                                </td>
+                                <td class="px-4 py-3">
+                                    client5.example.com
+                                </td>
+                                <td class="px-4 py-3">
+                                    Fiona Green
+                                </td>
+                                <td class="px-4 py-3 text-center">
+                                    40
+                                </td>
+                                <td class="px-4 py-3 text-center">
+                                    <span
+                                        class="inline-block px-2 py-1 text-xs font-semibold rounded bg-green-100 text-green-800">
+                                        Active
+                                    </span>
+                                </td>
+                                <td class="px-4 py-3 text-center">
+                                    110k / 150k
+                                </td>
+                                <td class="px-4 py-3 text-center space-x-2">
+                                    <button class="text-yellow-600 hover:text-yellow-900" title="Suspend Client">
+                                        <i class="fas fa-pause-circle">
+                                        </i>
+                                    </button>
+                                    <button class="text-green-600 hover:text-green-900" title="Approve Client">
+                                        <i class="fas fa-check-circle">
+                                        </i>
+                                    </button>
+                                    <button class="text-blue-600 hover:text-blue-900" title="Extend Subscription">
+                                        <i class="fas fa-sync-alt">
+                                        </i>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+            <!-- SUBSCRIPTION MANAGEMENT -->
+            <section class="mb-12" id="subscriptions">
+                <h2 class="text-2xl font-semibold mb-6 border-b border-gray-300 pb-2">
+                    Subscription Management
+                </h2>
+                <div class="overflow-x-auto rounded-lg border border-gray-300 bg-white shadow">
+                    <table class="min-w-full divide-y divide-gray-200 text-sm">
+                        <thead class="bg-gray-50">
+                            <tr>
+                                <th class="px-4 py-3 text-left font-semibold text-gray-700" scope="col">
+                                    Plan
+                                </th>
+                                <th class="px-4 py-3 text-left font-semibold text-gray-700" scope="col">
+                                    Client
+                                </th>
+                                <th class="px-4 py-3 text-center font-semibold text-gray-700" scope="col">
+                                    Status
+                                </th>
+                                <th class="px-4 py-3 text-right font-semibold text-gray-700" scope="col">
+                                    Price
+                                </th>
+                                <th class="px-4 py-3 text-center font-semibold text-gray-700" scope="col">
+                                    Active Period
+                                </th>
+                                <th class="px-4 py-3 text-center font-semibold text-gray-700" scope="col">
+                                    Actions
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-200">
+                            <tr>
+                                <td class="px-4 py-3">
+                                    Pro Plan
+                                </td>
+                                <td class="px-4 py-3">
+                                    Client 1
+                                </td>
+                                <td class="px-4 py-3 text-center">
+                                    <span
+                                        class="inline-block px-2 py-1 text-xs font-semibold rounded bg-green-100 text-green-800">
+                                        Active
+                                    </span>
+                                </td>
+                                <td class="px-4 py-3 text-right">
+                                    $49.99
+                                </td>
+                                <td class="px-4 py-3 text-center">
+                                    2024-01-01 to 2024-12-31
+                                </td>
+                                <td class="px-4 py-3 text-center space-x-2">
+                                    <button class="text-red-600 hover:text-red-900" title="Cancel Subscription">
+                                        <i class="fas fa-times-circle">
+                                        </i>
+                                    </button>
+                                    <button class="text-green-600 hover:text-green-900" title="Renew Subscription">
+                                        <i class="fas fa-redo">
+                                        </i>
+                                    </button>
+                                    <button class="text-blue-600 hover:text-blue-900" title="Change Plan">
+                                        <i class="fas fa-exchange-alt">
+                                        </i>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="px-4 py-3">
+                                    Basic Plan
+                                </td>
+                                <td class="px-4 py-3">
+                                    Client 2
+                                </td>
+                                <td class="px-4 py-3 text-center">
+                                    <span
+                                        class="inline-block px-2 py-1 text-xs font-semibold rounded bg-yellow-100 text-yellow-800">
+                                        Pending
+                                    </span>
+                                </td>
+                                <td class="px-4 py-3 text-right">
+                                    $19.99
+                                </td>
+                                <td class="px-4 py-3 text-center">
+                                    2024-02-01 to 2024-07-31
+                                </td>
+                                <td class="px-4 py-3 text-center space-x-2">
+                                    <button class="text-red-600 hover:text-red-900" title="Cancel Subscription">
+                                        <i class="fas fa-times-circle">
+                                        </i>
+                                    </button>
+                                    <button class="text-green-600 hover:text-green-900" title="Renew Subscription">
+                                        <i class="fas fa-redo">
+                                        </i>
+                                    </button>
+                                    <button class="text-blue-600 hover:text-blue-900" title="Change Plan">
+                                        <i class="fas fa-exchange-alt">
+                                        </i>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="px-4 py-3">
+                                    Enterprise Plan
+                                </td>
+                                <td class="px-4 py-3">
+                                    Client 3
+                                </td>
+                                <td class="px-4 py-3 text-center">
+                                    <span
+                                        class="inline-block px-2 py-1 text-xs font-semibold rounded bg-green-100 text-green-800">
+                                        Active
+                                    </span>
+                                </td>
+                                <td class="px-4 py-3 text-right">
+                                    $99.99
+                                </td>
+                                <td class="px-4 py-3 text-center">
+                                    2024-01-15 to 2025-01-14
+                                </td>
+                                <td class="px-4 py-3 text-center space-x-2">
+                                    <button class="text-red-600 hover:text-red-900" title="Cancel Subscription">
+                                        <i class="fas fa-times-circle">
+                                        </i>
+                                    </button>
+                                    <button class="text-green-600 hover:text-green-900" title="Renew Subscription">
+                                        <i class="fas fa-redo">
+                                        </i>
+                                    </button>
+                                    <button class="text-blue-600 hover:text-blue-900" title="Change Plan">
+                                        <i class="fas fa-exchange-alt">
+                                        </i>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="px-4 py-3">
+                                    Starter Plan
+                                </td>
+                                <td class="px-4 py-3">
+                                    Client 4
+                                </td>
+                                <td class="px-4 py-3 text-center">
+                                    <span
+                                        class="inline-block px-2 py-1 text-xs font-semibold rounded bg-red-100 text-red-800">
+                                        Cancelled
+                                    </span>
+                                </td>
+                                <td class="px-4 py-3 text-right">
+                                    $9.99
+                                </td>
+                                <td class="px-4 py-3 text-center">
+                                    2023-06-01 to 2023-12-31
+                                </td>
+                                <td class="px-4 py-3 text-center space-x-2">
+                                    <button class="text-red-600 hover:text-red-900" title="Cancel Subscription">
+                                        <i class="fas fa-times-circle">
+                                        </i>
+                                    </button>
+                                    <button class="text-green-600 hover:text-green-900" title="Renew Subscription">
+                                        <i class="fas fa-redo">
+                                        </i>
+                                    </button>
+                                    <button class="text-blue-600 hover:text-blue-900" title="Change Plan">
+                                        <i class="fas fa-exchange-alt">
+                                        </i>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="px-4 py-3">
+                                    Pro Plan
+                                </td>
+                                <td class="px-4 py-3">
+                                    Client 5
+                                </td>
+                                <td class="px-4 py-3 text-center">
+                                    <span
+                                        class="inline-block px-2 py-1 text-xs font-semibold rounded bg-green-100 text-green-800">
+                                        Active
+                                    </span>
+                                </td>
+                                <td class="px-4 py-3 text-right">
+                                    $49.99
+                                </td>
+                                <td class="px-4 py-3 text-center">
+                                    2024-03-01 to 2025-02-28
+                                </td>
+                                <td class="px-4 py-3 text-center space-x-2">
+                                    <button class="text-red-600 hover:text-red-900" title="Cancel Subscription">
+                                        <i class="fas fa-times-circle">
+                                        </i>
+                                    </button>
+                                    <button class="text-green-600 hover:text-green-900" title="Renew Subscription">
+                                        <i class="fas fa-redo">
+                                        </i>
+                                    </button>
+                                    <button class="text-blue-600 hover:text-blue-900" title="Change Plan">
+                                        <i class="fas fa-exchange-alt">
+                                        </i>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+            <!-- PLAN MANAGEMENT -->
+            <section class="mb-12" id="plans">
+                <h2 class="text-2xl font-semibold mb-6 border-b border-gray-300 pb-2">
+                    Plan Management
+                </h2>
+                <div class="mb-4 flex justify-between items-center">
+                    <button
+                        class="bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                        <i class="fas fa-plus mr-2">
+                        </i>
+                        Create New Plan
+                    </button>
+                    <input
+                        class="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                        placeholder="Search plans..." type="text" />
+                </div>
+                <div class="overflow-x-auto rounded-lg border border-gray-300 bg-white shadow">
+                    <table class="min-w-full divide-y divide-gray-200 text-sm">
+                        <thead class="bg-gray-50">
+                            <tr>
+                                <th class="px-4 py-3 text-left font-semibold text-gray-700" scope="col">
+                                    Plan Name
+                                </th>
+                                <th class="px-4 py-3 text-right font-semibold text-gray-700" scope="col">
+                                    Price
+                                </th>
+                                <th class="px-4 py-3 text-right font-semibold text-gray-700" scope="col">
+                                    Quota
+                                </th>
+                                <th class="px-4 py-3 text-left font-semibold text-gray-700" scope="col">
+                                    Features
+                                </th>
+                                <th class="px-4 py-3 text-center font-semibold text-gray-700" scope="col">
+                                    Default
+                                </th>
+                                <th class="px-4 py-3 text-center font-semibold text-gray-700" scope="col">
+                                    Actions
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-200">
+                            <tr>
+                                <td class="px-4 py-3">
+                                    Starter Plan
+                                </td>
+                                <td class="px-4 py-3 text-right">
+                                    $9.99
+                                </td>
+                                <td class="px-4 py-3 text-right">
+                                    10k events
+                                </td>
+                                <td class="px-4 py-3">
+                                    Basic analytics, Email support
+                                </td>
+                                <td class="px-4 py-3 text-center">
+                                    <input checked="" class="mx-auto" name="defaultPlan" type="radio" />
+                                </td>
+                                <td class="px-4 py-3 text-center space-x-2">
+                                    <button class="text-blue-600 hover:text-blue-900" title="Edit Plan">
+                                        <i class="fas fa-edit">
+                                        </i>
+                                    </button>
+                                    <button class="text-red-600 hover:text-red-900" title="Archive Plan">
+                                        <i class="fas fa-archive">
+                                        </i>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="px-4 py-3">
+                                    Basic Plan
+                                </td>
+                                <td class="px-4 py-3 text-right">
+                                    $19.99
+                                </td>
+                                <td class="px-4 py-3 text-right">
+                                    50k events
+                                </td>
+                                <td class="px-4 py-3">
+                                    Advanced analytics, Priority email support
+                                </td>
+                                <td class="px-4 py-3 text-center">
+                                    <input class="mx-auto" name="defaultPlan" type="radio" />
+                                </td>
+                                <td class="px-4 py-3 text-center space-x-2">
+                                    <button class="text-blue-600 hover:text-blue-900" title="Edit Plan">
+                                        <i class="fas fa-edit">
+                                        </i>
+                                    </button>
+                                    <button class="text-red-600 hover:text-red-900" title="Archive Plan">
+                                        <i class="fas fa-archive">
+                                        </i>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="px-4 py-3">
+                                    Pro Plan
+                                </td>
+                                <td class="px-4 py-3 text-right">
+                                    $49.99
+                                </td>
+                                <td class="px-4 py-3 text-right">
+                                    200k events
+                                </td>
+                                <td class="px-4 py-3">
+                                    Full analytics, Phone support, Custom reports
+                                </td>
+                                <td class="px-4 py-3 text-center">
+                                    <input class="mx-auto" name="defaultPlan" type="radio" />
+                                </td>
+                                <td class="px-4 py-3 text-center space-x-2">
+                                    <button class="text-blue-600 hover:text-blue-900" title="Edit Plan">
+                                        <i class="fas fa-edit">
+                                        </i>
+                                    </button>
+                                    <button class="text-red-600 hover:text-red-900" title="Archive Plan">
+                                        <i class="fas fa-archive">
+                                        </i>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="px-4 py-3">
+                                    Enterprise Plan
+                                </td>
+                                <td class="px-4 py-3 text-right">
+                                    $99.99
+                                </td>
+                                <td class="px-4 py-3 text-right">
+                                    Unlimited
+                                </td>
+                                <td class="px-4 py-3">
+                                    All features, Dedicated support, SLA
+                                </td>
+                                <td class="px-4 py-3 text-center">
+                                    <input class="mx-auto" name="defaultPlan" type="radio" />
+                                </td>
+                                <td class="px-4 py-3 text-center space-x-2">
+                                    <button class="text-blue-600 hover:text-blue-900" title="Edit Plan">
+                                        <i class="fas fa-edit">
+                                        </i>
+                                    </button>
+                                    <button class="text-red-600 hover:text-red-900" title="Archive Plan">
+                                        <i class="fas fa-archive">
+                                        </i>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+            <!-- API KEY OVERSIGHT -->
+            <section class="mb-12" id="apikeys">
+                <h2 class="text-2xl font-semibold mb-6 border-b border-gray-300 pb-2">
+                    API Key Oversight
+                </h2>
+                <div class="overflow-x-auto rounded-lg border border-gray-300 bg-white shadow">
+                    <table class="min-w-full divide-y divide-gray-200 text-sm">
+                        <thead class="bg-gray-50">
+                            <tr>
+                                <th class="px-4 py-3 text-left font-semibold text-gray-700" scope="col">
+                                    Client
+                                </th>
+                                <th class="px-4 py-3 text-left font-semibold text-gray-700" scope="col">
+                                    Domain
+                                </th>
+                                <th class="px-4 py-3 text-left font-semibold text-gray-700" scope="col">
+                                    API Key
+                                </th>
+                                <th class="px-4 py-3 text-center font-semibold text-gray-700" scope="col">
+                                    Status
+                                </th>
+                                <th class="px-4 py-3 text-center font-semibold text-gray-700" scope="col">
+                                    Last Request
+                                </th>
+                                <th class="px-4 py-3 text-center font-semibold text-gray-700" scope="col">
+                                    Allowed Domains
+                                </th>
+                                <th class="px-4 py-3 text-center font-semibold text-gray-700" scope="col">
+                                    Actions
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-200">
+                            <tr>
+                                <td class="px-4 py-3">
+                                    Client 1
+                                </td>
+                                <td class="px-4 py-3">
+                                    client1.example.com
+                                </td>
+                                <td class="px-4 py-3 truncate">
+                                    1234-abcd-5678-efgh
+                                </td>
+                                <td class="px-4 py-3 text-center">
+                                    <span
+                                        class="inline-block px-2 py-1 text-xs font-semibold rounded bg-green-100 text-green-800">
+                                        Active
+                                    </span>
+                                </td>
+                                <td class="px-4 py-3 text-center">
+                                    2024-06-10 14:23
+                                </td>
+                                <td class="px-4 py-3 text-center">
+                                    client1.example.com, api.client1.com
+                                </td>
+                                <td class="px-4 py-3 text-center space-x-2">
+                                    <button class="text-yellow-600 hover:text-yellow-900" title="Suspend Key">
+                                        <i class="fas fa-pause-circle">
+                                        </i>
+                                    </button>
+                                    <button class="text-blue-600 hover:text-blue-900" title="Regenerate Key">
+                                        <i class="fas fa-sync-alt">
+                                        </i>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="px-4 py-3">
+                                    Client 2
+                                </td>
+                                <td class="px-4 py-3">
+                                    client2.example.com
+                                </td>
+                                <td class="px-4 py-3 truncate">
+                                    9876-wxyz-5432-vuts
+                                </td>
+                                <td class="px-4 py-3 text-center">
+                                    <span
+                                        class="inline-block px-2 py-1 text-xs font-semibold rounded bg-green-100 text-green-800">
+                                        Active
+                                    </span>
+                                </td>
+                                <td class="px-4 py-3 text-center">
+                                    2024-06-09 09:15
+                                </td>
+                                <td class="px-4 py-3 text-center">
+                                    client2.example.com
+                                </td>
+                                <td class="px-4 py-3 text-center space-x-2">
+                                    <button class="text-yellow-600 hover:text-yellow-900" title="Suspend Key">
+                                        <i class="fas fa-pause-circle">
+                                        </i>
+                                    </button>
+                                    <button class="text-blue-600 hover:text-blue-900" title="Regenerate Key">
+                                        <i class="fas fa-sync-alt">
+                                        </i>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="px-4 py-3">
+                                    Client 3
+                                </td>
+                                <td class="px-4 py-3">
+                                    client3.example.com
+                                </td>
+                                <td class="px-4 py-3 truncate">
+                                    2468-qwer-1357-asdf
+                                </td>
+                                <td class="px-4 py-3 text-center">
+                                    <span
+                                        class="inline-block px-2 py-1 text-xs font-semibold rounded bg-red-100 text-red-800">
+                                        Suspended
+                                    </span>
+                                </td>
+                                <td class="px-4 py-3 text-center">
+                                    2024-05-30 18:45
+                                </td>
+                                <td class="px-4 py-3 text-center">
+                                    client3.example.com, api.client3.com
+                                </td>
+                                <td class="px-4 py-3 text-center space-x-2">
+                                    <button class="text-yellow-600 hover:text-yellow-900" title="Suspend Key">
+                                        <i class="fas fa-pause-circle">
+                                        </i>
+                                    </button>
+                                    <button class="text-blue-600 hover:text-blue-900" title="Regenerate Key">
+                                        <i class="fas fa-sync-alt">
+                                        </i>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="px-4 py-3">
+                                    Client 4
+                                </td>
+                                <td class="px-4 py-3">
+                                    client4.example.com
+                                </td>
+                                <td class="px-4 py-3 truncate">
+                                    1357-zxcv-2468-poiu
+                                </td>
+                                <td class="px-4 py-3 text-center">
+                                    <span
+                                        class="inline-block px-2 py-1 text-xs font-semibold rounded bg-green-100 text-green-800">
+                                        Active
+                                    </span>
+                                </td>
+                                <td class="px-4 py-3 text-center">
+                                    2024-06-08 11:00
+                                </td>
+                                <td class="px-4 py-3 text-center">
+                                    client4.example.com
+                                </td>
+                                <td class="px-4 py-3 text-center space-x-2">
+                                    <button class="text-yellow-600 hover:text-yellow-900" title="Suspend Key">
+                                        <i class="fas fa-pause-circle">
+                                        </i>
+                                    </button>
+                                    <button class="text-blue-600 hover:text-blue-900" title="Regenerate Key">
+                                        <i class="fas fa-sync-alt">
+                                        </i>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="px-4 py-3">
+                                    Client 5
+                                </td>
+                                <td class="px-4 py-3">
+                                    client5.example.com
+                                </td>
+                                <td class="px-4 py-3 truncate">
+                                    8642-mnbv-9753-lkjh
+                                </td>
+                                <td class="px-4 py-3 text-center">
+                                    <span
+                                        class="inline-block px-2 py-1 text-xs font-semibold rounded bg-green-100 text-green-800">
+                                        Active
+                                    </span>
+                                </td>
+                                <td class="px-4 py-3 text-center">
+                                    2024-06-10 08:30
+                                </td>
+                                <td class="px-4 py-3 text-center">
+                                    client5.example.com, api.client5.com
+                                </td>
+                                <td class="px-4 py-3 text-center space-x-2">
+                                    <button class="text-yellow-600 hover:text-yellow-900" title="Suspend Key">
+                                        <i class="fas fa-pause-circle">
+                                        </i>
+                                    </button>
+                                    <button class="text-blue-600 hover:text-blue-900" title="Regenerate Key">
+                                        <i class="fas fa-sync-alt">
+                                        </i>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+            <!-- SYSTEM DIAGNOSTICS -->
+            <section class="mb-12" id="system">
+                <h2 class="text-2xl font-semibold mb-6 border-b border-gray-300 pb-2">
+                    System Diagnostics
+                </h2>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    <!-- API Traffic Chart -->
+                    <div class="bg-white rounded-lg shadow p-5 border border-gray-200">
+                        <h3 class="text-lg font-semibold mb-4">
+                            API Traffic (All Clients)
+                        </h3>
+                        <img alt="Line chart showing API traffic for all clients over time with multiple colored lines representing different clients"
+                            class="w-full h-auto rounded" height="300"
+                            src="https://storage.googleapis.com/a1aa/image/4423d97e-73ef-4853-a203-dffc87e1f25d.jpg"
+                            width="600" />
+                    </div>
+                    <!-- Event Delivery Failures -->
+                    <div class="bg-white rounded-lg shadow p-5 border border-gray-200">
+                        <h3 class="text-lg font-semibold mb-4">
+                            Event Delivery Failures
+                        </h3>
+                        <img alt="Bar chart showing event delivery failures over time with bars representing error counts per day"
+                            class="w-full h-auto rounded" height="300"
+                            src="https://storage.googleapis.com/a1aa/image/6ff27669-8036-421c-16c5-4f307e6f0ebd.jpg"
+                            width="600" />
+                    </div>
+                    <!-- Latency Log -->
+                    <div class="bg-white rounded-lg shadow p-5 border border-gray-200">
+                        <h3 class="text-lg font-semibold mb-4">
+                            Latency Log
+                        </h3>
+                        <img alt="Line chart showing latency logs with time on x-axis and latency in milliseconds on y-axis"
+                            class="w-full h-auto rounded" height="300"
+                            src="https://storage.googleapis.com/a1aa/image/61bab486-794e-4ed3-8f82-43a1d8636115.jpg"
+                            width="600" />
+                    </div>
+                    <!-- Bot Activity by Source -->
+                    <div class="bg-white rounded-lg shadow p-5 border border-gray-200">
+                        <h3 class="text-lg font-semibold mb-4">
+                            Bot Activity by Source
+                        </h3>
+                        <img alt="Pie chart showing distribution of suspected bot activity by source with different colored slices"
+                            class="w-full h-auto rounded" height="300"
+                            src="https://storage.googleapis.com/a1aa/image/df811bf6-798b-4477-5525-5ed737c42bf6.jpg"
+                            width="600" />
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+    <script>
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+    </script>
+</body>
+
+</html>
