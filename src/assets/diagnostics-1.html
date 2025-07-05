@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diagnostics Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
+</head>
+
+<body class="min-h-screen bg-gray-50 p-6 font-inter">
+    <h1 class="text-2xl font-semibold text-gray-900 mb-6">Diagnostics Dashboard</h1>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 auto-rows-min">
+        <!-- API Key & Domain Check -->
+        <div
+            class="lg:col-span-2 bg-white/80 backdrop-blur-md border border-gray-200 rounded-2xl shadow-sm hover:ring-1 ring-gray-200 transition-all duration-200 p-6">
+            <h2 class="text-lg font-semibold text-gray-900 flex items-center gap-2">
+                <i data-lucide="key" class="w-5 h-5"></i> API Key & Domain Check
+            </h2>
+            <ul class="mt-4 space-y-2 text-sm">
+                <li class="flex items-center gap-2">
+                    <span class="bg-red-100 text-red-800 px-2 py-1 rounded-full text-xs">Error</span>
+                    <span>Invalid API key: abc123</span>
+                </li>
+                <li class="flex items-center gap-2">
+                    <span class="bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full text-xs">Warning</span>
+                    <span>Domain mismatch: example.org</span>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Real-time Events Monitor -->
+        <div
+            class="bg-white/80 backdrop-blur-md border border-gray-200 rounded-2xl shadow-sm hover:ring-1 ring-gray-200 transition-all duration-200 p-6">
+            <h2 class="text-lg font-semibold text-gray-900 flex items-center gap-2">
+                <i data-lucide="activity" class="w-5 h-5"></i> Real-time Events Monitor
+            </h2>
+            <ul class="mt-4 space-y-2 text-sm text-gray-600 max-h-40 overflow-y-auto">
+                <li class="flex justify-between">
+                    <span>Pageview: /home</span>
+                    <span>12:20 PM</span>
+                </li>
+                <li class="flex justify-between">
+                    <span>Click: CTA</span>
+                    <span>12:19 PM</span>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Tracking Session Health -->
+        <div
+            class="lg:col-span-2 bg-white/80 backdrop-blur-md border border-gray-200 rounded-2xl shadow-sm hover:ring-1 ring-gray-200 transition-all duration-200 p-6">
+            <h2 class="text-lg font-semibold text-gray-900 flex items-center gap-2">
+                <i data-lucide="monitor-check" class="w-5 h-5"></i> Tracking Session Health
+            </h2>
+            <ul class="mt-4 space-y-2 text-sm">
+                <li class="flex justify-between items-center">
+                    <span>Session ID: 12345</span>
+                    <span class="bg-green-100 text-green-800 px-2 py-1 rounded-full text-xs">Active</span>
+                </li>
+                <li class="flex justify-between items-center">
+                    <span>Session ID: 67890</span>
+                    <span class="bg-red-100 text-red-800 px-2 py-1 rounded-full text-xs">Inactive</span>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Missing Events / Incomplete Funnel -->
+        <div
+            class="bg-white/80 backdrop-blur-md border border-gray-200 rounded-2xl shadow-sm hover:ring-1 ring-gray-200 transition-all duration-200 p-6">
+            <h2 class="text-lg font-semibold text-gray-900 flex items-center gap-2">
+                <i data-lucide="alert-circle" class="w-5 h-5"></i> Missing Events
+            </h2>
+            <div class="mt-4 space-y-2 text-sm">
+                <div class="flex items-center gap-2">
+                    <span>Funnel: Signup</span>
+                    <span class="bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full text-xs">Missing</span>
+                </div>
+                <div class="bg-gray-200 rounded-full h-2">
+                    <div class="bg-gray-900 h-2 rounded-full" style="width: 40%"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bot Detection Logs -->
+        <div
+            class="bg-white/80 backdrop-blur-md border border-gray-200 rounded-2xl shadow-sm hover:ring-1 ring-gray-200 transition-all duration-200 p-6">
+            <h2 class="text-lg font-semibold text-gray-900 flex items-center gap-2">
+                <i data-lucide="shield-alert" class="w-5 h-5"></i> Bot Detection Logs
+            </h2>
+            <ul class="mt-4 space-y-2 text-sm text-gray-600">
+                <li>IP: 192.168.1.1, GoogleBot, US</li>
+                <li>IP: 10.0.0.2, Suspicious UA, CN</li>
+            </ul>
+        </div>
+
+        <!-- Client Device Consistency -->
+        <div
+            class="bg-white/80 backdrop-blur-md border border-gray-200 rounded-2xl shadow-sm hover:ring-1 ring-gray-200 transition-all duration-200 p-6">
+            <h2 class="text-lg font-semibold text-gray-900 flex items-center gap-2">
+                <i data-lucide="smartphone" class="w-5 h-5"></i> Client Device Consistency
+            </h2>
+            <ul class="mt-4 space-y-2 text-sm">
+                <li class="flex justify-between">
+                    <span>User ID: 123</span>
+                    <span class="bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full text-xs">Mismatch</span>
+                </li>
+                <li class="flex justify-between">
+                    <span>User ID: 456</span>
+                    <span class="bg-green-100 text-green-800 px-2 py-1 rounded-full text-xs">OK</span>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Raw Payload Inspector -->
+        <div
+            class="lg:col-span-2 bg-white/80 backdrop-blur-md border border-gray-200 rounded-2xl shadow-sm hover:ring-1 ring-gray-200 transition-all duration-200 p-6">
+            <h2 class="text-lg font-semibold text-gray-900 flex items-center gap-2">
+                <i data-lucide="file-json" class="w-5 h-5"></i> Raw Payload Inspector
+            </h2>
+            <pre class="mt-4 bg-gray-100 p-2 rounded-lg text-sm text-gray-600 overflow-x-auto">
+{
+  "event": "pageview",
+  "url": "/home",
+  "timestamp": "2025-07-05T12:23:00Z",
+  "user_id": "12345"
+}
+      </pre>
+            <button class="mt-2 text-sm text-gray-600 hover:text-gray-900 flex items-center gap-1"
+                onclick="navigator.clipboard.write(JSON.stringify({event:'pageview',url:'/home',timestamp:'2025-07-05T12:23:00Z',user_id:'12345'}, null, 2)); this.innerText='Copied!'; setTimeout(() => this.innerText='Copy JSON', 2000)">
+                Copy JSON
+            </button>
+        </div>
+
+        <!-- Unverified Domains -->
+        <div
+            class="bg-white/80 backdrop-blur-md border border-gray-200 rounded-2xl shadow-sm hover:ring-1 ring-gray-200 transition-all duration-200 p-6">
+            <h2 class="text-lg font-semibold text-gray-900 flex items-center gap-2">
+                <i data-lucide="globe" class="w-5 h-5"></i> Unverified Domains
+            </h2>
+            <ul class="mt-4 space-y-2 text-sm text-gray-600">
+                <li>unknown.com</li>
+                <li>unverified.org</li>
+            </ul>
+        </div>
+
+        <!-- Client-side Errors -->
+        <div
+            class="bg-white/80 backdrop-blur-md border border-gray-200 rounded-2xl shadow-sm hover:ring-1 ring-gray-200 transition-all duration-200 p-6">
+            <h2 class="text-lg font-semibold text-gray-900 flex items-center gap-2">
+                <i data-lucide="bug" class="w-5 h-5"></i> Client-side Errors
+            </h2>
+            <ul class="mt-4 space-y-2 text-sm text-gray-600">
+                <li>TypeError: undefined is not a function</li>
+                <li>SyntaxError: Unexpected token</li>
+            </ul>
+        </div>
+
+        <!-- Latency & Delivery Logs -->
+        <div
+            class="lg:col-span-2 bg-white/80 backdrop-blur-md border border-gray-200 rounded-2xl shadow-sm hover:ring-1 ring-gray-200 transition-all duration-200 p-6">
+            <h2 class="text-lg font-semibold text-gray-900 flex items-center gap-2">
+                <i data-lucide="clock" class="w-5 h-5"></i> Latency & Delivery Logs
+            </h2>
+            <div class="mt-4 h-32 flex items-end gap-2">
+                <div class="flex-1 bg-gray-300 rounded-t" style="height: 50px;"></div>
+                <div class="flex-1 bg-gray-300 rounded-t" style="height: 70px;"></div>
+                <div class="flex-1 bg-gray-300 rounded-t" style="height: 60px;"></div>
+                <div class="flex-1 bg-gray-300 rounded-t" style="height: 80px;"></div>
+            </div>
+        </div>
+    </div>
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analytics | Conversions Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f9fafb;
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+
+        .chart-container {
+            position: relative;
+            height: 100%;
+            width: 100%;
+        }
+
+        .funnel-step {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-weight: 500;
+            margin: 0 auto;
+        }
+
+        .progress-ring__circle {
+            transition: stroke-dashoffset 0.5s;
+            transform: rotate(-90deg);
+            transform-origin: 50% 50%;
+        }
+
+        @media (max-width: 768px) {
+            .bento-grid {
+                grid-template-columns: 1fr !important;
+            }
+        }
+    </style>
+</head>
+
+<body class="text-gray-900">
+    <div class="container mx-auto px-4 py-8">
+        <header class="flex justify-between items-center mb-8">
+            <div>
+                <h1 class="text-2xl font-bold">Conversions Dashboard</h1>
+                <p class="text-gray-500">Track and optimize your conversion funnels</p>
+            </div>
+            <div class="flex items-center space-x-4">
+                <div class="relative">
+                    <select
+                        class="appearance-none bg-white rounded-xl pl-4 pr-8 py-2 border border-gray-200 focus:outline-none focus:ring-1 focus:ring-gray-300">
+                        <option>Last 7 days</option>
+                        <option>Last 30 days</option>
+                        <option>Last 90 days</option>
+                    </select>
+                    <i data-lucide="chevron-down" class="absolute right-3 top-2.5 text-gray-400 w-4 h-4"></i>
+                </div>
+                <button
+                    class="bg-white rounded-xl px-4 py-2 border border-gray-200 hover:ring-1 hover:ring-gray-200 flex items-center">
+                    <i data-lucide="filter" class="w-4 h-4 mr-2"></i>
+                    <span>Filters</span>
+                </button>
+            </div>
+        </header>
+
+        <div class="bento-grid grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+            <!-- Funnel Overview -->
+            <div
+                class="glass-card rounded-2xl border border-gray-200 shadow-sm p-6 hover:ring-1 hover:ring-gray-200 transition-all">
+                <div class="flex justify-between items-start mb-4">
+                    <div>
+                        <h3 class="font-semibold text-lg flex items-center">
+                            <i data-lucide="flag" class="w-5 h-5 mr-2 text-blue-500"></i>
+                            Checkout Funnel
+                        </h3>
+                        <p class="text-gray-500 text-sm">Primary conversion path</p>
+                    </div>
+                    <span class="bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-0.5 rounded-full">Active</span>
+                </div>
+                <div class="flex justify-between items-end">
+                    <div>
+                        <p class="text-gray-500 text-sm">Total users</p>
+                        <p class="text-2xl font-bold">8,742</p>
+                    </div>
+                    <div class="text-right">
+                        <p class="text-gray-500 text-sm">Converted</p>
+                        <p class="text-2xl font-bold text-green-600">24.3%</p>
+                    </div>
+                </div>
+                <div class="mt-4">
+                    <div class="h-2 w-full bg-gray-200 rounded-full overflow-hidden">
+                        <div class="h-full bg-gradient-to-r from-blue-400 to-blue-600 rounded-full"
+                            style="width: 24.3%"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Conversion Rate -->
+            <div
+                class="glass-card rounded-2xl border border-gray-200 shadow-sm p-6 hover:ring-1 hover:ring-gray-200 transition-all">
+                <div class="flex justify-between items-start mb-4">
+                    <div>
+                        <h3 class="font-semibold text-lg flex items-center">
+                            <i data-lucide="trending-up" class="w-5 h-5 mr-2 text-purple-500"></i>
+                            Conversion Rate
+                        </h3>
+                        <p class="text-gray-500 text-sm">Overall performance</p>
+                    </div>
+                    <div class="flex items-center text-sm">
+                        <i data-lucide="arrow-up" class="w-4 h-4 mr-1 text-green-500"></i>
+                        <span class="text-green-500">2.1%</span>
+                    </div>
+                </div>
+                <div class="flex justify-center items-center h-32">
+                    <svg class="w-24 h-24" viewBox="0 0 36 36">
+                        <path d="M18 2.0845
+                                a 15.9155 15.9155 0 0 1 0 31.831
+                                a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="#e5e7eb" stroke-width="3" />
+                        <path d="M18 2.0845
+                                a 15.9155 15.9155 0 0 1 0 31.831
+                                a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="#8b5cf6" stroke-width="3"
+                            stroke-dasharray="42, 100" class="progress-ring__circle" />
+                        <text x="18" y="20.5" text-anchor="middle" font-size="6" fill="#8b5cf6"
+                            font-weight="bold">42%</text>
+                    </svg>
+                </div>
+                <div class="flex justify-between text-sm mt-2">
+                    <span class="text-gray-500">Last week: 39.9%</span>
+                    <span class="font-medium">+2.1%</span>
+                </div>
+            </div>
+
+            <!-- Top Sources -->
+            <div
+                class="glass-card rounded-2xl border border-gray-200 shadow-sm p-6 hover:ring-1 hover:ring-gray-200 transition-all">
+                <div class="flex justify-between items-start mb-4">
+                    <div>
+                        <h3 class="font-semibold text-lg flex items-center">
+                            <i data-lucide="globe" class="w-5 h-5 mr-2 text-amber-500"></i>
+                            Top Sources
+                        </h3>
+                        <p class="text-gray-500 text-sm">By conversion volume</p>
+                    </div>
+                    <button class="text-sm text-blue-600 hover:text-blue-800">View all</button>
+                </div>
+                <div class="space-y-4">
+                    <div>
+                        <div class="flex justify-between text-sm mb-1">
+                            <span>Organic Search</span>
+                            <span class="font-medium">42%</span>
+                        </div>
+                        <div class="h-2 w-full bg-gray-200 rounded-full overflow-hidden">
+                            <div class="h-full bg-amber-400 rounded-full" style="width: 42%"></div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between text-sm mb-1">
+                            <span>Direct</span>
+                            <span class="font-medium">28%</span>
+                        </div>
+                        <div class="h-2 w-full bg-gray-200 rounded-full overflow-hidden">
+                            <div class="h-full bg-blue-400 rounded-full" style="width: 28%"></div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between text-sm mb-1">
+                            <span>Social</span>
+                            <span class="font-medium">18%</span>
+                        </div>
+                        <div class="h-2 w-full bg-gray-200 rounded-full overflow-hidden">
+                            <div class="h-full bg-purple-400 rounded-full" style="width: 18%"></div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between text-sm mb-1">
+                            <span>Email</span>
+                            <span class="font-medium">12%</span>
+                        </div>
+                        <div class="h-2 w-full bg-gray-200 rounded-full overflow-hidden">
+                            <div class="h-full bg-green-400 rounded-full" style="width: 12%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="bento-grid grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+            <!-- Step-by-Step Drop-off Chart -->
+            <div
+                class="glass-card rounded-2xl border border-gray-200 shadow-sm p-6 hover:ring-1 hover:ring-gray-200 transition-all md:col-span-2">
+                <div class="flex justify-between items-start mb-6">
+                    <div>
+                        <h3 class="font-semibold text-lg flex items-center">
+                            <i data-lucide="timeline" class="w-5 h-5 mr-2 text-rose-500"></i>
+                            Step-by-Step Drop-off
+                        </h3>
+                        <p class="text-gray-500 text-sm">Checkout funnel performance</p>
+                    </div>
+                    <div class="flex space-x-2">
+                        <button class="text-sm px-3 py-1 bg-gray-100 rounded-lg">Steps</button>
+                        <button class="text-sm px-3 py-1 rounded-lg hover:bg-gray-100">Time</button>
+                        <button class="text-sm px-3 py-1 rounded-lg hover:bg-gray-100">Device</button>
+                    </div>
+                </div>
+                <div class="flex justify-between items-end h-48">
+                    <div class="flex flex-col items-center">
+                        <div class="funnel-step w-24 h-16 bg-blue-500 rounded-t-lg">Product View</div>
+                        <div class="text-xs text-gray-500 mt-1">100% (8,742)</div>
+                    </div>
+                    <div class="flex flex-col items-center">
+                        <div class="funnel-step w-20 h-14 bg-blue-400 rounded-t-lg">Add to Cart</div>
+                        <div class="text-xs text-gray-500 mt-1">68% (5,945)</div>
+                        <div class="text-xs text-rose-500 mt-1">↓ 32%</div>
+                    </div>
+                    <div class="flex flex-col items-center">
+                        <div class="funnel-step w-16 h-12 bg-blue-300 rounded-t-lg">Checkout</div>
+                        <div class="text-xs text-gray-500 mt-1">42% (3,672)</div>
+                        <div class="text-xs text-rose-500 mt-1">↓ 26%</div>
+                    </div>
+                    <div class="flex flex-col items-center">
+                        <div class="funnel-step w-12 h-10 bg-blue-200 rounded-t-lg">Payment</div>
+                        <div class="text-xs text-gray-500 mt-1">24% (2,098)</div>
+                        <div class="text-xs text-rose-500 mt-1">↓ 18%</div>
+                    </div>
+                    <div class="flex flex-col items-center">
+                        <div class="funnel-step w-8 h-8 bg-blue-100 rounded-t-lg">Complete</div>
+                        <div class="text-xs text-gray-500 mt-1">24% (2,098)</div>
+                        <div class="text-xs text-green-500 mt-1">0%</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Conversion Timeline -->
+            <div
+                class="glass-card rounded-2xl border border-gray-200 shadow-sm p-6 hover:ring-1 hover:ring-gray-200 transition-all">
+                <div class="flex justify-between items-start mb-4">
+                    <div>
+                        <h3 class="font-semibold text-lg flex items-center">
+                            <i data-lucide="clock" class="w-5 h-5 mr-2 text-emerald-500"></i>
+                            Conversion Timeline
+                        </h3>
+                        <p class="text-gray-500 text-sm">Time from first to last step</p>
+                    </div>
+                    <div class="text-sm text-gray-500">Avg: 2m 18s</div>
+                </div>
+                <div class="space-y-4">
+                    <div>
+                        <div class="flex justify-between text-sm mb-1">
+                            <span>0-30 seconds</span>
+                            <span class="font-medium">12%</span>
+                        </div>
+                        <div class="h-2 w-full bg-gray-200 rounded-full overflow-hidden">
+                            <div class="h-full bg-emerald-400 rounded-full" style="width: 12%"></div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between text-sm mb-1">
+                            <span>30s - 2 minutes</span>
+                            <span class="font-medium">34%</span>
+                        </div>
+                        <div class="h-2 w-full bg-gray-200 rounded-full overflow-hidden">
+                            <div class="h-full bg-emerald-400 rounded-full" style="width: 34%"></div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between text-sm mb-1">
+                            <span>2-5 minutes</span>
+                            <span class="font-medium">28%</span>
+                        </div>
+                        <div class="h-2 w-full bg-gray-200 rounded-full overflow-hidden">
+                            <div class="h-full bg-emerald-400 rounded-full" style="width: 28%"></div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between text-sm mb-1">
+                            <span>5-15 minutes</span>
+                            <span class="font-medium">18%</span>
+                        </div>
+                        <div class="h-2 w-full bg-gray-200 rounded-full overflow-hidden">
+                            <div class="h-full bg-emerald-400 rounded-full" style="width: 18%"></div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between text-sm mb-1">
+                            <span>15+ minutes</span>
+                            <span class="font-medium">8%</span>
+                        </div>
+                        <div class="h-2 w-full bg-gray-200 rounded-full overflow-hidden">
+                            <div class="h-full bg-emerald-400 rounded-full" style="width: 8%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="bento-grid grid grid-cols-1 md:grid-cols-3 gap-4">
+            <!-- Conversion Trends -->
+            <div
+                class="glass-card rounded-2xl border border-gray-200 shadow-sm p-6 hover:ring-1 hover:ring-gray-200 transition-all md:col-span-2">
+                <div class="flex justify-between items-start mb-4">
+                    <div>
+                        <h3 class="font-semibold text-lg flex items-center">
+                            <i data-lucide="bar-chart-2" class="w-5 h-5 mr-2 text-indigo-500"></i>
+                            Conversion Trends
+                        </h3>
+                        <p class="text-gray-500 text-sm">Daily conversion rate over time</p>
+                    </div>
+                    <div class="flex items-center text-sm">
+                        <i data-lucide="arrow-up" class="w-4 h-4 mr-1 text-green-500"></i>
+                        <span class="text-green-500">12% increase</span>
+                    </div>
+                </div>
+                <div class="chart-container">
+                    <canvas id="trendChart" height="200"></canvas>
+                </div>
+            </div>
+
+            <!-- Recent Conversions -->
+            <div
+                class="glass-card rounded-2xl border border-gray-200 shadow-sm p-6 hover:ring-1 hover:ring-gray-200 transition-all">
+                <div class="flex justify-between items-start mb-4">
+                    <div>
+                        <h3 class="font-semibold text-lg flex items-center">
+                            <i data-lucide="zap" class="w-5 h-5 mr-2 text-yellow-500"></i>
+                            Recent Conversions
+                        </h3>
+                        <p class="text-gray-500 text-sm">Latest successful conversions</p>
+                    </div>
+                    <button class="text-sm text-blue-600 hover:text-blue-800">View all</button>
+                </div>
+                <div class="space-y-4">
+                    <div class="flex items-start">
+                        <div class="bg-blue-100 p-2 rounded-lg mr-3">
+                            <i data-lucide="shopping-cart" class="w-4 h-4 text-blue-600"></i>
+                        </div>
+                        <div>
+                            <p class="font-medium">Checkout completed</p>
+                            <p class="text-sm text-gray-500">From Product page • 2m 14s</p>
+                            <p class="text-xs text-gray-400 mt-1">2 minutes ago</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start">
+                        <div class="bg-purple-100 p-2 rounded-lg mr-3">
+                            <i data-lucide="user-plus" class="w-4 h-4 text-purple-600"></i>
+                        </div>
+                        <div>
+                            <p class="font-medium">Account created</p>
+                            <p class="text-sm text-gray-500">From Signup flow • 1m 42s</p>
+                            <p class="text-xs text-gray-400 mt-1">14 minutes ago</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start">
+                        <div class="bg-green-100 p-2 rounded-lg mr-3">
+                            <i data-lucide="shopping-cart" class="w-4 h-4 text-green-600"></i>
+                        </div>
+                        <div>
+                            <p class="font-medium">Checkout completed</p>
+                            <p class="text-sm text-gray-500">From Cart page • 3m 08s</p>
+                            <p class="text-xs text-gray-400 mt-1">27 minutes ago</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start">
+                        <div class="bg-amber-100 p-2 rounded-lg mr-3">
+                            <i data-lucide="download" class="w-4 h-4 text-amber-600"></i>
+                        </div>
+                        <div>
+                            <p class="font-medium">Download started</p>
+                            <p class="text-sm text-gray-500">From Pricing page • 4m 22s</p>
+                            <p class="text-xs text-gray-400 mt-1">42 minutes ago</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="bento-grid grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
+            <!-- User Journey Snapshots -->
+            <div
+                class="glass-card rounded-2xl border border-gray-200 shadow-sm p-6 hover:ring-1 hover:ring-gray-200 transition-all">
+                <div class="flex justify-between items-start mb-4">
+                    <div>
+                        <h3 class="font-semibold text-lg flex items-center">
+                            <i data-lucide="map" class="w-5 h-5 mr-2 text-cyan-500"></i>
+                            User Journey
+                        </h3>
+                        <p class="text-gray-500 text-sm">Sample conversion path</p>
+                    </div>
+                    <button class="text-sm text-blue-600 hover:text-blue-800">Refresh</button>
+                </div>
+                <div class="space-y-3">
+                    <div class="flex items-center">
+                        <div class="bg-gray-100 rounded-full p-1 mr-3">
+                            <i data-lucide="home" class="w-4 h-4 text-gray-500"></i>
+                        </div>
+                        <div>
+                            <p class="text-sm">Landing page</p>
+                            <p class="text-xs text-gray-500">Viewed for 32s</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center">
+                        <div class="bg-gray-100 rounded-full p-1 mr-3">
+                            <i data-lucide="shopping-bag" class="w-4 h-4 text-gray-500"></i>
+                        </div>
+                        <div>
+                            <p class="text-sm">Product page</p>
+                            <p class="text-xs text-gray-500">Viewed for 1m 12s</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center">
+                        <div class="bg-gray-100 rounded-full p-1 mr-3">
+                            <i data-lucide="shopping-cart" class="w-4 h-4 text-gray-500"></i>
+                        </div>
+                        <div>
+                            <p class="text-sm">Cart page</p>
+                            <p class="text-xs text-gray-500">Viewed for 45s</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center">
+                        <div class="bg-gray-100 rounded-full p-1 mr-3">
+                            <i data-lucide="credit-card" class="w-4 h-4 text-gray-500"></i>
+                        </div>
+                        <div>
+                            <p class="text-sm">Checkout page</p>
+                            <p class="text-xs text-gray-500">Viewed for 2m 08s</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center">
+                        <div class="bg-green-100 rounded-full p-1 mr-3">
+                            <i data-lucide="check" class="w-4 h-4 text-green-600"></i>
+                        </div>
+                        <div>
+                            <p class="text-sm font-medium">Order complete</p>
+                            <p class="text-xs text-gray-500">Total time: 4m 37s</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Conversion Goals -->
+            <div
+                class="glass-card rounded-2xl border border-gray-200 shadow-sm p-6 hover:ring-1 hover:ring-gray-200 transition-all md:col-span-2">
+                <div class="flex justify-between items-start mb-4">
+                    <div>
+                        <h3 class="font-semibold text-lg flex items-center">
+                            <i data-lucide="target" class="w-5 h-5 mr-2 text-pink-500"></i>
+                            Conversion Goals
+                        </h3>
+                        <p class="text-gray-500 text-sm">Tracked custom events</p>
+                    </div>
+                    <button class="text-sm text-blue-600 hover:text-blue-800">Add goal</button>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="bg-gray-50 rounded-xl p-4">
+                        <div class="flex justify-between items-center mb-2">
+                            <div class="flex items-center">
+                                <div class="bg-blue-100 p-1.5 rounded-lg mr-3">
+                                    <i data-lucide="shopping-cart" class="w-4 h-4 text-blue-600"></i>
+                                </div>
+                                <span class="font-medium">Purchase</span>
+                            </div>
+                            <span class="text-sm font-medium text-green-600">+8%</span>
+                        </div>
+                        <p class="text-sm text-gray-500 mb-2">Completed checkouts</p>
+                        <div class="flex justify-between text-sm">
+                            <span>2,098</span>
+                            <span class="text-gray-500">24% CR</span>
+                        </div>
+                    </div>
+                    <div class="bg-gray-50 rounded-xl p-4">
+                        <div class="flex justify-between items-center mb-2">
+                            <div class="flex items-center">
+                                <div class="bg-purple-100 p-1.5 rounded-lg mr-3">
+                                    <i data-lucide="user-plus" class="w-4 h-4 text-purple-600"></i>
+                                </div>
+                                <span class="font-medium">Signup</span>
+                            </div>
+                            <span class="text-sm font-medium text-green-600">+12%</span>
+                        </div>
+                        <p class="text-sm text-gray-500 mb-2">New accounts created</p>
+                        <div class="flex justify-between text-sm">
+                            <span>1,542</span>
+                            <span class="text-gray-500">18% CR</span>
+                        </div>
+                    </div>
+                    <div class="bg-gray-50 rounded-xl p-4">
+                        <div class="flex justify-between items-center mb-2">
+                            <div class="flex items-center">
+                                <div class="bg-green-100 p-1.5 rounded-lg mr-3">
+                                    <i data-lucide="download" class="w-4 h-4 text-green-600"></i>
+                                </div>
+                                <span class="font-medium">Download</span>
+                            </div>
+                            <span class="text-sm font-medium text-rose-500">-3%</span>
+                        </div>
+                        <p class="text-sm text-gray-500 mb-2">File downloads</p>
+                        <div class="flex justify-between text-sm">
+                            <span>876</span>
+                            <span class="text-gray-500">10% CR</span>
+                        </div>
+                    </div>
+                    <div class="bg-gray-50 rounded-xl p-4">
+                        <div class="flex justify-between items-center mb-2">
+                            <div class="flex items-center">
+                                <div class="bg-amber-100 p-1.5 rounded-lg mr-3">
+                                    <i data-lucide="mail" class="w-4 h-4 text-amber-600"></i>
+                                </div>
+                                <span class="font-medium">Subscribe</span>
+                            </div>
+                            <span class="text-sm font-medium text-green-600">+5%</span>
+                        </div>
+                        <p class="text-sm text-gray-500 mb-2">Newsletter signups</p>
+                        <div class="flex justify-between text-sm">
+                            <span>1,209</span>
+                            <span class="text-gray-500">14% CR</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+
+        // Chart.js for the trend chart
+        document.addEventListener('DOMContentLoaded', function () {
+            const ctx = document.getElementById('trendChart').getContext('2d');
+
+            // Sample data for the chart
+            const labels = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+            const data = {
+                labels: labels,
+                datasets: [
+                    {
+                        label: 'Conversion Rate',
+                        data: [18, 22, 19, 24, 26, 20, 25],
+                        borderColor: '#8b5cf6',
+                        backgroundColor: 'rgba(139, 92, 246, 0.1)',
+                        tension: 0.4,
+                        fill: true,
+                        borderWidth: 2,
+                        pointBackgroundColor: '#8b5cf6',
+                        pointRadius: 3,
+                        pointHoverRadius: 5
+                    }
+                ]
+            };
+
+            const config = {
+                type: 'line',
+                data: data,
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            mode: 'index',
+                            intersect: false,
+                            callbacks: {
+                                label: function (context) {
+                                    return context.dataset.label + ': ' + context.parsed.y + '%';
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: false,
+                            min: 15,
+                            max: 30,
+                            ticks: {
+                                callback: function (value) {
+                                    return value + '%';
+                                }
+                            },
+                            grid: {
+                                color: 'rgba(0, 0, 0, 0.05)'
+                            }
+                        },
+                        x: {
+                            grid: {
+                                display: false
+                            }
+                        }
+                    },
+                    interaction: {
+                        mode: 'nearest',
+                        axis: 'x',
+                        intersect: false
+                    }
+                }
+            };
+
+            new Chart(ctx, config);
+        });
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</body>
+
+</html>

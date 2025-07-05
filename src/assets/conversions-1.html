@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conversions Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
+</head>
+
+<body class="min-h-screen bg-gray-50 p-6 font-inter">
+    <h1 class="text-2xl font-semibold text-gray-900 mb-6">Conversions Dashboard</h1>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 auto-rows-min">
+        <!-- Funnel Overview -->
+        <div
+            class="lg:col-span-2 bg-white/80 backdrop-blur-md border border-gray-200 rounded-2xl shadow-sm hover:ring-1 ring-gray-200 transition-all duration-200 p-6">
+            <h2 class="text-lg font-semibold text-gray-900 flex items-center gap-2">
+                <i data-lucide="flag" class="w-5 h-5"></i> Funnel Overview
+            </h2>
+            <div class="mt-4 grid grid-cols-2 gap-4">
+                <div>
+                    <p class="text-sm text-gray-500">Total Users</p>
+                    <p class="text-2xl font-bold text-gray-900">5,230</p>
+                </div>
+                <div>
+                    <p class="text-sm text-gray-500">Converted</p>
+                    <p class="text-2xl font-bold text-gray-900">12.4%</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Step-by-Step Drop-off Chart Колонка для воронки -->
+        <div
+            class="bg-white/80 backdrop-blur-md border border-gray-200 rounded-2xl shadow-sm hover:ring-1 ring-gray-200 transition-all duration-200 p-6">
+            <h2 class="text-lg font-semibold text-gray-900 flex items-center gap-2">
+                <i data-lucide="trending-up" class="w-5 h-5"></i> Step-by-Step Drop-off
+            </h2>
+            <div class="mt-4 space-y-2">
+                <div class="flex items-center gap-2">
+                    <span class="text-sm text-gray-600">Home</span>
+                    <div class="flex-1 bg-gray-200 rounded-full h-2">
+                        <div class="bg-gray-900 h-2 rounded-full" style="width: 100%"></div>
+                    </div>
+                    <span class="text-sm text-gray-600">100%</span>
+                </div>
+                <div class="flex items-center gap-2">
+                    <span class="text-sm text-gray-600">Signup</span>
+                    <div class="flex-1 bg-gray-200 rounded-full h-2">
+                        <div class="bg-gray-900 h-2 rounded-full" style="width: 60%"></div>
+                    </div>
+                    <span class="text-sm text-gray-600">60%</span>
+                </div>
+                <div class="flex items-center gap-2">
+                    <span class="text-sm text-gray-600">Purchase</span>
+                    <div class="flex-1 bg-gray-200 rounded-full h-2">
+                        <div class="bg-gray-900 h-2 rounded-full" style="width: 20%"></div>
+                    </div>
+                    <span class="text-sm text-gray-600">20%</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Conversion Timeline -->
+        <div
+            class="lg:col-span-2 bg-white/80 backdrop-blur-md border border-gray-200 rounded-2xl shadow-sm hover:ring-1 ring-gray-200 transition-all duration-200 p-6">
+            <h2 class="text-lg font-semibold text-gray-900 flex items-center gap-2">
+                <i data-lucide="timeline" class="w-5 h-5"></i> Conversion Timeline
+            </h2>
+            <div class="mt-4">
+                <p class="text-sm text-gray-600">Avg. Time to Convert: <span class="font-semibold">3.2 days</span></p>
+                <div class="mt-2 h-32 flex items-end gap-2">
+                    <div class="flex-1 bg-gray-300 rounded-t" style="height: 40px;"></div>
+                    <div class="flex-1 bg-gray-300 rounded-t" style="height: 60px;"></div>
+                    <div class="flex-1 bg-gray-300 rounded-t" style="height: 80px;"></div>
+                    <div class="flex-1 bg-gray-300 rounded-t" style="height: 50px;"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Conversion Trends -->
+        <div
+            class="bg-white/80 backdrop-blur-md border border-gray-200 rounded-2xl shadow-sm hover:ring-1 ring-gray-200 transition-all duration-200 p-6">
+            <h2 class="text-lg font-semibold text-gray-900 flex items-center gap-2">
+                <i data-lucide="trending-up" class="w-5 h-5"></i> Conversion Trends
+            </h2>
+            <div class="mt-4 h-32 flex items-end gap-2">
+                <div class="flex-1 bg-gray-300 rounded-t" style="height: 30px;"></div>
+                <div class="flex-1 bg-gray-300 rounded-t" style="height: 50px;"></div>
+                <div class="flex-1 bg-gray-300 rounded-t" style="height: 70px;"></div>
+                <div class="flex-1 bg-gray-300 rounded-t" style="height: 60px;"></div>
+            </div>
+        </div>
+
+        <!-- Conversion Rate -->
+        <div
+            class="bg-white/80 backdrop-blur-md border border-gray-200 rounded-2xl shadow-sm hover:ring-1 ring-gray-200 transition-all duration-200 p-6">
+            <h2 class="text-lg font-semibold text-gray-900 flex items-center gap-2">
+                <i data-lucide="target" class="w-5 h-5"></i> Conversion Rate
+            </h2>
+            <div class="mt-4 flex items-center justify-center">
+                <div class="relative w-24 h-24">
+                    <svg class="w-full h-full" viewBox="0 0 36 36">
+                        <path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
+                            fill="none" stroke="#e5e7eb" stroke-width="2" />
+                        <path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831" fill="none" stroke="#111827"
+                            stroke-width="2" stroke-dasharray="40, 100" />
+                    </svg>
+                    <div class="absolute inset-0 flex items-center justify-center">
+                        <span class="text-xl font-bold text-gray-900">12.4%</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Top Sources -->
+        <div
+            class="lg:col-span-2 bg-white/80 backdrop-blur-md border border-gray-200 rounded-2xl shadow-sm hover:ring-1 ring-gray-200 transition-all duration-200 p-6">
+            <h2 class="text-lg font-semibold text-gray-900 flex items-center gap-2">
+                <i data-lucide="users-round" class="w-5 h-5"></i> Top Sources
+            </h2>
+            <ul class="mt-4 space-y-2">
+                <li class="flex justify-between text-sm">
+                    <span>Google</span>
+                    <span>45% (2,350)</span>
+                </li>
+                <li class="flex justify-between text-sm">
+                    <span>Direct</span>
+                    <span>30% (1,569)</span>
+                </li>
+                <li class="flex justify-between text-sm">
+                    <span>Social</span>
+                    <span>15% (784)</span>
+                </li>
+            </ul>
+        </div>
+
+        <!-- User Journey Snapshots -->
+        <div
+            class="bg-white/80 backdrop-blur-md border border-gray-200 rounded-2xl shadow-sm hover:ring-1 ring-gray-200 transition-all duration-200 p-6">
+            <h2 class="text-lg font-semibold text-gray-900 flex items-center gap-2">
+                <i data-lucide="timeline" class="w-5 h-5"></i> User Journey Snapshots
+            </h2>
+            <ul class="mt-4 space-y-2 text-sm text-gray-600">
+                <li>User A: Home → Signup → Purchase</li>
+                <li>User B: Blog → Home → Signup</li>
+            </ul>
+        </div>
+
+        <!-- Recent Conversions -->
+        <div
+            class="lg:col-span-2 bg-white/80 backdrop-blur-md border border-gray-200 rounded-2xl shadow-sm hover:ring-1 ring-gray-200 transition-all duration-200 p-6">
+            <h2 class="text-lg font-semibold text-gray-900 flex items-center gap-2">
+                <i data-lucide="flag" class="w-5 h-5"></i> Recent Conversions
+            </h2>
+            <ul class="mt-4 space-y-2">
+                <li class="flex justify-between text-sm">
+                    <span>Purchase</span>
+                    <span>2025-07-05 10:30 AM</span>
+                </li>
+                <li class="flex justify-between text-sm">
+                    <span>Signup</span>
+                    <span>2025-07-05 09:15 AM</span>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Conversion Goals -->
+        <div
+            class="bg-white/80 backdrop-blur-md border border-gray-200 rounded-2xl shadow-sm hover:ring-1 ring-gray-200 transition-all duration-200 p-6">
+            <h2 class="text-lg font-semibold text-gray-900 flex items-center gap-2">
+                <i data-lucide="target" class="w-5 h-5"></i> Conversion Goals
+            </h2>
+            <ul class="mt-4 space-y-2 text-sm">
+                <li class="flex justify-between">
+                    <span>Purchase</span>
+                    <span>648</span>
+                </li>
+                <li class="flex justify-between">
+                    <span>Signup</span>
+                    <span>1,234</span>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+
+</html>
