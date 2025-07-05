@@ -1,0 +1,2664 @@
+<html class="scroll-smooth" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <title>
+        Web Analytics SaaS Dashboard
+    </title>
+    <script src="https://cdn.tailwindcss.com">
+    </script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&amp;family=DM+Sans:wght@400;700&amp;display=swap"
+        rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
+    <style>
+        body {
+            font-family: 'Inter', 'DM Sans', sans-serif;
+            background-color: #f9fafb;
+            color: #111827;
+        }
+
+        /* Sticky header for tables */
+        thead th {
+            position: sticky;
+            top: 0;
+            background-color: #ffffffcc;
+            backdrop-filter: blur(6px);
+            z-index: 10;
+        }
+    </style>
+</head>
+
+<body class="min-h-screen flex flex-col">
+    <!-- Header -->
+    <header class="bg-white shadow-md sticky top-0 z-30">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16">
+            <div class="flex items-center space-x-3">
+                <img alt="Web Analytics SaaS logo, stylized letter W in indigo on white background"
+                    class="w-10 h-10 rounded-xl" height="40"
+                    src="https://storage.googleapis.com/a1aa/image/3db1a650-017d-4959-a9ec-0d6e8faf10e6.jpg"
+                    width="40" />
+                <h1 class="text-2xl font-semibold text-indigo-600 select-none">
+                    Web Analytics
+                </h1>
+            </div>
+            <nav class="hidden md:flex space-x-6 text-gray-600 font-medium">
+                <a class="hover:text-indigo-600 transition" href="#dashboard">
+                    Dashboard
+                </a>
+                <a class="hover:text-indigo-600 transition" href="#visitors">
+                    Visitors
+                </a>
+                <a class="hover:text-indigo-600 transition" href="#behavior">
+                    Behavior
+                </a>
+                <a class="hover:text-indigo-600 transition" href="#conversions">
+                    Conversions
+                </a>
+                <a class="hover:text-indigo-600 transition" href="#diagnostics">
+                    Diagnostics
+                </a>
+                <a class="hover:text-indigo-600 transition" href="#settings">
+                    Settings
+                </a>
+                <a class="hover:text-indigo-600 transition" href="#billing">
+                    Billing
+                </a>
+                <a class="hover:text-indigo-600 transition" href="#affiliate">
+                    Affiliate
+                </a>
+            </nav>
+            <button aria-label="Open menu"
+                class="md:hidden text-gray-600 hover:text-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                id="mobile-menu-button">
+                <i class="fas fa-bars fa-lg">
+                </i>
+            </button>
+        </div>
+        <!-- Mobile menu -->
+        <nav aria-label="Mobile menu" class="hidden md:hidden bg-white border-t border-gray-200" id="mobile-menu">
+            <a class="block px-4 py-3 text-gray-700 hover:bg-indigo-50 hover:text-indigo-600" href="#dashboard">
+                Dashboard
+            </a>
+            <a class="block px-4 py-3 text-gray-700 hover:bg-indigo-50 hover:text-indigo-600" href="#visitors">
+                Visitors
+            </a>
+            <a class="block px-4 py-3 text-gray-700 hover:bg-indigo-50 hover:text-indigo-600" href="#behavior">
+                Behavior
+            </a>
+            <a class="block px-4 py-3 text-gray-700 hover:bg-indigo-50 hover:text-indigo-600" href="#conversions">
+                Conversions
+            </a>
+            <a class="block px-4 py-3 text-gray-700 hover:bg-indigo-50 hover:text-indigo-600" href="#diagnostics">
+                Diagnostics
+            </a>
+            <a class="block px-4 py-3 text-gray-700 hover:bg-indigo-50 hover:text-indigo-600" href="#settings">
+                Settings
+            </a>
+            <a class="block px-4 py-3 text-gray-700 hover:bg-indigo-50 hover:text-indigo-600" href="#billing">
+                Billing
+            </a>
+            <a class="block px-4 py-3 text-gray-700 hover:bg-indigo-50 hover:text-indigo-600" href="#affiliate">
+                Affiliate
+            </a>
+        </nav>
+    </header>
+    <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-12">
+        <!-- 1. Dashboard -->
+        <section aria-label="Dashboard Overview and Analytics" class="space-y-8" id="dashboard">
+            <h2 class="text-3xl font-semibold text-indigo-600">
+                Dashboard Overview
+            </h2>
+            <!-- Section 1: Metric Cards -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="bg-white/70 backdrop-blur-sm shadow-md rounded-xl p-6 flex flex-col items-center">
+                    <i class="fas fa-eye text-indigo-500 text-3xl mb-3">
+                    </i>
+                    <p class="text-gray-500 uppercase tracking-wide font-semibold mb-1">
+                        Page Views
+                    </p>
+                    <p class="text-3xl font-bold text-gray-900">
+                        12,345
+                    </p>
+                </div>
+                <div class="bg-white/70 backdrop-blur-sm shadow-md rounded-xl p-6 flex flex-col items-center">
+                    <i class="fas fa-users text-indigo-500 text-3xl mb-3">
+                    </i>
+                    <p class="text-gray-500 uppercase tracking-wide font-semibold mb-1">
+                        Visitors
+                    </p>
+                    <p class="text-3xl font-bold text-gray-900">
+                        4,567
+                    </p>
+                </div>
+                <div class="bg-white/70 backdrop-blur-sm shadow-md rounded-xl p-6 flex flex-col items-center">
+                    <i class="fas fa-sign-out-alt text-indigo-500 text-3xl mb-3">
+                    </i>
+                    <p class="text-gray-500 uppercase tracking-wide font-semibold mb-1">
+                        Bounce Rate
+                    </p>
+                    <p class="text-3xl font-bold text-gray-900">
+                        37.5%
+                    </p>
+                </div>
+                <div class="bg-white/70 backdrop-blur-sm shadow-md rounded-xl p-6 flex flex-col items-center">
+                    <i class="fas fa-clock text-indigo-500 text-3xl mb-3">
+                    </i>
+                    <p class="text-gray-500 uppercase tracking-wide font-semibold mb-1">
+                        Avg Duration
+                    </p>
+                    <p class="text-3xl font-bold text-gray-900">
+                        3m 45s
+                    </p>
+                </div>
+            </div>
+            <!-- Section 2: Line Chart -->
+            <div class="bg-white/70 backdrop-blur-sm shadow-md rounded-xl p-6">
+                <h3 class="text-xl font-semibold text-gray-900 mb-4">
+                    Page Views Over Time
+                </h3>
+                <canvas class="w-full h-64" id="lineChart">
+                </canvas>
+            </div>
+            <!-- Section 3: Top Pages Table -->
+            <div class="bg-white/70 backdrop-blur-sm shadow-md rounded-xl p-6 overflow-x-auto">
+                <h3 class="text-xl font-semibold text-gray-900 mb-4">
+                    Top Pages (Last 7 Days)
+                </h3>
+                <table class="min-w-full divide-y divide-gray-200 text-sm">
+                    <thead>
+                        <tr>
+                            <th class="px-4 py-2 text-left font-semibold text-gray-700" scope="col">
+                                URL
+                            </th>
+                            <th class="px-4 py-2 text-left font-semibold text-gray-700" scope="col">
+                                Avg Duration
+                            </th>
+                            <th class="px-4 py-2 text-left font-semibold text-gray-700" scope="col">
+                                Bounce Rate
+                            </th>
+                            <th class="px-4 py-2 text-left font-semibold text-gray-700" scope="col">
+                                Views
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-100">
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-4 py-2 text-indigo-600 truncate max-w-xs">
+                                /home
+                            </td>
+                            <td class="px-4 py-2">
+                                4m 12s
+                            </td>
+                            <td class="px-4 py-2">
+                                25.3%
+                            </td>
+                            <td class="px-4 py-2 font-semibold">
+                                3,450
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-4 py-2 text-indigo-600 truncate max-w-xs">
+                                /pricing
+                            </td>
+                            <td class="px-4 py-2">
+                                3m 05s
+                            </td>
+                            <td class="px-4 py-2">
+                                40.1%
+                            </td>
+                            <td class="px-4 py-2 font-semibold">
+                                2,980
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-4 py-2 text-indigo-600 truncate max-w-xs">
+                                /blog/how-to-use
+                            </td>
+                            <td class="px-4 py-2">
+                                5m 20s
+                            </td>
+                            <td class="px-4 py-2">
+                                18.7%
+                            </td>
+                            <td class="px-4 py-2 font-semibold">
+                                2,450
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-4 py-2 text-indigo-600 truncate max-w-xs">
+                                /contact
+                            </td>
+                            <td class="px-4 py-2">
+                                2m 10s
+                            </td>
+                            <td class="px-4 py-2">
+                                50.0%
+                            </td>
+                            <td class="px-4 py-2 font-semibold">
+                                1,980
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-4 py-2 text-indigo-600 truncate max-w-xs">
+                                /features
+                            </td>
+                            <td class="px-4 py-2">
+                                3m 45s
+                            </td>
+                            <td class="px-4 py-2">
+                                30.2%
+                            </td>
+                            <td class="px-4 py-2 font-semibold">
+                                1,750
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-4 py-2 text-indigo-600 truncate max-w-xs">
+                                /signup
+                            </td>
+                            <td class="px-4 py-2">
+                                1m 50s
+                            </td>
+                            <td class="px-4 py-2">
+                                60.5%
+                            </td>
+                            <td class="px-4 py-2 font-semibold">
+                                1,500
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-4 py-2 text-indigo-600 truncate max-w-xs">
+                                /dashboard
+                            </td>
+                            <td class="px-4 py-2">
+                                6m 00s
+                            </td>
+                            <td class="px-4 py-2">
+                                15.0%
+                            </td>
+                            <td class="px-4 py-2 font-semibold">
+                                1,200
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-4 py-2 text-indigo-600 truncate max-w-xs">
+                                /about
+                            </td>
+                            <td class="px-4 py-2">
+                                2m 30s
+                            </td>
+                            <td class="px-4 py-2">
+                                45.0%
+                            </td>
+                            <td class="px-4 py-2 font-semibold">
+                                1,100
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-4 py-2 text-indigo-600 truncate max-w-xs">
+                                /blog/latest-news
+                            </td>
+                            <td class="px-4 py-2">
+                                4m 45s
+                            </td>
+                            <td class="px-4 py-2">
+                                20.0%
+                            </td>
+                            <td class="px-4 py-2 font-semibold">
+                                1,000
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-4 py-2 text-indigo-600 truncate max-w-xs">
+                                /faq
+                            </td>
+                            <td class="px-4 py-2">
+                                3m 15s
+                            </td>
+                            <td class="px-4 py-2">
+                                35.0%
+                            </td>
+                            <td class="px-4 py-2 font-semibold">
+                                900
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <!-- Section 4: Geo Map -->
+            <div class="bg-white/70 backdrop-blur-sm shadow-md rounded-xl p-6">
+                <h3 class="text-xl font-semibold text-gray-900 mb-4">
+                    Visitors by Region
+                </h3>
+                <img alt="Stylized geo map showing visitor counts by country and region with indigo color highlights"
+                    class="w-full rounded-xl" height="400" loading="lazy"
+                    src="https://storage.googleapis.com/a1aa/image/ecb04421-fe79-4b88-7706-a04d1749c48d.jpg"
+                    width="800" />
+            </div>
+            <!-- Section 5: Pie Chart -->
+            <div class="bg-white/70 backdrop-blur-sm shadow-md rounded-xl p-6 max-w-md mx-auto">
+                <h3 class="text-xl font-semibold text-gray-900 mb-4 text-center">
+                    Device Type Breakdown
+                </h3>
+                <canvas class="w-full h-64" id="pieChart">
+                </canvas>
+            </div>
+            <!-- Section 6: Referrers Table -->
+            <div class="bg-white/70 backdrop-blur-sm shadow-md rounded-xl p-6 overflow-x-auto">
+                <h3 class="text-xl font-semibold text-gray-900 mb-4">
+                    Top Referrers
+                </h3>
+                <table class="min-w-full divide-y divide-gray-200 text-sm">
+                    <thead>
+                        <tr>
+                            <th class="px-4 py-2 text-left font-semibold text-gray-700" scope="col">
+                                Referrer
+                            </th>
+                            <th class="px-4 py-2 text-left font-semibold text-gray-700" scope="col">
+                                Views
+                            </th>
+                            <th class="px-4 py-2 text-left font-semibold text-gray-700" scope="col">
+                                Click Through Rate
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-100">
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-4 py-2 text-indigo-600 truncate max-w-xs">
+                                google.com
+                            </td>
+                            <td class="px-4 py-2 font-semibold">
+                                4,500
+                            </td>
+                            <td class="px-4 py-2">
+                                12.5%
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-4 py-2 text-indigo-600 truncate max-w-xs">
+                                facebook.com
+                            </td>
+                            <td class="px-4 py-2 font-semibold">
+                                3,200
+                            </td>
+                            <td class="px-4 py-2">
+                                9.8%
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-4 py-2 text-indigo-600 truncate max-w-xs">
+                                twitter.com
+                            </td>
+                            <td class="px-4 py-2 font-semibold">
+                                1,800
+                            </td>
+                            <td class="px-4 py-2">
+                                7.2%
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-4 py-2 text-indigo-600 truncate max-w-xs">
+                                linkedin.com
+                            </td>
+                            <td class="px-4 py-2 font-semibold">
+                                1,200
+                            </td>
+                            <td class="px-4 py-2">
+                                5.5%
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-4 py-2 text-indigo-600 truncate max-w-xs">
+                                newsletter.example.com
+                            </td>
+                            <td class="px-4 py-2 font-semibold">
+                                900
+                            </td>
+                            <td class="px-4 py-2">
+                                15.0%
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <!-- Section 7: Entry / Exit Pages -->
+            <div class="bg-white/70 backdrop-blur-sm shadow-md rounded-xl p-6 overflow-x-auto">
+                <h3 class="text-xl font-semibold text-gray-900 mb-4">
+                    Entry and Exit Pages
+                </h3>
+                <table class="min-w-full divide-y divide-gray-200 text-sm">
+                    <thead>
+                        <tr>
+                            <th class="px-4 py-2 text-left font-semibold text-gray-700" scope="col">
+                                Session ID
+                            </th>
+                            <th class="px-4 py-2 text-left font-semibold text-gray-700" scope="col">
+                                Entry Page
+                            </th>
+                            <th class="px-4 py-2 text-left font-semibold text-gray-700" scope="col">
+                                Exit Page
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-100">
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-4 py-2 font-mono text-indigo-600 truncate max-w-xs">
+                                sess_1a2b3c4d
+                            </td>
+                            <td class="px-4 py-2 text-indigo-600 truncate max-w-xs">
+                                /home
+                            </td>
+                            <td class="px-4 py-2 text-indigo-600 truncate max-w-xs">
+                                /signup
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-4 py-2 font-mono text-indigo-600 truncate max-w-xs">
+                                sess_5e6f7g8h
+                            </td>
+                            <td class="px-4 py-2 text-indigo-600 truncate max-w-xs">
+                                /pricing
+                            </td>
+                            <td class="px-4 py-2 text-indigo-600 truncate max-w-xs">
+                                /contact
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-4 py-2 font-mono text-indigo-600 truncate max-w-xs">
+                                sess_9i0j1k2l
+                            </td>
+                            <td class="px-4 py-2 text-indigo-600 truncate max-w-xs">
+                                /blog/how-to-use
+                            </td>
+                            <td class="px-4 py-2 text-indigo-600 truncate max-w-xs">
+                                /dashboard
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-4 py-2 font-mono text-indigo-600 truncate max-w-xs">
+                                sess_3m4n5o6p
+                            </td>
+                            <td class="px-4 py-2 text-indigo-600 truncate max-w-xs">
+                                /features
+                            </td>
+                            <td class="px-4 py-2 text-indigo-600 truncate max-w-xs">
+                                /home
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-4 py-2 font-mono text-indigo-600 truncate max-w-xs">
+                                sess_7q8r9s0t
+                            </td>
+                            <td class="px-4 py-2 text-indigo-600 truncate max-w-xs">
+                                /about
+                            </td>
+                            <td class="px-4 py-2 text-indigo-600 truncate max-w-xs">
+                                /faq
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <!-- Section 8: Bar Chart -->
+            <div class="bg-white/70 backdrop-blur-sm shadow-md rounded-xl p-6">
+                <h3 class="text-xl font-semibold text-gray-900 mb-4">
+                    Page Views by Hour
+                </h3>
+                <canvas class="w-full h-64" id="barChart">
+                </canvas>
+            </div>
+        </section>
+        <!-- 2. Visitors -->
+        <section aria-label="Visitors Live View and Sessions" class="space-y-8" id="visitors">
+            <h2 class="text-3xl font-semibold text-indigo-600">
+                Visitors
+            </h2>
+            <!-- Section 1: Live Users -->
+            <div class="bg-white/70 backdrop-blur-sm shadow-md rounded-xl p-6 overflow-x-auto">
+                <h3 class="text-xl font-semibold text-gray-900 mb-4">
+                    Live Users (Last 5 Minutes)
+                </h3>
+                <table class="min-w-full divide-y divide-gray-200 text-sm">
+                    <thead>
+                        <tr>
+                            <th class="px-4 py-2 text-left font-semibold text-gray-700">
+                                IP Address
+                            </th>
+                            <th class="px-4 py-2 text-left font-semibold text-gray-700">
+                                Page
+                            </th>
+                            <th class="px-4 py-2 text-left font-semibold text-gray-700">
+                                Country
+                            </th>
+                            <th class="px-4 py-2 text-left font-semibold text-gray-700">
+                                Time Active
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-100">
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-4 py-2 font-mono text-indigo-600">
+                                192.168.1.101
+                            </td>
+                            <td class="px-4 py-2 text-indigo-600 truncate max-w-xs">
+                                /home
+                            </td>
+                            <td class="px-4 py-2">
+                                United States
+                            </td>
+                            <td class="px-4 py-2">
+                                3m 12s
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-4 py-2 font-mono text-indigo-600">
+                                172.16.0.45
+                            </td>
+                            <td class="px-4 py-2 text-indigo-600 truncate max-w-xs">
+                                /pricing
+                            </td>
+                            <td class="px-4 py-2">
+                                Canada
+                            </td>
+                            <td class="px-4 py-2">
+                                4m 05s
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-4 py-2 font-mono text-indigo-600">
+                                10.0.0.12
+                            </td>
+                            <td class="px-4 py-2 text-indigo-600 truncate max-w-xs">
+                                /dashboard
+                            </td>
+                            <td class="px-4 py-2">
+                                United Kingdom
+                            </td>
+                            <td class="px-4 py-2">
+                                2m 30s
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-4 py-2 font-mono text-indigo-600">
+                                203.0.113.5
+                            </td>
+                            <td class="px-4 py-2 text-indigo-600 truncate max-w-xs">
+                                /blog/how-to-use
+                            </td>
+                            <td class="px-4 py-2">
+                                Australia
+                            </td>
+                            <td class="px-4 py-2">
+                                1m 45s
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-4 py-2 font-mono text-indigo-600">
+                                198.51.100.22
+                            </td>
+                            <td class="px-4 py-2 text-indigo-600 truncate max-w-xs">
+                                /contact
+                            </td>
+                            <td class="px-4 py-2">
+                                Germany
+                            </td>
+                            <td class="px-4 py-2">
+                                5m 10s
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <!-- Section 2: Sessions -->
+            <div class="bg-white/70 backdrop-blur-sm shadow-md rounded-xl p-6 overflow-x-auto">
+                <h3 class="text-xl font-semibold text-gray-900 mb-4">
+                    Sessions Overview
+                </h3>
+                <table class="min-w-full divide-y divide-gray-200 text-sm">
+                    <thead>
+                        <tr>
+                            <th class="px-4 py-2 text-left font-semibold text-gray-700">
+                                Session ID
+                            </th>
+                            <th class="px-4 py-2 text-left font-semibold text-gray-700">
+                                User IP
+                            </th>
+                            <th class="px-4 py-2 text-left font-semibold text-gray-700">
+                                Page Views
+                            </th>
+                            <th class="px-4 py-2 text-left font-semibold text-gray-700">
+                                Duration
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-100">
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-4 py-2 font-mono text-indigo-600 truncate max-w-xs">
+                                sess_1a2b3c4d
+                            </td>
+                            <td class="px-4 py-2 font-mono">
+                                192.168.1.101
+                            </td>
+                            <td class="px-4 py-2 font-semibold">
+                                8
+                            </td>
+                            <td class="px-4 py-2">
+                                12m 30s
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-4 py-2 font-mono text-indigo-600 truncate max-w-xs">
+                                sess_5e6f7g8h
+                            </td>
+                            <td class="px-4 py-2 font-mono">
+                                172.16.0.45
+                            </td>
+                            <td class="px-4 py-2 font-semibold">
+                                5
+                            </td>
+                            <td class="px-4 py-2">
+                                8m 15s
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-4 py-2 font-mono text-indigo-600 truncate max-w-xs">
+                                sess_9i0j1k2l
+                            </td>
+                            <td class="px-4 py-2 font-mono">
+                                10.0.0.12
+                            </td>
+                            <td class="px-4 py-2 font-semibold">
+                                12
+                            </td>
+                            <td class="px-4 py-2">
+                                20m 45s
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-4 py-2 font-mono text-indigo-600 truncate max-w-xs">
+                                sess_3m4n5o6p
+                            </td>
+                            <td class="px-4 py-2 font-mono">
+                                203.0.113.5
+                            </td>
+                            <td class="px-4 py-2 font-semibold">
+                                3
+                            </td>
+                            <td class="px-4 py-2">
+                                5m 10s
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-4 py-2 font-mono text-indigo-600 truncate max-w-xs">
+                                sess_7q8r9s0t
+                            </td>
+                            <td class="px-4 py-2 font-mono">
+                                198.51.100.22
+                            </td>
+                            <td class="px-4 py-2 font-semibold">
+                                7
+                            </td>
+                            <td class="px-4 py-2">
+                                15m 00s
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <!-- Section 3: Device Breakdown -->
+            <div class="bg-white/70 backdrop-blur-sm shadow-md rounded-xl p-6 overflow-x-auto">
+                <h3 class="text-xl font-semibold text-gray-900 mb-4">
+                    Device &amp; Browser Breakdown
+                </h3>
+                <table class="min-w-full divide-y divide-gray-200 text-sm">
+                    <thead>
+                        <tr>
+                            <th class="px-4 py-2 text-left font-semibold text-gray-700">
+                                Device Type
+                            </th>
+                            <th class="px-4 py-2 text-left font-semibold text-gray-700">
+                                Browser
+                            </th>
+                            <th class="px-4 py-2 text-left font-semibold text-gray-700">
+                                Sessions
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-100">
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-4 py-2">
+                                Desktop
+                            </td>
+                            <td class="px-4 py-2">
+                                Chrome
+                            </td>
+                            <td class="px-4 py-2 font-semibold">
+                                3,200
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-4 py-2">
+                                Mobile
+                            </td>
+                            <td class="px-4 py-2">
+                                Safari
+                            </td>
+                            <td class="px-4 py-2 font-semibold">
+                                2,800
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-4 py-2">
+                                Tablet
+                            </td>
+                            <td class="px-4 py-2">
+                                Firefox
+                            </td>
+                            <td class="px-4 py-2 font-semibold">
+                                900
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-4 py-2">
+                                Desktop
+                            </td>
+                            <td class="px-4 py-2">
+                                Edge
+                            </td>
+                            <td class="px-4 py-2 font-semibold">
+                                700
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-4 py-2">
+                                Mobile
+                            </td>
+                            <td class="px-4 py-2">
+                                Firefox
+                            </td>
+                            <td class="px-4 py-2 font-semibold">
+                                600
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <!-- Section 4: Timezones & Language -->
+            <div class="bg-white/70 backdrop-blur-sm shadow-md rounded-xl p-6 overflow-x-auto">
+                <h3 class="text-xl font-semibold text-gray-900 mb-4">
+                    Timezones &amp; Languages
+                </h3>
+                <table class="min-w-full divide-y divide-gray-200 text-sm">
+                    <thead>
+                        <tr>
+                            <th class="px-4 py-2 text-left font-semibold text-gray-700">
+                                Timezone
+                            </th>
+                            <th class="px-4 py-2 text-left font-semibold text-gray-700">
+                                Language
+                            </th>
+                            <th class="px-4 py-2 text-left font-semibold text-gray-700">
+                                Session Count
+                            </th>
+                            <th class="px-4 py-2 text-left font-semibold text-gray-700">
+                                Avg Duration
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-100">
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-4 py-2">
+                                UTC-5
+                            </td>
+                            <td class="px-4 py-2">
+                                en-US
+                            </td>
+                            <td class="px-4 py-2 font-semibold">
+                                2,500
+                            </td>
+                            <td class="px-4 py-2">
+                                10m 15s
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-4 py-2">
+                                UTC+1
+                            </td>
+                            <td class="px-4 py-2">
+                                de-DE
+                            </td>
+                            <td class="px-4 py-2 font-semibold">
+                                1,800
+                            </td>
+                            <td class="px-4 py-2">
+                                8m 30s
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-4 py-2">
+                                UTC+9
+                            </td>
+                            <td class="px-4 py-2">
+                                ja-JP
+                            </td>
+                            <td class="px-4 py-2 font-semibold">
+                                1,200
+                            </td>
+                            <td class="px-4 py-2">
+                                7m 45s
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-4 py-2">
+                                UTC+0
+                            </td>
+                            <td class="px-4 py-2">
+                                en-GB
+                            </td>
+                            <td class="px-4 py-2 font-semibold">
+                                1,000
+                            </td>
+                            <td class="px-4 py-2">
+                                9m 00s
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-4 py-2">
+                                UTC-8
+                            </td>
+                            <td class="px-4 py-2">
+                                es-ES
+                            </td>
+                            <td class="px-4 py-2 font-semibold">
+                                800
+                            </td>
+                            <td class="px-4 py-2">
+                                6m 30s
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <!-- Section 5: Map -->
+            <div class="bg-white/70 backdrop-blur-sm shadow-md rounded-xl p-6">
+                <h3 class="text-xl font-semibold text-gray-900 mb-4">
+                    Real-time Visitor Map
+                </h3>
+                <img alt="Stylized real-time visitor map with latitude and longitude clustering, blue accent colors"
+                    class="w-full rounded-xl" height="400" loading="lazy"
+                    src="https://storage.googleapis.com/a1aa/image/2b7a963a-580e-4918-abc1-4b3f797c24ab.jpg"
+                    width="800" />
+            </div>
+            <!-- Section 6: Breadcrumb Journey -->
+            <div class="bg-white/70 backdrop-blur-sm shadow-md rounded-xl p-6 overflow-x-auto">
+                <h3 class="text-xl font-semibold text-gray-900 mb-4">
+                    Breadcrumb User Journeys
+                </h3>
+                <table class="min-w-full divide-y divide-gray-200 text-sm">
+                    <thead>
+                        <tr>
+                            <th class="px-4 py-2 text-left font-semibold text-gray-700">
+                                Session ID
+                            </th>
+                            <th class="px-4 py-2 text-left font-semibold text-gray-700">
+                                Visited At
+                            </th>
+                            <th class="px-4 py-2 text-left font-semibold text-gray-700">
+                                Page URL
+                            </th>
+                            <th class="px-4 py-2 text-left font-semibold text-gray-700">
+                                Order
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-100">
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-4 py-2 font-mono text-indigo-600 truncate max-w-xs">
+                                sess_1a2b3c4d
+                            </td>
+                            <td class="px-4 py-2">
+                                2025-07-01 10:00
+                            </td>
+                            <td class="px-4 py-2 text-indigo-600 truncate max-w-xs">
+                                /home
+                            </td>
+                            <td class="px-4 py-2 font-semibold">
+                                1
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-4 py-2 font-mono text-indigo-600 truncate max-w-xs">
+                                sess_1a2b3c4d
+                            </td>
+                            <td class="px-4 py-2">
+                                2025-07-01 10:05
+                            </td>
+                            <td class="px-4 py-2 text-indigo-600 truncate max-w-xs">
+                                /features
+                            </td>
+                            <td class="px-4 py-2 font-semibold">
+                                2
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-4 py-2 font-mono text-indigo-600 truncate max-w-xs">
+                                sess_1a2b3c4d
+                            </td>
+                            <td class="px-4 py-2">
+                                2025-07-01 10:10
+                            </td>
+                            <td class="px-4 py-2 text-indigo-600 truncate max-w-xs">
+                                /signup
+                            </td>
+                            <td class="px-4 py-2 font-semibold">
+                                3
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-4 py-2 font-mono text-indigo-600 truncate max-w-xs">
+                                sess_5e6f7g8h
+                            </td>
+                            <td class="px-4 py-2">
+                                2025-07-01 11:00
+                            </td>
+                            <td class="px-4 py-2 text-indigo-600 truncate max-w-xs">
+                                /pricing
+                            </td>
+                            <td class="px-4 py-2 font-semibold">
+                                1
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-4 py-2 font-mono text-indigo-600 truncate max-w-xs">
+                                sess_5e6f7g8h
+                            </td>
+                            <td class="px-4 py-2">
+                                2025-07-01 11:07
+                            </td>
+                            <td class="px-4 py-2 text-indigo-600 truncate max-w-xs">
+                                /contact
+                            </td>
+                            <td class="px-4 py-2 font-semibold">
+                                2
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+        <!-- 3. Behavior -->
+        <section aria-label="User Behavior Events and Clicks" class="space-y-8" id="behavior">
+            <h2 class="text-3xl font-semibold text-indigo-600">
+                Behavior
+            </h2>
+            <!-- Section 1: Click Events -->
+            <div class="bg-white/70 backdrop-blur-sm shadow-md rounded-xl p-6 overflow-x-auto">
+                <h3 class="text-xl font-semibold text-gray-900 mb-4">
+                    Click Events
+                </h3>
+                <table class="min-w-full divide-y divide-gray-200 text-sm">
+                    <thead>
+                        <tr>
+                            <th class="px-4 py-2 text-left font-semibold text-gray-700">
+                                Selector
+                            </th>
+                            <th class="px-4 py-2 text-left font-semibold text-gray-700">
+                                X
+                            </th>
+                            <th class="px-4 py-2 text-left font-semibold text-gray-700">
+                                Y
+                            </th>
+                            <th class="px-4 py-2 text-left font-semibold text-gray-700">
+                                Clicked At
+                            </th>
+                            <th class="px-4 py-2 text-left font-semibold text-gray-700">
+                                URL
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-100">
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-4 py-2 text-indigo-600 truncate max-w-xs">
+                                #signup-button
+                            </td>
+                            <td class="px-4 py-2">
+                                120
+                            </td>
+                            <td class="px-4 py-2">
+                                340
+                            </td>
+                            <td class="px-4 py-2">
+                                2025-07-01 10:15:23
+                            </td>
+                            <td class="px-4 py-2 text-indigo-600 truncate max-w-xs">
+                                /home
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-4 py-2 text-indigo-600 truncate max-w-xs">
+                                .nav-link-pricing
+                            </td>
+                            <td class="px-4 py-2">
+                                80
+                            </td>
+                            <td class="px-4 py-2">
+                                50
+                            </td>
+                            <td class="px-4 py-2">
+                                2025-07-01 10:20:10
+                            </td>
+                            <td class="px-4 py-2 text-indigo-600 truncate max-w-xs">
+                                /home
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-4 py-2 text-indigo-600 truncate max-w-xs">
+                                #contact-form-submit
+                            </td>
+                            <td class="px-4 py-2">
+                                200
+                            </td>
+                            <td class="px-4 py-2">
+                                400
+                            </td>
+                            <td class="px-4 py-2">
+                                2025-07-01 11:05:45
+                            </td>
+                            <td class="px-4 py-2 text-indigo-600 truncate max-w-xs">
+                                /contact
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-4 py-2 text-indigo-600 truncate max-w-xs">
+                                .footer-link-privacy
+                            </td>
+                            <td class="px-4 py-2">
+                                50
+                            </td>
+                            <td class="px-4 py-2">
+                                600
+                            </td>
+                            <td class="px-4 py-2">
+                                2025-07-01 11:10:30
+                            </td>
+                            <td class="px-4 py-2 text-indigo-600 truncate max-w-xs">
+                                /about
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-4 py-2 text-indigo-600 truncate max-w-xs">
+                                #blog-post-cta
+                            </td>
+                            <td class="px-4 py-2">
+                                300
+                            </td>
+                            <td class="px-4 py-2">
+                                250
+                            </td>
+                            <td class="px-4 py-2">
+                                2025-07-01 11:15:00
+                            </td>
+                            <td class="px-4 py-2 text-indigo-600 truncate max-w-xs">
+                                /blog/how-to-use
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <!-- Section 2: Top Clicks -->
+            <div class="bg-white/70 backdrop-blur-sm shadow-md rounded-xl p-6 overflow-x-auto">
+                <h3 class="text-xl font-semibold text-gray-900 mb-4">
+                    Top Clicked Selectors
+                </h3>
+                <table class="min-w-full divide-y divide-gray-200 text-sm">
+                    <thead>
+                        <tr>
+                            <th class="px-4 py-2 text-left font-semibold text-gray-700">
+                                Selector
+                            </th>
+                            <th class="px-4 py-2 text-left font-semibold text-gray-700">
+                                Click Count
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-100">
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-4 py-2 text-indigo-600 truncate max-w-xs">
+                                #signup-button
+                            </td>
+                            <td class="px-4 py-2 font-semibold">
+                                1,200
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-4 py-2 text-indigo-600 truncate max-w-xs">
+                                .nav-link-pricing
+                            </td>
+                            <td class="px-4 py-2 font-semibold">
+                                950
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-4 py-2 text-indigo-600 truncate max-w-xs">
+                                #contact-form-submit
+                            </td>
+                            <td class="px-4 py-2 font-semibold">
+                                700
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-4 py-2 text-indigo-600 truncate max-w-xs">
+                                .footer-link-privacy
+                            </td>
+                            <td class="px-4 py-2 font-semibold">
+                                450
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-4 py-2 text-indigo-600 truncate max-w-xs">
+                                #blog-post-cta
+                            </td>
+                            <td class="px-4 py-2 font-semibold">
+                                300
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <!-- Section 3: Scroll Depth -->
+            <div class="bg-white/70 backdrop-blur-sm shadow-md rounded-xl p-6 max-w-md mx-auto">
+                <h3 class="text-xl font-semibold text-gray-900 mb-4 text-center">
+                    Scroll Depth Distribution
+                </h3>
+                <table
+                    class="w-full text-sm text-gray-900 text-left rounded-lg overflow-hidden divide-y divide-gray-200">
+                    <thead>
+                        <tr class="bg-indigo-100">
+                            <th class="px-4 py-2 font-semibold">
+                                Scroll Range
+                            </th>
+                            <th class="px-4 py-2 font-semibold">
+                                Percentage of Sessions
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="hover:bg-indigo-50">
+                            <td class="px-4 py-2">
+                                0-25%
+                            </td>
+                            <td class="px-4 py-2 font-semibold">
+                                15%
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-indigo-50">
+                            <td class="px-4 py-2">
+                                26-50%
+                            </td>
+                            <td class="px-4 py-2 font-semibold">
+                                25%
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-indigo-50">
+                            <td class="px-4 py-2">
+                                51-75%
+                            </td>
+                            <td class="px-4 py-2 font-semibold">
+                                35%
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-indigo-50">
+                            <td class="px-4 py-2">
+                                76-100%
+                            </td>
+                            <td class="px-4 py-2 font-semibold">
+                                25%
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <!-- Section 4: Heatmap -->
+            <div class="bg-white/70 backdrop-blur-sm shadow-md rounded-xl p-6">
+                <h3 class="text-xl font-semibold text-gray-900 mb-4">
+                    Click Heatmap Overlay
+                </h3>
+                <img alt="Website screenshot with indigo colored heatmap overlay showing click intensity distribution"
+                    class="w-full rounded-xl" height="400" loading="lazy"
+                    src="https://storage.googleapis.com/a1aa/image/0138a281-267f-4c13-1387-ff2bb49d3c3b.jpg"
+                    width="800" />
+            </div>
+            <!-- Section 5: Custom Events -->
+            <div class="bg-white/70 backdrop-blur-sm shadow-md rounded-xl p-6 overflow-x-auto">
+                <h3 class="text-xl font-semibold text-gray-900 mb-4">
+                    Custom Events
+                </h3>
+                <table class="min-w-full divide-y divide-gray-200 text-sm">
+                    <thead>
+                        <tr>
+                            <th class="px-4 py-2 text-left font-semibold text-gray-700">
+                                Event Name
+                            </th>
+                            <th class="px-4 py-2 text-left font-semibold text-gray-700">
+                                Event Data
+                            </th>
+                            <th class="px-4 py-2 text-left font-semibold text-gray-700">
+                                Created At
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-100">
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-4 py-2 text-indigo-600 truncate max-w-xs">
+                                video_play
+                            </td>
+                            <td class="px-4 py-2 truncate max-w-xs">
+                                {"videoId":"abc123","duration":120}
+                            </td>
+                            <td class="px-4 py-2">
+                                2025-07-01 10:30:00
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-4 py-2 text-indigo-600 truncate max-w-xs">
+                                form_submit
+                            </td>
+                            <td class="px-4 py-2 truncate max-w-xs">
+                                {"formId":"contact-us"}
+                            </td>
+                            <td class="px-4 py-2">
+                                2025-07-01 11:00:00
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-4 py-2 text-indigo-600 truncate max-w-xs">
+                                newsletter_signup
+                            </td>
+                            <td class="px-4 py-2 truncate max-w-xs">
+                                {"email":"user@example.com"}
+                            </td>
+                            <td class="px-4 py-2">
+                                2025-07-01 11:15:00
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-4 py-2 text-indigo-600 truncate max-w-xs">
+                                button_click
+                            </td>
+                            <td class="px-4 py-2 truncate max-w-xs">
+                                {"buttonId":"subscribe"}
+                            </td>
+                            <td class="px-4 py-2">
+                                2025-07-01 11:20:00
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-4 py-2 text-indigo-600 truncate max-w-xs">
+                                page_scroll
+                            </td>
+                            <td class="px-4 py-2 truncate max-w-xs">
+                                {"scrollPercent":75}
+                            </td>
+                            <td class="px-4 py-2">
+                                2025-07-01 11:25:00
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <!-- Section 6: Event Timeline -->
+            <div class="bg-white/70 backdrop-blur-sm shadow-md rounded-xl p-6 overflow-x-auto">
+                <h3 class="text-xl font-semibold text-gray-900 mb-4">
+                    Event Timeline
+                </h3>
+                <table class="min-w-full divide-y divide-gray-200 text-sm">
+                    <thead>
+                        <tr>
+                            <th class="px-4 py-2 text-left font-semibold text-gray-700">
+                                Session ID
+                            </th>
+                            <th class="px-4 py-2 text-left font-semibold text-gray-700">
+                                Event Type
+                            </th>
+                            <th class="px-4 py-2 text-left font-semibold text-gray-700">
+                                Event Name / Selector
+                            </th>
+                            <th class="px-4 py-2 text-left font-semibold text-gray-700">
+                                Timestamp
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-100">
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-4 py-2 font-mono text-indigo-600 truncate max-w-xs">
+                                sess_1a2b3c4d
+                            </td>
+                            <td class="px-4 py-2">
+                                click_event
+                            </td>
+                            <td class="px-4 py-2 text-indigo-600 truncate max-w-xs">
+                                #signup-button
+                            </td>
+                            <td class="px-4 py-2">
+                                2025-07-01 10:15:23
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-4 py-2 font-mono text-indigo-600 truncate max-w-xs">
+                                sess_1a2b3c4d
+                            </td>
+                            <td class="px-4 py-2">
+                                custom_event
+                            </td>
+                            <td class="px-4 py-2 text-indigo-600 truncate max-w-xs">
+                                video_play
+                            </td>
+                            <td class="px-4 py-2">
+                                2025-07-01 10:30:00
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-4 py-2 font-mono text-indigo-600 truncate max-w-xs">
+                                sess_5e6f7g8h
+                            </td>
+                            <td class="px-4 py-2">
+                                scroll_event
+                            </td>
+                            <td class="px-4 py-2 text-indigo-600 truncate max-w-xs">
+                                51-75%
+                            </td>
+                            <td class="px-4 py-2">
+                                2025-07-01 11:10:00
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-4 py-2 font-mono text-indigo-600 truncate max-w-xs">
+                                sess_9i0j1k2l
+                            </td>
+                            <td class="px-4 py-2">
+                                click_event
+                            </td>
+                            <td class="px-4 py-2 text-indigo-600 truncate max-w-xs">
+                                .nav-link-pricing
+                            </td>
+                            <td class="px-4 py-2">
+                                2025-07-01 11:20:10
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-4 py-2 font-mono text-indigo-600 truncate max-w-xs">
+                                sess_3m4n5o6p
+                            </td>
+                            <td class="px-4 py-2">
+                                custom_event
+                            </td>
+                            <td class="px-4 py-2 text-indigo-600 truncate max-w-xs">
+                                form_submit
+                            </td>
+                            <td class="px-4 py-2">
+                                2025-07-01 11:25:00
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+        <!-- 4. Conversions -->
+        <section aria-label="Conversions Funnels and Goals" class="space-y-8" id="conversions">
+            <h2 class="text-3xl font-semibold text-indigo-600">
+                Conversions
+            </h2>
+            <!-- Section 1: Funnels -->
+            <div class="bg-white/70 backdrop-blur-sm shadow-md rounded-xl p-6 max-w-4xl mx-auto">
+                <h3 class="text-xl font-semibold text-gray-900 mb-4">
+                    Funnels Overview
+                </h3>
+                <table class="w-full text-sm divide-y divide-gray-200">
+                    <thead>
+                        <tr>
+                            <th class="px-4 py-2 text-left font-semibold text-gray-700">
+                                Funnel Name
+                            </th>
+                            <th class="px-4 py-2 text-left font-semibold text-gray-700">
+                                Completion %
+                            </th>
+                            <th class="px-4 py-2 text-left font-semibold text-gray-700">
+                                Steps
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-4 py-2 text-indigo-600 truncate max-w-xs">
+                                Signup Funnel
+                            </td>
+                            <td class="px-4 py-2 font-semibold">
+                                75%
+                            </td>
+                            <td class="px-4 py-2">
+                                3
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-4 py-2 text-indigo-600 truncate max-w-xs">
+                                Purchase Funnel
+                            </td>
+                            <td class="px-4 py-2 font-semibold">
+                                60%
+                            </td>
+                            <td class="px-4 py-2">
+                                5
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-4 py-2 text-indigo-600 truncate max-w-xs">
+                                Newsletter Signup
+                            </td>
+                            <td class="px-4 py-2 font-semibold">
+                                80%
+                            </td>
+                            <td class="px-4 py-2">
+                                2
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <!-- Section 2: Funnel Chart -->
+            <div class="bg-white/70 backdrop-blur-sm shadow-md rounded-xl p-6 max-w-4xl mx-auto">
+                <h3 class="text-xl font-semibold text-gray-900 mb-4">
+                    Funnel Drop-off Chart
+                </h3>
+                <canvas class="w-full h-64" id="funnelChart">
+                </canvas>
+            </div>
+            <!-- Section 3: Completed Funnels -->
+            <div class="bg-white/70 backdrop-blur-sm shadow-md rounded-xl p-6 max-w-4xl mx-auto overflow-x-auto">
+                <h3 class="text-xl font-semibold text-gray-900 mb-4">
+                    Completed Funnels
+                </h3>
+                <table class="w-full text-sm divide-y divide-gray-200">
+                    <thead>
+                        <tr>
+                            <th class="px-4 py-2 text-left font-semibold text-gray-700">
+                                Session ID
+                            </th>
+                            <th class="px-4 py-2 text-left font-semibold text-gray-700">
+                                Funnel Name
+                            </th>
+                            <th class="px-4 py-2 text-left font-semibold text-gray-700">
+                                Completed At
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-4 py-2 font-mono text-indigo-600 truncate max-w-xs">
+                                sess_1a2b3c4d
+                            </td>
+                            <td class="px-4 py-2 text-indigo-600 truncate max-w-xs">
+                                Signup Funnel
+                            </td>
+                            <td class="px-4 py-2">
+                                2025-07-01 10:45:00
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-4 py-2 font-mono text-indigo-600 truncate max-w-xs">
+                                sess_9i0j1k2l
+                            </td>
+                            <td class="px-4 py-2 text-indigo-600 truncate max-w-xs">
+                                Newsletter Signup
+                            </td>
+                            <td class="px-4 py-2">
+                                2025-07-01 11:30:00
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <!-- Section 4: Conversion by Device -->
+            <div class="bg-white/70 backdrop-blur-sm shadow-md rounded-xl p-6 max-w-4xl mx-auto overflow-x-auto">
+                <h3 class="text-xl font-semibold text-gray-900 mb-4">
+                    Conversion Rate by Device
+                </h3>
+                <table class="w-full text-sm divide-y divide-gray-200">
+                    <thead>
+                        <tr>
+                            <th class="px-4 py-2 text-left font-semibold text-gray-700">
+                                Device Type
+                            </th>
+                            <th class="px-4 py-2 text-left font-semibold text-gray-700">
+                                Conversion Rate
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-4 py-2">
+                                Desktop
+                            </td>
+                            <td class="px-4 py-2 font-semibold">
+                                70%
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-4 py-2">
+                                Mobile
+                            </td>
+                            <td class="px-4 py-2 font-semibold">
+                                60%
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-4 py-2">
+                                Tablet
+                            </td>
+                            <td class="px-4 py-2 font-semibold">
+                                50%
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <!-- Section 5: Flow Diagram -->
+            <div class="bg-white/70 backdrop-blur-sm shadow-md rounded-xl p-6 max-w-4xl mx-auto">
+                <h3 class="text-xl font-semibold text-gray-900 mb-4">
+                    User Flow Diagram
+                </h3>
+                <img alt="Diagram showing user flow through funnel steps and pages with indigo accent lines and nodes"
+                    class="w-full rounded-xl" height="400" loading="lazy"
+                    src="https://storage.googleapis.com/a1aa/image/28085da6-1baa-491d-a589-7a77ea324977.jpg"
+                    width="800" />
+            </div>
+        </section>
+        <!-- 5. Diagnostics -->
+        <section aria-label="Diagnostics Errors Bot and Speed" class="space-y-8" id="diagnostics">
+            <h2 class="text-3xl font-semibold text-indigo-600">
+                Diagnostics
+            </h2>
+            <!-- Section 1: Error Logs -->
+            <div class="bg-white/70 backdrop-blur-sm shadow-md rounded-xl p-6 max-w-4xl mx-auto overflow-x-auto">
+                <h3 class="text-xl font-semibold text-gray-900 mb-4">
+                    Error Logs
+                </h3>
+                <table class="w-full text-sm divide-y divide-gray-200 font-mono">
+                    <thead>
+                        <tr>
+                            <th class="px-4 py-2 text-left font-semibold text-gray-700">
+                                Message
+                            </th>
+                            <th class="px-4 py-2 text-left font-semibold text-gray-700">
+                                Occurred At
+                            </th>
+                            <th class="px-4 py-2 text-left font-semibold text-gray-700">
+                                Stack Trace
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-4 py-2 text-red-600 truncate max-w-xs">
+                                TypeError: Cannot read property 'foo' of undefined
+                            </td>
+                            <td class="px-4 py-2">
+                                2025-07-01 10:05:00
+                            </td>
+                            <td class="px-4 py-2 truncate max-w-xs">
+                                at app.js:45:12 at main.js:10:5
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-4 py-2 text-red-600 truncate max-w-xs">
+                                ReferenceError: bar is not defined
+                            </td>
+                            <td class="px-4 py-2">
+                                2025-07-01 11:15:00
+                            </td>
+                            <td class="px-4 py-2 truncate max-w-xs">
+                                at utils.js:22:8 at app.js:50:3
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-4 py-2 text-red-600 truncate max-w-xs">
+                                SyntaxError: Unexpected token &lt;
+                            </td>
+                            <td class="px-4 py-2">
+                                2025-07-01 11:45:00
+                            </td>
+                            <td class="px-4 py-2 truncate max-w-xs">
+                                at index.html:1:1
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <!-- Section 2: Bot Table -->
+            <div class="bg-white/70 backdrop-blur-sm shadow-md rounded-xl p-6 max-w-4xl mx-auto overflow-x-auto">
+                <h3 class="text-xl font-semibold text-gray-900 mb-4">
+                    Bot Detections
+                </h3>
+                <table class="w-full text-sm divide-y divide-gray-200 font-mono">
+                    <thead>
+                        <tr>
+                            <th class="px-4 py-2 text-left font-semibold text-gray-700">
+                                Bot Name
+                            </th>
+                            <th class="px-4 py-2 text-left font-semibold text-gray-700">
+                                Verified
+                            </th>
+                            <th class="px-4 py-2 text-left font-semibold text-gray-700">
+                                Session ID
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-4 py-2 text-indigo-600">
+                                Googlebot
+                            </td>
+                            <td class="px-4 py-2 text-green-600 font-semibold">
+                                True
+                            </td>
+                            <td class="px-4 py-2 font-mono truncate max-w-xs">
+                                sess_bot_1234
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-4 py-2 text-indigo-600">
+                                Bingbot
+                            </td>
+                            <td class="px-4 py-2 text-green-600 font-semibold">
+                                True
+                            </td>
+                            <td class="px-4 py-2 font-mono truncate max-w-xs">
+                                sess_bot_5678
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-4 py-2 text-indigo-600">
+                                UnknownBot
+                            </td>
+                            <td class="px-4 py-2 text-red-600 font-semibold">
+                                False
+                            </td>
+                            <td class="px-4 py-2 font-mono truncate max-w-xs">
+                                sess_bot_9999
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <!-- Section 3: Human vs Bot -->
+            <div class="bg-white/70 backdrop-blur-sm shadow-md rounded-xl p-6 max-w-4xl mx-auto overflow-x-auto">
+                <h3 class="text-xl font-semibold text-gray-900 mb-4">
+                    Human vs Bot Sessions
+                </h3>
+                <table class="w-full text-sm divide-y divide-gray-200 font-mono">
+                    <thead>
+                        <tr>
+                            <th class="px-4 py-2 text-left font-semibold text-gray-700">
+                                Session ID
+                            </th>
+                            <th class="px-4 py-2 text-left font-semibold text-gray-700">
+                                User IP
+                            </th>
+                            <th class="px-4 py-2 text-left font-semibold text-gray-700">
+                                Is Bot
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-4 py-2 truncate max-w-xs">
+                                sess_1a2b3c4d
+                            </td>
+                            <td class="px-4 py-2 font-mono">
+                                192.168.1.101
+                            </td>
+                            <td class="px-4 py-2 text-green-600 font-semibold">
+                                No
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-4 py-2 truncate max-w-xs">
+                                sess_bot_1234
+                            </td>
+                            <td class="px-4 py-2 font-mono">
+                                66.249.66.1
+                            </td>
+                            <td class="px-4 py-2 text-red-600 font-semibold">
+                                Yes
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-4 py-2 truncate max-w-xs">
+                                sess_5e6f7g8h
+                            </td>
+                            <td class="px-4 py-2 font-mono">
+                                172.16.0.45
+                            </td>
+                            <td class="px-4 py-2 text-green-600 font-semibold">
+                                No
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-4 py-2 truncate max-w-xs">
+                                sess_bot_5678
+                            </td>
+                            <td class="px-4 py-2 font-mono">
+                                157.55.39.1
+                            </td>
+                            <td class="px-4 py-2 text-red-600 font-semibold">
+                                Yes
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <!-- Section 4: Page Load Table -->
+            <div class="bg-white/70 backdrop-blur-sm shadow-md rounded-xl p-6 max-w-4xl mx-auto overflow-x-auto">
+                <h3 class="text-xl font-semibold text-gray-900 mb-4">
+                    Page Load Times
+                </h3>
+                <table class="w-full text-sm divide-y divide-gray-200">
+                    <thead>
+                        <tr>
+                            <th class="px-4 py-2 text-left font-semibold text-gray-700">
+                                URL
+                            </th>
+                            <th class="px-4 py-2 text-left font-semibold text-gray-700">
+                                Load Time (ms)
+                            </th>
+                            <th class="px-4 py-2 text-left font-semibold text-gray-700">
+                                Duration (ms)
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-4 py-2 text-indigo-600 truncate max-w-xs">
+                                /home
+                            </td>
+                            <td class="px-4 py-2 font-semibold">
+                                1200
+                            </td>
+                            <td class="px-4 py-2 font-semibold">
+                                3500
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-4 py-2 text-indigo-600 truncate max-w-xs">
+                                /pricing
+                            </td>
+                            <td class="px-4 py-2 font-semibold">
+                                1500
+                            </td>
+                            <td class="px-4 py-2 font-semibold">
+                                4000
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-4 py-2 text-indigo-600 truncate max-w-xs">
+                                /dashboard
+                            </td>
+                            <td class="px-4 py-2 font-semibold">
+                                1000
+                            </td>
+                            <td class="px-4 py-2 font-semibold">
+                                3000
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <!-- Section 5: JS Error Rate -->
+            <div class="bg-white/70 backdrop-blur-sm shadow-md rounded-xl p-6 max-w-4xl mx-auto">
+                <h3 class="text-xl font-semibold text-gray-900 mb-4">
+                    JavaScript Error Rate (Last Week)
+                </h3>
+                <canvas class="w-full h-64" id="jsErrorChart">
+                </canvas>
+            </div>
+        </section>
+        <!-- 6. Settings / API -->
+        <section aria-label="Settings and API Keys" class="space-y-8" id="settings">
+            <h2 class="text-3xl font-semibold text-indigo-600">
+                Settings &amp; API
+            </h2>
+            <!-- Section 1: API Keys -->
+            <div class="bg-white/70 backdrop-blur-sm shadow-md rounded-xl p-6 max-w-4xl mx-auto overflow-x-auto">
+                <h3 class="text-xl font-semibold text-gray-900 mb-4">
+                    API Keys
+                </h3>
+                <table class="w-full text-sm divide-y divide-gray-200 font-mono">
+                    <thead>
+                        <tr>
+                            <th class="px-4 py-2 text-left font-semibold text-gray-700">
+                                Key
+                            </th>
+                            <th class="px-4 py-2 text-left font-semibold text-gray-700">
+                                Domain
+                            </th>
+                            <th class="px-4 py-2 text-left font-semibold text-gray-700">
+                                Active
+                            </th>
+                            <th class="px-4 py-2 text-left font-semibold text-gray-700">
+                                Created At
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-4 py-2 truncate max-w-xs">
+                                a1b2c3d4e5f6g7h8i9j0
+                            </td>
+                            <td class="px-4 py-2 text-indigo-600 truncate max-w-xs">
+                                example.com
+                            </td>
+                            <td class="px-4 py-2 text-green-600 font-semibold">
+                                Yes
+                            </td>
+                            <td class="px-4 py-2">
+                                2024-12-01
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-4 py-2 truncate max-w-xs">
+                                z9y8x7w6v5u4t3s2r1q0
+                            </td>
+                            <td class="px-4 py-2 text-indigo-600 truncate max-w-xs">
+                                anotherdomain.com
+                            </td>
+                            <td class="px-4 py-2 text-red-600 font-semibold">
+                                No
+                            </td>
+                            <td class="px-4 py-2">
+                                2024-11-15
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <!-- Section 2: Allowed Domains -->
+            <div class="bg-white/70 backdrop-blur-sm shadow-md rounded-xl p-6 max-w-4xl mx-auto">
+                <h3 class="text-xl font-semibold text-gray-900 mb-4">
+                    Allowed Domains
+                </h3>
+                <ul class="list-disc list-inside text-gray-700 space-y-1">
+                    <li>
+                        example.com
+                    </li>
+                    <li>
+                        anotherdomain.com
+                    </li>
+                    <li>
+                        mysite.org
+                    </li>
+                    <li>
+                        clientwebsite.net
+                    </li>
+                </ul>
+            </div>
+            <!-- Section 3: Embed Script -->
+            <div class="bg-white/70 backdrop-blur-sm shadow-md rounded-xl p-6 max-w-4xl mx-auto">
+                <h3 class="text-xl font-semibold text-gray-900 mb-4">
+                    Embed Script
+                </h3>
+                <pre class="bg-gray-100 rounded-lg p-4 overflow-x-auto text-xs font-mono text-indigo-700">
+&lt;script src="https://cdn.example.com/analytics.js?key=a1b2c3d4e5f6g7h8i9j0"&gt;&lt;/script&gt;
+        </pre>
+            </div>
+            <!-- Section 4: Retention Settings -->
+            <div class="bg-white/70 backdrop-blur-sm shadow-md rounded-xl p-6 max-w-4xl mx-auto">
+                <h3 class="text-xl font-semibold text-gray-900 mb-4">
+                    Retention Settings
+                </h3>
+                <form class="space-y-4 max-w-sm">
+                    <label class="block">
+                        <span class="text-gray-700 font-semibold">
+                            Data Retention Period (days)
+                        </span>
+                        <input
+                            class="mt-1 block w-full rounded-xl border border-gray-300 p-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                            max="365" min="1" type="number" value="90" />
+                    </label>
+                    <label class="block">
+                        <span class="text-gray-700 font-semibold">
+                            Anonymize IP Addresses
+                        </span>
+                        <select
+                            class="mt-1 block w-full rounded-xl border border-gray-300 p-2 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                            <option>
+                                Yes
+                            </option>
+                            <option selected="">
+                                No
+                            </option>
+                        </select>
+                    </label>
+                    <button
+                        class="bg-indigo-600 text-white px-4 py-2 rounded-xl font-semibold hover:bg-indigo-700 transition"
+                        type="submit">
+                        Save Settings
+                    </button>
+                </form>
+            </div>
+            <!-- Section 5: Privacy Options -->
+            <div class="bg-white/70 backdrop-blur-sm shadow-md rounded-xl p-6 max-w-4xl mx-auto">
+                <h3 class="text-xl font-semibold text-gray-900 mb-4">
+                    Privacy Options (JSON)
+                </h3>
+                <textarea
+                    class="w-full rounded-xl border border-gray-300 p-4 font-mono text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                    readonly="" rows="6">{
+  "trackIP": false,
+  "cookieConsent": true,
+  "dataSharing": false,
+  "sessionRecording": true
+}</textarea>
+            </div>
+        </section>
+        <!-- 7. Billing / Plans -->
+        <section aria-label="Billing and Plans" class="space-y-8" id="billing">
+            <h2 class="text-3xl font-semibold text-indigo-600">
+                Billing &amp; Plans
+            </h2>
+            <!-- Section 1: Current Plan -->
+            <div class="bg-white/70 backdrop-blur-sm shadow-md rounded-xl p-6 max-w-3xl mx-auto">
+                <h3 class="text-xl font-semibold text-gray-900 mb-4">
+                    Current Plan
+                </h3>
+                <div class="flex items-center space-x-6">
+                    <img alt="Current subscription plan icon with text Pro in blue" class="w-20 h-20 rounded-xl"
+                        height="80"
+                        src="https://storage.googleapis.com/a1aa/image/1cd1fce6-02d9-465e-b407-f2bc4c243591.jpg"
+                        width="80" />
+                    <div>
+                        <p class="text-2xl font-bold text-indigo-600">
+                            Pro Plan
+                        </p>
+                        <p class="text-gray-700">
+                            Up to 100,000 events per month
+                        </p>
+                        <p class="text-gray-500">
+                            Next billing date: 2025-08-01
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <!-- Section 2: Usage -->
+            <div class="bg-white/70 backdrop-blur-sm shadow-md rounded-xl p-6 max-w-4xl mx-auto overflow-x-auto">
+                <h3 class="text-xl font-semibold text-gray-900 mb-4">
+                    Usage (Events Count)
+                </h3>
+                <table class="w-full text-sm divide-y divide-gray-200 font-mono">
+                    <thead>
+                        <tr>
+                            <th class="px-4 py-2 text-left font-semibold text-gray-700">
+                                API Key
+                            </th>
+                            <th class="px-4 py-2 text-left font-semibold text-gray-700">
+                                Click Events
+                            </th>
+                            <th class="px-4 py-2 text-left font-semibold text-gray-700">
+                                Page Views
+                            </th>
+                            <th class="px-4 py-2 text-left font-semibold text-gray-700">
+                                Custom Events
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-4 py-2 truncate max-w-xs">
+                                a1b2c3d4e5f6g7h8i9j0
+                            </td>
+                            <td class="px-4 py-2 font-semibold">
+                                12,000
+                            </td>
+                            <td class="px-4 py-2 font-semibold">
+                                45,000
+                            </td>
+                            <td class="px-4 py-2 font-semibold">
+                                3,500
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-4 py-2 truncate max-w-xs">
+                                z9y8x7w6v5u4t3s2r1q0
+                            </td>
+                            <td class="px-4 py-2 font-semibold">
+                                5,000
+                            </td>
+                            <td class="px-4 py-2 font-semibold">
+                                20,000
+                            </td>
+                            <td class="px-4 py-2 font-semibold">
+                                1,200
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <!-- Section 3: Billing Table -->
+            <div class="bg-white/70 backdrop-blur-sm shadow-md rounded-xl p-6 max-w-4xl mx-auto overflow-x-auto">
+                <h3 class="text-xl font-semibold text-gray-900 mb-4">
+                    Billing History
+                </h3>
+                <table class="w-full text-sm divide-y divide-gray-200 font-mono">
+                    <thead>
+                        <tr>
+                            <th class="px-4 py-2 text-left font-semibold text-gray-700">
+                                Amount
+                            </th>
+                            <th class="px-4 py-2 text-left font-semibold text-gray-700">
+                                Date
+                            </th>
+                            <th class="px-4 py-2 text-left font-semibold text-gray-700">
+                                Status
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-4 py-2 font-semibold">
+                                $49.99
+                            </td>
+                            <td class="px-4 py-2">
+                                2025-07-01
+                            </td>
+                            <td class="px-4 py-2 text-green-600 font-semibold">
+                                Paid
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-4 py-2 font-semibold">
+                                $49.99
+                            </td>
+                            <td class="px-4 py-2">
+                                2025-06-01
+                            </td>
+                            <td class="px-4 py-2 text-green-600 font-semibold">
+                                Paid
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-4 py-2 font-semibold">
+                                $49.99
+                            </td>
+                            <td class="px-4 py-2">
+                                2025-05-01
+                            </td>
+                            <td class="px-4 py-2 text-green-600 font-semibold">
+                                Paid
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <!-- Section 4: Upgrade CTA -->
+            <div class="max-w-3xl mx-auto text-center">
+                <a class="inline-block bg-indigo-600 text-white px-6 py-3 rounded-xl font-semibold hover:bg-indigo-700 transition"
+                    href="/billing">
+                    Upgrade Plan
+                </a>
+            </div>
+            <!-- Section 5: Plan Comparison -->
+            <div class="bg-white/70 backdrop-blur-sm shadow-md rounded-xl p-6 max-w-5xl mx-auto overflow-x-auto">
+                <h3 class="text-xl font-semibold text-gray-900 mb-4">
+                    Plan Comparison
+                </h3>
+                <table class="w-full text-sm divide-y divide-gray-200 text-center">
+                    <thead>
+                        <tr class="bg-indigo-100">
+                            <th class="px-4 py-2 font-semibold text-gray-700">
+                                Feature
+                            </th>
+                            <th class="px-4 py-2 font-semibold text-gray-700">
+                                Free
+                            </th>
+                            <th class="px-4 py-2 font-semibold text-gray-700">
+                                Pro
+                            </th>
+                            <th class="px-4 py-2 font-semibold text-gray-700">
+                                Enterprise
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="hover:bg-indigo-50">
+                            <td class="px-4 py-2 font-semibold text-left">
+                                Monthly Events
+                            </td>
+                            <td class="px-4 py-2">
+                                10,000
+                            </td>
+                            <td class="px-4 py-2">
+                                100,000
+                            </td>
+                            <td class="px-4 py-2">
+                                Unlimited
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-indigo-50">
+                            <td class="px-4 py-2 font-semibold text-left">
+                                Custom Events
+                            </td>
+                            <td class="px-4 py-2">
+                                No
+                            </td>
+                            <td class="px-4 py-2">
+                                Yes
+                            </td>
+                            <td class="px-4 py-2">
+                                Yes
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-indigo-50">
+                            <td class="px-4 py-2 font-semibold text-left">
+                                API Access
+                            </td>
+                            <td class="px-4 py-2">
+                                Limited
+                            </td>
+                            <td class="px-4 py-2">
+                                Full
+                            </td>
+                            <td class="px-4 py-2">
+                                Full
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-indigo-50">
+                            <td class="px-4 py-2 font-semibold text-left">
+                                Support
+                            </td>
+                            <td class="px-4 py-2">
+                                Email
+                            </td>
+                            <td class="px-4 py-2">
+                                Priority Email
+                            </td>
+                            <td class="px-4 py-2">
+                                Dedicated Manager
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+        <!-- 8. Affiliate / Partnership -->
+        <section aria-label="Affiliate and Partnership" class="space-y-8" id="affiliate">
+            <h2 class="text-3xl font-semibold text-indigo-600">
+                Affiliate &amp; Partnership
+            </h2>
+            <!-- Section 1: Summary Cards -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto">
+                <div class="bg-white/70 backdrop-blur-sm shadow-md rounded-xl p-6 flex flex-col items-center">
+                    <i class="fas fa-link text-indigo-500 text-3xl mb-3">
+                    </i>
+                    <p class="text-gray-500 uppercase tracking-wide font-semibold mb-1">
+                        Referral Link
+                    </p>
+                    <p class="text-indigo-600 font-mono text-center break-all">
+                        https://app.example.com/ref/abc123
+                    </p>
+                </div>
+                <div class="bg-white/70 backdrop-blur-sm shadow-md rounded-xl p-6 flex flex-col items-center">
+                    <i class="fas fa-dollar-sign text-indigo-500 text-3xl mb-3">
+                    </i>
+                    <p class="text-gray-500 uppercase tracking-wide font-semibold mb-1">
+                        Total Commission
+                    </p>
+                    <p class="text-3xl font-bold text-gray-900">
+                        $1,250.00
+                    </p>
+                </div>
+                <div class="bg-white/70 backdrop-blur-sm shadow-md rounded-xl p-6 flex flex-col items-center">
+                    <i class="fas fa-calendar-alt text-indigo-500 text-3xl mb-3">
+                    </i>
+                    <p class="text-gray-500 uppercase tracking-wide font-semibold mb-1">
+                        Last Payout Date
+                    </p>
+                    <p class="text-2xl font-semibold text-gray-900">
+                        2025-06-25
+                    </p>
+                </div>
+                <div class="bg-white/70 backdrop-blur-sm shadow-md rounded-xl p-6 flex flex-col items-center">
+                    <i class="fas fa-users text-indigo-500 text-3xl mb-3">
+                    </i>
+                    <p class="text-gray-500 uppercase tracking-wide font-semibold mb-1">
+                        Referred Users
+                    </p>
+                    <p class="text-3xl font-bold text-gray-900">
+                        45
+                    </p>
+                </div>
+            </div>
+            <!-- Section 2: Referred Users -->
+            <div class="bg-white/70 backdrop-blur-sm shadow-md rounded-xl p-6 max-w-5xl mx-auto overflow-x-auto">
+                <h3 class="text-xl font-semibold text-gray-900 mb-4">
+                    Referred Users
+                </h3>
+                <table class="w-full text-sm divide-y divide-gray-200">
+                    <thead>
+                        <tr>
+                            <th class="px-4 py-2 text-left font-semibold text-gray-700">
+                                User ID
+                            </th>
+                            <th class="px-4 py-2 text-left font-semibold text-gray-700">
+                                Name
+                            </th>
+                            <th class="px-4 py-2 text-left font-semibold text-gray-700">
+                                Email
+                            </th>
+                            <th class="px-4 py-2 text-left font-semibold text-gray-700">
+                                Referred At
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-4 py-2 font-mono">
+                                user_001
+                            </td>
+                            <td class="px-4 py-2 text-indigo-600 truncate max-w-xs">
+                                Alice Johnson
+                            </td>
+                            <td class="px-4 py-2 truncate max-w-xs">
+                                alice@example.com
+                            </td>
+                            <td class="px-4 py-2">
+                                2025-05-15
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-4 py-2 font-mono">
+                                user_002
+                            </td>
+                            <td class="px-4 py-2 text-indigo-600 truncate max-w-xs">
+                                Bob Smith
+                            </td>
+                            <td class="px-4 py-2 truncate max-w-xs">
+                                bob@example.com
+                            </td>
+                            <td class="px-4 py-2">
+                                2025-06-01
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-4 py-2 font-mono">
+                                user_003
+                            </td>
+                            <td class="px-4 py-2 text-indigo-600 truncate max-w-xs">
+                                Carol Lee
+                            </td>
+                            <td class="px-4 py-2 truncate max-w-xs">
+                                carol@example.com
+                            </td>
+                            <td class="px-4 py-2">
+                                2025-06-20
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-4 py-2 font-mono">
+                                user_004
+                            </td>
+                            <td class="px-4 py-2 text-indigo-600 truncate max-w-xs">
+                                David Kim
+                            </td>
+                            <td class="px-4 py-2 truncate max-w-xs">
+                                david@example.com
+                            </td>
+                            <td class="px-4 py-2">
+                                2025-06-28
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-4 py-2 font-mono">
+                                user_005
+                            </td>
+                            <td class="px-4 py-2 text-indigo-600 truncate max-w-xs">
+                                Eva Martinez
+                            </td>
+                            <td class="px-4 py-2 truncate max-w-xs">
+                                eva@example.com
+                            </td>
+                            <td class="px-4 py-2">
+                                2025-07-01
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <!-- Section 3: Monthly Earnings -->
+            <div class="bg-white/70 backdrop-blur-sm shadow-md rounded-xl p-6 max-w-4xl mx-auto">
+                <h3 class="text-xl font-semibold text-gray-900 mb-4">
+                    Monthly Earnings
+                </h3>
+                <canvas class="w-full h-64" id="monthlyEarningsChart">
+                </canvas>
+            </div>
+            <!-- Section 4: Payout History -->
+            <div class="bg-white/70 backdrop-blur-sm shadow-md rounded-xl p-6 max-w-4xl mx-auto overflow-x-auto">
+                <h3 class="text-xl font-semibold text-gray-900 mb-4">
+                    Payout History
+                </h3>
+                <table class="w-full text-sm divide-y divide-gray-200 font-mono">
+                    <thead>
+                        <tr>
+                            <th class="px-4 py-2 text-left font-semibold text-gray-700">
+                                Payout ID
+                            </th>
+                            <th class="px-4 py-2 text-left font-semibold text-gray-700">
+                                Amount
+                            </th>
+                            <th class="px-4 py-2 text-left font-semibold text-gray-700">
+                                Date
+                            </th>
+                            <th class="px-4 py-2 text-left font-semibold text-gray-700">
+                                Status
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-4 py-2 font-mono">
+                                payout_001
+                            </td>
+                            <td class="px-4 py-2 font-semibold">
+                                $500.00
+                            </td>
+                            <td class="px-4 py-2">
+                                2025-06-25
+                            </td>
+                            <td class="px-4 py-2 text-green-600 font-semibold">
+                                Completed
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-4 py-2 font-mono">
+                                payout_002
+                            </td>
+                            <td class="px-4 py-2 font-semibold">
+                                $400.00
+                            </td>
+                            <td class="px-4 py-2">
+                                2025-05-25
+                            </td>
+                            <td class="px-4 py-2 text-green-600 font-semibold">
+                                Completed
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-4 py-2 font-mono">
+                                payout_003
+                            </td>
+                            <td class="px-4 py-2 font-semibold">
+                                $350.00
+                            </td>
+                            <td class="px-4 py-2">
+                                2025-04-25
+                            </td>
+                            <td class="px-4 py-2 text-green-600 font-semibold">
+                                Completed
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <!-- Section 5: Affiliate Guide -->
+            <div class="bg-white/70 backdrop-blur-sm shadow-md rounded-xl p-6 max-w-4xl mx-auto prose prose-indigo">
+                <h3>
+                    Affiliate Guide
+                </h3>
+                <p>
+                    Welcome to the affiliate program! Share your referral link to earn commissions on new signups.
+                    Use your dashboard to track referrals, commissions, and payouts. Promote via social media, blogs,
+                    or newsletters to maximize your earnings.
+                </p>
+                <p>
+                    For any questions, contact our support team or visit the FAQ section.
+                </p>
+            </div>
+        </section>
+    </main>
+    <footer class="bg-white border-t border-gray-200 py-6 text-center text-gray-500 text-sm select-none">
+        © 2025 Web Analytics SaaS. All rights reserved.
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js">
+    </script>
+    <script>
+        // Mobile menu toggle
+        const menuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        menuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Line Chart - Page Views Over Time
+        const lineCtx = document.getElementById('lineChart').getContext('2d');
+        const lineChart = new Chart(lineCtx, {
+            type: 'line',
+            data: {
+                labels: [
+                    '2025-07-01',
+                    '2025-07-02',
+                    '2025-07-03',
+                    '2025-07-04',
+                    '2025-07-05',
+                    '2025-07-06',
+                    '2025-07-07',
+                ],
+                datasets: [{
+                    label: 'Page Views',
+                    data: [350, 420, 390, 450, 480, 500, 520],
+                    borderColor: '#6366f1',
+                    backgroundColor: 'rgba(99, 102, 241, 0.2)',
+                    fill: true,
+                    tension: 0.3,
+                    pointRadius: 4,
+                    pointHoverRadius: 6,
+                    borderWidth: 3,
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: { display: false },
+                    tooltip: { mode: 'index', intersect: false }
+                },
+                scales: {
+                    x: {
+                        grid: { display: false },
+                        ticks: { color: '#6b7280' }
+                    },
+                    y: {
+                        beginAtZero: true,
+                        ticks: { color: '#6b7280' },
+                        grid: { color: '#e5e7eb' }
+                    }
+                }
+            }
+        });
+
+        // Pie Chart - Device Type Breakdown
+        const pieCtx = document.getElementById('pieChart').getContext('2d');
+        const pieChart = new Chart(pieCtx, {
+            type: 'pie',
+            data: {
+                labels: ['Desktop', 'Mobile', 'Tablet'],
+                datasets: [{
+                    data: [45, 50, 5],
+                    backgroundColor: ['#6366f1', '#3b82f6', '#a5b4fc'],
+                    borderWidth: 1,
+                    borderColor: '#ffffff'
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: { position: 'bottom', labels: { color: '#6b7280' } }
+                }
+            }
+        });
+
+        // Bar Chart - Page Views by Hour
+        const barCtx = document.getElementById('barChart').getContext('2d');
+        const barChart = new Chart(barCtx, {
+            type: 'bar',
+            data: {
+                labels: Array.from({ length: 24 }, (_, i) => i.toString()),
+                datasets: [{
+                    label: 'Views',
+                    data: [
+                        20, 15, 10, 5, 8, 12, 30, 50, 80, 120, 150, 180,
+                        200, 190, 170, 160, 140, 130, 110, 90, 70, 50, 40, 30
+                    ],
+                    backgroundColor: '#6366f1',
+                    borderRadius: 6,
+                    maxBarThickness: 24,
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: { display: false },
+                    tooltip: { mode: 'index', intersect: false }
+                },
+                scales: {
+                    x: {
+                        grid: { display: false },
+                        ticks: { color: '#6b7280' }
+                    },
+                    y: {
+                        beginAtZero: true,
+                        ticks: { color: '#6b7280' },
+                        grid: { color: '#e5e7eb' }
+                    }
+                }
+            }
+        });
+
+        // Funnel Chart - Drop-off
+        const funnelCtx = document.getElementById('funnelChart').getContext('2d');
+        const funnelChart = new Chart(funnelCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Step 1', 'Step 2', 'Step 3', 'Step 4', 'Step 5'],
+                datasets: [{
+                    label: 'Users',
+                    data: [1000, 800, 600, 400, 300],
+                    backgroundColor: '#3b82f6',
+                    borderRadius: 6,
+                    maxBarThickness: 40,
+                }]
+            },
+            options: {
+                indexAxis: 'y',
+                responsive: true,
+                plugins: {
+                    legend: { display: false },
+                    tooltip: { mode: 'nearest' }
+                },
+                scales: {
+                    x: {
+                        beginAtZero: true,
+                        ticks: { color: '#6b7280' },
+                        grid: { color: '#e5e7eb' }
+                    },
+                    y: {
+                        ticks: { color: '#6b7280' },
+                        grid: { display: false }
+                    }
+                }
+            }
+        });
+
+        // JS Error Rate Chart
+        const jsErrorCtx = document.getElementById('jsErrorChart').getContext('2d');
+        const jsErrorChart = new Chart(jsErrorCtx, {
+            type: 'line',
+            data: {
+                labels: [
+                    '2025-06-25',
+                    '2025-06-26',
+                    '2025-06-27',
+                    '2025-06-28',
+                    '2025-06-29',
+                    '2025-06-30',
+                    '2025-07-01',
+                ],
+                datasets: [{
+                    label: 'JS Errors',
+                    data: [5, 7, 3, 8, 6, 4, 9],
+                    borderColor: '#ef4444',
+                    backgroundColor: 'rgba(239, 68, 68, 0.2)',
+                    fill: true,
+                    tension: 0.3,
+                    pointRadius: 4,
+                    pointHoverRadius: 6,
+                    borderWidth: 3,
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: { display: false },
+                    tooltip: { mode: 'index', intersect: false }
+                },
+                scales: {
+                    x: {
+                        grid: { display: false },
+                        ticks: { color: '#6b7280' }
+                    },
+                    y: {
+                        beginAtZero: true,
+                        ticks: { color: '#6b7280' },
+                        grid: { color: '#e5e7eb' }
+                    }
+                }
+            }
+        });
+
+        // Monthly Earnings Chart
+        const monthlyEarningsCtx = document.getElementById('monthlyEarningsChart').getContext('2d');
+        const monthlyEarningsChart = new Chart(monthlyEarningsCtx, {
+            type: 'bar',
+            data: {
+                labels: [
+                    'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'
+                ],
+                datasets: [{
+                    label: 'Earnings ($)',
+                    data: [200, 400, 350, 500, 600, 700, 1250],
+                    backgroundColor: '#6366f1',
+                    borderRadius: 6,
+                    maxBarThickness: 40,
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: { display: false },
+                    tooltip: { mode: 'index', intersect: false }
+                },
+                scales: {
+                    x: {
+                        grid: { display: false },
+                        ticks: { color: '#6b7280' }
+                    },
+                    y: {
+                        beginAtZero: true,
+                        ticks: { color: '#6b7280' },
+                        grid: { color: '#e5e7eb' }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

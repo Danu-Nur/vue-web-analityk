@@ -1,7 +1,7 @@
 <template>
     <div class="overflow-x-auto">
         <table class="w-full border-collapse table-auto text-xs text-gray-700">
-            <thead class="bg-gray-100 text-gray-600 font-semibold select-none">
+            <thead class="border-b bg-gray-50 text-gray-600 font-semibold select-none">
                 <tr>
                     <th v-for="(header, index) in headers" :key="header.value" :class="[
                         index === headers.length - 1 && header.text === '24h Visitors' ? 'text-center' : 'text-left',

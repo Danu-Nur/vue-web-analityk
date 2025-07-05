@@ -1,0 +1,1017 @@
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <title>
+        API Keys - Dashboard
+    </title>
+    <script src="https://cdn.tailwindcss.com">
+    </script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&amp;display=swap" rel="stylesheet" />
+    <style>
+        body {
+            font-family: "Inter", sans-serif;
+        }
+    </style>
+</head>
+
+<body class="bg-white text-gray-700 text-[13px] leading-[18px]">
+    <div class="flex min-h-screen">
+        <!-- Sidebar -->
+        <aside aria-label="Sidebar"
+            class="flex flex-col items-center w-14 border-r border-gray-200 pt-4 pb-6 space-y-6">
+            <button aria-label="Collapse sidebar"
+                class="flex items-center justify-center w-8 h-8 rounded bg-red-600 hover:bg-red-700 transition"
+                type="button">
+                <img alt="Logo A letter in red square" class="w-4 h-4" draggable="false" height="16"
+                    src="https://storage.googleapis.com/a1aa/image/d5ca29dc-6d67-44fe-2794-8f0da653fec8.jpg"
+                    width="16" />
+            </button>
+            <nav class="flex flex-col space-y-6 text-gray-400 text-xl">
+                <button aria-label="Dashboard" class="hover:text-red-600 transition" type="button">
+                    <i class="fas fa-th-large">
+                    </i>
+                </button>
+                <button aria-label="Orders" class="hover:text-red-600 transition" type="button">
+                    <i class="fas fa-bars">
+                    </i>
+                </button>
+                <button aria-label="Settings" class="hover:text-red-600 transition" type="button">
+                    <i class="fas fa-cog">
+                    </i>
+                </button>
+                <button aria-label="Users" class="hover:text-red-600 transition" type="button">
+                    <i class="fas fa-users">
+                    </i>
+                </button>
+                <button aria-label="Analytics" class="hover:text-red-600 transition" type="button">
+                    <i class="fas fa-chart-line">
+                    </i>
+                </button>
+                <button aria-label="API" class="hover:text-red-600 transition" type="button">
+                    <i class="fas fa-plug">
+                    </i>
+                </button>
+                <button aria-label="Support" class="hover:text-red-600 transition" type="button">
+                    <i class="fas fa-headset">
+                    </i>
+                </button>
+                <button aria-label="Billing" class="hover:text-red-600 transition" type="button">
+                    <i class="fas fa-file-invoice-dollar">
+                    </i>
+                </button>
+            </nav>
+        </aside>
+        <!-- Main content -->
+        <div class="flex-1 flex flex-col min-h-screen">
+            <!-- Top bar -->
+            <header class="flex items-center justify-between border-b border-gray-200 px-6 py-3">
+                <nav class="flex items-center space-x-1 text-[11px] text-gray-500 font-semibold">
+                    <a class="hover:underline" href="#">
+                        My Account
+                    </a>
+                    <span>
+                        &gt;
+                    </span>
+                    <span class="text-gray-900 font-bold">
+                        API Keys
+                    </span>
+                </nav>
+                <div class="flex items-center space-x-6">
+                    <button aria-label="Search" class="text-gray-400 hover:text-gray-600 transition text-lg"
+                        type="button">
+                        <i class="fas fa-search">
+                        </i>
+                    </button>
+                    <button aria-label="Notifications"
+                        class="text-gray-400 hover:text-gray-600 transition text-lg relative" type="button">
+                        <i class="fas fa-bell">
+                        </i>
+                    </button>
+                    <button aria-label="Apps" class="text-gray-400 hover:text-gray-600 transition text-lg"
+                        type="button">
+                        <i class="fas fa-th">
+                        </i>
+                    </button>
+                    <button aria-label="Settings" class="text-gray-400 hover:text-gray-600 transition text-lg"
+                        type="button">
+                        <i class="fas fa-cog">
+                        </i>
+                    </button>
+                    <img alt="User avatar with short hair and green background" class="w-8 h-8 rounded-full"
+                        draggable="false" height="32"
+                        src="https://storage.googleapis.com/a1aa/image/afcd5640-8aac-440a-fd10-4030b7655541.jpg"
+                        width="32" />
+                </div>
+            </header>
+            <!-- Sub navigation -->
+            <nav
+                class="flex items-center space-x-6 border-b border-gray-200 px-6 text-[11px] font-semibold text-gray-600">
+                <div class="relative group">
+                    <button aria-expanded="false" class="flex items-center space-x-1 hover:text-gray-900" type="button">
+                        <span>
+                            Account Home
+                        </span>
+                        <i class="fas fa-chevron-down text-[9px]">
+                        </i>
+                    </button>
+                    <div
+                        class="absolute left-0 top-full mt-1 w-36 bg-white border border-gray-200 rounded shadow-md opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-opacity text-xs z-10">
+                        <a class="block px-3 py-2 hover:bg-gray-50 border-b border-gray-100" href="#">
+                            Overview
+                        </a>
+                        <a class="block px-3 py-2 hover:bg-gray-50 border-b border-gray-100" href="#">
+                            Settings
+                        </a>
+                        <a class="block px-3 py-2 hover:bg-gray-50" href="#">
+                            Profile
+                        </a>
+                    </div>
+                </div>
+                <div class="relative group">
+                    <button aria-expanded="false" class="flex items-center space-x-1 hover:text-gray-900" type="button">
+                        <span>
+                            Billing
+                        </span>
+                        <i class="fas fa-chevron-down text-[9px]">
+                        </i>
+                    </button>
+                    <div
+                        class="absolute left-0 top-full mt-1 w-36 bg-white border border-gray-200 rounded shadow-md opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-opacity text-xs z-10">
+                        <a class="block px-3 py-2 hover:bg-gray-50 border-b border-gray-100" href="#">
+                            Invoices
+                        </a>
+                        <a class="block px-3 py-2 hover:bg-gray-50 border-b border-gray-100" href="#">
+                            Payment Methods
+                        </a>
+                        <a class="block px-3 py-2 hover:bg-gray-50" href="#">
+                            History
+                        </a>
+                    </div>
+                </div>
+                <div class="relative group">
+                    <button aria-expanded="false" class="flex items-center space-x-1 hover:text-gray-900" type="button">
+                        <span>
+                            Security
+                        </span>
+                        <i class="fas fa-chevron-down text-[9px]">
+                        </i>
+                    </button>
+                    <div
+                        class="absolute left-0 top-full mt-1 w-36 bg-white border border-gray-200 rounded shadow-md opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-opacity text-xs z-10">
+                        <a class="block px-3 py-2 hover:bg-gray-50 border-b border-gray-100" href="#">
+                            Passwords
+                        </a>
+                        <a class="block px-3 py-2 hover:bg-gray-50 border-b border-gray-100" href="#">
+                            Two-Factor Auth
+                        </a>
+                        <a class="block px-3 py-2 hover:bg-gray-50" href="#">
+                            Sessions
+                        </a>
+                    </div>
+                </div>
+                <a class="hover:text-gray-900 font-semibold text-[11px] text-gray-700" href="#">
+                    Members &amp; Roles
+                </a>
+                <a class="hover:text-gray-900 font-semibold text-[11px] text-gray-700" href="#">
+                    Integrations
+                </a>
+                <a class="hover:text-gray-900 font-semibold text-[11px] text-gray-700" href="#">
+                    Notifications
+                </a>
+                <a class="hover:text-blue-600 font-semibold text-[11px] text-blue-600 border-b-2 border-blue-600 pb-3"
+                    href="#">
+                    API Keys
+                </a>
+                <div class="relative group">
+                    <button aria-expanded="false" class="flex items-center space-x-1 hover:text-gray-900" type="button">
+                        <span>
+                            More
+                        </span>
+                        <i class="fas fa-chevron-down text-[9px]">
+                        </i>
+                    </button>
+                    <div
+                        class="absolute left-0 top-full mt-1 w-36 bg-white border border-gray-200 rounded shadow-md opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-opacity text-xs z-10">
+                        <a class="block px-3 py-2 hover:bg-gray-50 border-b border-gray-100" href="#">
+                            Logs
+                        </a>
+                        <a class="block px-3 py-2 hover:bg-gray-50" href="#">
+                            Settings
+                        </a>
+                    </div>
+                </div>
+            </nav>
+            <!-- Content area -->
+            <main class="flex-1 overflow-y-auto p-6 max-w-7xl mx-auto">
+                <section class="mb-6">
+                    <h1 class="text-sm font-bold text-gray-900 mb-0.5">
+                        API Settings
+                    </h1>
+                    <p class="text-[10px] text-gray-500 font-normal">
+                        Central Hub for Personal Customization
+                    </p>
+                </section>
+                <div class="flex flex-col lg:flex-row lg:space-x-6">
+                    <!-- Left main content -->
+                    <div class="flex-1 space-y-6 max-w-4xl">
+                        <!-- Public API Key card -->
+                        <section class="border border-gray-200 rounded-md p-4 space-y-4 max-w-full">
+                            <header class="flex justify-between items-center text-[11px] font-semibold text-gray-700">
+                                <span>
+                                    Public API Key
+                                </span>
+                                <label class="inline-flex relative items-center cursor-pointer" for="publish-toggle">
+                                    <input class="sr-only peer" id="publish-toggle" type="checkbox" value="" />
+                                    <div
+                                        class="w-9 h-5 bg-gray-200 rounded-full peer peer-checked:bg-gray-400 peer-focus:ring-2 peer-focus:ring-blue-300 relative">
+                                    </div>
+                                    <div
+                                        class="absolute left-[2px] top-[2px] bg-white w-4 h-4 rounded-full transition-transform peer-checked:translate-x-[16px]">
+                                    </div>
+                                </label>
+                            </header>
+                            <div class="flex flex-col space-y-2">
+                                <label class="text-[10px] font-normal text-gray-500" for="api-key">
+                                    API Key
+                                </label>
+                                <div class="flex items-center space-x-2">
+                                    <input
+                                        class="flex-1 text-[11px] font-mono text-gray-600 bg-gray-50 border border-gray-200 rounded px-2 py-1 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                                        id="api-key" readonly="" type="text" value="abc123xyz456sample789key000" />
+                                    <button aria-label="Copy API key"
+                                        class="text-gray-400 hover:text-gray-600 transition text-xs" type="button">
+                                        <i class="fas fa-copy">
+                                        </i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div
+                                class="flex items-center justify-between bg-gray-50 border border-gray-200 rounded px-3 py-2">
+                                <div class="flex items-center space-x-3 max-w-[280px]">
+                                    <div
+                                        class="flex items-center justify-center w-7 h-7 rounded-full border border-blue-300 text-blue-600">
+                                        <i class="fas fa-lock text-xs">
+                                        </i>
+                                    </div>
+                                    <div class="text-[10px] text-gray-600 leading-[12px]">
+                                        <p class="font-semibold text-gray-900 mb-0.5">
+                                            User Access
+                                            <span
+                                                class="ml-2 inline-block bg-gray-200 text-gray-600 text-[9px] font-normal rounded px-1 py-[1px]">
+                                                16 days left
+                                            </span>
+                                        </p>
+                                        <p class="text-[9px]">
+                                            This API key can only access
+                                            <a class="text-blue-600 hover:underline font-semibold" href="#">
+                                                @keenthemes
+                                            </a>
+                                            Secure access with a unique API key for enhanced
+                                            functionality.
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="flex items-center space-x-2 text-[9px]">
+                                    <button class="bg-black text-white rounded px-2 py-1 font-semibold" type="button">
+                                        Renew Plan
+                                    </button>
+                                    <button class="text-gray-600 hover:text-gray-900 font-semibold" type="button">
+                                        Docs
+                                    </button>
+                                </div>
+                            </div>
+                            <p class="text-[9px] text-gray-600 leading-[12px] mt-2">
+                                Unlock the full potential of your application with our API, a
+                                secure gateway facilitating seamless integration, empowering
+                                developers to create innovative and dynamic experiences
+                                effortlessly.
+                            </p>
+                        </section>
+                        <!-- API Integrations table -->
+                        <section class="border border-gray-200 rounded-md p-4 max-w-full overflow-x-auto">
+                            <header
+                                class="flex justify-between items-center text-[11px] font-semibold text-gray-700 mb-3">
+                                <span>
+                                    API Integrations
+                                </span>
+                                <div class="flex items-center space-x-3 text-[11px]">
+                                    <button class="text-blue-600 bg-blue-100 rounded px-2 py-1 text-xs font-semibold"
+                                        type="button">
+                                        Add New
+                                    </button>
+                                    <label class="inline-flex relative items-center cursor-pointer" for="pause-all">
+                                        <input checked="" class="sr-only peer" id="pause-all" type="checkbox"
+                                            value="" />
+                                        <div
+                                            class="w-9 h-5 bg-blue-600 rounded-full peer-focus:ring-2 peer-focus:ring-blue-300 relative">
+                                        </div>
+                                        <div
+                                            class="absolute left-[2px] top-[2px] bg-white w-4 h-4 rounded-full transition-transform peer-checked:translate-x-[16px]">
+                                        </div>
+                                    </label>
+                                    <span class="text-[10px] text-gray-600 font-normal">
+                                        Pause all
+                                    </span>
+                                </div>
+                            </header>
+                            <table class="w-full text-[11px] text-gray-600 border-collapse">
+                                <thead>
+                                    <tr class="border-b border-gray-200 text-left text-gray-500">
+                                        <th class="w-6 pl-1">
+                                            <input aria-label="Select all" type="checkbox" />
+                                        </th>
+                                        <th class="py-2 pr-4">
+                                            Integration
+                                        </th>
+                                        <th class="py-2 pr-4">
+                                            API Key
+                                        </th>
+                                        <th class="py-2 pr-4 text-right">
+                                            Daily Calls
+                                        </th>
+                                        <th class="py-2 pr-4 text-center">
+                                            Status
+                                        </th>
+                                        <th class="py-2 pr-4 text-center w-6">
+                                            <i class="fas fa-clock text-gray-300">
+                                            </i>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="border-b border-gray-100 hover:bg-gray-50">
+                                        <td class="pl-1">
+                                            <input aria-label="Select Quick Pay Service" type="checkbox" />
+                                        </td>
+                                        <td class="py-2 pr-4 text-gray-700 font-semibold">
+                                            Quick Pay Service
+                                        </td>
+                                        <td class="py-2 pr-4 font-mono text-[10px]">
+                                            a1b2Xc3dY4ZxQvPIQp
+                                            <button aria-label="Copy API key for Quick Pay Service"
+                                                class="text-gray-400 hover:text-gray-600 ml-1" type="button">
+                                                <i class="fas fa-copy text-xs">
+                                                </i>
+                                            </button>
+                                        </td>
+                                        <td class="py-2 pr-4 text-right">
+                                            10,000
+                                        </td>
+                                        <td class="py-2 pr-4 text-center">
+                                            <label class="inline-flex relative items-center cursor-pointer"
+                                                for="status-1">
+                                                <input checked="" class="sr-only peer" id="status-1" type="checkbox" />
+                                                <div
+                                                    class="w-9 h-5 bg-blue-600 rounded-full peer-focus:ring-2 peer-focus:ring-blue-300 relative">
+                                                </div>
+                                                <div
+                                                    class="absolute left-[2px] top-[2px] bg-white w-4 h-4 rounded-full transition-transform peer-checked:translate-x-[16px]">
+                                                </div>
+                                            </label>
+                                        </td>
+                                        <td class="py-2 pr-4 text-center text-gray-300">
+                                            <i class="fas fa-clock">
+                                            </i>
+                                        </td>
+                                    </tr>
+                                    <tr class="border-b border-gray-100 hover:bg-gray-50">
+                                        <td class="pl-1">
+                                            <input aria-label="Select User Auth System" type="checkbox" />
+                                        </td>
+                                        <td class="py-2 pr-4 text-gray-700 font-semibold">
+                                            User Auth System
+                                        </td>
+                                        <td class="py-2 pr-4 font-mono text-[10px]">
+                                            f6g7Z8h9R0TfUaSdTf
+                                            <button aria-label="Copy API key for User Auth System"
+                                                class="text-gray-400 hover:text-gray-600 ml-1" type="button">
+                                                <i class="fas fa-copy text-xs">
+                                                </i>
+                                            </button>
+                                        </td>
+                                        <td class="py-2 pr-4 text-right">
+                                            15,000
+                                        </td>
+                                        <td class="py-2 pr-4 text-center">
+                                            <label class="inline-flex relative items-center cursor-pointer"
+                                                for="status-2">
+                                                <input class="sr-only peer" id="status-2" type="checkbox" />
+                                                <div
+                                                    class="w-9 h-5 bg-gray-200 rounded-full peer-focus:ring-2 peer-focus:ring-blue-300 relative">
+                                                </div>
+                                                <div
+                                                    class="absolute left-[2px] top-[2px] bg-white w-4 h-4 rounded-full transition-transform peer-checked:translate-x-[16px]">
+                                                </div>
+                                            </label>
+                                        </td>
+                                        <td class="py-2 pr-4 text-center text-gray-300">
+                                            <i class="fas fa-clock">
+                                            </i>
+                                        </td>
+                                    </tr>
+                                    <tr class="border-b border-gray-100 hover:bg-gray-50">
+                                        <td class="pl-1">
+                                            <input aria-label="Select Data Analytics" type="checkbox" />
+                                        </td>
+                                        <td class="py-2 pr-4 text-gray-700 font-semibold">
+                                            Data Analytics
+                                        </td>
+                                        <td class="py-2 pr-4 font-mono text-[10px]">
+                                            k1V2m3N4L5CvPbDvDa
+                                            <button aria-label="Copy API key for Data Analytics"
+                                                class="text-gray-400 hover:text-gray-600 ml-1" type="button">
+                                                <i class="fas fa-copy text-xs">
+                                                </i>
+                                            </button>
+                                        </td>
+                                        <td class="py-2 pr-4 text-right">
+                                            5,000
+                                        </td>
+                                        <td class="py-2 pr-4 text-center">
+                                            <label class="inline-flex relative items-center cursor-pointer"
+                                                for="status-3">
+                                                <input class="sr-only peer" id="status-3" type="checkbox" />
+                                                <div
+                                                    class="w-9 h-5 bg-gray-200 rounded-full peer-focus:ring-2 peer-focus:ring-blue-300 relative">
+                                                </div>
+                                                <div
+                                                    class="absolute left-[2px] top-[2px] bg-white w-4 h-4 rounded-full transition-transform peer-checked:translate-x-[16px]">
+                                                </div>
+                                            </label>
+                                        </td>
+                                        <td class="py-2 pr-4 text-center text-gray-300">
+                                            <i class="fas fa-clock">
+                                            </i>
+                                        </td>
+                                    </tr>
+                                    <tr class="border-b border-gray-100 hover:bg-gray-50">
+                                        <td class="pl-1">
+                                            <input aria-label="Select CRM Connector" type="checkbox" />
+                                        </td>
+                                        <td class="py-2 pr-4 text-gray-700 font-semibold">
+                                            CRM Connector
+                                        </td>
+                                        <td class="py-2 pr-4 font-mono text-[10px]">
+                                            p6qM7rS8tK9BhNjJcC8
+                                            <button aria-label="Copy API key for CRM Connector"
+                                                class="text-gray-400 hover:text-gray-600 ml-1" type="button">
+                                                <i class="fas fa-copy text-xs">
+                                                </i>
+                                            </button>
+                                        </td>
+                                        <td class="py-2 pr-4 text-right">
+                                            8,000
+                                        </td>
+                                        <td class="py-2 pr-4 text-center">
+                                            <label class="inline-flex relative items-center cursor-pointer"
+                                                for="status-4">
+                                                <input class="sr-only peer" id="status-4" type="checkbox" />
+                                                <div
+                                                    class="w-9 h-5 bg-gray-200 rounded-full peer-focus:ring-2 peer-focus:ring-blue-300 relative">
+                                                </div>
+                                                <div
+                                                    class="absolute left-[2px] top-[2px] bg-white w-4 h-4 rounded-full transition-transform peer-checked:translate-x-[16px]">
+                                                </div>
+                                            </label>
+                                        </td>
+                                        <td class="py-2 pr-4 text-center text-gray-300">
+                                            <i class="fas fa-clock">
+                                            </i>
+                                        </td>
+                                    </tr>
+                                    <tr class="border-b border-gray-100 hover:bg-gray-50">
+                                        <td class="pl-1">
+                                            <input aria-label="Select Inventory Manager" type="checkbox" />
+                                        </td>
+                                        <td class="py-2 pr-4 text-gray-700 font-semibold">
+                                            Inventory Manager
+                                        </td>
+                                        <td class="py-2 pr-4 font-mono text-[10px]">
+                                            u1vP2wF3xJ4KlYNlIM
+                                            <button aria-label="Copy API key for Inventory Manager"
+                                                class="text-gray-400 hover:text-gray-600 ml-1" type="button">
+                                                <i class="fas fa-copy text-xs">
+                                                </i>
+                                            </button>
+                                        </td>
+                                        <td class="py-2 pr-4 text-right">
+                                            12,000
+                                        </td>
+                                        <td class="py-2 pr-4 text-center">
+                                            <label class="inline-flex relative items-center cursor-pointer"
+                                                for="status-5">
+                                                <input checked="" class="sr-only peer" id="status-5" type="checkbox" />
+                                                <div
+                                                    class="w-9 h-5 bg-blue-600 rounded-full peer-focus:ring-2 peer-focus:ring-blue-300 relative">
+                                                </div>
+                                                <div
+                                                    class="absolute left-[2px] top-[2px] bg-white w-4 h-4 rounded-full transition-transform peer-checked:translate-x-[16px]">
+                                                </div>
+                                            </label>
+                                        </td>
+                                        <td class="py-2 pr-4 text-center text-gray-300">
+                                            <i class="fas fa-clock">
+                                            </i>
+                                        </td>
+                                    </tr>
+                                    <tr class="border-b border-gray-100 hover:bg-gray-50">
+                                        <td class="pl-1">
+                                            <input aria-label="Select Inventory Manager" type="checkbox" />
+                                        </td>
+                                        <td class="py-2 pr-4 text-gray-700 font-semibold">
+                                            Inventory Manager
+                                        </td>
+                                        <td class="py-2 pr-4 font-mono text-[10px]">
+                                            z6G7bT8cQ9WxEcEdS
+                                            <button aria-label="Copy API key for Inventory Manager"
+                                                class="text-gray-400 hover:text-gray-600 ml-1" type="button">
+                                                <i class="fas fa-copy text-xs">
+                                                </i>
+                                            </button>
+                                        </td>
+                                        <td class="py-2 pr-4 text-right">
+                                            20,000
+                                        </td>
+                                        <td class="py-2 pr-4 text-center">
+                                            <label class="inline-flex relative items-center cursor-pointer"
+                                                for="status-6">
+                                                <input checked="" class="sr-only peer" id="status-6" type="checkbox" />
+                                                <div
+                                                    class="w-9 h-5 bg-blue-600 rounded-full peer-focus:ring-2 peer-focus:ring-blue-300 relative">
+                                                </div>
+                                                <div
+                                                    class="absolute left-[2px] top-[2px] bg-white w-4 h-4 rounded-full transition-transform peer-checked:translate-x-[16px]">
+                                                </div>
+                                            </label>
+                                        </td>
+                                        <td class="py-2 pr-4 text-center text-gray-300">
+                                            <i class="fas fa-clock">
+                                            </i>
+                                        </td>
+                                    </tr>
+                                    <tr class="border-b border-gray-100 hover:bg-gray-50">
+                                        <td class="pl-1">
+                                            <input aria-label="Select Order Tracking Sys" type="checkbox" />
+                                        </td>
+                                        <td class="py-2 pr-4 text-gray-700 font-semibold">
+                                            Order Tracking Sys
+                                        </td>
+                                        <td class="py-2 pr-4 font-mono text-[10px]">
+                                            e1E2g3H4B4iYtUvOtS
+                                            <button aria-label="Copy API key for Order Tracking Sys"
+                                                class="text-gray-400 hover:text-gray-600 ml-1" type="button">
+                                                <i class="fas fa-copy text-xs">
+                                                </i>
+                                            </button>
+                                        </td>
+                                        <td class="py-2 pr-4 text-right">
+                                            9,500
+                                        </td>
+                                        <td class="py-2 pr-4 text-center">
+                                            <label class="inline-flex relative items-center cursor-pointer"
+                                                for="status-7">
+                                                <input class="sr-only peer" id="status-7" type="checkbox" />
+                                                <div
+                                                    class="w-9 h-5 bg-gray-200 rounded-full peer-focus:ring-2 peer-focus:ring-blue-300 relative">
+                                                </div>
+                                                <div
+                                                    class="absolute left-[2px] top-[2px] bg-white w-4 h-4 rounded-full transition-transform peer-checked:translate-x-[16px]">
+                                                </div>
+                                            </label>
+                                        </td>
+                                        <td class="py-2 pr-4 text-center text-gray-300">
+                                            <i class="fas fa-clock">
+                                            </i>
+                                        </td>
+                                    </tr>
+                                    <tr class="border-b border-gray-100 hover:bg-gray-50">
+                                        <td class="pl-1">
+                                            <input aria-label="Select Feedback Loop" type="checkbox" />
+                                        </td>
+                                        <td class="py-2 pr-4 text-gray-700 font-semibold">
+                                            Feedback Loop
+                                        </td>
+                                        <td class="py-2 pr-4 font-mono text-[10px]">
+                                            j6k7I8m9n0QaWsFlFb
+                                            <button aria-label="Copy API key for Feedback Loop"
+                                                class="text-gray-400 hover:text-gray-600 ml-1" type="button">
+                                                <i class="fas fa-copy text-xs">
+                                                </i>
+                                            </button>
+                                        </td>
+                                        <td class="py-2 pr-4 text-right">
+                                            7,000
+                                        </td>
+                                        <td class="py-2 pr-4 text-center">
+                                            <label class="inline-flex relative items-center cursor-pointer"
+                                                for="status-8">
+                                                <input checked="" class="sr-only peer" id="status-8" type="checkbox" />
+                                                <div
+                                                    class="w-9 h-5 bg-blue-600 rounded-full peer-focus:ring-2 peer-focus:ring-blue-300 relative">
+                                                </div>
+                                                <div
+                                                    class="absolute left-[2px] top-[2px] bg-white w-4 h-4 rounded-full transition-transform peer-checked:translate-x-[16px]">
+                                                </div>
+                                            </label>
+                                        </td>
+                                        <td class="py-2 pr-4 text-center text-gray-300">
+                                            <i class="fas fa-clock">
+                                            </i>
+                                        </td>
+                                    </tr>
+                                    <tr class="border-b border-gray-100 hover:bg-gray-50">
+                                        <td class="pl-1">
+                                            <input aria-label="Select Payment Gateway" type="checkbox" />
+                                        </td>
+                                        <td class="py-2 pr-4 text-gray-700 font-semibold">
+                                            Payment Gateway
+                                        </td>
+                                        <td class="py-2 pr-4 font-mono text-[10px]">
+                                            1p2q3r4s5DfGhPgPv
+                                            <button aria-label="Copy API key for Payment Gateway"
+                                                class="text-gray-400 hover:text-gray-600 ml-1" type="button">
+                                                <i class="fas fa-copy text-xs">
+                                                </i>
+                                            </button>
+                                        </td>
+                                        <td class="py-2 pr-4 text-right">
+                                            25,000
+                                        </td>
+                                        <td class="py-2 pr-4 text-center">
+                                            <label class="inline-flex relative items-center cursor-pointer"
+                                                for="status-9">
+                                                <input class="sr-only peer" id="status-9" type="checkbox" />
+                                                <div
+                                                    class="w-9 h-5 bg-gray-200 rounded-full peer-focus:ring-2 peer-focus:ring-blue-300 relative">
+                                                </div>
+                                                <div
+                                                    class="absolute left-[2px] top-[2px] bg-white w-4 h-4 rounded-full transition-transform peer-checked:translate-x-[16px]">
+                                                </div>
+                                            </label>
+                                        </td>
+                                        <td class="py-2 pr-4 text-center text-gray-300">
+                                            <i class="fas fa-clock">
+                                            </i>
+                                        </td>
+                                    </tr>
+                                    <tr class="hover:bg-gray-50">
+                                        <td class="pl-1">
+                                            <input aria-label="Select Shipping Coordinator" type="checkbox" />
+                                        </td>
+                                        <td class="py-2 pr-4 text-gray-700 font-semibold">
+                                            Shipping Coordinator
+                                        </td>
+                                        <td class="py-2 pr-4 font-mono text-[10px]">
+                                            t6u7v8w9x0CvBnNlSc
+                                            <button aria-label="Copy API key for Shipping Coordinator"
+                                                class="text-gray-400 hover:text-gray-600 ml-1" type="button">
+                                                <i class="fas fa-copy text-xs">
+                                                </i>
+                                            </button>
+                                        </td>
+                                        <td class="py-2 pr-4 text-right">
+                                            14,000
+                                        </td>
+                                        <td class="py-2 pr-4 text-center">
+                                            <label class="inline-flex relative items-center cursor-pointer"
+                                                for="status-10">
+                                                <input checked="" class="sr-only peer" id="status-10" type="checkbox" />
+                                                <div
+                                                    class="w-9 h-5 bg-blue-600 rounded-full peer-focus:ring-2 peer-focus:ring-blue-300 relative">
+                                                </div>
+                                                <div
+                                                    class="absolute left-[2px] top-[2px] bg-white w-4 h-4 rounded-full transition-transform peer-checked:translate-x-[16px]">
+                                                </div>
+                                            </label>
+                                        </td>
+                                        <td class="py-2 pr-4 text-center text-gray-300">
+                                            <i class="fas fa-clock">
+                                            </i>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div class="flex items-center justify-between text-[10px] text-gray-500 mt-4">
+                                <div class="flex items-center space-x-1">
+                                    <span>
+                                        Show
+                                    </span>
+                                    <select aria-label="Rows per page"
+                                        class="border border-gray-300 rounded px-1 py-0.5 text-xs focus:outline-none focus:ring-1 focus:ring-blue-500">
+                                        <option>
+                                            10
+                                        </option>
+                                        <option>
+                                            25
+                                        </option>
+                                        <option>
+                                            50
+                                        </option>
+                                    </select>
+                                    <span>
+                                        per page
+                                    </span>
+                                </div>
+                                <div class="flex items-center space-x-2">
+                                    <span>
+                                        1-10 of 31
+                                    </span>
+                                    <button aria-label="Previous page"
+                                        class="text-gray-400 hover:text-gray-600 disabled:opacity-50" disabled=""
+                                        type="button">
+                                        <i class="fas fa-chevron-left">
+                                        </i>
+                                    </button>
+                                    <button aria-label="Page 1" class="text-blue-600 font-semibold" type="button">
+                                        1
+                                    </button>
+                                    <button aria-label="Page 2" class="hover:text-gray-900 text-gray-600" type="button">
+                                        2
+                                    </button>
+                                    <button aria-label="Page 3" class="hover:text-gray-900 text-gray-600" type="button">
+                                        3
+                                    </button>
+                                    <button aria-label="Next page" class="text-gray-400 hover:text-gray-600"
+                                        type="button">
+                                        <i class="fas fa-chevron-right">
+                                        </i>
+                                    </button>
+                                    <button aria-label="Last page" class="text-gray-400 hover:text-gray-600"
+                                        type="button">
+                                        <i class="fas fa-angle-double-right">
+                                        </i>
+                                    </button>
+                                </div>
+                            </div>
+                        </section>
+                        <!-- Webhooks section -->
+                        <section class="border border-gray-200 rounded-md p-4 max-w-full space-y-3">
+                            <h2 class="text-[11px] font-semibold text-gray-700">
+                                Webhooks
+                            </h2>
+                            <p class="text-[10px] text-gray-600 leading-[14px]">
+                                Set up Webhooks to trigger actions on external services in
+                                real-time. Stay informed on updates and changes to ensure
+                                seamless integration.
+                            </p>
+                            <form class="space-y-3 text-[10px] text-gray-600 max-w-lg">
+                                <div class="flex flex-col sm:flex-row sm:items-center sm:space-x-3">
+                                    <label class="w-28 font-semibold mb-1 sm:mb-0 text-gray-700" for="webhook-url">
+                                        Webhook URL
+                                    </label>
+                                    <input
+                                        class="flex-1 border border-gray-300 rounded px-2 py-1 text-xs focus:outline-none focus:ring-1 focus:ring-blue-500"
+                                        id="webhook-url" placeholder="Enter URL" type="text" />
+                                </div>
+                                <div class="flex flex-col sm:flex-row sm:items-center sm:space-x-3">
+                                    <label class="w-28 font-semibold mb-1 sm:mb-0 text-gray-700" for="webhook-name">
+                                        Webhook Name
+                                    </label>
+                                    <input
+                                        class="flex-1 border border-gray-300 rounded px-2 py-1 text-xs focus:outline-none focus:ring-1 focus:ring-blue-500"
+                                        id="webhook-name" type="text" value="CostaRicaHook" />
+                                </div>
+                                <div class="flex flex-col sm:flex-row sm:items-center sm:space-x-3">
+                                    <label class="w-28 font-semibold mb-1 sm:mb-0 text-gray-700" for="event-type">
+                                        Event Type
+                                    </label>
+                                    <select
+                                        class="flex-1 border border-gray-300 rounded px-2 py-1 text-xs focus:outline-none focus:ring-1 focus:ring-blue-500"
+                                        id="event-type">
+                                        <option disabled="" selected="">
+                                            Select an option
+                                        </option>
+                                        <option>
+                                            Event 1
+                                        </option>
+                                        <option>
+                                            Event 2
+                                        </option>
+                                        <option>
+                                            Event 3
+                                        </option>
+                                    </select>
+                                </div>
+                                <div class="flex flex-col sm:flex-row sm:items-center sm:space-x-3">
+                                    <label class="w-28 font-semibold mb-1 sm:mb-0 text-gray-700">
+                                        Custom Headers
+                                    </label>
+                                    <div class="flex items-center space-x-2 text-[11px] font-semibold">
+                                        <span>
+                                            Use Custom Header
+                                        </span>
+                                        <label class="inline-flex relative items-center cursor-pointer"
+                                            for="custom-header-toggle">
+                                            <input checked="" class="sr-only peer" id="custom-header-toggle"
+                                                type="checkbox" />
+                                            <div
+                                                class="w-9 h-5 bg-blue-600 rounded-full peer-focus:ring-2 peer-focus:ring-blue-300 relative">
+                                            </div>
+                                            <div
+                                                class="absolute left-[2px] top-[2px] bg-white w-4 h-4 rounded-full transition-transform peer-checked:translate-x-[16px]">
+                                            </div>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div>
+                                    <button class="bg-blue-600 text-white text-xs font-semibold rounded px-3 py-1"
+                                        type="submit">
+                                        Save Changes
+                                    </button>
+                                </div>
+                            </form>
+                        </section>
+                        <!-- FAQ section -->
+                        <section class="border border-gray-200 rounded-md p-4 max-w-full space-y-2">
+                            <h2 class="text-[11px] font-semibold text-gray-700 mb-3">
+                                FAQ
+                            </h2>
+                            <div class="space-y-2 text-[10px] text-gray-600">
+                                <details class="border border-gray-100 rounded px-3 py-2">
+                                    <summary class="cursor-pointer font-semibold">
+                                        How is pricing determined for each plan?
+                                    </summary>
+                                </details>
+                                <details class="border border-gray-100 rounded px-3 py-2">
+                                    <summary class="cursor-pointer font-semibold">
+                                        What payment methods are accepted for subscriptions?
+                                    </summary>
+                                </details>
+                                <details class="border border-gray-100 rounded px-3 py-2">
+                                    <summary class="cursor-pointer font-semibold">
+                                        Are there any hidden fees in the pricing?
+                                    </summary>
+                                </details>
+                                <details class="border border-gray-100 rounded px-3 py-2">
+                                    <summary class="cursor-pointer font-semibold">
+                                        Is there a discount for annual subscriptions?
+                                    </summary>
+                                </details>
+                                <details class="border border-gray-100 rounded px-3 py-2">
+                                    <summary class="cursor-pointer font-semibold">
+                                        Do you offer refunds on subscription cancellations?
+                                    </summary>
+                                </details>
+                                <details class="border border-gray-100 rounded px-3 py-2">
+                                    <summary class="cursor-pointer font-semibold">
+                                        Can I add extra features to my current plan?
+                                    </summary>
+                                </details>
+                            </div>
+                        </section>
+                        <!-- Contact Support -->
+                        <section
+                            class="border border-gray-200 rounded-md p-4 max-w-full flex items-center justify-between">
+                            <div class="max-w-[70%]">
+                                <h3 class="text-[11px] font-semibold text-gray-900 mb-1">
+                                    Contact Support
+                                </h3>
+                                <p class="text-[10px] text-gray-600 leading-[14px]">
+                                    Need assistance? Contact our support team for prompt,
+                                    personalized help your queries &amp; concerns.
+                                </p>
+                                <a class="text-[10px] text-blue-600 hover:underline mt-2 inline-block" href="#">
+                                    Contact Support
+                                </a>
+                            </div>
+                            <img alt="Illustration of three people communicating with speech bubbles and notifications"
+                                class="w-[120px] h-[80px] object-contain select-none" draggable="false" height="80"
+                                src="https://storage.googleapis.com/a1aa/image/b813b466-6891-481a-dc36-a6919dbab60b.jpg"
+                                width="120" />
+                        </section>
+                    </div>
+                    <!-- Right sidebar -->
+                    <aside class="hidden lg:block w-72 flex-shrink-0 space-y-6">
+                        <!-- Privacy Settings button -->
+                        <div class="flex justify-end mb-2">
+                            <button class="text-[10px] border border-gray-300 rounded px-3 py-1 hover:bg-gray-50"
+                                type="button">
+                                Privacy Settings
+                            </button>
+                        </div>
+                        <!-- Project API keys -->
+                        <section class="border border-gray-200 rounded-md p-4 text-[10px] text-gray-600">
+                            <h3 class="font-semibold text-gray-900 mb-2">
+                                Project API keys
+                            </h3>
+                            <p class="mb-2">
+                                Activate
+                                <span class="font-semibold">
+                                    'Do Not Disturb'
+                                </span>
+                                to
+                                silence all notifications and focus without interruptions during
+                                specified hours or tasks.
+                            </p>
+                            <a class="text-blue-600 hover:underline font-semibold mb-3 inline-block" href="#">
+                                Learn more
+                            </a>
+                            <button
+                                class="w-full border border-gray-300 rounded py-1 text-[9px] text-gray-500 hover:bg-gray-50"
+                                type="button">
+                                <i class="fas fa-file-alt mr-1">
+                                </i>
+                                Client Docs
+                            </button>
+                        </section>
+                        <!-- Streamlined Alerts Setup -->
+                        <section class="border border-gray-200 rounded-md p-4 text-[10px] text-gray-600 space-y-3">
+                            <div class="flex items-start space-x-3">
+                                <div
+                                    class="flex items-center justify-center w-8 h-8 rounded-full border border-blue-300 text-blue-600 shrink-0">
+                                    <i class="fas fa-cloud-upload-alt text-sm">
+                                    </i>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold text-gray-900 mb-1">
+                                        Streamlined Alerts Setup: Custom Notification Preferences
+                                    </h4>
+                                    <p class="text-[9px] leading-[12px]">
+                                        Easily integrate and manage your APIs with our suite of
+                                        configuration tools. Gain access to extensive instructions,
+                                        expert support and in-depth documentation to keep your API
+                                        interactions efficient and up-to-date.
+                                    </p>
+                                    <a class="text-blue-600 hover:underline font-semibold mt-1 inline-block" href="#">
+                                        Learn more
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="flex items-start space-x-3">
+                                <div
+                                    class="flex items-center justify-center w-8 h-8 rounded-full border border-blue-300 text-blue-600 shrink-0">
+                                    <i class="fas fa-plug text-sm">
+                                    </i>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold text-gray-900 mb-1">
+                                        Enhancing Connectivity: Tools for API Expansion
+                                    </h4>
+                                    <p class="text-[9px] leading-[12px]">
+                                        Leverage the full potential of your APIs with our advanced
+                                        expansion tools. We provide all the necessary resources for
+                                        easy setup, information exchange, and maintaining
+                                        high-performance API connectivity.
+                                    </p>
+                                    <a class="text-blue-600 hover:underline font-semibold mt-1 inline-block" href="#">
+                                        Learn more
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="flex items-start space-x-3">
+                                <div
+                                    class="flex items-center justify-center w-8 h-8 rounded-full border border-blue-300 text-blue-600 shrink-0">
+                                    <i class="fas fa-users text-sm">
+                                    </i>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold text-gray-900 mb-1">
+                                        Organizing Team Data: Efficient Roster Solutions
+                                    </h4>
+                                    <p class="text-[9px] leading-[12px]">
+                                        Organize your API data more with our detailed interface
+                                        solutions. From quick setup guides to management, our tools
+                                        are designed to streamline every step of your API data
+                                        organization.
+                                    </p>
+                                    <a class="text-blue-600 hover:underline font-semibold mt-1 inline-block" href="#">
+                                        Learn more
+                                    </a>
+                                </div>
+                            </div>
+                        </section>
+                    </aside>
+                </div>
+                <!-- Footer -->
+                <footer
+                    class="flex flex-col sm:flex-row justify-between items-center text-[10px] text-gray-500 mt-10 space-y-3 sm:space-y-0">
+                    <div>
+                        2025© Keenthemes Inc.
+                    </div>
+                    <nav class="flex space-x-6">
+                        <a class="hover:underline" href="#">
+                            Docs
+                        </a>
+                        <a class="hover:underline" href="#">
+                            Purchase
+                        </a>
+                        <a class="hover:underline" href="#">
+                            FAQ
+                        </a>
+                        <a class="hover:underline" href="#">
+                            Support
+                        </a>
+                        <a class="hover:underline" href="#">
+                            License
+                        </a>
+                    </nav>
+                </footer>
+            </main>
+        </div>
+    </div>
+</body>
+
+</html>

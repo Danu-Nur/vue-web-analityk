@@ -1,0 +1,581 @@
+<html class="scroll-smooth" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <title>
+        Billing &amp; Plan - Web Analytics SaaS Dashboard
+    </title>
+    <script src="https://cdn.tailwindcss.com">
+    </script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&amp;family=DM+Sans:wght@400;700&amp;display=swap"
+        rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
+    <style>
+        html {
+            font-family: 'Inter', 'DM Sans', sans-serif;
+            background-color: #f9fafb;
+            color: #111827;
+        }
+
+        /* Glassmorphism card style */
+        .glass-card {
+            background: rgba(255 255 255 / 0.75);
+            backdrop-filter: saturate(180%) blur(12px);
+            -webkit-backdrop-filter: saturate(180%) blur(12px);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.1);
+            border-radius: 1rem;
+            border: 1px solid rgba(255 255 255 / 0.3);
+            transition: box-shadow 0.3s ease;
+        }
+
+        .glass-card:hover,
+        .glass-card:focus-within {
+            box-shadow: 0 12px 40px 0 rgba(31, 38, 135, 0.15);
+        }
+
+        /* Neumorphism card style */
+        .neumorph-card {
+            background: #f9fafb;
+            border-radius: 1rem;
+            box-shadow:
+                8px 8px 15px #d1d5db,
+                -8px -8px 15px #ffffff;
+            transition: box-shadow 0.3s ease;
+        }
+
+        .neumorph-card:hover,
+        .neumorph-card:focus-within {
+            box-shadow:
+                12px 12px 20px #c1c5ca,
+                -12px -12px 20px #ffffff;
+        }
+
+        /* Scrollbar for tables */
+        .scrollbar-thin::-webkit-scrollbar {
+            height: 6px;
+            width: 6px;
+        }
+
+        .scrollbar-thin::-webkit-scrollbar-thumb {
+            background-color: #9ca3af;
+            border-radius: 10px;
+        }
+
+        .scrollbar-thin::-webkit-scrollbar-track {
+            background: transparent;
+        }
+    </style>
+</head>
+
+<body class="min-h-screen flex flex-col p-4 md:p-8 bg-gray-50 text-gray-900">
+    <header class="mb-8 max-w-7xl mx-auto w-full">
+        <h1 class="text-3xl font-semibold tracking-tight">
+            Billing &amp; Plan
+        </h1>
+        <p class="mt-1 text-gray-600 max-w-xl">
+            Manage your subscription, usage, and billing details.
+        </p>
+    </header>
+    <main class="max-w-7xl mx-auto w-full grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+        <!-- Current Plan Summary -->
+        <section aria-label="Current Plan Summary"
+            class="glass-card p-6 flex flex-col justify-between focus:outline-none" tabindex="0">
+            <h2 class="text-xl font-semibold mb-4">
+                Current Plan Summary
+            </h2>
+            <div class="space-y-3">
+                <div class="flex justify-between items-center">
+                    <span class="font-medium text-gray-700">
+                        Plan Name:
+                    </span>
+                    <span class="font-semibold text-gray-900">
+                        Pro Analytics
+                    </span>
+                </div>
+                <div class="flex justify-between items-center">
+                    <span class="font-medium text-gray-700">
+                        Status:
+                    </span>
+                    <span
+                        class="inline-flex items-center rounded-full bg-green-100 text-green-800 text-xs font-semibold px-2.5 py-0.5">
+                        Active
+                    </span>
+                </div>
+                <div class="flex justify-between items-center">
+                    <span class="font-medium text-gray-700">
+                        Renewal Date:
+                    </span>
+                    <time class="font-semibold text-gray-900" datetime="2024-12-15">
+                        Dec 15, 2024
+                    </time>
+                </div>
+            </div>
+            <button aria-label="Change current plan"
+                class="mt-6 w-full bg-black text-white rounded-lg py-2.5 font-semibold hover:bg-gray-900 transition"
+                type="button">
+                Change Plan
+            </button>
+        </section>
+        <!-- Usage Overview -->
+        <section aria-label="Usage Overview" class="glass-card p-6 focus:outline-none" tabindex="0">
+            <h2 class="text-xl font-semibold mb-6">
+                Usage Overview
+            </h2>
+            <div class="space-y-6">
+                <div>
+                    <div class="flex justify-between mb-1">
+                        <span class="text-gray-700 font-medium">
+                            Tracking Events Used
+                        </span>
+                        <span class="text-gray-900 font-semibold">
+                            7,500 / 10,000
+                        </span>
+                    </div>
+                    <div class="w-full bg-gray-200 rounded-full h-4 overflow-hidden">
+                        <div aria-valuemax="10000" aria-valuemin="0" aria-valuenow="7500"
+                            class="bg-black h-4 rounded-full transition-all duration-500" role="progressbar"
+                            style="width: 75%;">
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div class="flex justify-between mb-1">
+                        <span class="text-gray-700 font-medium">
+                            API Calls Used
+                        </span>
+                        <span class="text-gray-900 font-semibold">
+                            120,000 / 150,000
+                        </span>
+                    </div>
+                    <div class="w-full bg-gray-200 rounded-full h-4 overflow-hidden">
+                        <div aria-valuemax="150000" aria-valuemin="0" aria-valuenow="120000"
+                            class="bg-black h-4 rounded-full transition-all duration-500" role="progressbar"
+                            style="width: 80%;">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Plan Comparison Table -->
+        <section aria-label="Plan Comparison Table"
+            class="neumorph-card p-6 col-span-1 md:col-span-2 lg:col-span-3 overflow-x-auto focus:outline-none"
+            tabindex="0">
+            <h2 class="text-xl font-semibold mb-6">
+                Plan Comparison
+            </h2>
+            <table class="w-full text-left border-collapse min-w-[600px]">
+                <thead>
+                    <tr class="border-b border-gray-300">
+                        <th class="py-3 px-4 text-gray-700 font-semibold">
+                            Feature
+                        </th>
+                        <th class="py-3 px-4 text-gray-700 font-semibold text-center">
+                            Free
+                        </th>
+                        <th class="py-3 px-4 text-gray-700 font-semibold text-center">
+                            Pro
+                        </th>
+                        <th class="py-3 px-4 text-gray-700 font-semibold text-center">
+                            Enterprise
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="border-b border-gray-200 hover:bg-gray-100 transition">
+                        <td class="py-3 px-4 font-medium">
+                            Price (per month)
+                        </td>
+                        <td class="py-3 px-4 text-center font-semibold">
+                            $0
+                        </td>
+                        <td class="py-3 px-4 text-center font-semibold">
+                            $49
+                        </td>
+                        <td class="py-3 px-4 text-center font-semibold">
+                            $199
+                        </td>
+                    </tr>
+                    <tr class="border-b border-gray-200 hover:bg-gray-100 transition">
+                        <td class="py-3 px-4 font-medium">
+                            Tracking Events Quota
+                        </td>
+                        <td class="py-3 px-4 text-center">
+                            1,000
+                        </td>
+                        <td class="py-3 px-4 text-center">
+                            10,000
+                        </td>
+                        <td class="py-3 px-4 text-center">
+                            100,000
+                        </td>
+                    </tr>
+                    <tr class="border-b border-gray-200 hover:bg-gray-100 transition">
+                        <td class="py-3 px-4 font-medium">
+                            API Calls Quota
+                        </td>
+                        <td class="py-3 px-4 text-center">
+                            10,000
+                        </td>
+                        <td class="py-3 px-4 text-center">
+                            150,000
+                        </td>
+                        <td class="py-3 px-4 text-center">
+                            1,000,000
+                        </td>
+                    </tr>
+                    <tr class="border-b border-gray-200 hover:bg-gray-100 transition">
+                        <td class="py-3 px-4 font-medium">
+                            Custom Dashboards
+                        </td>
+                        <td class="py-3 px-4 text-center">
+                            <i class="fas fa-times text-red-500">
+                            </i>
+                        </td>
+                        <td class="py-3 px-4 text-center">
+                            <i class="fas fa-check text-green-600">
+                            </i>
+                        </td>
+                        <td class="py-3 px-4 text-center">
+                            <i class="fas fa-check text-green-600">
+                            </i>
+                        </td>
+                    </tr>
+                    <tr class="border-b border-gray-200 hover:bg-gray-100 transition">
+                        <td class="py-3 px-4 font-medium">
+                            Priority Support
+                        </td>
+                        <td class="py-3 px-4 text-center">
+                            <i class="fas fa-times text-red-500">
+                            </i>
+                        </td>
+                        <td class="py-3 px-4 text-center">
+                            <i class="fas fa-times text-red-500">
+                            </i>
+                        </td>
+                        <td class="py-3 px-4 text-center">
+                            <i class="fas fa-check text-green-600">
+                            </i>
+                        </td>
+                    </tr>
+                    <tr class="border-b border-gray-200 hover:bg-gray-100 transition">
+                        <td class="py-3 px-4 font-medium">
+                            Team Accounts
+                        </td>
+                        <td class="py-3 px-4 text-center">
+                            1
+                        </td>
+                        <td class="py-3 px-4 text-center">
+                            5
+                        </td>
+                        <td class="py-3 px-4 text-center">
+                            Unlimited
+                        </td>
+                    </tr>
+                    <tr class="border-b border-gray-200 hover:bg-gray-100 transition">
+                        <td class="py-3 px-4 font-medium">
+                            Data Retention
+                        </td>
+                        <td class="py-3 px-4 text-center">
+                            7 days
+                        </td>
+                        <td class="py-3 px-4 text-center">
+                            30 days
+                        </td>
+                        <td class="py-3 px-4 text-center">
+                            1 year
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="py-3 px-4 font-medium">
+                            Action
+                        </td>
+                        <td class="py-3 px-4 text-center">
+                            <button aria-label="Upgrade from Free plan"
+                                class="text-sm font-semibold text-black border border-black rounded-lg px-3 py-1 hover:bg-black hover:text-white transition"
+                                type="button">
+                                Upgrade
+                            </button>
+                        </td>
+                        <td class="py-3 px-4 text-center">
+                            <button aria-label="Downgrade from Pro plan"
+                                class="text-sm font-semibold text-black border border-black rounded-lg px-3 py-1 hover:bg-black hover:text-white transition"
+                                type="button">
+                                Downgrade
+                            </button>
+                        </td>
+                        <td class="py-3 px-4 text-center">
+                            <button aria-label="Current Enterprise plan"
+                                class="text-sm font-semibold text-black border border-black rounded-lg px-3 py-1 cursor-not-allowed opacity-50"
+                                disabled="" type="button">
+                                Current
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        <!-- Upgrade / Downgrade Options -->
+        <section aria-label="Upgrade or Downgrade Options" class="glass-card p-6 focus:outline-none" tabindex="0">
+            <h2 class="text-xl font-semibold mb-6">
+                Upgrade / Downgrade Options
+            </h2>
+            <div class="space-y-4">
+                <div
+                    class="flex flex-col sm:flex-row sm:items-center sm:justify-between border border-gray-300 rounded-lg p-4 hover:shadow-md transition cursor-pointer">
+                    <div>
+                        <h3 class="text-lg font-semibold">
+                            Free Plan
+                        </h3>
+                        <p class="text-gray-600">
+                            Basic features for personal use
+                        </p>
+                    </div>
+                    <button aria-label="Select Free Plan"
+                        class="mt-3 sm:mt-0 bg-black text-white rounded-lg px-5 py-2 font-semibold hover:bg-gray-900 transition"
+                        type="button">
+                        Select
+                    </button>
+                </div>
+                <div
+                    class="flex flex-col sm:flex-row sm:items-center sm:justify-between border border-gray-300 rounded-lg p-4 hover:shadow-md transition cursor-pointer">
+                    <div>
+                        <h3 class="text-lg font-semibold">
+                            Pro Plan
+                        </h3>
+                        <p class="text-gray-600">
+                            For growing businesses and teams
+                        </p>
+                    </div>
+                    <button aria-label="Select Pro Plan"
+                        class="mt-3 sm:mt-0 bg-black text-white rounded-lg px-5 py-2 font-semibold hover:bg-gray-900 transition"
+                        type="button">
+                        Select
+                    </button>
+                </div>
+                <div
+                    class="flex flex-col sm:flex-row sm:items-center sm:justify-between border border-gray-300 rounded-lg p-4 hover:shadow-md transition cursor-pointer">
+                    <div>
+                        <h3 class="text-lg font-semibold">
+                            Enterprise Plan
+                        </h3>
+                        <p class="text-gray-600">
+                            Advanced features and priority support
+                        </p>
+                    </div>
+                    <button aria-label="Select Enterprise Plan"
+                        class="mt-3 sm:mt-0 bg-black text-white rounded-lg px-5 py-2 font-semibold hover:bg-gray-900 transition"
+                        type="button">
+                        Select
+                    </button>
+                </div>
+            </div>
+        </section>
+        <!-- Payment Method -->
+        <section aria-label="Payment Method" class="glass-card p-6 focus:outline-none" tabindex="0">
+            <h2 class="text-xl font-semibold mb-6">
+                Payment Method
+            </h2>
+            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between space-y-4 sm:space-y-0">
+                <div class="flex items-center space-x-4">
+                    <img alt="Visa credit card logo, blue and white colors" class="w-12 h-8 object-contain rounded-md"
+                        height="32" loading="lazy"
+                        src="https://storage.googleapis.com/a1aa/image/2ee1a921-8080-4b5f-3547-c85d9ecbc357.jpg"
+                        width="48" />
+                    <div>
+                        <p class="font-semibold text-gray-900">
+                            Visa ending in 1234
+                        </p>
+                        <p class="text-gray-600 text-sm">
+                            Expires 08/26
+                        </p>
+                    </div>
+                </div>
+                <button aria-label="Change payment method"
+                    class="bg-black text-white rounded-lg px-5 py-2 font-semibold hover:bg-gray-900 transition"
+                    type="button">
+                    Change Payment Method
+                </button>
+            </div>
+        </section>
+        <!-- Billing History -->
+        <section aria-label="Billing History" class="neumorph-card p-6 col-span-1 md:col-span-2 focus:outline-none"
+            tabindex="0">
+            <h2 class="text-xl font-semibold mb-6">
+                Billing History
+            </h2>
+            <div class="overflow-x-auto scrollbar-thin">
+                <table class="w-full text-left border-collapse min-w-[500px]">
+                    <thead>
+                        <tr class="border-b border-gray-300">
+                            <th class="py-3 px-4 text-gray-700 font-semibold">
+                                Date
+                            </th>
+                            <th class="py-3 px-4 text-gray-700 font-semibold">
+                                Amount
+                            </th>
+                            <th class="py-3 px-4 text-gray-700 font-semibold">
+                                Status
+                            </th>
+                            <th class="py-3 px-4 text-gray-700 font-semibold">
+                                Invoice
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="border-b border-gray-200 hover:bg-gray-100 transition">
+                            <td class="py-3 px-4 font-medium">
+                                <time datetime="2024-05-01">
+                                    May 1, 2024
+                                </time>
+                            </td>
+                            <td class="py-3 px-4 font-semibold">
+                                $49.00
+                            </td>
+                            <td class="py-3 px-4">
+                                <span
+                                    class="inline-flex items-center rounded-full bg-green-100 text-green-800 text-xs font-semibold px-2.5 py-0.5">
+                                    Paid
+                                </span>
+                            </td>
+                            <td class="py-3 px-4">
+                                <button aria-label="View invoice May 1, 2024"
+                                    class="text-sm font-semibold text-black border border-black rounded-lg px-3 py-1 hover:bg-black hover:text-white transition"
+                                    type="button">
+                                    View
+                                </button>
+                            </td>
+                        </tr>
+                        <tr class="border-b border-gray-200 hover:bg-gray-100 transition">
+                            <td class="py-3 px-4 font-medium">
+                                <time datetime="2024-04-01">
+                                    Apr 1, 2024
+                                </time>
+                            </td>
+                            <td class="py-3 px-4 font-semibold">
+                                $49.00
+                            </td>
+                            <td class="py-3 px-4">
+                                <span
+                                    class="inline-flex items-center rounded-full bg-green-100 text-green-800 text-xs font-semibold px-2.5 py-0.5">
+                                    Paid
+                                </span>
+                            </td>
+                            <td class="py-3 px-4">
+                                <button aria-label="View invoice April 1, 2024"
+                                    class="text-sm font-semibold text-black border border-black rounded-lg px-3 py-1 hover:bg-black hover:text-white transition"
+                                    type="button">
+                                    View
+                                </button>
+                            </td>
+                        </tr>
+                        <tr class="border-b border-gray-200 hover:bg-gray-100 transition">
+                            <td class="py-3 px-4 font-medium">
+                                <time datetime="2024-03-01">
+                                    Mar 1, 2024
+                                </time>
+                            </td>
+                            <td class="py-3 px-4 font-semibold">
+                                $49.00
+                            </td>
+                            <td class="py-3 px-4">
+                                <span
+                                    class="inline-flex items-center rounded-full bg-yellow-100 text-yellow-800 text-xs font-semibold px-2.5 py-0.5">
+                                    Pending
+                                </span>
+                            </td>
+                            <td class="py-3 px-4">
+                                <button aria-label="View invoice March 1, 2024"
+                                    class="text-sm font-semibold text-black border border-black rounded-lg px-3 py-1 hover:bg-black hover:text-white transition"
+                                    type="button">
+                                    View
+                                </button>
+                            </td>
+                        </tr>
+                        <tr class="border-b border-gray-200 hover:bg-gray-100 transition">
+                            <td class="py-3 px-4 font-medium">
+                                <time datetime="2024-02-01">
+                                    Feb 1, 2024
+                                </time>
+                            </td>
+                            <td class="py-3 px-4 font-semibold">
+                                $49.00
+                            </td>
+                            <td class="py-3 px-4">
+                                <span
+                                    class="inline-flex items-center rounded-full bg-green-100 text-green-800 text-xs font-semibold px-2.5 py-0.5">
+                                    Paid
+                                </span>
+                            </td>
+                            <td class="py-3 px-4">
+                                <button aria-label="View invoice February 1, 2024"
+                                    class="text-sm font-semibold text-black border border-black rounded-lg px-3 py-1 hover:bg-black hover:text-white transition"
+                                    type="button">
+                                    View
+                                </button>
+                            </td>
+                        </tr>
+                        <tr class="border-b border-gray-200 hover:bg-gray-100 transition">
+                            <td class="py-3 px-4 font-medium">
+                                <time datetime="2024-01-01">
+                                    Jan 1, 2024
+                                </time>
+                            </td>
+                            <td class="py-3 px-4 font-semibold">
+                                $49.00
+                            </td>
+                            <td class="py-3 px-4">
+                                <span
+                                    class="inline-flex items-center rounded-full bg-green-100 text-green-800 text-xs font-semibold px-2.5 py-0.5">
+                                    Paid
+                                </span>
+                            </td>
+                            <td class="py-3 px-4">
+                                <button aria-label="View invoice January 1, 2024"
+                                    class="text-sm font-semibold text-black border border-black rounded-lg px-3 py-1 hover:bg-black hover:text-white transition"
+                                    type="button">
+                                    View
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+        <!-- Subscription Settings -->
+        <section aria-label="Subscription Settings" class="glass-card p-6 focus:outline-none" tabindex="0">
+            <h2 class="text-xl font-semibold mb-6">
+                Subscription Settings
+            </h2>
+            <form class="space-y-6" onsubmit="event.preventDefault()">
+                <div class="flex items-center justify-between">
+                    <label class="font-medium text-gray-700" for="autoRenew">
+                        Auto-Renew Subscription
+                    </label>
+                    <input aria-checked="true" checked=""
+                        class="w-11 h-6 rounded-full bg-gray-300 checked:bg-black transition duration-300 cursor-pointer"
+                        id="autoRenew" name="autoRenew" role="switch" type="checkbox" />
+                </div>
+                <div>
+                    <p class="text-gray-700 font-medium mb-1">
+                        Billing Cycle
+                    </p>
+                    <p class="text-gray-600">
+                        Monthly billing, next charge on
+                        <time datetime="2024-12-15">
+                            Dec 15, 2024
+                        </time>
+                    </p>
+                </div>
+                <button aria-label="Save subscription settings"
+                    class="w-full bg-black text-white rounded-lg py-2.5 font-semibold hover:bg-gray-900 transition"
+                    type="submit">
+                    Save Settings
+                </button>
+            </form>
+        </section>
+    </main>
+</body>
+
+</html>

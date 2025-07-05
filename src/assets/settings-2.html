@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analytics Settings & Integrations</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f9fafb;
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+        }
+
+        .neumorphic {
+            box-shadow: 8px 8px 16px #e5e7eb,
+                -8px -8px 16px #ffffff;
+        }
+
+        .toggle-checkbox:checked {
+            right: 0;
+            background-color: #000;
+        }
+
+        .toggle-checkbox:checked+.toggle-label {
+            background-color: rgba(0, 0, 0, 0.1);
+        }
+
+        .code-block {
+            font-family: 'Menlo', 'Monaco', 'Courier New', monospace;
+        }
+    </style>
+</head>
+
+<body class="min-h-screen text-gray-800">
+    <div class="container mx-auto px-4 py-8">
+        <!-- Header -->
+        <header class="mb-8">
+            <h1 class="text-3xl font-bold mb-2">Settings</h1>
+            <div class="flex items-center text-sm text-gray-500">
+                <a href="#" class="hover:text-gray-700">Dashboard</a>
+                <i data-lucide="chevron-right" class="w-4 h-4 mx-2"></i>
+                <a href="#" class="hover:text-gray-700">Settings</a>
+                <i data-lucide="chevron-right" class="w-4 h-4 mx-2"></i>
+                <span class="text-gray-700">Integrations</span>
+            </div>
+        </header>
+
+        <!-- Bento Grid Layout -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- API Keys Card -->
+            <div class="glass-card neumorphic rounded-2xl p-6">
+                <div class="flex items-center mb-4">
+                    <div class="p-3 rounded-lg bg-gray-100 mr-4">
+                        <i data-lucide="key" class="w-5 h-5"></i>
+                    </div>
+                    <h2 class="text-xl font-semibold">API Keys</h2>
+                </div>
+
+                <div class="mb-6">
+                    <label class="block text-sm font-medium mb-2">Primary API Key</label>
+                    <div class="relative">
+                        <div class="code-block bg-gray-50 rounded-lg p-3 pr-12 text-sm overflow-x-auto">
+                            sk_live_56789abcdef0123456789abcdef0123456789
+                        </div>
+                        <button class="absolute right-3 top-3 p-1 rounded-md hover:bg-gray-100">
+                            <i data-lucide="copy" class="w-4 h-4"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="flex space-x-3">
+                    <button
+                        class="flex-1 py-2 px-4 border border-gray-300 rounded-lg hover:bg-gray-50 text-sm font-medium">
+                        <i data-lucide="refresh-cw" class="w-4 h-4 mr-2 inline"></i> Regenerate
+                    </button>
+                    <button
+                        class="flex-1 py-2 px-4 bg-black text-white rounded-lg hover:bg-gray-800 text-sm font-medium">
+                        <i data-lucide="plus" class="w-4 h-4 mr-2 inline"></i> Create New
+                    </button>
+                </div>
+            </div>
+
+            <!-- Domain Whitelist -->
+            <div class="glass-card neumorphic rounded-2xl p-6">
+                <div class="flex items-center mb-4">
+                    <div class="p-3 rounded-lg bg-gray-100 mr-4">
+                        <i data-lucide="shield" class="w-5 h-5"></i>
+                    </div>
+                    <h2 class="text-xl font-semibold">Domain Whitelist</h2>
+                </div>
+
+                <div class="mb-4">
+                    <label class="block text-sm font-medium mb-2">Allowed Domains</label>
+                    <div class="space-y-2">
+                        <div class="flex items-center justify-between bg-gray-50 rounded-lg p-3">
+                            <span class="text-sm">analytics.example.com</span>
+                            <button class="text-gray-400 hover:text-gray-600">
+                                <i data-lucide="x" class="w-4 h-4"></i>
+                            </button>
+                        </div>
+                        <div class="flex items-center justify-between bg-gray-50 rounded-lg p-3">
+                            <span class="text-sm">app.yourdomain.com</span>
+                            <button class="text-gray-400 hover:text-gray-600">
+                                <i data-lucide="x" class="w-4 h-4"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex">
+                    <input type="text" placeholder="Add new domain"
+                        class="flex-1 py-2 px-4 border border-gray-300 rounded-l-lg focus:outline-none focus:ring-1 focus:ring-gray-400 text-sm">
+                    <button class="py-2 px-4 bg-black text-white rounded-r-lg hover:bg-gray-800 text-sm font-medium">
+                        Add
+                    </button>
+                </div>
+            </div>
+
+            <!-- Integration Modules -->
+            <div class="glass-card neumorphic rounded-2xl p-6">
+                <div class="flex items-center mb-4">
+                    <div class="p-3 rounded-lg bg-gray-100 mr-4">
+                        <i data-lucide="puzzle" class="w-5 h-5"></i>
+                    </div>
+                    <h2 class="text-xl font-semibold">Integration Modules</h2>
+                </div>
+
+                <div class="space-y-4">
+                    <div
+                        class="flex items-center justify-between p-3 border border-gray-200 rounded-lg hover:bg-gray-50">
+                        <div class="flex items-center">
+                            <img src="https://cdn.worldvectorlogo.com/logos/shopify.svg" alt="Shopify"
+                                class="w-8 h-8 mr-3">
+                            <span class="font-medium">Shopify</span>
+                        </div>
+                        <label class="relative inline-flex items-center cursor-pointer">
+                            <input type="checkbox" class="sr-only peer">
+                            <div
+                                class="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-black">
+                            </div>
+                        </label>
+                    </div>
+
+                    <div
+                        class="flex items-center justify-between p-3 border border-gray-200 rounded-lg hover:bg-gray-50">
+                        <div class="flex items-center">
+                            <img src="https://cdn.worldvectorlogo.com/logos/wordpress-blue.svg" alt="WordPress"
+                                class="w-8 h-8 mr-3">
+                            <span class="font-medium">WordPress</span>
+                        </div>
+                        <label class="relative inline-flex items-center cursor-pointer">
+                            <input type="checkbox" class="sr-only peer" checked>
+                            <div
+                                class="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-black">
+                            </div>
+                        </label>
+                    </div>
+
+                    <div
+                        class="flex items-center justify-between p-3 border border-gray-200 rounded-lg hover:bg-gray-50">
+                        <div class="flex items-center">
+                            <img src="https://cdn.worldvectorlogo.com/logos/zapier.svg" alt="Zapier"
+                                class="w-8 h-8 mr-3">
+                            <span class="font-medium">Zapier</span>
+                        </div>
+                        <label class="relative inline-flex items-center cursor-pointer">
+                            <input type="checkbox" class="sr-only peer">
+                            <div
+                                class="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-black">
+                            </div>
+                        </label>
+                    </div>
+                </div>
+
+                <button
+                    class="w-full mt-4 py-2 px-4 border border-gray-300 rounded-lg hover:bg-gray-50 text-sm font-medium flex items-center justify-center">
+                    <i data-lucide="plus" class="w-4 h-4 mr-2"></i> Browse More Integrations
+                </button>
+            </div>
+
+            <!-- Webhooks Setup -->
+            <div class="glass-card neumorphic rounded-2xl p-6">
+                <div class="flex items-center mb-4">
+                    <div class="p-3 rounded-lg bg-gray-100 mr-4">
+                        <i data-lucide="webhook" class="w-5 h-5"></i>
+                    </div>
+                    <h2 class="text-xl font-semibold">Webhooks Setup</h2>
+                </div>
+
+                <div class="mb-4">
+                    <label class="block text-sm font-medium mb-2">Endpoint URL</label>
+                    <input type="text" value="https://api.example.com/webhooks/analytics"
+                        class="w-full py-2 px-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-1 focus:ring-gray-400 text-sm bg-gray-50">
+                </div>
+
+                <div class="flex items-center justify-between mb-6">
+                    <div>
+                        <h3 class="text-sm font-medium">Webhook Status</h3>
+                        <p class="text-xs text-gray-500">Receive real-time analytics data</p>
+                    </div>
+                    <label class="relative inline-flex items-center cursor-pointer">
+                        <input type="checkbox" class="sr-only peer" checked>
+                        <div
+                            class="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-black">
+                        </div>
+                    </label>
+                </div>
+
+                <div class="flex space-x-3">
+                    <button
+                        class="flex-1 py-2 px-4 border border-gray-300 rounded-lg hover:bg-gray-50 text-sm font-medium flex items-center justify-center">
+                        <i data-lucide="zap" class="w-4 h-4 mr-2"></i> Test Webhook
+                    </button>
+                    <button
+                        class="flex-1 py-2 px-4 border border-gray-300 rounded-lg hover:bg-gray-50 text-sm font-medium flex items-center justify-center">
+                        <i data-lucide="file-text" class="w-4 h-4 mr-2"></i> View Docs
+                    </button>
+                </div>
+            </div>
+
+            <!-- OAuth Clients -->
+            <div class="glass-card neumorphic rounded-2xl p-6">
+                <div class="flex items-center mb-4">
+                    <div class="p-3 rounded-lg bg-gray-100 mr-4">
+                        <i data-lucide="lock" class="w-5 h-5"></i>
+                    </div>
+                    <h2 class="text-xl font-semibold">OAuth Clients</h2>
+                </div>
+
+                <div class="mb-4">
+                    <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg mb-2">
+                        <div>
+                            <h3 class="font-medium text-sm">Mobile App</h3>
+                            <p class="text-xs text-gray-500">Created 2 days ago</p>
+                        </div>
+                        <button class="text-gray-400 hover:text-gray-600">
+                            <i data-lucide="more-vertical" class="w-4 h-4"></i>
+                        </button>
+                    </div>
+
+                    <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                        <div>
+                            <h3 class="font-medium text-sm">Admin Dashboard</h3>
+                            <p class="text-xs text-gray-500">Created 1 month ago</p>
+                        </div>
+                        <button class="text-gray-400 hover:text-gray-600">
+                            <i data-lucide="more-vertical" class="w-4 h-4"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <button
+                    class="w-full py-2 px-4 bg-black text-white rounded-lg hover:bg-gray-800 text-sm font-medium flex items-center justify-center">
+                    <i data-lucide="plus" class="w-4 h-4 mr-2"></i> New OAuth Client
+                </button>
+            </div>
+
+            <!-- Privacy & Data Retention -->
+            <div class="glass-card neumorphic rounded-2xl p-6">
+                <div class="flex items-center mb-4">
+                    <div class="p-3 rounded-lg bg-gray-100 mr-4">
+                        <i data-lucide="shield" class="w-5 h-5"></i>
+                    </div>
+                    <h2 class="text-xl font-semibold">Privacy & Data Retention</h2>
+                </div>
+
+                <div class="mb-4">
+                    <label class="block text-sm font-medium mb-2">Data Retention Period</label>
+                    <select
+                        class="w-full py-2 px-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-1 focus:ring-gray-400 text-sm bg-white">
+                        <option>30 days</option>
+                        <option selected>90 days</option>
+                        <option>180 days</option>
+                        <option>1 year</option>
+                        <option>Indefinitely</option>
+                    </select>
+                </div>
+
+                <div class="flex items-center justify-between mb-4">
+                    <div>
+                        <h3 class="text-sm font-medium">Anonymize IP Addresses</h3>
+                        <p class="text-xs text-gray-500">Remove the last octet of visitor IPs</p>
+                    </div>
+                    <label class="relative inline-flex items-center cursor-pointer">
+                        <input type="checkbox" class="sr-only peer">
+                        <div
+                            class="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-black">
+                        </div>
+                    </label>
+                </div>
+
+                <div class="flex items-center justify-between">
+                    <div>
+                        <h3 class="text-sm font-medium">GDPR Compliance</h3>
+                        <p class="text-xs text-gray-500">Enable data processing agreements</p>
+                    </div>
+                    <label class="relative inline-flex items-center cursor-pointer">
+                        <input type="checkbox" class="sr-only peer" checked>
+                        <div
+                            class="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-black">
+                        </div>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Data Sampling -->
+            <div class="glass-card neumorphic rounded-2xl p-6">
+                <div class="flex items-center mb-4">
+                    <div class="p-3 rounded-lg bg-gray-100 mr-4">
+                        <i data-lucide="bar-chart-2" class="w-5 h-5"></i>
+                    </div>
+                    <h2 class="text-xl font-semibold">Data Sampling</h2>
+                </div>
+
+                <div class="mb-4">
+                    <label class="block text-sm font-medium mb-2">Sampling Rate</label>
+                    <select
+                        class="w-full py-2 px-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-1 focus:ring-gray-400 text-sm bg-white">
+                        <option>10% - Fastest processing</option>
+                        <option>25%</option>
+                        <option selected>50% - Recommended</option>
+                        <option>75%</option>
+                        <option>100% - Most accurate</option>
+                    </select>
+                </div>
+
+                <div class="bg-blue-50 border border-blue-100 rounded-lg p-4">
+                    <div class="flex">
+                        <i data-lucide="info" class="w-4 h-4 text-blue-500 mr-2 mt-0.5"></i>
+                        <div>
+                            <h3 class="text-sm font-medium text-blue-800">Sampling Notice</h3>
+                            <p class="text-xs text-blue-600">Higher sampling rates increase accuracy but may impact
+                                performance for large datasets.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        lucide.createIcons();
+
+        // Copy API key functionality
+        document.querySelectorAll('[data-lucide="copy"]').forEach(button => {
+            button.addEventListener('click', (e) => {
+                const apiKey = e.target.closest('.relative').previousElementSibling.textContent.trim();
+                navigator.clipboard.writeText(apiKey);
+
+                const originalIcon = e.target;
+                originalIcon.classList.add('hidden');
+
+                const checkIcon = document.createElement('i');
+                checkIcon.setAttribute('data-lucide', 'check');
+                checkIcon.classList.add('w-4', 'h-4', 'text-green-500');
+                originalIcon.parentNode.appendChild(checkIcon);
+                lucide.createIcons();
+
+                setTimeout(() => {
+                    checkIcon.remove();
+                    originalIcon.classList.remove('hidden');
+                }, 2000);
+            });
+        });
+    </script>
+</body>
+
+</html>

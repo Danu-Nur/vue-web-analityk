@@ -1,0 +1,686 @@
+<html class="scroll-smooth" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <title>
+        Affiliate &amp; Partnership Dashboard
+    </title>
+    <script src="https://cdn.tailwindcss.com">
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans&amp;family=Inter&amp;display=swap" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
+    <style>
+        html,
+        body {
+            font-family: 'Inter', 'DM Sans', sans-serif;
+            background-color: #f9fafb;
+            color: #111827;
+            min-height: 100vh;
+        }
+
+        /* Glassmorphism card style */
+        .glass-card {
+            background: rgba(255 255 255 / 0.75);
+            border: 1px solid rgba(209 213 219 / 0.4);
+            backdrop-filter: saturate(180%) blur(12px);
+            -webkit-backdrop-filter: saturate(180%) blur(12px);
+            box-shadow: 0 8px 24px rgb(0 0 0 / 0.05);
+            transition: transform 0.2s ease;
+        }
+
+        .glass-card:hover {
+            transform: scale(1.01);
+            box-shadow: 0 12px 32px rgb(0 0 0 / 0.1);
+        }
+
+        /* Neumorphism card style */
+        .neumorph-card {
+            background: #f9fafb;
+            border-radius: 1rem;
+            box-shadow:
+                8px 8px 16px #d1d5db,
+                -8px -8px 16px #ffffff;
+            transition: transform 0.2s ease;
+        }
+
+        .neumorph-card:hover {
+            transform: scale(1.01);
+            box-shadow:
+                12px 12px 24px #cbd5e1,
+                -12px -12px 24px #ffffff;
+        }
+
+        /* Scrollbar for payout history */
+        .scrollbar-thin::-webkit-scrollbar {
+            height: 6px;
+            width: 6px;
+        }
+
+        .scrollbar-thin::-webkit-scrollbar-thumb {
+            background-color: #d1d5db;
+            border-radius: 3px;
+        }
+
+        .scrollbar-thin::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        /* Chart container fixed height */
+        .chart-container {
+            height: 120px;
+            width: 100%;
+        }
+
+        /* Copy button focus ring */
+        .copy-btn:focus-visible {
+            outline-offset: 2px;
+            outline: 2px solid #2563eb;
+            outline-radius: 0.5rem;
+        }
+
+        /* Fix card heights for bento grid consistency */
+        main>section {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        /* Fixed heights for row-span-2 cards */
+        @media (min-width: 640px) {
+            main>section.row-span-2 {
+                min-height: 360px;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            main>section.row-span-2 {
+                min-height: 400px;
+            }
+        }
+
+        /* Fixed heights for row-span-1 cards */
+        main>section:not(.row-span-2) {
+            min-height: 180px;
+        }
+
+        /* Referral Link QR image center fix */
+        section[aria-label="Referral Link"] img {
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Payout History table scroll fix */
+        section[aria-label="Payout History"] .overflow-y-auto {
+            max-height: 100%;
+            min-height: 0;
+        }
+    </style>
+</head>
+
+<body class="min-h-screen p-4 sm:p-6 lg:p-10">
+    <header class="mb-8 max-w-7xl mx-auto">
+        <h1 class="text-3xl font-semibold tracking-tight text-black">
+            Affiliate &amp; Partnership Dashboard
+        </h1>
+        <p class="mt-1 text-gray-600 font-medium">
+            Track your earnings, referrals, and manage your affiliate settings.
+        </p>
+    </header>
+    <main class="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 auto-rows-fr">
+        <!-- 1. Affiliate Earnings (2x2) -->
+        <section aria-label="Affiliate Earnings" class="glass-card rounded-2xl p-6 col-span-1 sm:col-span-2 row-span-2">
+            <div class="flex flex-col h-full justify-between">
+                <div>
+                    <div class="flex items-center justify-between mb-4">
+                        <h2 class="text-xl font-semibold text-black flex items-center gap-2">
+                            <i class="fas fa-coins text-yellow-500">
+                            </i>
+                            Affiliate Earnings
+                        </h2>
+                        <button aria-label="Refresh earnings" class="text-gray-400 hover:text-gray-600 transition"
+                            title="Refresh earnings" type="button">
+                            <i class="fas fa-sync-alt">
+                            </i>
+                        </button>
+                    </div>
+                    <div class="text-4xl font-extrabold text-black leading-none">
+                        $12,487
+                    </div>
+                    <div class="flex gap-6 mt-4 text-gray-600 font-medium">
+                        <div>
+                            <div class="text-sm">
+                                This Month
+                            </div>
+                            <div class="text-lg font-semibold">
+                                $2,134
+                            </div>
+                        </div>
+                        <div>
+                            <div class="text-sm">
+                                All Time
+                            </div>
+                            <div class="text-lg font-semibold">
+                                $12,487
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-6 flex-grow">
+                    <canvas aria-label="Affiliate earnings chart" class="chart-container h-full" id="earningsChart"
+                        role="img">
+                    </canvas>
+                </div>
+            </div>
+        </section>
+        <!-- 2. Referral Link (1x1) -->
+        <section aria-label="Referral Link" class="glass-card rounded-2xl p-6 flex flex-col justify-between">
+            <h2 class="text-lg font-semibold text-black flex items-center gap-2 mb-4">
+                <i class="fas fa-link text-blue-500">
+                </i>
+                Referral Link
+            </h2>
+            <div class="flex flex-col sm:flex-row sm:items-center gap-3">
+                <input aria-label="Your personalized referral link"
+                    class="flex-grow rounded-lg border border-gray-300 bg-white px-4 py-2 text-sm font-mono text-gray-800 select-all focus:outline-none focus:ring-2 focus:ring-blue-400"
+                    readonly="" type="text" value="https://app.example.com/referral?code=ABCD1234" />
+                <button aria-label="Copy referral link"
+                    class="copy-btn inline-flex items-center gap-2 rounded-lg bg-blue-600 px-4 py-2 text-white text-sm font-semibold hover:bg-blue-700 transition focus:outline-none focus:ring-2 focus:ring-blue-400"
+                    onclick="copyReferralLink()" title="Copy referral link" type="button">
+                    <i class="fas fa-copy">
+                    </i>
+                    Copy
+                </button>
+            </div>
+            <div class="mt-6 flex justify-center">
+                <img alt="QR code preview of referral link https://app.example.com/referral?code=ABCD1234"
+                    class="w-28 h-28 rounded-lg shadow-md" height="120" loading="lazy"
+                    src="https://storage.googleapis.com/a1aa/image/74319177-0989-4f22-71ec-70c374e8b8df.jpg"
+                    width="120" />
+            </div>
+        </section>
+        <!-- 3. Signups from Referrals (2x1) -->
+        <section aria-label="Signups from Referrals"
+            class="glass-card rounded-2xl p-6 col-span-1 sm:col-span-2 flex flex-col">
+            <h2 class="text-lg font-semibold text-black flex items-center gap-2 mb-4">
+                <i class="fas fa-chart-line text-green-500">
+                </i>
+                Signups from Referrals
+            </h2>
+            <canvas aria-label="Chart showing signups from referrals over time" class="chart-container flex-grow"
+                id="signupsChart" role="img">
+            </canvas>
+        </section>
+        <!-- 4. Commission Tier (1x1) -->
+        <section aria-label="Commission Tier" class="neumorph-card rounded-2xl p-6 flex flex-col justify-between">
+            <h2 class="text-lg font-semibold text-black flex items-center gap-2 mb-4">
+                <i class="fas fa-layer-group text-purple-500">
+                </i>
+                Commission Tier
+            </h2>
+            <div>
+                <div class="text-2xl font-extrabold text-black mb-1">
+                    Gold
+                </div>
+                <div class="text-gray-600 mb-4">
+                    You are earning 20% commission
+                </div>
+                <div class="w-full bg-gray-300 rounded-full h-4 overflow-hidden">
+                    <div aria-valuemax="100" aria-valuemin="0" aria-valuenow="65"
+                        class="bg-purple-500 h-4 rounded-full transition-all duration-500" role="progressbar"
+                        style="width: 65%;">
+                    </div>
+                </div>
+                <div class="mt-2 text-sm text-gray-600 font-medium">
+                    65% progress to Platinum (25%)
+                </div>
+            </div>
+        </section>
+        <!-- 5. Invite Friends (1x1) -->
+        <section aria-label="Invite Friends" class="glass-card rounded-2xl p-6 flex flex-col justify-between">
+            <h2 class="text-lg font-semibold text-black flex items-center gap-2 mb-4">
+                <i class="fas fa-user-friends text-pink-500">
+                </i>
+                Invite Friends
+            </h2>
+            <form class="flex flex-col gap-4" onsubmit="event.preventDefault(); alert('Invite sent!');">
+                <label class="sr-only" for="inviteEmail">
+                    Friend's email address
+                </label>
+                <input
+                    class="rounded-lg border border-gray-300 px-4 py-2 text-gray-800 focus:outline-none focus:ring-2 focus:ring-pink-400"
+                    id="inviteEmail" placeholder="Friend's email address" required="" type="email" />
+                <button
+                    class="inline-flex justify-center rounded-lg bg-pink-600 px-4 py-2 text-white font-semibold hover:bg-pink-700 transition focus:outline-none focus:ring-2 focus:ring-pink-400"
+                    type="submit">
+                    Send Invite
+                </button>
+            </form>
+            <div class="mt-6 flex flex-wrap gap-3 justify-center">
+                <button aria-label="Share invite link on Twitter"
+                    class="p-2 rounded-lg bg-blue-400 hover:bg-blue-500 transition text-white"
+                    onclick="window.open('https://twitter.com/intent/tweet?text=Join%20me%20on%20this%20awesome%20platform!%20https://app.example.com/referral?code=ABCD1234', '_blank')"
+                    type="button">
+                    <i class="fab fa-twitter fa-lg">
+                    </i>
+                </button>
+                <button aria-label="Share invite link on Facebook"
+                    class="p-2 rounded-lg bg-blue-700 hover:bg-blue-800 transition text-white"
+                    onclick="window.open('https://www.facebook.com/sharer/sharer.php?u=https://app.example.com/referral?code=ABCD1234', '_blank')"
+                    type="button">
+                    <i class="fab fa-facebook-f fa-lg">
+                    </i>
+                </button>
+                <button aria-label="Share invite link on LinkedIn"
+                    class="p-2 rounded-lg bg-blue-600 hover:bg-blue-700 transition text-white"
+                    onclick="window.open('https://www.linkedin.com/shareArticle?mini=true&amp;url=https://app.example.com/referral?code=ABCD1234', '_blank')"
+                    type="button">
+                    <i class="fab fa-linkedin-in fa-lg">
+                    </i>
+                </button>
+            </div>
+        </section>
+        <!-- 6. Top Affiliates Leaderboard (2x2) -->
+        <section aria-label="Top Affiliates Leaderboard"
+            class="glass-card rounded-2xl p-6 col-span-1 sm:col-span-2 row-span-2 flex flex-col">
+            <h2 class="text-lg font-semibold text-black flex items-center gap-2 mb-4">
+                <i class="fas fa-trophy text-yellow-600">
+                </i>
+                Top Affiliates Leaderboard
+            </h2>
+            <ol class="list-decimal list-inside space-y-3 overflow-y-auto scrollbar-thin flex-grow">
+                <li class="flex items-center justify-between">
+                    <div class="flex items-center gap-3">
+                        <img alt="Avatar of John Doe, top affiliate" class="rounded-full" height="40" loading="lazy"
+                            src="https://storage.googleapis.com/a1aa/image/a612e2d1-3473-4dae-d588-b4e08bfa514e.jpg"
+                            width="40" />
+                        <div>
+                            <div class="font-semibold text-black">
+                                John Doe
+                            </div>
+                            <div class="text-gray-500 text-sm">
+                                john@example.com
+                            </div>
+                        </div>
+                    </div>
+                    <div class="font-semibold text-green-600">
+                        $3,450
+                    </div>
+                </li>
+                <li class="flex items-center justify-between">
+                    <div class="flex items-center gap-3">
+                        <img alt="Avatar of Alice Smith, second top affiliate" class="rounded-full" height="40"
+                            loading="lazy"
+                            src="https://storage.googleapis.com/a1aa/image/42f912de-6732-4cee-0537-920119efca00.jpg"
+                            width="40" />
+                        <div>
+                            <div class="font-semibold text-black">
+                                Alice Smith
+                            </div>
+                            <div class="text-gray-500 text-sm">
+                                alice@example.com
+                            </div>
+                        </div>
+                    </div>
+                    <div class="font-semibold text-green-600">
+                        $2,980
+                    </div>
+                </li>
+                <li class="flex items-center justify-between">
+                    <img alt="Avatar of Bob Williams, third top affiliate" class="rounded-full" height="40"
+                        loading="lazy"
+                        src="https://storage.googleapis.com/a1aa/image/113bd704-ac04-4832-a86f-94802d270e74.jpg"
+                        width="40" />
+                    <div class="flex items-center gap-3">
+                        <div>
+                            <div class="font-semibold text-black">
+                                Bob Williams
+                            </div>
+                            <div class="text-gray-500 text-sm">
+                                bob@example.com
+                            </div>
+                        </div>
+                    </div>
+                    <div class="font-semibold text-green-600">
+                        $2,450
+                    </div>
+                </li>
+                <li class="flex items-center justify-between">
+                    <img alt="Avatar of Emma Martinez, fourth top affiliate" class="rounded-full" height="40"
+                        loading="lazy"
+                        src="https://storage.googleapis.com/a1aa/image/c41aade0-2939-44e5-0056-e6db73b84951.jpg"
+                        width="40" />
+                    <div class="flex items-center gap-3">
+                        <div>
+                            <div class="font-semibold text-black">
+                                Emma Martinez
+                            </div>
+                            <div class="text-gray-500 text-sm">
+                                emma@example.com
+                            </div>
+                        </div>
+                    </div>
+                    <div class="font-semibold text-green-600">
+                        $2,100
+                    </div>
+                </li>
+                <li class="flex items-center justify-between">
+                    <img alt="Avatar of Michael Chen, fifth top affiliate" class="rounded-full" height="40"
+                        loading="lazy"
+                        src="https://storage.googleapis.com/a1aa/image/b4134252-a182-45ec-cb3b-a669bc9b5b4b.jpg"
+                        width="40" />
+                    <div class="flex items-center gap-3">
+                        <div>
+                            <div class="font-semibold text-black">
+                                Michael Chen
+                            </div>
+                            <div class="text-gray-500 text-sm">
+                                michael@example.com
+                            </div>
+                        </div>
+                    </div>
+                    <div class="font-semibold text-green-600">
+                        $1,980
+                    </div>
+                </li>
+            </ol>
+        </section>
+        <!-- 7. Payout History (1x2) -->
+        <section aria-label="Payout History" class="neumorph-card rounded-2xl p-6 row-span-2 flex flex-col">
+            <h2 class="text-lg font-semibold text-black flex items-center gap-2 mb-4">
+                <i class="fas fa-file-invoice-dollar text-indigo-500">
+                </i>
+                Payout History
+            </h2>
+            <div class="overflow-y-auto scrollbar-thin flex-grow min-h-0">
+                <table class="w-full text-left text-sm text-gray-700">
+                    <thead class="border-b border-gray-300">
+                        <tr>
+                            <th class="py-2 px-3 font-semibold">
+                                Date
+                            </th>
+                            <th class="py-2 px-3 font-semibold">
+                                Amount
+                            </th>
+                            <th class="py-2 px-3 font-semibold">
+                                Status
+                            </th>
+                            <th class="py-2 px-3 font-semibold">
+                                Method
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="border-b border-gray-200 hover:bg-gray-100 transition">
+                            <td class="py-2 px-3">
+                                2024-06-10
+                            </td>
+                            <td class="py-2 px-3 font-semibold">
+                                $1,200
+                            </td>
+                            <td class="py-2 px-3 text-green-600 font-semibold">
+                                Completed
+                            </td>
+                            <td class="py-2 px-3">
+                                PayPal
+                            </td>
+                        </tr>
+                        <tr class="border-b border-gray-200 hover:bg-gray-100 transition">
+                            <td class="py-2 px-3">
+                                2024-05-10
+                            </td>
+                            <td class="py-2 px-3 font-semibold">
+                                $1,000
+                            </td>
+                            <td class="py-2 px-3 text-green-600 font-semibold">
+                                Completed
+                            </td>
+                            <td class="py-2 px-3">
+                                Bank Transfer
+                            </td>
+                        </tr>
+                        <tr class="border-b border-gray-200 hover:bg-gray-100 transition">
+                            <td class="py-2 px-3">
+                                2024-04-10
+                            </td>
+                            <td class="py-2 px-3 font-semibold">
+                                $950
+                            </td>
+                            <td class="py-2 px-3 text-yellow-600 font-semibold">
+                                Pending
+                            </td>
+                            <td class="py-2 px-3">
+                                PayPal
+                            </td>
+                        </tr>
+                        <tr class="border-b border-gray-200 hover:bg-gray-100 transition">
+                            <td class="py-2 px-3">
+                                2024-03-10
+                            </td>
+                            <td class="py-2 px-3 font-semibold">
+                                $1,100
+                            </td>
+                            <td class="py-2 px-3 text-green-600 font-semibold">
+                                Completed
+                            </td>
+                            <td class="py-2 px-3">
+                                Bank Transfer
+                            </td>
+                        </tr>
+                        <tr class="border-b border-gray-200 hover:bg-gray-100 transition">
+                            <td class="py-2 px-3">
+                                2024-02-10
+                            </td>
+                            <td class="py-2 px-3 font-semibold">
+                                $1,050
+                            </td>
+                            <td class="py-2 px-3 text-green-600 font-semibold">
+                                Completed
+                            </td>
+                            <td class="py-2 px-3">
+                                PayPal
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+        <!-- 8. Promo Banners & Assets (2x1) -->
+        <section aria-label="Promo Banners &amp; Assets"
+            class="glass-card rounded-2xl p-6 col-span-1 sm:col-span-2 flex flex-col">
+            <h2 class="text-lg font-semibold text-black flex items-center gap-2 mb-4">
+                <i class="fas fa-bullhorn text-red-500">
+                </i>
+                Promo Banners &amp; Assets
+            </h2>
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 flex-grow overflow-y-auto scrollbar-thin">
+                <div class="flex flex-col items-center gap-2">
+                    <img alt="Promotional banner 1 with abstract shapes and call to action text"
+                        class="rounded-lg shadow-md" height="80" loading="lazy"
+                        src="https://storage.googleapis.com/a1aa/image/180fe92f-d0a5-4a21-a02b-9981aa36e219.jpg"
+                        width="150" />
+                    <button class="text-sm text-blue-600 hover:underline focus:outline-none"
+                        onclick="alert('Banner 1 downloaded')" type="button">
+                        Download
+                    </button>
+                </div>
+                <div class="flex flex-col items-center gap-2">
+                    <img alt="Promotional banner 2 with product screenshot and referral message"
+                        class="rounded-lg shadow-md" height="80" loading="lazy"
+                        src="https://storage.googleapis.com/a1aa/image/bf47d32e-fb7d-4512-08df-9b1659ebd726.jpg"
+                        width="150" />
+                    <button class="text-sm text-blue-600 hover:underline focus:outline-none"
+                        onclick="alert('Banner 2 downloaded')" type="button">
+                        Download
+                    </button>
+                </div>
+                <div class="flex flex-col items-center gap-2">
+                    <img alt="Promotional banner 3 with discount offer and referral code" class="rounded-lg shadow-md"
+                        height="80" loading="lazy"
+                        src="https://storage.googleapis.com/a1aa/image/5a085064-8e25-40a7-74aa-428776bc8e16.jpg"
+                        width="150" />
+                    <button class="text-sm text-blue-600 hover:underline focus:outline-none"
+                        onclick="alert('Banner 3 downloaded')" type="button">
+                        Download
+                    </button>
+                </div>
+                <div class="flex flex-col items-center gap-2">
+                    <img alt="Tracking snippet code preview for affiliate referrals" class="rounded-lg shadow-md"
+                        height="80" loading="lazy"
+                        src="https://storage.googleapis.com/a1aa/image/a4a75f36-2e48-4346-8c06-7c4cda667bb3.jpg"
+                        width="150" />
+                    <button class="text-sm text-blue-600 hover:underline focus:outline-none"
+                        onclick="alert('Tracking snippet downloaded')" type="button">
+                        Download
+                    </button>
+                </div>
+            </div>
+        </section>
+        <!-- 9. Affiliate Settings (1x1) -->
+        <section aria-label="Affiliate Settings" class="neumorph-card rounded-2xl p-6 flex flex-col justify-between">
+            <h2 class="text-lg font-semibold text-black flex items-center gap-2 mb-4">
+                <i class="fas fa-cog text-gray-700">
+                </i>
+                Affiliate Settings
+            </h2>
+            <form class="flex flex-col gap-6">
+                <div>
+                    <label class="block text-gray-700 font-medium mb-1" for="payoutMethod">
+                        Payout Method
+                    </label>
+                    <select aria-describedby="payoutMethodHelp"
+                        class="w-full rounded-lg border border-gray-300 px-4 py-2 text-gray-800 focus:outline-none focus:ring-2 focus:ring-gray-400"
+                        id="payoutMethod">
+                        <option>
+                            PayPal
+                        </option>
+                        <option>
+                            Bank Transfer
+                        </option>
+                        <option>
+                            Check
+                        </option>
+                    </select>
+                    <p class="text-xs text-gray-500 mt-1" id="payoutMethodHelp">
+                        Select your preferred payout method.
+                    </p>
+                </div>
+                <div class="flex items-center gap-3">
+                    <input checked="" class="w-5 h-5 rounded border-gray-300 focus:ring-2 focus:ring-gray-400"
+                        id="notifToggle" type="checkbox" />
+                    <label class="text-gray-700 font-medium select-none" for="notifToggle">
+                        Enable payout notifications
+                    </label>
+                </div>
+                <button
+                    class="self-start rounded-lg bg-gray-800 px-5 py-2 text-white font-semibold hover:bg-gray-900 transition focus:outline-none focus:ring-2 focus:ring-gray-700"
+                    onclick="event.preventDefault(); alert('Settings saved!')" type="submit">
+                    Save Settings
+                </button>
+            </form>
+        </section>
+    </main>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js">
+    </script>
+    <script>
+        // Earnings Chart (Line)
+        const earningsCtx = document.getElementById('earningsChart').getContext('2d');
+        const earningsChart = new Chart(earningsCtx, {
+            type: 'line',
+            data: {
+                labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+                datasets: [{
+                    label: 'Earnings',
+                    data: [1500, 1800, 2200, 2000, 2300, 2134],
+                    borderColor: '#fbbf24',
+                    backgroundColor: 'rgba(251, 191, 36, 0.3)',
+                    fill: true,
+                    tension: 0.3,
+                    pointRadius: 4,
+                    pointHoverRadius: 6,
+                    borderWidth: 3,
+                    pointBackgroundColor: '#fbbf24',
+                    pointHoverBackgroundColor: '#f59e0b',
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false },
+                    tooltip: {
+                        mode: 'index',
+                        intersect: false,
+                        backgroundColor: '#111827',
+                        titleColor: '#fbbf24',
+                        bodyColor: '#f9fafb',
+                        cornerRadius: 6,
+                        padding: 8,
+                    }
+                },
+                scales: {
+                    x: {
+                        grid: { display: false },
+                        ticks: { color: '#6b7280', font: { family: 'Inter', size: 12 } }
+                    },
+                    y: {
+                        grid: { color: '#d1d5db' },
+                        ticks: { color: '#6b7280', font: { family: 'Inter', size: 12 }, beginAtZero: true }
+                    }
+                }
+            }
+        });
+
+        // Signups Chart (Bar)
+        const signupsCtx = document.getElementById('signupsChart').getContext('2d');
+        const signupsChart = new Chart(signupsCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+                datasets: [{
+                    label: 'Signups',
+                    data: [45, 60, 75, 70, 90, 85],
+                    backgroundColor: '#10b981',
+                    borderRadius: 6,
+                    maxBarThickness: 20,
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false },
+                    tooltip: {
+                        backgroundColor: '#111827',
+                        titleColor: '#10b981',
+                        bodyColor: '#f9fafb',
+                        cornerRadius: 6,
+                        padding: 8,
+                    }
+                },
+                scales: {
+                    x: {
+                        grid: { display: false },
+                        ticks: { color: '#6b7280', font: { family: 'Inter', size: 12 } }
+                    },
+                    y: {
+                        grid: { color: '#d1d5db' },
+                        ticks: { color: '#6b7280', font: { family: 'Inter', size: 12 }, beginAtZero: true }
+                    }
+                }
+            }
+        });
+
+        // Copy referral link function
+        function copyReferralLink() {
+            const input = document.querySelector('section[aria-label="Referral Link"] input[type="text"]');
+            input.select();
+            input.setSelectionRange(0, 99999);
+            navigator.clipboard.writeText(input.value).then(() => {
+                alert('Referral link copied to clipboard!');
+            });
+        }
+    </script>
+</body>
+
+</html>

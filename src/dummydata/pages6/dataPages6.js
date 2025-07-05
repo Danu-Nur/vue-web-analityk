@@ -64,14 +64,7 @@ export const allowedDomains = {
 
 export const embedScript = {
     content: `
-<script>
-    (function(w,d,s,o,f,js,fjs){
-        w['xAIObject']=o;w[o]=w[o]||function(){(w[o].q=w[o].q||[]).push(arguments)};
-        js=d.createElement(s),fjs=d.getElementsByTagName(s)[0];
-        js.id=o;js.src=f;js.async=1;fjs.parentNode.insertBefore(js,fjs);
-    }(window,document,'script','xAI','https://x.ai/sdk.js'));
-    xAI('init', { apiKey: 'abc123-xyz456' });
-</script>
+<script src="https://cdn.example.com/analytics.js?key='{{apiky.key}}'"></script>
     `
 };
 

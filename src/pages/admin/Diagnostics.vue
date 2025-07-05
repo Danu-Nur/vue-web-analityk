@@ -7,11 +7,6 @@ const PieChart = defineAsyncComponent(() =>
     import('../../components/apexchart/PieChart.vue')
 )
 
-// Importing the Datatable component asynchronously
-const BarHumanVSBot = defineAsyncComponent(() =>
-    import('../../components/apexchart/BarChart.vue')
-)
-
 // Importing the LineChart component asynchronously
 const LineChart = defineAsyncComponent(() =>
     import('../../components/apexchart/AreaChart.vue')
@@ -63,8 +58,6 @@ import { defineAsyncComponent } from 'vue';
                 <h2 class="font-semibold text-gray-900 mb-4">Bot vs Human Traffic</h2>
                 <Suspense>
                     <template #default>
-                        <!-- <BarHumanVSBot :title="humanVsBot.title" :categories="humanVsBot.categories"
-                            :seriesData="humanVsBot.seriesData" /> -->
                         <LineChart :title="humanVsBot.title" :categories="humanVsBot.categories"
                             :seriesData="humanVsBot.seriesData" />
                     </template>
