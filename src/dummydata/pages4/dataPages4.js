@@ -168,3 +168,31 @@ export const flowDiagram = {
         { step: 'Conversion', url: '/dashboard', conversion_rate: 40 }
     ]
 };
+
+export const areaConversionTrends = {
+    title: 'Daily conversion rate over time',
+    categories: [
+        'Mon',
+        'Tue',
+        'Wed',
+        'Thu',
+        'Fri',
+        'Sat',
+        'Sun',
+    ],
+    seriesData: [220, 330, 290, 500, 310, 400, 546]
+}
+
+export const barChartStepByStep = {
+    title: 'funnel performance',
+    categories: [
+        'Landing Page',
+        'Signup Form',
+        'Email Confirmation',
+        'First Purchase',
+        'Retention',
+        'Purchase',
+        'Home',
+    ],
+    seriesData: [1220, 830, 890, 500, 610, 1400, 1546]
+}

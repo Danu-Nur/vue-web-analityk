@@ -1,5 +1,5 @@
 <template>
-    <VueApexCharts type="area" height="500" :options="chartOptions" :series="series" />
+    <VueApexCharts type="area" class="w-full h-full" :options="chartOptions" :series="series" />
 </template>
 
 <script setup>
@@ -25,14 +25,14 @@ const chartOptions = computed(() => ({
     chart: {
         id: 'area-chart',
         type: 'area',
-        height: 400, // Sesuaikan dengan height di template
+        // height: 400, // Sesuaikan dengan height di template
         // toolbar: { show: false },
         zoom: { enabled: false },
         // sparkline: { enabled: false } // Nonaktifkan sparkline untuk menampilkan sumbu
     },
     title: {
         text: props.title,
-        align: 'center',
+        align: 'left',
         style: { fontSize: '14px', fontWeight: 'bold' }
     },
     colors: props.colors, // Gunakan prop colors

@@ -1,5 +1,5 @@
 <template>
-    <VueApexCharts type="bar" class="h-full" :height="props.height" :options="chartOptions" :series="series" />
+    <VueApexCharts type="bar" class="h-full w-full" :height="props.height" :options="chartOptions" :series="series" />
 </template>
 
 <script setup>
@@ -28,7 +28,7 @@ const chartOptions = computed(() => ({
     chart: { id: 'bar-chart', height: props.height },
     title: {
         text: props.title,
-        align: 'center',
+        align: 'left',
         style: { fontSize: '16px', fontWeight: 'bold' }
     },
     xaxis: {

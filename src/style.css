@@ -319,3 +319,47 @@
             "settings";
     }
 }
+
+.chart-container {
+    position: relative;
+    height: 100%;
+    width: 100%;
+}
+
+.funnel-step {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-weight: 500;
+    margin: 0 auto;
+}
+
+.progress-ring__circle {
+    transition: stroke-dashoffset 0.5s;
+    transform: rotate(-90deg);
+    transform-origin: 50% 50%;
+}
+
+@media (max-width: 768px) {
+    .bento-grid {
+        grid-template-columns: 1fr !important;
+    }
+}
+
+/* Scrollbar for code blocks */
+pre {
+    scrollbar-width: thin;
+    scrollbar-color: #9ca3af #f3f4f6;
+}
+
+pre::-webkit-scrollbar {
+    height: 8px;
+    background: #f3f4f6;
+}
+
+pre::-webkit-scrollbar-thumb {
+    background-color: #9ca3af;
+    border-radius: 4px;
+}

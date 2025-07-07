@@ -18,13 +18,10 @@ import { defineAsyncComponent } from 'vue';
                 </div>
             </div> -->
 
-            <d class="bento-grid grid grid-cols-1 md:grid-cols-3 gap-6 mb-8" style="grid-template-areas:
-                    'current usage usage'
-                    'plans plans upgrade'
-                    'payment history settings'">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
 
                 <!-- Current Plan Summary -->
-                <div class="border border-gray-200 neumorphism p-6 rounded-lg" style="grid-area: current;">
+                <div class="border border-gray-200 p-6 rounded-lg">
                     <div class="flex justify-between items-start mb-4">
                         <h2 class="text-xl font-semibold text-gray-900">Current Plan</h2>
                         <span class="px-3 py-1 text-xs font-medium rounded-full bg-blue-100 text-blue-800">Active</span>
@@ -48,7 +45,7 @@ import { defineAsyncComponent } from 'vue';
                 </div>
 
                 <!-- Usage Overview -->
-                <div class="border border-gray-200 neumorphism p-6 rounded-lg" style="grid-area: usage;">
+                <div class="border border-gray-200 md:col-span-2 p-6 rounded-lg">
                     <h2 class="text-xl font-semibold text-gray-900 mb-6">Usage Overview</h2>
 
                     <div class="space-y-6">
@@ -85,7 +82,7 @@ import { defineAsyncComponent } from 'vue';
                 </div>
 
                 <!-- Plan Comparison Table -->
-                <div class="border border-gray-200 neumorphism p-6 rounded-lg" style="grid-area: plans;">
+                <div class="border border-gray-200 md:col-span-2 p-6 rounded-lg">
                     <h2 class="text-xl font-semibold text-gray-900 mb-6">Plan Comparison</h2>
 
                     <div class="overflow-x-auto">
@@ -150,7 +147,7 @@ import { defineAsyncComponent } from 'vue';
                 </div>
 
                 <!-- Upgrade / Downgrade -->
-                <div class="border border-gray-200 neumorphism p-6 rounded-lg" style="grid-area: upgrade;">
+                <div class="border border-gray-200 p-6 rounded-lg">
                     <h2 class="text-xl font-semibold text-gray-900 mb-6">Change Plan</h2>
 
                     <div class="space-y-4">
@@ -198,7 +195,7 @@ import { defineAsyncComponent } from 'vue';
                 </div>
 
                 <!-- Payment Method -->
-                <div class="border border-gray-200 neumorphism p-6 rounded-lg" style="grid-area: payment;">
+                <div class="border border-gray-200 p-6 rounded-lg">
                     <div class="flex justify-between items-center mb-6">
                         <h2 class="text-xl font-semibold text-gray-900">Payment Method</h2>
                         <button
@@ -223,7 +220,7 @@ import { defineAsyncComponent } from 'vue';
                 </div>
 
                 <!-- Billing History -->
-                <div class="border border-gray-200 neumorphism p-6 rounded-lg" style="grid-area: history;">
+                <div class="border border-gray-200 p-6 rounded-lg">
                     <h2 class="text-xl font-semibold text-gray-900 mb-6">Billing History</h2>
 
                     <div class="space-y-4">
@@ -263,7 +260,7 @@ import { defineAsyncComponent } from 'vue';
                 </div>
 
                 <!-- Subscription Settings -->
-                <div class="border border-gray-200 neumorphism p-6 rounded-lg" style="grid-area: settings;">
+                <div class="border border-gray-200 p-6 rounded-lg">
                     <h2 class="text-xl font-semibold text-gray-900 mb-6">Subscription Settings</h2>
 
                     <div class="space-y-6">
@@ -303,7 +300,7 @@ import { defineAsyncComponent } from 'vue';
                         </div>
                     </div>
                 </div>
-            </d>
+            </div>
         </div>
     </DashboardAdminLayout>
 </template>
