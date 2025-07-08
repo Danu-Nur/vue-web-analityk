@@ -16,7 +16,6 @@ export const useOverviewStore = defineStore('overview', {
             seriesData: []
         }),
         topPages: ref([]),
-        geoMap: ref([]),
         deviceChart: ref({
             title: '',
             categories: [],
@@ -24,6 +23,7 @@ export const useOverviewStore = defineStore('overview', {
         }),
         referrers: ref([]),
         entryExitPages: ref([]),
+        geoMap: ref([]),
         headers: ref({
             topPages: [],
             geoMap: [],
@@ -50,10 +50,10 @@ export const useOverviewStore = defineStore('overview', {
                     this.fetchMetrics(),
                     this.fetchLineChart(),
                     this.fetchTopPages(),
-                    this.fetchGeoMap(),
                     this.fetchDeviceChart(),
                     this.fetchReferrers(),
-                    this.fetchEntryExitPages()
+                    this.fetchEntryExitPages(),
+                    this.fetchGeoMap(),
                 ]);
             } catch (error) {
                 this.error = error.response?.data?.error || 'Failed to fetch overview data';
@@ -194,6 +194,6 @@ export const useOverviewStore = defineStore('overview', {
             } finally {
                 this.loading = false;
             }
-        }
+        },
     }
 })

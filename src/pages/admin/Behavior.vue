@@ -20,7 +20,7 @@ const HeatmapClickTracking = defineAsyncComponent(() =>
     import('../../components/apexchart/HeatMapsChart.vue')
 )
 
-const websiteUrl = 'http://localhost:5173'
+const websiteUrl = 'http://localhost:3000'
 
 const dataclickEvents = ref(clickEvents)
 const datascrollDepth = ref(scrollDepth)
