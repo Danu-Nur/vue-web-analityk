@@ -209,7 +209,7 @@ import { defineAsyncComponent } from 'vue';
                 <Suspense>
                     <template #default>
                         <LineChart :title="humanVsBot.title" :categories="humanVsBot.categories"
-                            :seriesData="humanVsBot.seriesData" />
+                            :seriesData="humanVsBot.seriesData" :height="400"/>
                     </template>
                     <template #fallback>
                         <SkeletonChart chartType="bar" />
