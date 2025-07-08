@@ -40,8 +40,8 @@ const handleDateRangeUpdate = ({ date_from, date_to }) => {
 };
 
 // Fetch data on mount
-onMounted(() => {
-    visitorStore.fetchAllData();
+onMounted(async () => {
+    await visitorStore.fetchAllData();
 });
 
 // Async component imports
