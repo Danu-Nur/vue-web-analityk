@@ -40,7 +40,7 @@ const getColor = (count) =>
 // Styling for GeoJSON
 const style = (feature) => {
     const count = feature.properties.count || 0;
-    const isChoropleth = props.data.some(v => normalizeCountryName(v.country) === feature.properties.shapeName);
+    const isChoropleth = props.data.some(v => v.country === feature.properties.shapeName);
     return {
         fillColor: isChoropleth ? getColor(count) : '#ccc',
         weight: 1,
