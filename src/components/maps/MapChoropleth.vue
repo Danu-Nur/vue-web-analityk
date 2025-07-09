@@ -40,7 +40,7 @@ const getColor = (count) =>
 // Styling for GeoJSON
 const style = (feature) => {
     const count = feature.properties.count || 0;
-    const isChoropleth = props.data.some(v => normalizeCountryName(v.country) === feature.properties.shapeName);
+    const isChoropleth = props.data.some(v => v.country === feature.properties.shapeName);
     return {
         fillColor: isChoropleth ? getColor(count) : '#ccc',
         weight: 1,
@@ -96,7 +96,7 @@ const initializeMap = async () => {
         }).addTo(map);
 
         // Load GeoJSON data
-        const { default: geoJsonData } = await import(/* webpackChunkName: "geoJsonData" */ '../../dummydata/geoBoundariesCGAZ_ADM0.json');
+        const { default: geoJsonData } = await import(/* webpackChunkName: "geoJsonData" */ '../../dummydata/geoBoundariesCGAZ_ADM0_2.json');
         rawGeoJsonData.value = geoJsonData;
 
         // Validate GeoJSON data

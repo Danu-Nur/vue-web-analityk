@@ -40,9 +40,9 @@ const handleDateRangeUpdate = ({ date_from, date_to }) => {
 };
 
 // Fetch data on mount
-onMounted(async () => {
-    await visitorStore.fetchAllData();
-});
+// onMounted(async () => {
+//     await visitorStore.fetchAllData();
+// });
 
 // Async component imports
 const BarChart = defineAsyncComponent(() =>

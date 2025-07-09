@@ -8,7 +8,7 @@ const route = useRoute();
 const pageTitle = ref(route.meta.title || 'Map');
 
 const dateRanges = [
-    { label: '1 Hour', value: '1hour', hours: 1 },
+    // { label: '1 Hour', value: '1hour', hours: 1 },
     { label: 'TodAy', value: '1day', days: 1 },
     { label: 'This Month', value: '1month', months: 1 },
     { label: '3 Months', value: '3months', months: 3 },
