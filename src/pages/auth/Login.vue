@@ -28,7 +28,7 @@ function handleLogin() {
         <ThemeToggle />
     </header>
     <div
-        class="flex flex-col items-center justify-center min-h-screen px-6 font-sans transition-colors duration-300 bg-white dark:bg-gray-950">
+        class="flex flex-col items-center justify-center h-screen min-h-screen px-6 font-sans transition-colors duration-300 bg-white dark:bg-gray-950">
 
         <div class="w-full max-w-md">
             <div class="text-center">

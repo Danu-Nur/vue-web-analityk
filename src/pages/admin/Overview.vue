@@ -41,15 +41,15 @@ const handleDateRangeUpdate = ({ date_from, date_to }) => {
 };
 
 // Fetch data on component mount
-onMounted(async () => {
-    // try {
-    await overviewStore.fetchAllData();
-    //     error.value = overviewStore.error;
-    // } catch (err) {
-    //     error.value = 'Failed to load dashboard data';
-    //     console.error('Error fetching overview data:', err);
-    // }
-});
+// onMounted(async () => {
+//     // try {
+//     await overviewStore.fetchAllData();
+//     //     error.value = overviewStore.error;
+//     // } catch (err) {
+//     //     error.value = 'Failed to load dashboard data';
+//     //     console.error('Error fetching overview data:', err);
+//     // }
+// });
 </script>
 
 <template>

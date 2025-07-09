@@ -96,7 +96,7 @@ const initializeMap = async () => {
         }).addTo(map);
 
         // Load GeoJSON data
-        const { default: geoJsonData } = await import(/* webpackChunkName: "geoJsonData" */ '../../dummydata/geoBoundariesCGAZ_ADM0.json');
+        const { default: geoJsonData } = await import(/* webpackChunkName: "geoJsonData" */ '../../dummydata/geoBoundariesCGAZ_ADM0_2.json');
         rawGeoJsonData.value = geoJsonData;
 
         // Validate GeoJSON data
