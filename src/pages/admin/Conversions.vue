@@ -1,6 +1,6 @@
 <script setup>
 import { defineAsyncComponent } from 'vue';
-import DashboardAdminLayout from '../../layouts/DashboardAdminLayout.vue';
+// import DashboardAdminLayout from '../../layouts/DashboardAdminLayout.vue';
 import { funnels, funnelChart, completedFunnels, conversionByDevice, flowDiagram, barChartStepByStep, areaConversionTrends } from '../../dummydata/pages4/dataPages4';
 import SkeletonChart from '../../components/skeleton/SkeletonChart.vue';
 // Importing the Datatable component asynchronously
@@ -12,7 +12,7 @@ const AreaChartTrends = defineAsyncComponent(() =>
 )
 </script>
 <template>
-    <DashboardAdminLayout>
+    <!-- <DashboardAdminLayout> -->
         <div class="flex justify-end items-center mb-8">
             <!-- <div>
                 <h1 class="text-2xl font-bold">Conversions Dashboard</h1>
@@ -548,5 +548,5 @@ const AreaChartTrends = defineAsyncComponent(() =>
                 </div>
             </div>
         </div>
-    </DashboardAdminLayout>
+    <!-- </DashboardAdminLayout> -->
 </template>

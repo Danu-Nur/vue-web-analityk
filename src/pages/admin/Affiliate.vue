@@ -1,6 +1,6 @@
 <script setup>
 import { defineAsyncComponent } from 'vue';
-import DashboardAdminLayout from '../../layouts/DashboardAdminLayout.vue';
+// import DashboardAdminLayout from '../../layouts/DashboardAdminLayout.vue';
 import SkeletonChart from '../../components/skeleton/SkeletonChart.vue';
 // Importing the Datatable component asynchronously
 const BarStepByStep = defineAsyncComponent(() =>
@@ -11,7 +11,7 @@ const AreaChartTrends = defineAsyncComponent(() =>
 )
 </script>
 <template>
-    <DashboardAdminLayout>
+    <!-- <DashboardAdminLayout> -->
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             <!-- Card 1: Affiliate Earnings (2x1) -->
             <div class="p-4 col-span-1 sm:col-span-2 border border-gray-200 rounded-lg bg-white">
@@ -394,5 +394,5 @@ const AreaChartTrends = defineAsyncComponent(() =>
                 </button>
             </div>
         </div>
-    </DashboardAdminLayout>
+    <!-- </DashboardAdminLayout> -->
 </template>

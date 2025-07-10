@@ -1,5 +1,5 @@
 <script setup>
-import DashboardAdminLayout from '../../layouts/DashboardAdminLayout.vue';
+// import DashboardAdminLayout from '../../layouts/DashboardAdminLayout.vue';
 import { errorLogs, botTable, humanVsBot, jsErrorRate, pageLoadTable, monthHumanBot } from '../../dummydata/pages5/dataPages5';
 const DataTable = defineAsyncComponent(() => import('../../components/datatables/DataTable.vue'))
 // Importing the PieChart component asynchronously
@@ -15,7 +15,7 @@ import SkeletonTable from '../../components/skeleton/SkeletonTable.vue';
 import { defineAsyncComponent } from 'vue';
 </script>
 <template>
-    <DashboardAdminLayout>
+    <!-- <DashboardAdminLayout> -->
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
 
             <!-- 1. Integration Warnings -->
@@ -631,5 +631,5 @@ import { defineAsyncComponent } from 'vue';
                 </Suspense>
             </article>
         </section> -->
-    </DashboardAdminLayout>
+    <!-- </DashboardAdminLayout> -->
 </template>

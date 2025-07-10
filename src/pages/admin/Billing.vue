@@ -1,12 +1,12 @@
 <script setup>
 const DataTable = defineAsyncComponent(() => import('../../components/datatables/DataTable.vue'))
-import DashboardAdminLayout from '../../layouts/DashboardAdminLayout.vue';
+// import DashboardAdminLayout from '../../layouts/DashboardAdminLayout.vue';
 import { currentPlan, billingTable, planComparison, upgradeCTA, usage } from '../../dummydata/pages7/dataPages7';
 import SkeletonTable from '../../components/skeleton/SkeletonTable.vue';
 import { defineAsyncComponent } from 'vue';
 </script>
 <template>
-    <DashboardAdminLayout>
+    <!-- <DashboardAdminLayout> -->
         <div class="mx-auto">
             <!-- <div class="flex justify-between items-center mb-8">
                 <h1 class="text-3xl font-bold text-gray-900">Billing & Plans</h1>
@@ -302,5 +302,5 @@ import { defineAsyncComponent } from 'vue';
                 </div>
             </div>
         </div>
-    </DashboardAdminLayout>
+    <!-- </DashboardAdminLayout> -->
 </template>

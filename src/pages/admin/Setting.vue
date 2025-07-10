@@ -1,6 +1,6 @@
 <script setup>
 import { defineAsyncComponent, ref } from 'vue';
-import DashboardAdminLayout from '../../layouts/DashboardAdminLayout.vue';
+// import DashboardAdminLayout from '../../layouts/DashboardAdminLayout.vue';
 import ApiKeyDisplay from '../../components/ui/ApiKeyDisplay.vue';
 import { apiKeys, embedScript, privacyOptions, retentionSettings } from '../../dummydata/pages6/dataPages6';
 import SkeletonTable from '../../components/skeleton/SkeletonTable.vue';
@@ -8,7 +8,7 @@ const DataTable = defineAsyncComponent(() => import('../../components/datatables
 const apikeyItems = ref(apiKeys)
 </script>
 <template>
-    <DashboardAdminLayout>
+    <!-- <DashboardAdminLayout> -->
         <div class="mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 py-6">
             <!-- API Keys -->
             <section aria-labelledby="api-keys-title" class="border border-gray-200 rounded-lg p-4 flex flex-col">
@@ -782,5 +782,5 @@ const apikeyItems = ref(apiKeys)
                 </Suspense>
             </article>
         </section>
-    </DashboardAdminLayout>
+    <!-- </DashboardAdminLayout> -->
 </template>

@@ -1,5 +1,5 @@
 <template>
-    <VueApexCharts type="pie" height="400" :options="chartOptions" :series="seriesData" />
+    <VueApexCharts type="pie" height="400" :options="chartOptions" :series="processedSeriesData" />
 </template>
 
 <script setup>
@@ -20,7 +20,36 @@ const props = defineProps({
     satuan: {
         type: String,
         default: '',
+    },
+    chartColors: {
+        type: Array,
+        default: () => [],
+    },
+    monochromeEnabled: {
+        type: Boolean,
+        default: true,
+    },
+    monochromeColor: {
+        type: String,
+        default: '#9ca3af',
+    },
+});
+
+const processedSeriesData = computed(() => {
+    if (!props.seriesData || props.seriesData.length === 0) {
+        return [1];
     }
+    return props.seriesData;
+});
+
+const processedCategories = computed(() => {
+    if (!props.categories || props.categories.length === 0 || props.categories.length !== processedSeriesData.value.length) {
+        if (processedSeriesData.value.length === 1 && processedSeriesData.value[0] === 1) {
+            return ['No Data'];
+        }
+        return Array.from({ length: processedSeriesData.value.length }, (_, i) => `Item ${i + 1}`);
+    }
+    return props.categories;
 });
 
 const chartOptions = computed(() => ({
@@ -29,22 +58,10 @@ const chartOptions = computed(() => ({
         height: 400,
         toolbar: { show: false },
     },
-    labels: props.categories.length ? props.categories : ['No Data'],
-    series: props.seriesData.length ? props.seriesData : [1],
-    // Aktifkan mode Monochrome
-    // fill: {
-    //     type: 'gradient',
-    //     gradient: {
-    //         shade: 'dark',
-    //         type: 'horizontal',
-    //         shadeIntensity: 0.4,
-    //         inverseColors: false,
-    //         opacityFrom: 0.9,
-    //         opacityTo: 1,
-    //         stops: [0, 100],
-    //     },
-    // },
-    colors: ['#d1d5db'], // Base color abu-abu (Tailwind: gray-300)
+    labels: processedCategories.value,
+
+    colors: props.monochromeEnabled ? undefined : (props.chartColors.length > 0 ? props.chartColors : ['#F59E0B', '#000000', '#10B981', '#EF4444', '#3B82F6']),
+
     plotOptions: {
         pie: {
             expandOnClick: true,
@@ -57,13 +74,12 @@ const chartOptions = computed(() => ({
     },
     theme: {
         monochrome: {
-            enabled: true,
-            color: '#9ca3af', // Base gray (Tailwind: gray-400)
+            enabled: props.monochromeEnabled,
+            color: props.monochromeColor,
             shadeTo: 'dark',
             shadeIntensity: 0.7,
         },
     },
-
     legend: {
         position: 'bottom',
         fontSize: '12px',
@@ -78,7 +94,9 @@ const chartOptions = computed(() => ({
         style: {
             fontSize: '12px',
             fontFamily: 'Inter, sans-serif',
-            // colors: ['#1f2937'], // Teks kontras
+            // --- PERUBAHAN DI SINI ---
+            colors: ['#FFFFFF'], // Mengatur warna teks dataLabels menjadi putih
+            // ------------------------
         },
     },
     tooltip: {
@@ -100,3 +118,7 @@ const chartOptions = computed(() => ({
     }],
 }));
 </script>
+
+<style scoped>
+/* Tidak ada gaya khusus yang diperlukan di sini. */
+</style>
