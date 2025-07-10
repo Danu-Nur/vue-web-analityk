@@ -1,5 +1,5 @@
 <template>
-    <VueApexCharts type="area" class="w-full h-full" :options="chartOptions" :series="series" />
+    <VueApexCharts type="area" class="w-full h-full" :options="chartOptions" :series="chartSeries" />
 </template>
 
 <script setup>
@@ -7,40 +7,43 @@ import { computed } from 'vue'
 import VueApexCharts from 'vue3-apexcharts'
 
 const props = defineProps({
-    title: { type: String, default: 'Area Chart' },
-    categories: { type: Array, default: () => [] },
-    // seriesData: { type: Array, default: () => [] },
+    title: {
+        type: String,
+        default: 'Area Chart'
+    },
+    categories: {
+        type: Array,
+        default: () => ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'] // Default categories
+    },
     seriesData: {
         type: Array,
-        default: () => [{ name: 'Series 1', data: [] }], // Default to single series
-        validator: (series) => series.every(s => s.name && Array.isArray(s.data))
+        default: () => [{ name: 'Series 1', data: [0, 0, 0, 0, 0, 0, 0] }], // Default with example data
+        validator: (series) => series.every(s => typeof s === 'object' && s !== null && 'name' in s && Array.isArray(s.data))
     },
     colors: {
         type: Array,
-        default: () => ['#F59E0B','#000000'] // Gray-600 and gray-400 for gradient
+        default: () => ['#F59E0B', '#000000'] // Default colors for gradient
     }
 })
 
+// Opsi grafik yang dihitung berdasarkan props
 const chartOptions = computed(() => ({
     chart: {
         id: 'area-chart',
         type: 'area',
-        // height: 400, // Sesuaikan dengan height di template
-        // toolbar: { show: false },
         zoom: { enabled: false },
-        // sparkline: { enabled: false } // Nonaktifkan sparkline untuk menampilkan sumbu
     },
     title: {
         text: props.title,
         align: 'left',
         style: { fontSize: '14px', fontWeight: 'bold' }
     },
-    colors: props.colors, // Gunakan prop colors
+    colors: props.colors,
     dataLabels: { enabled: false },
     stroke: {
         curve: 'smooth',
         width: 2,
-        colors: props.colors // Gunakan prop colors untuk garis
+        colors: props.colors
     },
     fill: {
         type: 'gradient',
@@ -52,7 +55,7 @@ const chartOptions = computed(() => ({
         }
     },
     xaxis: {
-        categories: props.categories.length ? props.categories : ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'],
+        categories: props.categories, // Langsung gunakan prop categories
         labels: {
             style: {
                 colors: '#9ca3af',
@@ -76,7 +79,9 @@ const chartOptions = computed(() => ({
                 colors: '#9ca3af',
                 fontSize: '12px',
                 fontFamily: 'Inter, sans-serif'
-            }
+            },
+            // Tambahkan formatter sederhana jika dibutuhkan
+            // formatter: (value) => `${value}`
         }
     },
     grid: {
@@ -92,7 +97,7 @@ const chartOptions = computed(() => ({
     tooltip: {
         theme: 'light',
         x: {
-            format: 'MMM dd'
+            format: 'MMM dd' // Format default untuk tanggal
         },
         y: {
             formatter: (value) => `${value}`
@@ -100,18 +105,13 @@ const chartOptions = computed(() => ({
     }
 }))
 
-const series = computed(() => {
-    // Check if seriesData is a single array (backward compatibility) or array of series objects
-    if (Array.isArray(props.seriesData) && props.seriesData.length > 0 && !props.seriesData[0].name) {
-        return [{ name: props.title, data: props.seriesData }]
+// Memastikan format series selalu sesuai dengan yang diharapkan ApexCharts
+const chartSeries = computed(() => {
+    // Jika seriesData memiliki format lama (array angka), konversi ke format baru
+    if (props.seriesData.length > 0 && typeof props.seriesData[0] !== 'object') {
+        console.warn("Using old seriesData format. Please update to [{ name: '...', data: [...] }] for better clarity.");
+        return [{ name: props.title, data: props.seriesData }];
     }
-    return props.seriesData
-})
-
-// const series = computed(() => [
-//     {
-//         name: props.title,
-//         data: props.seriesData.length ? props.seriesData : [0, 0, 0, 0, 0, 0, 0]
-//     }
-// ])
+    return props.seriesData;
+});
 </script>

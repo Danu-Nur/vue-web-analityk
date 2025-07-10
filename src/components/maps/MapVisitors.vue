@@ -1,6 +1,11 @@
 <script setup>
-import { onMounted, onUnmounted, ref, watch } from 'vue';
+import { onMounted, onUnmounted, ref, watch, shallowRef } from 'vue'; // Tambahkan shallowRef
 import L from 'leaflet';
+// Import CSS untuk Leaflet dan MarkerCluster
+import 'leaflet/dist/leaflet.css';
+import 'leaflet.markercluster/dist/MarkerCluster.Default.css';
+import 'leaflet.markercluster/dist/MarkerCluster.css';
+import 'leaflet.markercluster'; // Import JavaScript untuk MarkerCluster
 
 const props = defineProps({
     datamaps: {
@@ -18,71 +23,136 @@ const props = defineProps({
     },
 });
 
-const map = ref(null);
-const markers = ref([]);
+// Gunakan shallowRef untuk instansi Leaflet untuk performa
+const map = shallowRef(null);
+// Gunakan shallowRef untuk marker cluster group
+const markerClusterGroup = shallowRef(null);
+const currentMarkers = new Map(); // Menggunakan Map untuk manajemen marker berdasarkan ID
 
-// Function to add or update markers and center on the last data point
+// Fungsi untuk menambahkan/memperbarui/menghapus marker
 const updateMarkers = (data) => {
-    // Clear existing markers
-    markers.value.forEach((marker) => marker.remove());
-    markers.value = [];
+    if (!map.value || !markerClusterGroup.value) {
+        console.warn('Peta atau MarkerClusterGroup belum diinisialisasi.');
+        return;
+    }
 
-    if (data && data.length > 0) {
-        // Add all markers
-        data.forEach((visitor) => {
-            try {
-                const marker = L.marker([visitor.lat, visitor.lng])
-                    .addTo(map.value)
-                    .bindPopup(`<b>${visitor.city}</b><br>Terakhir aktif: ${visitor.time}`);
-                markers.value.push(marker);
-            } catch (error) {
-                console.error(`Error adding marker for ${visitor.city}:`, error);
-            }
-        });
+    const newDataIds = new Set(data.map(item => item.id));
+    const markersToAdd = [];
+    const markersToKeep = new Set();
 
-        // Center and zoom on the last data point
+    // 1. Perbarui atau kumpulkan marker yang sudah ada
+    data.forEach((visitor) => {
+        if (currentMarkers.has(visitor.id)) {
+            // Jika marker sudah ada, kita bisa memperbarui pop-up-nya jika perlu
+            // Untuk Leaflet, pembaruan posisi marker langsung agak rumit
+            // Jika posisi bisa berubah, lebih baik hapus dan buat ulang atau gunakan library khusus
+            // Untuk kasus ini, kita asumsikan posisi marker tidak berubah untuk ID yang sama,
+            // hanya pop-up atau informasinya yang mungkin diperbarui.
+            const existingMarker = currentMarkers.get(visitor.id);
+            existingMarker.setPopupContent(`<b>${visitor.city}</b><br>Terakhir aktif: ${visitor.time}`);
+            markersToKeep.add(visitor.id);
+        } else {
+            // Marker baru, tambahkan ke daftar untuk dibuat
+            markersToAdd.push(visitor);
+        }
+    });
+
+    // 2. Hapus marker yang tidak lagi ada di data baru
+    const markersToRemove = [];
+    currentMarkers.forEach((marker, id) => {
+        if (!newDataIds.has(id)) {
+            markersToRemove.push({ id, marker });
+        } else if (!markersToKeep.has(id)) {
+            // Ini adalah kasus di mana marker ada di currentMarkers tetapi tidak di newDataIds
+            // (misalnya, data lama yang tidak dimasukkan ke newDataIds karena ID-nya tidak cocok)
+            markersToRemove.push({ id, marker });
+        }
+    });
+
+    markersToRemove.forEach(({ id, marker }) => {
+        markerClusterGroup.value.removeLayer(marker);
+        currentMarkers.delete(id);
+    });
+
+
+    // 3. Tambahkan marker baru
+    markersToAdd.forEach((visitor) => {
+        try {
+            const marker = L.marker([visitor.lat, visitor.lng], {
+                // Memberikan ID ke marker untuk manajemen yang lebih mudah (opsional tapi bagus)
+                visitorId: visitor.id
+            }).bindPopup(`<b>${visitor.city}</b><br>Terakhir aktif: ${visitor.time}`);
+            markerClusterGroup.value.addLayer(marker);
+            currentMarkers.set(visitor.id, marker);
+        } catch (error) {
+            console.error(`Error adding marker for ${visitor.city} (ID: ${visitor.id}):`, error);
+        }
+    });
+
+    // Posisikan peta ke titik terakhir jika ada data
+    if (data.length > 0) {
         const lastVisitor = data[data.length - 1];
-        map.value.setView([lastVisitor.lat, lastVisitor.lng], 10); // Zoom level 10 for focus
+        map.value.flyTo([lastVisitor.lat, lastVisitor.lng], 3, { duration: 0.5 }); // Gunakan flyTo untuk animasi halus
     } else {
-        console.warn('No valid data to display markers');
-        // Fallback to default center (Jakarta)
-        map.value.setView([-6.2088, 106.8456], 5);
+        // Fallback ke pusat default jika tidak ada data
+        map.value.setView([-6.2088, 106.8456], 3);
     }
 };
 
+// Debounce timer untuk watcher
+let updateTimer = null;
+
 onMounted(() => {
-    // Initialize map with default center (overwritten by updateMarkers if data exists)
-    map.value = L.map('visitorMaps', {
-        center: [-6.2088, 106.8456], // Default center (Jakarta)
-        zoom: 5,
-        zoomControl: true,
-    });
+    // Inisialisasi peta hanya sekali
+    if (!map.value) {
+        map.value = L.map('visitorMaps', {
+            center: [-6.2088, 106.8456], // Default center (Jakarta)
+            zoom: 5,
+            zoomControl: true,
+        });
 
-    // Add OpenStreetMap tile layer
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '© OpenStreetMap contributors',
-    }).addTo(map.value);
+        // Tambahkan OpenStreetMap tile layer
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '© OpenStreetMap contributors',
+        }).addTo(map.value);
 
-    // Initial marker rendering and centering
-    // console.log('Initial datamaps:', props.datamaps);
+        // Inisialisasi MarkerClusterGroup dan tambahkan ke peta
+        markerClusterGroup.value = L.markerClusterGroup({
+            chunkedLoading: true, // Memungkinkan pemuatan cluster yang besar secara bertahap
+            maxClusterRadius: 80, // Mengatur radius cluster
+        });
+        map.value.addLayer(markerClusterGroup.value);
+    }
+
+    // Panggil updateMarkers pertama kali dengan data awal
     updateMarkers(props.datamaps);
 });
 
-// Watch for changes in datamaps prop
+// Watch for changes in datamaps prop with debouncing
 watch(
     () => props.datamaps,
     (newData) => {
-        // console.log('Updated datamaps:', newData);
-        updateMarkers(newData);
+        // Clear previous debounce timer
+        if (updateTimer) {
+            clearTimeout(updateTimer);
+        }
+        // Set new debounce timer
+        updateTimer = setTimeout(() => {
+            updateMarkers(newData);
+        }, 100); // Debounce selama 100ms
     },
-    { deep: true }
+    { deep: true } // Gunakan deep watch karena kita membandingkan array objek
 );
 
 onUnmounted(() => {
+    // Hancurkan peta dan hapus semua marker saat komponen tidak lagi digunakan
     if (map.value) {
         map.value.remove();
         map.value = null;
     }
+    // Hapus referensi ke markerClusterGroup
+    markerClusterGroup.value = null;
+    currentMarkers.clear(); // Bersihkan Map marker
 });
 </script>
 
@@ -91,6 +161,7 @@ onUnmounted(() => {
 </template>
 
 <style scoped>
-/* Ensure Leaflet styles are applied */
-/* @import 'leaflet/dist/leaflet.css'; */
+/* @import 'leaflet/dist/leaflet.css'; - Sudah diimport di <script setup> */
+/* @import 'leaflet.markercluster/dist/MarkerCluster.css'; - Sudah diimport di <script setup> */
+/* @import 'leaflet.markercluster/dist/MarkerCluster.Default.css'; - Sudah diimport di <script setup> */
 </style>

@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
-import axios from '../../services/axios'
+import axios from '../../services/axios' // Pastikan jalur ini benar
 
 export const useBehaviorStore = defineStore('behavior', {
     state: () => ({
@@ -41,11 +41,20 @@ export const useBehaviorStore = defineStore('behavior', {
             this.date_to = date_to;
         },
 
-        async fetchAllData() {
+        async fetchAllData(forceRefresh = false) {
+            // Perbaikan logika caching: Cek apakah `clickEvents` memiliki data.
+            // Contoh: jika categories di clickEvents terisi, berarti data sudah dimuat.
+            if (!forceRefresh && this.clickEvents.categories.length > 0) {
+                console.log('Behavior data already loaded, skipping fetchAllData unless forced.');
+                return;
+            }
+
             this.loading = true;
-            this.error = null;
+            this.error = null; // Reset error sebelum memulai fetching
+
             try {
-                await Promise.all([
+                // Menggunakan Promise.allSettled untuk memastikan semua permintaan selesai
+                const results = await Promise.allSettled([
                     this.fetchClickEvents(),
                     this.fetchScrollDepth(),
                     this.fetchCustomEvents(),
@@ -53,127 +62,117 @@ export const useBehaviorStore = defineStore('behavior', {
                     this.fetchEventTimeline(),
                     this.fetchUrls()
                 ]);
-            } catch (error) {
-                this.error = error.response?.data?.error || 'Failed to fetch behavior data';
-                console.error('Fetch all behavior data error:', error);
+
+                // Memeriksa hasil dari Promise.allSettled untuk mengidentifikasi kegagalan
+                const rejectedPromises = results.filter(result => result.status === 'rejected');
+                if (rejectedPromises.length > 0) {
+                    this.error = 'Some behavior data failed to load. Please check console for details.';
+                    rejectedPromises.forEach((rejected, index) => {
+                        console.error(`Fetch operation ${index} failed:`, rejected.reason);
+                    });
+                }
+
+            } catch (err) {
+                // Tangani error umum jika Promise.allSettled itu sendiri gagal
+                this.error = err.response?.data?.error || 'Failed to fetch all behavior data';
+                console.error('Fetch all behavior data critical error:', err);
             } finally {
                 this.loading = false;
+            }
+        },
+
+        // Fungsi pembantu untuk mengurangi duplikasi kode
+        async _fetchData(endpoint, property, defaultValues, errorMessage) {
+            try {
+                const { data } = await axios.get(endpoint, {
+                    params: { date_from: this.date_from, date_to: this.date_to }
+                });
+
+                // Pembaruan state berdasarkan tipe data dan struktur respons yang diharapkan
+                if (Array.isArray(this[property])) { // Untuk `urls`
+                    this[property] = data || defaultValues;
+                } else if (property === 'heatmap') {
+                    this[property] = {
+                        urls: data.urls || defaultValues.urls,
+                        heatmapData: data.heatmapData || defaultValues.heatmapData
+                    };
+                } else if (property === 'clickEvents') { // Untuk chart seperti `clickEvents`
+                    this[property] = {
+                        title: data.title || defaultValues.title,
+                        categories: data.categories || defaultValues.categories,
+                        seriesData: data.seriesData || defaultValues.seriesData
+                    };
+                } else { // Untuk objek dengan `headers`, `items`, `title` (scrollDepth, customEvents, eventTimeline)
+                    this[property] = {
+                        headers: data.headers || defaultValues.headers,
+                        items: data.items || defaultValues.items,
+                        title: data.title || defaultValues.title
+                    };
+                }
+
+            } catch (error) {
+                console.error(`${errorMessage} error:`, error);
+                // Reset ke nilai default jika terjadi error
+                if (Array.isArray(this[property])) {
+                    this[property] = defaultValues;
+                } else {
+                    this[property] = { ...defaultValues };
+                }
             }
         },
 
         async fetchClickEvents() {
-            try {
-                this.loading = true;
-                const { data } = await axios.get('/api/admin/behavior/click-events', {
-                    params: { date_from: this.date_from, date_to: this.date_to }
-                });
-                this.clickEvents = {
-                    title: data.title || '',
-                    categories: data.categories || [],
-                    seriesData: data.seriesData || []
-                };
-            } catch (error) {
-                this.error = error.response?.data?.error || 'Failed to fetch click events data';
-                this.clickEvents = { title: 'Click Events', categories: [], seriesData: [] };
-                console.error('Fetch click events error:', error);
-            } finally {
-                this.loading = false;
-            }
+            await this._fetchData(
+                '/api/admin/behavior/click-events',
+                'clickEvents',
+                { title: 'Click Events', categories: [], seriesData: [] },
+                'Fetch click events'
+            );
         },
 
         async fetchScrollDepth() {
-            try {
-                this.loading = true;
-                const { data } = await axios.get('/api/admin/behavior/scroll-depth', {
-                    params: { date_from: this.date_from, date_to: this.date_to }
-                });
-                this.scrollDepth = {
-                    headers: data.headers || [],
-                    items: data.items || [],
-                    title: data.title || ''
-                };
-            } catch (error) {
-                this.error = error.response?.data?.error || 'Failed to fetch scroll depth data';
-                this.scrollDepth = { headers: [], items: [], title: 'Scroll Depth Distribution' };
-                console.error('Fetch scroll depth error:', error);
-            } finally {
-                this.loading = false;
-            }
+            await this._fetchData(
+                '/api/admin/behavior/scroll-depth',
+                'scrollDepth',
+                { headers: [], items: [], title: 'Scroll Depth Distribution' },
+                'Fetch scroll depth'
+            );
         },
 
         async fetchCustomEvents() {
-            try {
-                this.loading = true;
-                const { data } = await axios.get('/api/admin/behavior/custom-events', {
-                    params: { date_from: this.date_from, date_to: this.date_to }
-                });
-                this.customEvents = {
-                    headers: data.headers || [],
-                    items: data.items || [],
-                    title: data.title || ''
-                };
-            } catch (error) {
-                this.error = error.response?.data?.error || 'Failed to fetch custom events data';
-                this.customEvents = { headers: [], items: [], title: 'Top Clicked Elements' };
-                console.error('Fetch custom events error:', error);
-            } finally {
-                this.loading = false;
-            }
+            await this._fetchData(
+                '/api/admin/behavior/custom-events',
+                'customEvents',
+                { headers: [], items: [], title: 'Top Clicked Elements' },
+                'Fetch custom events'
+            );
         },
 
         async fetchHeatmap() {
-            try {
-                this.loading = true;
-                const { data } = await axios.get('/api/admin/behavior/heatmap', {
-                    params: { date_from: this.date_from, date_to: this.date_to }
-                });
-                this.heatmap = {
-                    urls: data.urls || [],
-                    heatmapData: data.heatmapData || {}
-                };
-            } catch (error) {
-                this.error = error.response?.data?.error || 'Failed to fetch heatmap data';
-                this.heatmap = { urls: [], heatmapData: {} };
-                console.error('Fetch heatmap error:', error);
-            } finally {
-                this.loading = false;
-            }
+            await this._fetchData(
+                '/api/admin/behavior/heatmap',
+                'heatmap',
+                { urls: [], heatmapData: {} },
+                'Fetch heatmap'
+            );
         },
 
         async fetchEventTimeline() {
-            try {
-                this.loading = true;
-                const { data } = await axios.get('/api/admin/behavior/event-timeline', {
-                    params: { date_from: this.date_from, date_to: this.date_to }
-                });
-                this.eventTimeline = {
-                    headers: data.headers || [],
-                    items: data.items || [],
-                    title: data.title || ''
-                };
-            } catch (error) {
-                this.error = error.response?.data?.error || 'Failed to fetch event timeline data';
-                this.eventTimeline = { headers: [], items: [], title: 'Event Timeline' };
-                console.error('Fetch event timeline error:', error);
-            } finally {
-                this.loading = false;
-            }
+            await this._fetchData(
+                '/api/admin/behavior/event-timeline',
+                'eventTimeline',
+                { headers: [], items: [], title: 'Event Timeline' },
+                'Fetch event timeline'
+            );
         },
 
         async fetchUrls() {
-            try {
-                this.loading = true;
-                const { data } = await axios.get('/api/admin/behavior/urls', {
-                    params: { date_from: this.date_from, date_to: this.date_to }
-                });
-                this.urls = data || [];
-            } catch (error) {
-                this.error = error.response?.data?.error || 'Failed to fetch URLs data';
-                this.urls = [];
-                console.error('Fetch URLs error:', error);
-            } finally {
-                this.loading = false;
-            }
+            await this._fetchData(
+                '/api/admin/behavior/urls',
+                'urls',
+                [],
+                'Fetch URLs'
+            );
         }
     }
 })
