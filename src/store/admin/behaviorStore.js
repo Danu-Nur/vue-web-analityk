@@ -20,8 +20,7 @@ export const useBehaviorStore = defineStore('behavior', {
             title: ''
         }),
         heatmap: ref({
-            urls: [],
-            heatmapData: {}
+            data: [] // Kini akan menyimpan array objek per URL
         }),
         eventTimeline: ref({
             headers: [],
@@ -93,8 +92,7 @@ export const useBehaviorStore = defineStore('behavior', {
                     this[property] = data || defaultValues;
                 } else if (property === 'heatmap') {
                     this[property] = {
-                        urls: data.urls || defaultValues.urls,
-                        heatmapData: data.heatmapData || defaultValues.heatmapData
+                        data: data.data || defaultValues.data // Mengambil array 'data' dari respons
                     };
                 } else if (property === 'clickEvents') { // Untuk chart seperti `clickEvents`
                     this[property] = {
@@ -152,7 +150,7 @@ export const useBehaviorStore = defineStore('behavior', {
             await this._fetchData(
                 '/api/admin/behavior/heatmap',
                 'heatmap',
-                { urls: [], heatmapData: {} },
+                { data:[] },
                 'Fetch heatmap'
             );
         },

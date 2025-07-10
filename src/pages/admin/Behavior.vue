@@ -143,31 +143,27 @@ onMounted(() => {
                     <h2 class="font-semibold text-gray-900 text-lg mb-4">Heatmap Preview</h2>
                     <div
                         class="grid grid-cols-1 gap-4 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100">
-                        <div v-for="url in store.urls" :key="url.websiteUrl"
-                            class="w-full aspect-[16/9] bg-white border border-gray-200 rounded-xl shadow-sm overflow-hidden">
+                        <!-- {{ store.heatmap }} -->
+                        <div v-for="urlData in store.heatmap.data" :key="urlData.url_id"
+                            class="w-full aspect-[16/9] bg-white border border-gray-200 rounded-xl shadow-sm overflow-hidden flex flex-col">
+
                             <div class="px-4 py-2">
-                                {{ url.websiteUrl }}
+                                <p class="text-sm text-gray-900 font-medium truncate" :title="urlData.website_url">{{
+                                    urlData.website_url }}</p>
                             </div>
 
-                            <div class="flex flex-col h-full border border-gray-200">
+                            <div class="flex flex-col h-full border-t border-gray-200 flex-1">
                                 <div class="relative flex-1">
                                     <Suspense>
                                         <template #default>
-                                            <HeatmapClickTracking
-                                                v-if="store.heatmap && store.heatmap.heatmapData && url.websiteUrl"
-                                                :website-url="url.websiteUrl" :heatmap-data="store.heatmap.heatmapData"
-                                                :scale="scale" class="absolute inset-0 w-full h-full object-cover" />
-                                            <SkeletonHeatMaps class="absolute inset-0 w-full h-full"
-                                                v-else-if="isLoading" />
+                                            <HeatmapClickTracking :websiteUrl="urlData.website_url"
+                                                :heatmapData="{ items: urlData.heatmap_points }" :scale="scale"
+                                                class="absolute inset-0 w-full h-full object-cover" />
                                         </template>
                                         <template #fallback>
                                             <SkeletonHeatMaps class="absolute inset-0 w-full h-full" />
                                         </template>
                                     </Suspense>
-                                </div>
-                                <div class="p-4">
-                                    <p class="text-sm text-gray-900 font-medium truncate">{{ url.label }}</p>
-                                    <p class="text-xs text-gray-600">{{ url.websiteUrl }}</p>
                                 </div>
                             </div>
                         </div>
