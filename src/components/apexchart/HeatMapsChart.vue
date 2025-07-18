@@ -9,7 +9,6 @@
                 margin: '0',
                 padding: '0',
             }">
-                <!-- <iframe :src="websiteUrl" class="w-[1280px] h-full absolute top-0 left-0 z-0" ref="websiteIframe" -->
                 <iframe src="http://localhost:5173" class="w-[1280px] h-full absolute top-0 left-0 z-0" ref="websiteIframe"
                     @load="initHeatmap"></iframe>
                 <div class="absolute top-0 left-0 w-[1280px] z-10 bg-transparent"

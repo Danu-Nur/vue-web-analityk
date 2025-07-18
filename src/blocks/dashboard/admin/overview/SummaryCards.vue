@@ -50,7 +50,7 @@ const summaryCards = computed(() => [
 <template>
     <section aria-label="Summary cards" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mb-6">
         <article v-for="card in summaryCards" :key="card.title" :aria-label="card.title"
-            class="border border-gray-200 rounded-lg p-4 sm:p-6 flex flex-col justify-between">
+            class="card-new rounded-lg p-4 sm:p-6 flex flex-col justify-between">
             <div class="flex justify-between items-start mb-2">
                 <p class="text-gray-700 font-semibold">{{ card.title }}</p>
                 <i :class="card.icon" class="text-gray-400 text-xl"></i>
@@ -59,7 +59,7 @@ const summaryCards = computed(() => [
             <div class="flex justify-between">
                 <p class="text-sm text-gray-500">{{ card.change }}</p>
                 <span
-                    class="flex items-center border border-gray-300 h-max rounded px-1 py-0.5 text-[10px] font-semibold text-gray-600">
+                    class="flex items-center card-new h-max rounded px-1 py-0.5 text-[10px] font-semibold text-gray-600">
                     <i class="fas fa-chart-line text-[10px]"></i>
                     <span>{{ card.rekap }}</span>
                 </span>

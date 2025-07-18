@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted, onUnmounted, ref, watch, shallowRef } from 'vue'; // Tambahkan shallowRef
+import { onMounted, onUnmounted, ref, watch, shallowRef } from 'vue';
 import L from 'leaflet';
 
 const props = defineProps({
@@ -9,14 +9,13 @@ const props = defineProps({
     }
 });
 
-// Gunakan shallowRef untuk objek Leaflet agar Vue tidak mencoba membuatnya reaktif secara mendalam,
-// yang bisa memakan banyak sumber daya dan tidak perlu.
+// Gunakan shallowRef untuk objek Leaflet agar tidak reaktif secara mendalam
 const map = shallowRef(null);
-const geojsonLayer = shallowRef(null); // Ganti 'geojson' dengan nama yang lebih jelas
-const infoControl = shallowRef(null); // Ganti 'info'
-const legendControl = shallowRef(null); // Ganti 'legend'
+const geojsonLayer = shallowRef(null);
+const infoControl = shallowRef(null);
+const legendControl = shallowRef(null);
 
-// Raw GeoJSON data hanya perlu dimuat sekali dan tidak perlu reaktif secara mendalam
+// Data GeoJSON mentah disimpan di sini
 let rawGeoJsonData = null;
 
 // Fungsi untuk menentukan warna berdasarkan jumlah pengunjung
@@ -29,59 +28,55 @@ const getColor = (count) =>
                         count > 100 ? '#FEB24C' :
                             '#FFEDA0';
 
-// Styling dasar untuk GeoJSON (akan diperbarui nanti)
+// Gaya untuk lapisan GeoJSON yang disesuaikan untuk tampilan skeleton
 const style = (feature) => {
-    // Properti 'count' akan ditambahkan ke feature.properties saat data pengunjung diolah
     const count = feature.properties.count || 0;
-    // Cek apakah negara ini ada di data props.data
-    // Gunakan 'name' atau properti yang sesuai dari geojson untuk identifikasi negara
     const isChoropleth = props.data.some(v => v.country === feature.properties.shapeName);
 
     return {
-        fillColor: isChoropleth ? getColor(count) : '#ccc',
+        fillColor: isChoropleth ? getColor(count) : '#ffffff', // Putih untuk negara tanpa data
         weight: 1,
         opacity: 1,
-        color: 'white',
+        color: '#666', // Border abu-abu gelap agar terlihat jelas
         dashArray: '',
-        fillOpacity: isChoropleth ? 0.7 : 0.3,
+        fillOpacity: isChoropleth ? 0.8 : 0.5,
     };
 };
 
-// Mouse interactions (fungsi-fungsi ini tidak perlu diubah banyak)
+// Interaksi mouse untuk menyorot fitur
 const highlightFeature = (e) => {
     e.target.setStyle({
         weight: 2,
-        color: '#666',
+        color: '#333',
         dashArray: '',
-        fillOpacity: 0.7,
+        fillOpacity: 0.9,
     });
     if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
         e.target.bringToFront();
     }
-    // Pastikan infoControl sudah ada sebelum memanggil update
     if (infoControl.value) {
         infoControl.value.update(e.target.feature.properties);
     }
 };
 
+// Mengembalikan gaya seperti semula saat mouse keluar
 const resetHighlight = (e) => {
-    // Pastikan geojsonLayer sudah ada sebelum memanggil resetStyle
     if (geojsonLayer.value) {
         geojsonLayer.value.resetStyle(e.target);
     }
-    // Pastikan infoControl sudah ada sebelum memanggil update
     if (infoControl.value) {
         infoControl.value.update();
     }
 };
 
+// Zoom ke fitur saat diklik
 const zoomToFeature = (e) => {
-    // Pastikan map sudah ada
     if (map.value) {
         map.value.fitBounds(e.target.getBounds());
     }
 };
 
+// Menambahkan event listener ke setiap lapisan negara
 const onEachFeature = (feature, layer) => {
     layer.on({
         mouseover: highlightFeature,
@@ -90,45 +85,31 @@ const onEachFeature = (feature, layer) => {
     });
 };
 
-// Inisialisasi peta dan muat data GeoJSON awal
+// Inisialisasi peta dan muat data GeoJSON
 const initializeMap = async () => {
     try {
-        // Inisialisasi peta hanya jika belum ada
         if (!map.value) {
             map.value = L.map('map', {
                 zoomControl: true,
-                center: [0, 0], // Atur center awal
-                zoom: 2 // Atur zoom awal
+                center: [0, 0],
+                zoom: 2
             });
 
-            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                attribution: '© OpenStreetMap contributors',
-                maxZoom: 18,
-                zoomSnap: 0.25
-            }).addTo(map.value);
+            // Tile layer sudah dihapus untuk mendapatkan tampilan skeleton
 
-            // Muat data GeoJSON hanya sekali saat inisialisasi
-            // Asumsi path ini benar dan file tidak terlalu besar
             const { default: loadedGeoJsonData } = await import('../../dummydata/geoBoundariesCGAZ_ADM0_2.json');
-            rawGeoJsonData = loadedGeoJsonData; // Simpan di variabel non-reaktif karena hanya perlu dibaca
+            rawGeoJsonData = loadedGeoJsonData;
 
             if (!rawGeoJsonData || !rawGeoJsonData.features) {
                 throw new Error('Invalid GeoJSON data: features array is missing or empty.');
             }
 
-            // Tambahkan GeoJSON layer awal ke peta
             geojsonLayer.value = L.geoJson(rawGeoJsonData, {
-                style: style, // Gunakan fungsi style
+                style: style,
                 onEachFeature: onEachFeature
             }).addTo(map.value);
 
-            // Zoom ke batas GeoJSON setelah ditambahkan pertama kali
-            if (geojsonLayer.value.getBounds().isValid()) {
-                map.value.fitBounds(geojsonLayer.value.getBounds());
-            } else {
-                // Fallback jika bounds tidak valid (misal, data kosong)
-                map.value.setView([0, 0], 2);
-            }
+            // Logika zoom awal sudah dipindahkan ke updateGeoJsonLayer
 
             // Inisialisasi Info Control
             infoControl.value = L.control();
@@ -143,50 +124,43 @@ const initializeMap = async () => {
             };
             infoControl.value.addTo(map.value);
 
-            // Inisialisasi Legend Control (akan diperbarui di updateGeoJsonLayer)
+            // Inisialisasi Legend Control
             legendControl.value = L.control({ position: 'bottomright' });
             legendControl.value.onAdd = function () {
                 const div = L.DomUtil.create('div', 'info legend');
-                // Legend akan diperbarui di updateGeoJsonLayer
                 return div;
             };
             legendControl.value.addTo(map.value);
         }
 
-        // Panggil updateGeoJsonLayer untuk menerapkan data props.data awal
+        // Panggil update untuk menerapkan data & zoom awal
         updateGeoJsonLayer();
 
     } catch (err) {
         console.error('Error initializing map:', err);
-        // Tampilkan pesan error kepada pengguna jika perlu
     }
 };
 
-// Update GeoJSON layer dengan data pengunjung baru
+// Memperbarui lapisan GeoJSON dengan data pengunjung dan mengatur zoom
 const updateGeoJsonLayer = () => {
     if (!map.value || !geojsonLayer.value || !rawGeoJsonData) {
         console.warn("Map, GeoJSON layer, or raw data not initialized.");
         return;
     }
 
-    // Buat objek mapping dari data props untuk pencarian cepat
-    const visitorMap = new Map();
-    props.data.forEach(v => {
-        // Asumsi v.country adalah nama negara yang cocok dengan f.properties.name
-        visitorMap.set(v.country, v.count);
-    });
+    const visitorMap = new Map(props.data.map(v => [v.country, v.count]));
+    const activeLayers = []; // Array untuk menampung layer yang memiliki data
 
-    // Iterasi melalui setiap layer di geojsonLayer (setiap fitur negara)
-    // dan perbarui properti serta stylenya
     geojsonLayer.value.eachLayer(layer => {
-        const countryName = layer.feature.properties.shapeName; // Ganti 'name' jika properti negara berbeda
+        const countryName = layer.feature.properties.shapeName;
         const count = visitorMap.get(countryName) || 0;
-
-        // Perbarui properti 'count' di fitur
         layer.feature.properties.count = count;
-
-        // Perbarui style layer
         layer.setStyle(style(layer.feature));
+
+        // Jika negara ada di data, tambahkan ke array untuk penyesuaian zoom
+        if (visitorMap.has(countryName)) {
+            activeLayers.push(layer);
+        }
     });
 
     // Perbarui legenda
@@ -196,15 +170,13 @@ const updateGeoJsonLayer = () => {
         if (props.data.length > 0) {
             const maxCount = Math.max(...props.data.map(v => v.count));
             if (maxCount > 0) {
-                // Menghasilkan rentang grade yang lebih dinamis berdasarkan maxCount
-                grades = [0, 100, 500, 1000, 1500, 3000, 5000].filter(g => g <= maxCount + 1000); // Filter out grades higher than max
+                grades = [0, 100, 500, 1000, 1500, 3000, 5000].filter(g => g <= maxCount + 1000);
                 if (grades[grades.length - 1] < maxCount) {
-                    grades.push(Math.ceil(maxCount / 1000) * 1000); // Add a final grade if maxCount is higher than existing highest grade
+                    grades.push(Math.ceil(maxCount / 1000) * 1000);
                 }
-                grades = [...new Set(grades)].sort((a, b) => a - b); // Remove duplicates and sort
+                grades = [...new Set(grades)].sort((a, b) => a - b);
             }
         }
-
         let legendHtml = '<h4>Jumlah Pengunjung</h4>';
         for (let i = 0; i < grades.length; i++) {
             const nextGrade = grades[i + 1];
@@ -214,41 +186,51 @@ const updateGeoJsonLayer = () => {
         div.innerHTML = legendHtml;
     }
 
-    // Pastikan info control diperbarui setelah data di-render ulang
+    // Perbarui info control
     if (infoControl.value) {
         infoControl.value.update();
     }
+
+    // LOGIKA ZOOM CERDAS (SEBAGAI LANGKAH TERAKHIR)
+    if (activeLayers.length > 0) {
+        // Jika ada negara dengan data, buat grup dari layer tersebut
+        const dataBounds = L.featureGroup(activeLayers).getBounds();
+        // Atur zoom agar pas dengan grup negara, beri sedikit padding
+        map.value.fitBounds(dataBounds.pad(0.1));
+    } else {
+        // Jika tidak ada data, atur zoom untuk menampilkan seluruh dunia
+        if (geojsonLayer.value.getBounds().isValid()) {
+            map.value.fitBounds(geojsonLayer.value.getBounds());
+        }
+    }
 };
 
+// Lifecycle hook saat komponen di-mount
 onMounted(initializeMap);
 
-// Gunakan deep watch untuk props.data, tapi tambahkan debounce untuk performa
-// Jika data props.data sering berubah dalam waktu singkat
+// Watcher untuk memantau perubahan pada props.data
 const updateTimer = ref(null);
 watch(() => props.data, (newData, oldData) => {
-    // Hanya perbarui jika data benar-benar berubah
     if (JSON.stringify(newData) !== JSON.stringify(oldData)) {
         if (updateTimer.value) {
             clearTimeout(updateTimer.value);
         }
         updateTimer.value = setTimeout(() => {
             updateGeoJsonLayer();
-        }, 300); // Debounce 300ms
+        }, 300); // Debounce 300ms untuk performa
     }
 }, { deep: true });
 
-
+// Lifecycle hook saat komponen di-unmount
 onUnmounted(() => {
-    // Hancurkan peta saat komponen tidak lagi digunakan
     if (map.value) {
         map.value.remove();
-        map.value = null; // Setel ke null untuk melepaskan referensi
+        map.value = null;
     }
-    // Hapus referensi kontrol juga
     geojsonLayer.value = null;
     infoControl.value = null;
     legendControl.value = null;
-    rawGeoJsonData = null; // Hapus referensi data mentah
+    rawGeoJsonData = null;
 });
 </script>
 
@@ -257,7 +239,11 @@ onUnmounted(() => {
 </template>
 
 <style scoped>
-/* Styling yang sudah ada */
+/* Menambahkan warna latar belakang untuk peta skeleton */
+#map {
+    background-color: #ffffff00;
+}
+
 .info {
     padding: 6px 8px;
     font: 14px/16px Arial, Helvetica, sans-serif;
@@ -285,6 +271,6 @@ onUnmounted(() => {
     height: 18px;
     float: left;
     margin-right: 8px;
-    opacity: 0.7;
+    opacity: 0.8;
 }
 </style>

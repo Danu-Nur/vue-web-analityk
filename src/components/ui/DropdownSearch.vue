@@ -55,10 +55,10 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-    <div class="relative w-screen xl:w-full xl:max-w-xs me-0 md:me-4">
+    <div class="relative xl:w-max xl:max-w-xs me-0 md:me-4 ">
         <!-- Trigger Button -->
         <button ref="buttonRef" @click="toggleDropdown"
-            class="w-[200px] px-3 py-1.5 flex items-center justify-between text-sm font-medium bg-white border border-gray-200 rounded-md hover:bg-gray-50 focus:outline-none">
+            class="w-[200px] px-3 py-1.5 flex items-center justify-between text-sm font-medium card-new rounded-md hover:bg-gray-50 focus:outline-none">
             <div class="flex items-center space-x-2 truncate">
                 <div
                     :class="['w-6 h-6 rounded-full bg-gradient-to-tr text-xs',selected.color,'text-white flex items-center justify-center']">
@@ -70,7 +70,7 @@ onBeforeUnmount(() => {
 
         <!-- Dropdown -->
         <div v-if="isOpen" ref="dropdownRef"
-            class="absolute z-20 w-full mt-2 bg-white border border-gray-200 rounded-md shadow-lg text-sm overflow-hidden">
+            class="absolute z-20 w-full mt-2 card-new rounded-md shadow-lg text-sm overflow-hidden">
             <!-- Search -->
             <div class="relative p-2 border-b border-gray-200">
                 <div class="absolute inset-y-0 right-0 flex items-center pr-3">

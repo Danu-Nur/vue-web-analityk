@@ -1,5 +1,5 @@
 <script setup>
-import { ref, computed } from 'vue';
+import { ref, onMounted, onUnmounted, computed } from 'vue';
 import { TransitionRoot, TransitionChild } from '@headlessui/vue';
 import { useRoute } from 'vue-router'; // Penting: Import useRoute
 
@@ -40,27 +40,59 @@ const getDashboardLink = (targetRoute) => {
     }
 };
 
+// State untuk melacak apakah dropdown sedang terbuka atau tertutup
+const isDropdownOpen = ref(false);
+
+// Referensi ke elemen dropdown itu sendiri
+const dropdownRef = ref(null);
+
+// Fungsi untuk membuka/menutup dropdown
+function toggleDropdown() {
+    isDropdownOpen.value = !isDropdownOpen.value;
+}
+
+function closeDropdown() {
+    isDropdownOpen.value = false;
+}
+
+// Fungsi untuk menutup dropdown jika pengguna mengklik di luar areanya
+const handleClickOutside = (event) => {
+    if (dropdownRef.value && !dropdownRef.value.contains(event.target)) {
+        closeDropdown();
+    }
+};
+
+// Tambahkan event listener saat komponen dimuat
+onMounted(() => {
+    document.addEventListener('mousedown', handleClickOutside);
+});
+
+// Hapus event listener saat komponen dihancurkan untuk mencegah memory leak
+onUnmounted(() => {
+    document.removeEventListener('mousedown', handleClickOutside);
+});
+
 </script>
 
 <template>
-    <header class="sticky top-0 z-50 bg-white border-b border-gray-200">
+    <header class="sticky top-0 z-50 card-new">
         <nav aria-label="Primary Navigation"
-            class="mx-auto flex items-center xl:justify-between px-4 sm:px-6 xl:px-12 py-3">
-            <div class="flex items-center justify-between w-full xl:w-auto space-x-3">
+            class="flex items-center w-full justify-between px-4 sm:px-6 xl:px-12 py-3">
+            <div class="flex items-center justify-between w-full md:w-auto">
                 <DropdownSearch />
 
-                <div class="hidden xl:flex items-center text-nowrap bg-gray-100 gap-2 p-1 rounded-md w-max">
+                <div class="hidden md:flex items-center text-nowrap card-new gap-2 p-1 rounded-md w-max">
                     <router-link v-for="item in menus" :key="item.to" :to="getDashboardLink(item.to)" :class="[ // <<< PERUBAHAN UTAMA DI SINI
                         'rounded-md py-1 px-2 text-nowrap text-sm',
                         item.name === pageTitle
                             ? 'bg-gradient-to-r from-primary-600 to-indigo-500 text-white'
-                            : 'text-gray-400 hover:text-gray-600'
+                            : 'text-gray-600 hover:bg-gray-300'
                     ]">
                         {{ item.name }}
                     </router-link>
                 </div>
 
-                <button class="xl:hidden flex items-center justify-end ms-auto text-gray-600 focus:outline-none"
+                <button class="md:hidden flex items-center justify-end ms-auto text-gray-600 focus:outline-none"
                     aria-label="Toggle navigation menu" @click="toggleMenu">
                     <svg class="w-6 h-6 sm:w-10 sm:h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -69,13 +101,52 @@ const getDashboardLink = (targetRoute) => {
                 </button>
             </div>
 
-            <div class="hidden xl:flex items-center space-x-4">
+            <div class="hidden md:flex items-center space-x-4">
                 <input aria-label="Search"
-                    class="border border-gray-300 rounded-md py-1.5 px-3 placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-black"
+                    class="rounded-md py-1.5 px-3 border card-new border-gray-300 placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
                     placeholder="Search..." type="search" />
-                <img alt="User avatar silhouette of a woman with black hair" class="w-8 h-8 rounded-full object-cover"
-                    :height="32" :width="32" loading="lazy"
-                    src="https://storage.googleapis.com/a1aa/image/8e84123b-eb5a-4c72-28d9-c9ca4c15f5f1.jpg" />
+
+                <div class="relative" ref="dropdownRef">
+                    <button @click="toggleDropdown"
+                        class="focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 rounded-full">
+                        <img alt="User avatar" class="w-9 h-9 rounded-full object-cover"
+                            src="https://storage.googleapis.com/a1aa/image/8e84123b-eb5a-4c72-28d9-c9ca4c15f5f1.jpg" />
+                    </button>
+
+                    <transition enter-active-class="transition ease-out duration-100"
+                        enter-from-class="transform opacity-0 scale-95" enter-to-class="transform opacity-100 scale-100"
+                        leave-active-class="transition ease-in duration-75"
+                        leave-from-class="transform opacity-100 scale-100"
+                        leave-to-class="transform opacity-0 scale-95">
+                        <div v-if="isDropdownOpen"
+                            class="absolute right-0 mt-2 w-56 origin-top-right bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none z-10">
+                            <div class="py-1" role="menu" aria-orientation="vertical"
+                                aria-labelledby="user-menu-button">
+                                <div class="px-4 py-2 border-b border-gray-200">
+                                    <p class="text-sm text-gray-900 font-medium">Username</p>
+                                    <p class="text-sm text-gray-500 truncate">user.email@example.com</p>
+                                </div>
+                                <router-link :to="{ name: 'admin.setting' }" @click="closeDropdown()"
+                                    class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">
+                                    Settings
+                                </router-link>
+                                <router-link :to="{ name: 'admin.billing' }" @click="closeDropdown()"
+                                    class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">
+                                    Billing & Plan
+                                </router-link>
+                                <router-link :to="{ name: 'admin.affiliate' }" @click="closeDropdown()"
+                                    class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">
+                                    Affiliate / Partnership
+                                </router-link>
+                                <a href="#" @click.prevent="logout" @click="closeDropdown()"
+                                    class="block w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-gray-100"
+                                    role="menuitem">
+                                    Sign out
+                                </a>
+                            </div>
+                        </div>
+                    </transition>
+                </div>
             </div>
         </nav>
 
@@ -115,8 +186,7 @@ const getDashboardLink = (targetRoute) => {
                                 </li>
                                 <li v-for="item in menus" :key="item.to">
                                     <router-link class="block px-3 py-2 rounded dark:text-gray-200"
-                                        :to="getDashboardLink(item.to)"
-                                        :class="[
+                                        :to="getDashboardLink(item.to)" :class="[
                                             item.name === pageTitle
                                                 ? 'bg-gradient-to-r from-primary-600 to-indigo-500 text-white hover:text-white'
                                                 : 'text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white'

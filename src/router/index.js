@@ -32,54 +32,65 @@ const routes = [
     {
         path: '/admin',
         component: DashboardAdminLayout,
+        // Tambahkan redirect untuk halaman default saat mengunjungi /admin
+        redirect: { name: 'admin.overview' }, // <-- PERBAIKAN 1
         children: [
             {
-                path: 'admin-overview',
+                // Path disederhanakan dari 'admin-overview' menjadi 'overview'
+                // URL akhir akan tetap benar: /admin/overview
+                path: 'overview', // <-- PERBAIKAN 2
                 name: 'admin.overview',
                 component: () => import('../pages/admin/Overview.vue'),
-                meta: { title: 'Overview' }
+                meta: { title: 'Overview' },
+                redirect: { name: 'admin.history' },
+                children: [
+                    {
+                        path: 'history', // <-- Lebih singkat
+                        name: 'admin.history',
+                        component: () => import('../blocks/dashboard/admin/overview/History.vue'),
+                        // meta: { title: 'History' }
+                    },
+                    {
+                        path: 'behavior', // <-- Lebih singkat
+                        name: 'admin.behavior',
+                        component: () => import('../blocks/dashboard/admin/overview/Behavior.vue'),
+                        // meta: { title: 'Behavior' }
+                    },
+                    {
+                        path: 'conversion', // <-- Lebih singkat
+                        name: 'admin.conversion',
+                        component: () => import('../blocks/dashboard/admin/overview/Conversions.vue'),
+                        // meta: { title: 'Conversions' }
+                    },
+                    {
+                        path: 'diagnostics', // <-- Lebih singkat
+                        name: 'admin.diagnostics',
+                        component: () => import('../blocks/dashboard/admin/overview/Diagnostics.vue'),
+                        // meta: { title: 'Diagnostics' }
+                    },
+                ]
             },
             {
-                path: 'admin-visitor',
+                path: 'visitor', // <-- Lebih singkat
                 name: 'admin.visitor',
                 component: () => import('../pages/admin/Visitors.vue'),
-                meta: { title: 'Visitors' }
+                meta: { title: 'Real-Time' }
             },
 
             {
-                path: 'admin-behavior',
-                name: 'admin.behavior',
-                component: () => import('../pages/admin/Behavior.vue'),
-                meta: { title: 'Behavior' }
-            },
-            {
-                path: 'admin-conversion',
-                name: 'admin.conversion',
-                component: () => import('../pages/admin/Conversions.vue'),
-                meta: { title: 'Conversions' }
-            },
-
-            {
-                path: 'admin-diagnostics',
-                name: 'admin.diagnostics',
-                component: () => import('../pages/admin/Diagnostics.vue'),
-                meta: { title: 'Diagnostics' }
-            },
-            {
-                path: 'admin-setting',
+                path: 'setting', // <-- Lebih singkat
                 name: 'admin.setting',
                 component: () => import('../pages/admin/Setting.vue'),
                 meta: { title: 'Settings & API' }
             },
-
             {
-                path: 'admin-billing',
+                path: 'billing', // <-- Lebih singkat
                 name: 'admin.billing',
                 component: () => import('../pages/admin/Billing.vue'),
                 meta: { title: 'Billing & Plan' }
             },
             {
-                path: 'admin-affiliate',
+                path: 'affiliate', // <-- Lebih singkat
                 name: 'admin.affiliate',
                 component: () => import('../pages/admin/Affiliate.vue'),
                 meta: { title: 'Affiliate / Partnership' }

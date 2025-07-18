@@ -3,7 +3,7 @@
         <i
             class="bi bi-calendar text-gray-600 absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none"></i>
         <flat-pickr v-model="internalDateRange" :config="config" placeholder="Pilih Rentang Tanggal"
-            class="w-full min-w-[280px] pl-10 pr-10 py-2 border border-gray-300 text-center rounded-md text-gray-700 bg-white hover:bg-gray-100 focus:outline-none focus:ring-1 focus:ring-black truncate" />
+            class="w-full min-w-[280px] pl-10 pr-10 py-2 card-new text-center rounded-md text-gray-700 hover:bg-gray-100 focus:outline-none focus:ring-1 focus:ring-black truncate" />
         <button v-if="hasValue" @click="clearDate" type="button"
             class="absolute inset-y-0 right-0 flex items-center pr-3 text-sm text-red-500 hover:underline">
             <i class="bi bi-x-square"></i>

@@ -55,7 +55,7 @@ const MapMarkerAsync = defineAsyncComponent(() =>
     </div>
 
     <section aria-label="Main content" class="grid grid-cols-1 gap-4 sm:gap-6 h-max mb-6">
-        <article aria-label="Geo Map" class="border border-gray-200 rounded-lg p-4 flex flex-col">
+        <article aria-label="Geo Map" class="card-new rounded-lg p-4 flex flex-col">
             <h2 class="font-semibold text-gray-900 mb-4">Geo Map with Live Visitor</h2>
             <Suspense>
                 <template #default>
@@ -71,7 +71,7 @@ const MapMarkerAsync = defineAsyncComponent(() =>
     </section>
 
     <section aria-label="Main content" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4 sm:gap-6 h-max mb-6">
-        <article aria-label="Live Users" class="border border-gray-200 md:col-span-2 rounded-lg p-4 flex flex-col">
+        <article aria-label="Live Users" class="card-new md:col-span-2 rounded-lg p-4 flex flex-col">
             <h2 class="font-semibold text-gray-900 mb-1">Live Users</h2>
             <Suspense>
                 <template #default>
@@ -85,7 +85,7 @@ const MapMarkerAsync = defineAsyncComponent(() =>
                 </template>
             </Suspense>
         </article>
-        <article aria-label="Sessions Summary" class="border border-gray-200 rounded-lg p-4 flex flex-col">
+        <article aria-label="Sessions Summary" class="card-new rounded-lg p-4 flex flex-col">
             <h2 class="font-semibold text-gray-900 mb-4">Sessions Summary</h2>
             <Suspense>
                 <template #default>
@@ -99,7 +99,7 @@ const MapMarkerAsync = defineAsyncComponent(() =>
                 </template>
             </Suspense>
         </article>
-        <article aria-label="Device Breakdown" class="border border-gray-200 rounded-lg p-4 flex flex-col">
+        <article aria-label="Device Breakdown" class="card-new rounded-lg p-4 flex flex-col">
             <h2 class="font-semibold text-gray-900 mb-1">Device Breakdown</h2>
             <Suspense>
                 <template #default>
@@ -116,7 +116,7 @@ const MapMarkerAsync = defineAsyncComponent(() =>
     </section>
 
     <section aria-label="Main content" class="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 h-max mb-6">
-        <article aria-label="User Journey" class="border border-gray-200 rounded-lg p-4 flex flex-col order-2">
+        <article aria-label="User Journey" class="card-new rounded-lg p-4 flex flex-col order-2">
             <h2 class="font-semibold text-gray-900 mb-4">User Journey</h2>
             <Suspense>
                 <template #default>
@@ -130,7 +130,7 @@ const MapMarkerAsync = defineAsyncComponent(() =>
                 </template>
             </Suspense>
         </article>
-        <article aria-label="Hourly Visitors" class="border border-gray-200 rounded-lg p-4 flex flex-col">
+        <article aria-label="Hourly Visitors" class="card-new rounded-lg p-4 flex flex-col">
             <h2 class="font-semibold text-gray-900 mb-1">Hourly Visitors</h2>
             <div class="flex flex-col justify-center h-full">
                 <Suspense>

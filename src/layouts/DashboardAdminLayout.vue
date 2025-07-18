@@ -1,14 +1,14 @@
 <template>
-    <div class="bg-white text-gray-900 h-full min-h-screen relative">
+    <div class="text-gray-900 h-full min-h-screen relative">
         <HeaderAdmin />
-        <main class="mx-auto px-4 sm:px-6 lg:px-12 py-6">
+        <main class="mx-auto px-4 sm:px-6 lg:px-12 py-6 ">
             <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-6">
-                <h1 class="text-2xl sm:text-3xl font-extrabold leading-tight text-gray-900 mb-4 md:mb-0">
+                <h1 class="text-2xl sm:text-3xl font-extrabold leading-tight text-gray-900 mb-4 md:mb-0 drop-shadow-lg">
                     {{ pageTitle }}
                 </h1>
                 <div class="flex flex-col sm:flex-row items-start sm:items-center space-y-3 sm:space-y-0 sm:space-x-3">
                     <select v-model="selectedRange"
-                        class="border border-gray-300 rounded-md py-2 px-4 w-full sm:w-auto bg-white focus:outline-none focus:ring-1 focus:ring-blue-500">
+                        class="card-new rounded-md py-2 px-4 w-full sm:w-auto bg-white focus:outline-none focus:ring-1 focus:ring-blue-500">
                         <option v-for="range in dateRanges" :key="range.value" :value="range.value">
                             {{ range.label }}
                         </option>
@@ -26,9 +26,9 @@
                 </div>
             </div>
             <router-view v-slot="{ Component }">
-                <keep-alive>
+                <!-- <keep-alive> -->
                     <component :is="Component" />
-                </keep-alive>
+                <!-- </keep-alive> -->
             </router-view>
         </main>
 
