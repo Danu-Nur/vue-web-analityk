@@ -46,7 +46,7 @@ onMounted(() => {
 
     <section class="grid grid-cols-1 md:grid-cols-3 gap-6 lg:mb-6">
         <!-- Funnel Overview -->
-        <div class="rounded-2xl border border-gray-200 shadow-sm p-6 transition-all">
+        <div class="rounded-2xl  card-new  shadow-sm p-6 transition-all">
             <div class="flex justify-between items-start">
                 <div>
                     <h3 class="font-semibold text-lg flex items-center">
@@ -80,7 +80,7 @@ onMounted(() => {
         </div>
 
         <!-- Conversion Rate -->
-        <div class="rounded-2xl border border-gray-200 shadow-sm p-6 transition-all">
+        <div class="rounded-2xl  card-new  shadow-sm p-6 transition-all">
             <div class="flex justify-between items-start mb-4">
                 <div>
                     <h3 class="font-semibold text-lg flex items-center">
@@ -115,7 +115,7 @@ onMounted(() => {
         </div>
 
         <!-- Top Sources -->
-        <div class="rounded-2xl border border-gray-200 shadow-sm p-6 transition-all">
+        <div class="rounded-2xl  card-new  shadow-sm p-6 transition-all">
             <div class="flex justify-between items-start mb-4">
                 <div>
                     <h3 class="font-semibold text-lg flex items-center">
@@ -213,7 +213,7 @@ onMounted(() => {
 
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
         <!-- Step-by-Step Drop-off Chart -->
-        <div class="rounded-2xl border border-gray-200 shadow-sm p-6 transition-all md:col-span-2">
+        <div class="rounded-2xl  card-new  shadow-sm p-6 transition-all md:col-span-2">
             <div class="flex justify-between items-start mb-6">
                 <div>
                     <h3 class="font-semibold text-lg flex items-center">
@@ -242,7 +242,7 @@ onMounted(() => {
         </div>
 
         <!-- Conversion Timeline -->
-        <div class="rounded-2xl border border-gray-200 shadow-sm p-6 transition-all">
+        <div class="rounded-2xl  card-new  shadow-sm p-6 transition-all">
             <div class="flex justify-between items-start mb-4">
                 <div>
                     <h3 class="font-semibold text-lg flex items-center">
@@ -310,7 +310,7 @@ onMounted(() => {
 
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
         <!-- Conversion Trends -->
-        <div class="rounded-2xl border border-gray-200 shadow-sm p-6 transition-all md:col-span-2">
+        <div class="rounded-2xl  card-new  shadow-sm p-6 transition-all md:col-span-2">
             <div class="flex justify-between items-start mb-4">
                 <div>
                     <h3 class="font-semibold text-lg flex items-center">
@@ -339,7 +339,7 @@ onMounted(() => {
         </div>
 
         <!-- Recent Conversions -->
-        <div class="rounded-2xl border border-gray-200 shadow-sm p-6 transition-all">
+        <div class="rounded-2xl  card-new  shadow-sm p-6 transition-all">
             <div class="flex justify-between items-start mb-4">
                 <div>
                     <h3 class="font-semibold text-lg flex items-center">
@@ -425,7 +425,7 @@ onMounted(() => {
 
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
         <!-- User Journey Snapshots -->
-        <div class="rounded-2xl border border-gray-200 shadow-sm p-6 transition-all">
+        <div class="rounded-2xl  card-new  shadow-sm p-6 transition-all">
             <div class="flex justify-between items-start mb-4">
                 <div>
                     <h3 class="font-semibold text-lg flex items-center">
@@ -438,7 +438,7 @@ onMounted(() => {
             </div>
 
             <ul class="space-y-4 overflow-y-auto max-h-[250px]">
-                <li class="p-3 border border-gray-200 rounded-xl hover:ring-1 ring-gray-200 transition cursor-pointer">
+                <li class="p-3  card-new  rounded-xl hover:ring-1 ring-gray-200 transition cursor-pointer">
                     <p class="text-gray-800 font-semibold mb-1">
                         User #12345
                     </p>
@@ -460,7 +460,7 @@ onMounted(() => {
                         </span>
                     </div>
                 </li>
-                <li class="p-3 border border-gray-200 rounded-xl hover:ring-1 ring-gray-200 transition cursor-pointer">
+                <li class="p-3  card-new  rounded-xl hover:ring-1 ring-gray-200 transition cursor-pointer">
                     <p class="text-gray-800 font-semibold mb-1">
                         User #67890
                     </p>
@@ -479,7 +479,7 @@ onMounted(() => {
                         </span>
                     </div>
                 </li>
-                <li class="p-3 border border-gray-200 rounded-xl hover:ring-1 ring-gray-200 transition cursor-pointer">
+                <li class="p-3  card-new  rounded-xl hover:ring-1 ring-gray-200 transition cursor-pointer">
                     <p class="text-gray-800 font-semibold mb-1">
                         User #54321
                     </p>
@@ -498,7 +498,7 @@ onMounted(() => {
                         </span>
                     </div>
                 </li>
-                <li class="p-3 border border-gray-200 rounded-xl hover:ring-1 ring-gray-200 transition cursor-pointer">
+                <li class="p-3  card-new  rounded-xl hover:ring-1 ring-gray-200 transition cursor-pointer">
                     <p class="text-gray-800 font-semibold mb-1">
                         User #98765
                     </p>
@@ -518,7 +518,7 @@ onMounted(() => {
         </div>
 
         <!-- Conversion Goals -->
-        <div class="rounded-2xl border border-gray-200 shadow-sm p-6 transition-all md:col-span-2">
+        <div class="rounded-2xl  card-new  shadow-sm p-6 transition-all md:col-span-2">
             <div class="flex justify-between items-start mb-4">
                 <div>
                     <h3 class="font-semibold text-lg flex items-center">

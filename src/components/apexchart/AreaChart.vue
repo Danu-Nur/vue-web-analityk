@@ -1,9 +1,10 @@
 <template>
-    <VueApexCharts type="area" class="w-full h-full" :options="chartOptions" :series="chartSeries" />
+    <VueApexCharts v-if="isMounted" type="area" class="w-full h-full" :options="chartOptions" :series="chartSeries" />
 </template>
 
 <script setup>
-import { computed } from 'vue'
+// 1. Impor 'ref' dan 'onMounted' dari Vue
+import { computed, ref, onMounted } from 'vue'
 import VueApexCharts from 'vue3-apexcharts'
 
 const props = defineProps({
@@ -13,20 +14,31 @@ const props = defineProps({
     },
     categories: {
         type: Array,
-        default: () => ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'] // Default categories
+        default: () => ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul']
     },
     seriesData: {
         type: Array,
-        default: () => [{ name: 'Series 1', data: [0, 0, 0, 0, 0, 0, 0] }], // Default with example data
-        validator: (series) => series.every(s => typeof s === 'object' && s !== null && 'name' in s && Array.isArray(s.data))
+        default: () => [{ name: 'Series 1', data: [0, 0, 0, 0, 0, 0, 0] }],
+        // validator: (series) => series.every(s => typeof s === 'object' && s !== null && 'name' in s && Array.isArray(s.data))
     },
     colors: {
         type: Array,
-        default: () => ['#F59E0B', '#000000'] // Default colors for gradient
+        default: () => ['#F59E0B', '#000000']
     }
 })
 
-// Opsi grafik yang dihitung berdasarkan props
+// 2. Buat sebuah reactive reference untuk melacak status 'mounted'
+const isMounted = ref(false)
+
+// 3. Gunakan lifecycle hook 'onMounted'
+onMounted(() => {
+    // Kode di dalam sini akan berjalan SETELAH komponen ini terpasang di DOM.
+    // Ini adalah waktu yang tepat untuk memberitahu bahwa grafik siap untuk ditampilkan.
+    isMounted.value = true;
+})
+
+
+// Opsi grafik yang dihitung berdasarkan props (Tidak ada perubahan di sini)
 const chartOptions = computed(() => ({
     chart: {
         id: 'area-chart',
@@ -55,7 +67,7 @@ const chartOptions = computed(() => ({
         }
     },
     xaxis: {
-        categories: props.categories, // Langsung gunakan prop categories
+        categories: props.categories,
         labels: {
             style: {
                 colors: '#9ca3af',
@@ -79,9 +91,7 @@ const chartOptions = computed(() => ({
                 colors: '#9ca3af',
                 fontSize: '12px',
                 fontFamily: 'Inter, sans-serif'
-            },
-            // Tambahkan formatter sederhana jika dibutuhkan
-            // formatter: (value) => `${value}`
+            }
         }
     },
     grid: {
@@ -97,7 +107,7 @@ const chartOptions = computed(() => ({
     tooltip: {
         theme: 'light',
         x: {
-            format: 'MMM dd' // Format default untuk tanggal
+            format: 'MMM dd'
         },
         y: {
             formatter: (value) => `${value}`
@@ -105,11 +115,10 @@ const chartOptions = computed(() => ({
     }
 }))
 
-// Memastikan format series selalu sesuai dengan yang diharapkan ApexCharts
+// Memastikan format series selalu sesuai (Tidak ada perubahan di sini)
 const chartSeries = computed(() => {
-    // Jika seriesData memiliki format lama (array angka), konversi ke format baru
     if (props.seriesData.length > 0 && typeof props.seriesData[0] !== 'object') {
-        console.warn("Using old seriesData format. Please update to [{ name: '...', data: [...] }] for better clarity.");
+        // console.warn("Menggunakan format seriesData lama. Mohon perbarui ke [{ name: '...', data: [...] }] untuk kejelasan yang lebih baik.");
         return [{ name: props.title, data: props.seriesData }];
     }
     return props.seriesData;

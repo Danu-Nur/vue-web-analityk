@@ -11,7 +11,7 @@ const apikeyItems = ref(apiKeys)
     <!-- <DashboardAdminLayout> -->
         <div class="mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 py-6">
             <!-- API Keys -->
-            <section aria-labelledby="api-keys-title" class="border border-gray-200 rounded-lg p-4 flex flex-col">
+            <section aria-labelledby="api-keys-title" class=" card-new  rounded-lg p-4 flex flex-col">
                 <h2 class="text-lg font-semibold mb-4 flex items-center gap-2" id="api-keys-title">
                     <i class="fas fa-key text-gray-700">
                     </i>
@@ -20,7 +20,7 @@ const apikeyItems = ref(apiKeys)
                 <div class="flex flex-col gap-4 overflow-auto max-h-[420px] pr-1">
                     <!-- 5 API keys -->
                     <article
-                        class="flex items-center justify-between bg-white rounded-2xl p-4 shadow-sm hover:ring-1 ring-gray-300 transition">
+                        class="flex items-center justify-between card-new rounded-2xl p-4 shadow-sm hover:ring-1 ring-gray-300 transition">
                         <div class="flex flex-col space-y-0.5 min-w-0">
                             <p class="font-semibold text-gray-900 truncate" title="Main Project Key">
                                 Main Project Key
@@ -46,7 +46,7 @@ const apikeyItems = ref(apiKeys)
                         </div>
                     </article>
                     <article
-                        class="flex items-center justify-between bg-white rounded-2xl p-4 shadow-sm hover:ring-1 ring-gray-300 transition">
+                        class="flex items-center justify-between card-new rounded-2xl p-4 shadow-sm hover:ring-1 ring-gray-300 transition">
                         <div class="flex flex-col space-y-0.5 min-w-0">
                             <p class="font-semibold text-gray-900 truncate" title="Backup Key">
                                 Backup Key
@@ -72,7 +72,7 @@ const apikeyItems = ref(apiKeys)
                         </div>
                     </article>
                     <article
-                        class="flex items-center justify-between bg-white rounded-2xl p-4 shadow-sm hover:ring-1 ring-gray-300 transition">
+                        class="flex items-center justify-between card-new rounded-2xl p-4 shadow-sm hover:ring-1 ring-gray-300 transition">
                         <div class="flex flex-col space-y-0.5 min-w-0">
                             <p class="font-semibold text-gray-900 truncate" title="Mobile App Key">
                                 Mobile App Key
@@ -98,7 +98,7 @@ const apikeyItems = ref(apiKeys)
                         </div>
                     </article>
                     <article
-                        class="flex items-center justify-between bg-white rounded-2xl p-4 shadow-sm hover:ring-1 ring-gray-300 transition">
+                        class="flex items-center justify-between card-new rounded-2xl p-4 shadow-sm hover:ring-1 ring-gray-300 transition">
                         <div class="flex flex-col space-y-0.5 min-w-0">
                             <p class="font-semibold text-gray-900 truncate" title="Test Key">
                                 Test Key
@@ -124,7 +124,7 @@ const apikeyItems = ref(apiKeys)
                         </div>
                     </article>
                     <article
-                        class="flex items-center justify-between bg-white rounded-2xl p-4 shadow-sm hover:ring-1 ring-gray-300 transition">
+                        class="flex items-center justify-between card-new rounded-2xl p-4 shadow-sm hover:ring-1 ring-gray-300 transition">
                         <div class="flex flex-col space-y-0.5 min-w-0">
                             <p class="font-semibold text-gray-900 truncate" title="Legacy Key">
                                 Legacy Key
@@ -153,7 +153,7 @@ const apikeyItems = ref(apiKeys)
             </section>
             <!-- Client Projects -->
             <section aria-labelledby="client-projects-title"
-                class="border border-gray-200 rounded-lg p-4 flex flex-col">
+                class=" card-new  rounded-lg p-4 flex flex-col">
                 <h2 class="text-lg font-semibold mb-4 flex items-center gap-2" id="client-projects-title">
                     <i class="fas fa-puzzle-piece text-gray-700">
                     </i>
@@ -162,7 +162,7 @@ const apikeyItems = ref(apiKeys)
                 <div class="flex flex-col gap-4 overflow-auto max-h-[420px] pr-1">
                     <!-- 5 client projects -->
                     <article
-                        class="bg-white rounded-2xl p-4 shadow-sm hover:ring-1 ring-gray-300 transition flex flex-col space-y-1">
+                        class="card-new rounded-2xl p-4 shadow-sm hover:ring-1 ring-gray-300 transition flex flex-col space-y-1">
                         <div class="flex items-center justify-between">
                             <h3 class="font-semibold text-gray-900 truncate" title="Acme Corp">
                                 Acme Corp
@@ -176,7 +176,7 @@ const apikeyItems = ref(apiKeys)
                         </p>
                     </article>
                     <article
-                        class="bg-white rounded-2xl p-4 shadow-sm hover:ring-1 ring-gray-300 transition flex flex-col space-y-1">
+                        class="card-new rounded-2xl p-4 shadow-sm hover:ring-1 ring-gray-300 transition flex flex-col space-y-1">
                         <div class="flex items-center justify-between">
                             <h3 class="font-semibold text-gray-900 truncate" title="Beta LLC">
                                 Beta LLC
@@ -190,7 +190,7 @@ const apikeyItems = ref(apiKeys)
                         </p>
                     </article>
                     <article
-                        class="bg-white rounded-2xl p-4 shadow-sm hover:ring-1 ring-gray-300 transition flex flex-col space-y-1">
+                        class="card-new rounded-2xl p-4 shadow-sm hover:ring-1 ring-gray-300 transition flex flex-col space-y-1">
                         <div class="flex items-center justify-between">
                             <h3 class="font-semibold text-gray-900 truncate" title="Gamma Inc">
                                 Gamma Inc
@@ -204,7 +204,7 @@ const apikeyItems = ref(apiKeys)
                         </p>
                     </article>
                     <article
-                        class="bg-white rounded-2xl p-4 shadow-sm hover:ring-1 ring-gray-300 transition flex flex-col space-y-1">
+                        class="card-new rounded-2xl p-4 shadow-sm hover:ring-1 ring-gray-300 transition flex flex-col space-y-1">
                         <div class="flex items-center justify-between">
                             <h3 class="font-semibold text-gray-900 truncate" title="Delta Partners">
                                 Delta Partners
@@ -218,7 +218,7 @@ const apikeyItems = ref(apiKeys)
                         </p>
                     </article>
                     <article
-                        class="bg-white rounded-2xl p-4 shadow-sm hover:ring-1 ring-gray-300 transition flex flex-col space-y-1">
+                        class="card-new rounded-2xl p-4 shadow-sm hover:ring-1 ring-gray-300 transition flex flex-col space-y-1">
                         <div class="flex items-center justify-between">
                             <h3 class="font-semibold text-gray-900 truncate" title="Epsilon Studio">
                                 Epsilon Studio
@@ -235,7 +235,7 @@ const apikeyItems = ref(apiKeys)
             </section>
             <!-- Allowed Domains -->
             <section aria-labelledby="allowed-domains-title"
-                class="border border-gray-200 rounded-lg p-4 flex flex-col">
+                class=" card-new  rounded-lg p-4 flex flex-col">
                 <h2 class="text-lg font-semibold mb-4 flex items-center gap-2" id="allowed-domains-title">
                     <i class="fas fa-globe-americas text-gray-700">
                     </i>
@@ -296,7 +296,7 @@ const apikeyItems = ref(apiKeys)
                 </div>
             </section>
             <!-- Webhooks -->
-            <section aria-labelledby="webhooks-title" class="border border-gray-200 rounded-lg p-4 flex flex-col">
+            <section aria-labelledby="webhooks-title" class=" card-new  rounded-lg p-4 flex flex-col">
                 <h2 class="text-lg font-semibold mb-4 flex items-center gap-2" id="webhooks-title">
                     <i class="fas fa-envelope-open-text text-gray-700">
                     </i>
@@ -305,7 +305,7 @@ const apikeyItems = ref(apiKeys)
                 <div class="flex flex-col gap-4 overflow-auto max-h-[420px] pr-1">
                     <!-- 5 webhooks -->
                     <article
-                        class="flex items-center justify-between bg-white rounded-2xl p-4 shadow-sm hover:ring-1 ring-gray-300 transition">
+                        class="flex items-center justify-between card-new rounded-2xl p-4 shadow-sm hover:ring-1 ring-gray-300 transition">
                         <div class="flex flex-col min-w-0 space-y-0.5">
                             <p class="font-semibold text-gray-900 truncate" title="User Signup Webhook">
                                 User Signup Webhook
@@ -325,7 +325,7 @@ const apikeyItems = ref(apiKeys)
                         </div>
                     </article>
                     <article
-                        class="flex items-center justify-between bg-white rounded-2xl p-4 shadow-sm hover:ring-1 ring-gray-300 transition">
+                        class="flex items-center justify-between card-new rounded-2xl p-4 shadow-sm hover:ring-1 ring-gray-300 transition">
                         <div class="flex flex-col min-w-0 space-y-0.5">
                             <p class="font-semibold text-gray-900 truncate" title="Purchase Completed Webhook">
                                 Purchase Completed Webhook
@@ -345,7 +345,7 @@ const apikeyItems = ref(apiKeys)
                         </div>
                     </article>
                     <article
-                        class="flex items-center justify-between bg-white rounded-2xl p-4 shadow-sm hover:ring-1 ring-gray-300 transition">
+                        class="flex items-center justify-between card-new rounded-2xl p-4 shadow-sm hover:ring-1 ring-gray-300 transition">
                         <div class="flex flex-col min-w-0 space-y-0.5">
                             <p class="font-semibold text-gray-900 truncate" title="Error Reporting Webhook">
                                 Error Reporting Webhook
@@ -365,7 +365,7 @@ const apikeyItems = ref(apiKeys)
                         </div>
                     </article>
                     <article
-                        class="flex items-center justify-between bg-white rounded-2xl p-4 shadow-sm hover:ring-1 ring-gray-300 transition">
+                        class="flex items-center justify-between card-new rounded-2xl p-4 shadow-sm hover:ring-1 ring-gray-300 transition">
                         <div class="flex flex-col min-w-0 space-y-0.5">
                             <p class="font-semibold text-gray-900 truncate" title="New Funnel Trigger Webhook">
                                 New Funnel Trigger Webhook
@@ -385,7 +385,7 @@ const apikeyItems = ref(apiKeys)
                         </div>
                     </article>
                     <article
-                        class="flex items-center justify-between bg-white rounded-2xl p-4 shadow-sm hover:ring-1 ring-gray-300 transition">
+                        class="flex items-center justify-between card-new rounded-2xl p-4 shadow-sm hover:ring-1 ring-gray-300 transition">
                         <div class="flex flex-col min-w-0 space-y-0.5">
                             <p class="font-semibold text-gray-900 truncate" title="Bot Detection Alert Webhook">
                                 Bot Detection Alert Webhook
@@ -408,7 +408,7 @@ const apikeyItems = ref(apiKeys)
             </section>
             <!-- Tracking Settings -->
             <section aria-labelledby="tracking-settings-title"
-                class="border border-gray-200 rounded-lg p-4 flex flex-col">
+                class=" card-new  rounded-lg p-4 flex flex-col">
                 <h2 class="text-lg font-semibold mb-4 flex items-center gap-2" id="tracking-settings-title">
                     <i class="fas fa-cogs text-gray-700">
                     </i>
@@ -473,7 +473,7 @@ const apikeyItems = ref(apiKeys)
                 </form>
             </section>
             <!-- Custom Events Config -->
-            <section aria-labelledby="custom-events-title" class="border border-gray-200 rounded-lg p-4 flex flex-col">
+            <section aria-labelledby="custom-events-title" class=" card-new  rounded-lg p-4 flex flex-col">
                 <h2 class="text-lg font-semibold mb-4 flex items-center gap-2" id="custom-events-title">
                     <i class="fas fa-bolt text-gray-700">
                     </i>
@@ -482,7 +482,7 @@ const apikeyItems = ref(apiKeys)
                 <div class="flex flex-col gap-4 overflow-auto max-h-[420px] pr-1">
                     <!-- 7 custom events -->
                     <article
-                        class="bg-white rounded-2xl p-4 shadow-sm hover:ring-1 ring-gray-300 transition flex flex-col space-y-2">
+                        class="card-new rounded-2xl p-4 shadow-sm hover:ring-1 ring-gray-300 transition flex flex-col space-y-2">
                         <div class="flex justify-between items-center">
                             <h3 class="font-semibold text-gray-900 truncate" title="Button Click">
                                 Button Click
@@ -497,7 +497,7 @@ const apikeyItems = ref(apiKeys)
                         </p>
                     </article>
                     <article
-                        class="bg-white rounded-2xl p-4 shadow-sm hover:ring-1 ring-gray-300 transition flex flex-col space-y-2">
+                        class="card-new rounded-2xl p-4 shadow-sm hover:ring-1 ring-gray-300 transition flex flex-col space-y-2">
                         <div class="flex justify-between items-center">
                             <h3 class="font-semibold text-gray-900 truncate" title="Form Submit">
                                 Form Submit
@@ -512,7 +512,7 @@ const apikeyItems = ref(apiKeys)
                         </p>
                     </article>
                     <article
-                        class="bg-white rounded-2xl p-4 shadow-sm hover:ring-1 ring-gray-300 transition flex flex-col space-y-2">
+                        class="card-new rounded-2xl p-4 shadow-sm hover:ring-1 ring-gray-300 transition flex flex-col space-y-2">
                         <div class="flex justify-between items-center">
                             <h3 class="font-semibold text-gray-900 truncate" title="Page View">
                                 Page View
@@ -527,7 +527,7 @@ const apikeyItems = ref(apiKeys)
                         </p>
                     </article>
                     <article
-                        class="bg-white rounded-2xl p-4 shadow-sm hover:ring-1 ring-gray-300 transition flex flex-col space-y-2">
+                        class="card-new rounded-2xl p-4 shadow-sm hover:ring-1 ring-gray-300 transition flex flex-col space-y-2">
                         <div class="flex justify-between items-center">
                             <h3 class="font-semibold text-gray-900 truncate" title="Video Play">
                                 Video Play
@@ -542,7 +542,7 @@ const apikeyItems = ref(apiKeys)
                         </p>
                     </article>
                     <article
-                        class="bg-white rounded-2xl p-4 shadow-sm hover:ring-1 ring-gray-300 transition flex flex-col space-y-2">
+                        class="card-new rounded-2xl p-4 shadow-sm hover:ring-1 ring-gray-300 transition flex flex-col space-y-2">
                         <div class="flex justify-between items-center">
                             <h3 class="font-semibold text-gray-900 truncate" title="Newsletter Signup">
                                 Newsletter Signup
@@ -557,7 +557,7 @@ const apikeyItems = ref(apiKeys)
                         </p>
                     </article>
                     <article
-                        class="bg-white rounded-2xl p-4 shadow-sm hover:ring-1 ring-gray-300 transition flex flex-col space-y-2">
+                        class="card-new rounded-2xl p-4 shadow-sm hover:ring-1 ring-gray-300 transition flex flex-col space-y-2">
                         <div class="flex justify-between items-center">
                             <h3 class="font-semibold text-gray-900 truncate" title="Product Click">
                                 Product Click
@@ -572,7 +572,7 @@ const apikeyItems = ref(apiKeys)
                         </p>
                     </article>
                     <article
-                        class="bg-white rounded-2xl p-4 shadow-sm hover:ring-1 ring-gray-300 transition flex flex-col space-y-2">
+                        class="card-new rounded-2xl p-4 shadow-sm hover:ring-1 ring-gray-300 transition flex flex-col space-y-2">
                         <div class="flex justify-between items-center">
                             <h3 class="font-semibold text-gray-900 truncate" title="Checkout View">
                                 Checkout View
@@ -589,7 +589,7 @@ const apikeyItems = ref(apiKeys)
                 </div>
             </section>
             <!-- Funnels Setup -->
-            <section aria-labelledby="funnels-setup-title" class="border border-gray-200 rounded-lg p-4 flex flex-col">
+            <section aria-labelledby="funnels-setup-title" class=" card-new  rounded-lg p-4 flex flex-col">
                 <h2 class="text-lg font-semibold mb-4 flex items-center gap-2" id="funnels-setup-title">
                     <i class="fas fa-chart-line text-gray-700">
                     </i>
@@ -598,7 +598,7 @@ const apikeyItems = ref(apiKeys)
                 <div class="flex flex-col gap-4 overflow-auto max-h-[420px] pr-1">
                     <!-- 4 funnels -->
                     <article
-                        class="bg-white rounded-2xl p-4 shadow-sm hover:ring-1 ring-gray-300 transition flex flex-col space-y-2">
+                        class="card-new rounded-2xl p-4 shadow-sm hover:ring-1 ring-gray-300 transition flex flex-col space-y-2">
                         <h3 class="font-semibold text-gray-900 truncate" title="Signup Funnel">
                             Signup Funnel
                         </h3>
@@ -615,7 +615,7 @@ const apikeyItems = ref(apiKeys)
                         </button>
                     </article>
                     <article
-                        class="bg-white rounded-2xl p-4 shadow-sm hover:ring-1 ring-gray-300 transition flex flex-col space-y-2">
+                        class="card-new rounded-2xl p-4 shadow-sm hover:ring-1 ring-gray-300 transition flex flex-col space-y-2">
                         <h3 class="font-semibold text-gray-900 truncate" title="Checkout Funnel">
                             Checkout Funnel
                         </h3>
@@ -632,7 +632,7 @@ const apikeyItems = ref(apiKeys)
                         </button>
                     </article>
                     <article
-                        class="bg-white rounded-2xl p-4 shadow-sm hover:ring-1 ring-gray-300 transition flex flex-col space-y-2">
+                        class="card-new rounded-2xl p-4 shadow-sm hover:ring-1 ring-gray-300 transition flex flex-col space-y-2">
                         <h3 class="font-semibold text-gray-900 truncate" title="Purchase Funnel">
                             Purchase Funnel
                         </h3>
@@ -649,7 +649,7 @@ const apikeyItems = ref(apiKeys)
                         </button>
                     </article>
                     <article
-                        class="bg-white rounded-2xl p-4 shadow-sm hover:ring-1 ring-gray-300 transition flex flex-col space-y-2">
+                        class="card-new rounded-2xl p-4 shadow-sm hover:ring-1 ring-gray-300 transition flex flex-col space-y-2">
                         <h3 class="font-semibold text-gray-900 truncate" title="Newsletter Funnel">
                             Newsletter Funnel
                         </h3>
@@ -668,7 +668,7 @@ const apikeyItems = ref(apiKeys)
                 </div>
             </section>
             <!-- Bot Detection Rules -->
-            <section aria-labelledby="bot-detection-title" class="border border-gray-200 rounded-lg p-4 flex flex-col">
+            <section aria-labelledby="bot-detection-title" class=" card-new  rounded-lg p-4 flex flex-col">
                 <h2 class="text-lg font-semibold mb-4 flex items-center gap-2" id="bot-detection-title">
                     <i class="fas fa-user-secret text-gray-700">
                     </i>
@@ -677,7 +677,7 @@ const apikeyItems = ref(apiKeys)
                 <div class="flex flex-col gap-4 overflow-auto max-h-[420px] pr-1">
                     <!-- 5 bot detection rules -->
                     <article
-                        class="bg-white rounded-2xl p-4 shadow-sm hover:ring-1 ring-gray-300 transition flex flex-col space-y-2">
+                        class="card-new rounded-2xl p-4 shadow-sm hover:ring-1 ring-gray-300 transition flex flex-col space-y-2">
                         <p class="font-semibold text-gray-900 truncate" title="User-Agent contains 'bot'">
                             User-Agent contains
                             <code class="font-mono bg-gray-100 rounded px-1 py-0.5">
@@ -689,7 +689,7 @@ const apikeyItems = ref(apiKeys)
                         </p>
                     </article>
                     <article
-                        class="bg-white rounded-2xl p-4 shadow-sm hover:ring-1 ring-gray-300 transition flex flex-col space-y-2">
+                        class="card-new rounded-2xl p-4 shadow-sm hover:ring-1 ring-gray-300 transition flex flex-col space-y-2">
                         <p class="font-semibold text-gray-900 truncate" title="User-Agent contains 'spider'">
                             User-Agent contains
                             <code class="font-mono bg-gray-100 rounded px-1 py-0.5">
@@ -701,7 +701,7 @@ const apikeyItems = ref(apiKeys)
                         </p>
                     </article>
                     <article
-                        class="bg-white rounded-2xl p-4 shadow-sm hover:ring-1 ring-gray-300 transition flex flex-col space-y-2">
+                        class="card-new rounded-2xl p-4 shadow-sm hover:ring-1 ring-gray-300 transition flex flex-col space-y-2">
                         <p class="font-semibold text-gray-900 truncate" title="IP address in blacklist">
                             IP address in blacklist
                         </p>
@@ -710,7 +710,7 @@ const apikeyItems = ref(apiKeys)
                         </p>
                     </article>
                     <article
-                        class="bg-white rounded-2xl p-4 shadow-sm hover:ring-1 ring-gray-300 transition flex flex-col space-y-2">
+                        class="card-new rounded-2xl p-4 shadow-sm hover:ring-1 ring-gray-300 transition flex flex-col space-y-2">
                         <p class="font-semibold text-gray-900 truncate" title="User-Agent contains 'curl'">
                             User-Agent contains
                             <code class="font-mono bg-gray-100 rounded px-1 py-0.5">
@@ -722,7 +722,7 @@ const apikeyItems = ref(apiKeys)
                         </p>
                     </article>
                     <article
-                        class="bg-white rounded-2xl p-4 shadow-sm hover:ring-1 ring-gray-300 transition flex flex-col space-y-2">
+                        class="card-new rounded-2xl p-4 shadow-sm hover:ring-1 ring-gray-300 transition flex flex-col space-y-2">
                         <p class="font-semibold text-gray-900 truncate" title="User-Agent contains 'python-requests'">
                             User-Agent contains
                             <code class="font-mono bg-gray-100 rounded px-1 py-0.5">
@@ -739,7 +739,7 @@ const apikeyItems = ref(apiKeys)
         <!-- ============================================================================================================================================== -->
         <section aria-label="Main content" class="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 h-max mb-6">
 
-            <article aria-label="Overview chart" class="border border-gray-200 rounded-lg p-4 flex flex-col">
+            <article aria-label="Overview chart" class=" card-new  rounded-lg p-4 flex flex-col">
                 <h2 class="font-semibold text-gray-900 mb-4">API Keys</h2>
                 <Suspense>
                     <template #default>
@@ -751,13 +751,13 @@ const apikeyItems = ref(apiKeys)
                 </Suspense>
             </article>
 
-            <article aria-label="Overview chart" class="border border-gray-200 rounded-lg p-4 flex flex-col h-full">
+            <article aria-label="Overview chart" class=" card-new  rounded-lg p-4 flex flex-col h-full">
                 <h2 class="font-semibold text-gray-900 mb-4">Integration Snippets</h2>
                 <div class="grid grid-cols-1 gap-4 max-h-[450px] overflow-auto">
                     <ApiKeyDisplay :apiKeys="apikeyItems" />
                 </div>
             </article>
-            <article aria-label="Overview chart" class="border border-gray-200 rounded-lg p-4 flex flex-col">
+            <article aria-label="Overview chart" class=" card-new  rounded-lg p-4 flex flex-col">
                 <h2 class="font-semibold text-gray-900 mb-4">Data Retention Policy</h2>
                 <Suspense>
                     <template #default>
@@ -769,7 +769,7 @@ const apikeyItems = ref(apiKeys)
                     </template>
                 </Suspense>
             </article>
-            <article aria-label="Overview chart" class="border border-gray-200 rounded-lg p-4 flex flex-col">
+            <article aria-label="Overview chart" class=" card-new  rounded-lg p-4 flex flex-col">
                 <h2 class="font-semibold text-gray-900 mb-4">Data Retention Policy</h2>
                 <Suspense>
                     <template #default>

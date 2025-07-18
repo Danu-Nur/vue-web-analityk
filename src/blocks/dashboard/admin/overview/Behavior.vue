@@ -85,7 +85,7 @@ onMounted(() => {
 
     <section aria-label="Behavior Analytics" class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6 h-min">
 
-        <article aria-label="Click Events" class="border border-gray-200 rounded-xl p-4 flex flex-col">
+        <article aria-label="Click Events" class=" card-new  rounded-xl p-4 flex flex-col">
             <h2 class="font-semibold text-gray-900 text-lg mb-4">Click Events</h2>
             <Suspense>
                 <template #default>
@@ -99,7 +99,7 @@ onMounted(() => {
                 </template>
             </Suspense>
         </article>
-        <article aria-label="Heatmap Preview" class="border border-gray-200 rounded-xl p-4 flex flex-col overflow-auto">
+        <article aria-label="Heatmap Preview" class=" card-new  rounded-xl p-4 flex flex-col overflow-auto">
             <div class="w-full mb-4 flex-1 relative">
                 <h2 class="font-semibold text-gray-900 text-lg mb-4">Heatmap Preview</h2>
 
@@ -116,7 +116,7 @@ onMounted(() => {
 
 
                 <div v-if="selectedUrlData" :key="selectedUrlData.url_id"
-                    class="w-full aspect-[16/9] bg-white border border-gray-200 rounded-md shadow-sm overflow-hidden flex flex-col">
+                    class="w-full aspect-[16/9] bg-white  card-new  rounded-md shadow-sm overflow-hidden flex flex-col">
 
                     <div class="flex flex-col h-full flex-1">
                         <div class="relative flex-1">
@@ -142,7 +142,7 @@ onMounted(() => {
     </section>
     <section aria-label="Behavior Analytics" class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6 h-min">
         <!-- <div class="grid grid-cols-1 gap-6 h-full"> -->
-        <article aria-label="Custom Events" class="border border-gray-200 rounded-xl p-4 flex flex-col">
+        <article aria-label="Custom Events" class=" card-new  rounded-xl p-4 flex flex-col">
             <h2 class="font-semibold text-gray-900 text-lg mb-4">Custom Events</h2>
             <Suspense>
                 <template #default>
@@ -158,7 +158,7 @@ onMounted(() => {
         </article>
 
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            <article aria-label="Top Clicked Elements" class="border border-gray-200 rounded-xl p-4 flex flex-col">
+            <article aria-label="Top Clicked Elements" class=" card-new  rounded-xl p-4 flex flex-col">
                 <h2 class="font-semibold text-gray-900 text-lg mb-4">Top Clicked Elements</h2>
                 <Suspense>
                     <template #default>
@@ -172,8 +172,8 @@ onMounted(() => {
                     </template>
                 </Suspense>
             </article>
-            
-            <article aria-label="Scroll Depth Distribution" class="border border-gray-200 rounded-xl p-4 flex flex-col">
+
+            <article aria-label="Scroll Depth Distribution" class=" card-new  rounded-xl p-4 flex flex-col">
                 <h2 class="font-semibold text-gray-900 text-lg mb-4">Scroll Depth Distribution</h2>
                 <Suspense>
                     <template #default>

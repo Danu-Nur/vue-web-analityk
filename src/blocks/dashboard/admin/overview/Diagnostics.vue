@@ -19,7 +19,7 @@ import { defineAsyncComponent } from 'vue';
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
 
             <!-- 1. Integration Warnings -->
-            <section class="border border-gray-200 rounded-lg bg-white p-4 col-span-1 lg:col-span-1 flex flex-col">
+            <section class=" card-new  rounded-lg bg-white p-4 col-span-1 lg:col-span-1 flex flex-col">
                 <div class="flex items-center justify-between mb-4">
                     <h2 class="text-xl font-semibold">⚠️ Integration Warnings</h2>
                     <button aria-label="Filter warnings"
@@ -39,7 +39,7 @@ import { defineAsyncComponent } from 'vue';
                 </div>
                 <ul class="space-y-3 overflow-y-auto max-h-[290px] pr-2">
                     <li data-type="missing"
-                        class="flex justify-between items-center p-3 rounded-lg bg-gray-50 border border-gray-200">
+                        class="flex justify-between items-center p-3 rounded-lg bg-gray-50  card-new ">
                         <div>
                             <p class="font-medium text-gray-900">Missing pageview event on /checkout</p>
                             <p class="text-sm text-gray-500">tracking_sessions</p>
@@ -48,7 +48,7 @@ import { defineAsyncComponent } from 'vue';
                             class="inline-flex items-center rounded-full bg-yellow-100 text-yellow-700 px-2 py-0.5 text-xs font-semibold">Warning</span>
                     </li>
                     <li data-type="invalid"
-                        class="flex justify-between items-center p-3 rounded-lg bg-gray-50 border border-gray-200">
+                        class="flex justify-between items-center p-3 rounded-lg bg-gray-50  card-new ">
                         <div>
                             <p class="font-medium text-gray-900">Invalid API key detected</p>
                             <p class="text-sm text-gray-500">api_keys</p>
@@ -57,7 +57,7 @@ import { defineAsyncComponent } from 'vue';
                             class="inline-flex items-center rounded-full bg-red-100 text-red-700 px-2 py-0.5 text-xs font-semibold">Error</span>
                     </li>
                     <li data-type="missing"
-                        class="flex justify-between items-center p-3 rounded-lg bg-gray-50 border border-gray-200">
+                        class="flex justify-between items-center p-3 rounded-lg bg-gray-50  card-new ">
                         <div>
                             <p class="font-medium text-gray-900">Missing pageview event on /pricing</p>
                             <p class="text-sm text-gray-500">tracking_sessions</p>
@@ -66,7 +66,7 @@ import { defineAsyncComponent } from 'vue';
                             class="inline-flex items-center rounded-full bg-yellow-100 text-yellow-700 px-2 py-0.5 text-xs font-semibold">Warning</span>
                     </li>
                     <li data-type="invalid"
-                        class="flex justify-between items-center p-3 rounded-lg bg-gray-50 border border-gray-200">
+                        class="flex justify-between items-center p-3 rounded-lg bg-gray-50  card-new ">
                         <div>
                             <p class="font-medium text-gray-900">Invalid API key format</p>
                             <p class="text-sm text-gray-500">api_keys</p>
@@ -75,7 +75,7 @@ import { defineAsyncComponent } from 'vue';
                             class="inline-flex items-center rounded-full bg-red-100 text-red-700 px-2 py-0.5 text-xs font-semibold">Error</span>
                     </li>
                     <li data-type="missing"
-                        class="flex justify-between items-center p-3 rounded-lg bg-gray-50 border border-gray-200">
+                        class="flex justify-between items-center p-3 rounded-lg bg-gray-50  card-new ">
                         <div>
                             <p class="font-medium text-gray-900">Missing pageview event on /signup</p>
                             <p class="text-sm text-gray-500">tracking_sessions</p>
@@ -87,7 +87,7 @@ import { defineAsyncComponent } from 'vue';
             </section>
 
             <!-- 2. Bot Detection Logs -->
-            <section class="border border-gray-200 rounded-lg bg-white p-4 col-span-1 lg:col-span-1 flex flex-col">
+            <section class=" card-new  rounded-lg bg-white p-4 col-span-1 lg:col-span-1 flex flex-col">
                 <div class="flex items-center justify-between mb-4">
                     <h2 class="text-xl font-semibold">🧠 Bot Detection Logs</h2>
                     <button aria-label="Filter bot logs"
@@ -162,7 +162,7 @@ import { defineAsyncComponent } from 'vue';
             </section>
 
             <!-- Tracking Session Health -->
-            <section class="border border-gray-200 rounded-lg bg-white p-4 col-span-1">
+            <section class=" card-new  rounded-lg bg-white p-4 col-span-1">
                 <div class="flex items-center justify-between mb-4">
                     <h2 class="font-semibold text-lg flex items-center">
                         <span class="mr-2">🧪</span> Session Health
@@ -204,7 +204,7 @@ import { defineAsyncComponent } from 'vue';
             </section>
 
             <section aria-label="Overview chart"
-                class="border border-gray-200 xl:col-span-3 rounded-lg p-4 flex flex-col">
+                class=" card-new  xl:col-span-3 rounded-lg p-4 flex flex-col">
                 <h2 class="font-semibold text-gray-900 mb-4">Bot vs Human Traffic</h2>
                 <Suspense>
                     <template #default>
@@ -218,7 +218,7 @@ import { defineAsyncComponent } from 'vue';
             </section>
 
             <!-- 3. Live Event Monitor -->
-            <section class="border border-gray-200 rounded-lg bg-white p-4 col-span-1 lg:col-span-2 flex flex-col">
+            <section class=" card-new  rounded-lg bg-white p-4 col-span-1 lg:col-span-2 flex flex-col">
                 <div class="flex items-center justify-between mb-4">
                     <h2 class="text-xl font-semibold">🧪 Live Event Monitor</h2>
                     <div class="flex items-center space-x-3">
@@ -233,54 +233,54 @@ import { defineAsyncComponent } from 'vue';
                     </div>
                 </div>
                 <div
-                    class="overflow-y-auto max-h-72 border border-gray-200 rounded-lg bg-gray-50 p-3 font-mono text-xs text-gray-800">
+                    class="overflow-y-auto max-h-72  card-new  rounded-lg bg-gray-50 p-3 font-mono text-xs text-gray-800">
                     <ul id="live-event-list" class="space-y-1">
-                        <li data-type="pageview" class="px-2 py-1 rounded bg-white shadow-sm border border-gray-200">
+                        <li data-type="pageview" class="px-2 py-1 rounded bg-white shadow-sm  card-new ">
                             <time class="text-gray-400 mr-2">14:23:15</time> Pageview: <span
                                 class="font-semibold">/home</span> from
                             <span class="italic">192.168.1.10</span>
                         </li>
-                        <li data-type="custom" class="px-2 py-1 rounded bg-white shadow-sm border border-gray-200">
+                        <li data-type="custom" class="px-2 py-1 rounded bg-white shadow-sm  card-new ">
                             <time class="text-gray-400 mr-2">14:23:12</time> Event: <span
                                 class="font-semibold">button_click</span>
                             on <span class="italic">signup_form</span>
                         </li>
-                        <li data-type="pageview" class="px-2 py-1 rounded bg-white shadow-sm border border-gray-200">
+                        <li data-type="pageview" class="px-2 py-1 rounded bg-white shadow-sm  card-new ">
                             <time class="text-gray-400 mr-2">14:23:10</time> Pageview: <span
                                 class="font-semibold">/pricing</span>
                             from <span class="italic">192.168.1.11</span>
                         </li>
-                        <li data-type="custom" class="px-2 py-1 rounded bg-white shadow-sm border border-gray-200">
+                        <li data-type="custom" class="px-2 py-1 rounded bg-white shadow-sm  card-new ">
                             <time class="text-gray-400 mr-2">14:23:08</time> Event: <span
                                 class="font-semibold">form_submit</span>
                             on <span class="italic">contact_us</span>
                         </li>
-                        <li data-type="pageview" class="px-2 py-1 rounded bg-white shadow-sm border border-gray-200">
+                        <li data-type="pageview" class="px-2 py-1 rounded bg-white shadow-sm  card-new ">
                             <time class="text-gray-400 mr-2">14:23:05</time> Pageview: <span
                                 class="font-semibold">/blog/post-123</span> from <span
                                 class="italic">192.168.1.12</span>
                         </li>
-                        <li data-type="custom" class="px-2 py-1 rounded bg-white shadow-sm border border-gray-200">
+                        <li data-type="custom" class="px-2 py-1 rounded bg-white shadow-sm  card-new ">
                             <time class="text-gray-400 mr-2">14:23:02</time> Event: <span
                                 class="font-semibold">video_play</span> on
                             <span class="italic">homepage_video</span>
                         </li>
-                        <li data-type="pageview" class="px-2 py-1 rounded bg-white shadow-sm border border-gray-200">
+                        <li data-type="pageview" class="px-2 py-1 rounded bg-white shadow-sm  card-new ">
                             <time class="text-gray-400 mr-2">14:22:59</time> Pageview: <span
                                 class="font-semibold">/features</span>
                             from <span class="italic">192.168.1.13</span>
                         </li>
-                        <li data-type="custom" class="px-2 py-1 rounded bg-white shadow-sm border border-gray-200">
+                        <li data-type="custom" class="px-2 py-1 rounded bg-white shadow-sm  card-new ">
                             <time class="text-gray-400 mr-2">14:22:55</time> Event: <span
                                 class="font-semibold">scroll_depth</span>
                             50% on <span class="italic">blog/post-123</span>
                         </li>
-                        <li data-type="pageview" class="px-2 py-1 rounded bg-white shadow-sm border border-gray-200">
+                        <li data-type="pageview" class="px-2 py-1 rounded bg-white shadow-sm  card-new ">
                             <time class="text-gray-400 mr-2">14:22:52</time> Pageview: <span
                                 class="font-semibold">/contact</span>
                             from <span class="italic">192.168.1.14</span>
                         </li>
-                        <li data-type="custom" class="px-2 py-1 rounded bg-white shadow-sm border border-gray-200">
+                        <li data-type="custom" class="px-2 py-1 rounded bg-white shadow-sm  card-new ">
                             <time class="text-gray-400 mr-2">14:22:50</time> Event: <span
                                 class="font-semibold">link_click</span> on
                             <span class="italic">footer_link</span>
@@ -290,7 +290,7 @@ import { defineAsyncComponent } from 'vue';
             </section>
 
             <!-- 4. Tracking Script Status -->
-            <section class="border border-gray-200 rounded-lg bg-white p-4 col-span-1 lg:col-span-1 flex flex-col">
+            <section class=" card-new  rounded-lg bg-white p-4 col-span-1 lg:col-span-1 flex flex-col">
                 <div class="flex items-center justify-between mb-4">
                     <h2 class="text-xl font-semibold">🛠️ Tracking Script Status</h2>
                     <button aria-label="Refresh script status" id="refresh-script-status"
@@ -299,7 +299,7 @@ import { defineAsyncComponent } from 'vue';
                     </button>
                 </div>
                 <ul class="space-y-3 overflow-y-auto max-h-[290px] pr-2">
-                    <li class="flex justify-between items-center p-3 rounded-lg bg-gray-50 border border-gray-200">
+                    <li class="flex justify-between items-center p-3 rounded-lg bg-gray-50  card-new ">
                         <div>
                             <p class="font-medium text-gray-900 truncate max-w-[180px]" title="example.com">example.com
                             </p>
@@ -308,7 +308,7 @@ import { defineAsyncComponent } from 'vue';
                         <span
                             class="inline-flex items-center rounded-full bg-green-100 text-green-700 px-2 py-0.5 text-xs font-semibold">OK</span>
                     </li>
-                    <li class="flex justify-between items-center p-3 rounded-lg bg-gray-50 border border-gray-200">
+                    <li class="flex justify-between items-center p-3 rounded-lg bg-gray-50  card-new ">
                         <div>
                             <p class="font-medium text-gray-900 truncate max-w-[180px]" title="shop.example.com">
                                 shop.example.com</p>
@@ -317,7 +317,7 @@ import { defineAsyncComponent } from 'vue';
                         <span
                             class="inline-flex items-center rounded-full bg-yellow-100 text-yellow-700 px-2 py-0.5 text-xs font-semibold">Warning</span>
                     </li>
-                    <li class="flex justify-between items-center p-3 rounded-lg bg-gray-50 border border-gray-200">
+                    <li class="flex justify-between items-center p-3 rounded-lg bg-gray-50  card-new ">
                         <div>
                             <p class="font-medium text-gray-900 truncate max-w-[180px]" title="blog.example.com">
                                 blog.example.com</p>
@@ -326,7 +326,7 @@ import { defineAsyncComponent } from 'vue';
                         <span
                             class="inline-flex items-center rounded-full bg-red-100 text-red-700 px-2 py-0.5 text-xs font-semibold">Error</span>
                     </li>
-                    <li class="flex justify-between items-center p-3 rounded-lg bg-gray-50 border border-gray-200">
+                    <li class="flex justify-between items-center p-3 rounded-lg bg-gray-50  card-new ">
                         <div>
                             <p class="font-medium text-gray-900 truncate max-w-[180px]" title="app.example.net">
                                 app.example.net</p>
@@ -335,7 +335,7 @@ import { defineAsyncComponent } from 'vue';
                         <span
                             class="inline-flex items-center rounded-full bg-green-100 text-green-700 px-2 py-0.5 text-xs font-semibold">OK</span>
                     </li>
-                    <li class="flex justify-between items-center p-3 rounded-lg bg-gray-50 border border-gray-200">
+                    <li class="flex justify-between items-center p-3 rounded-lg bg-gray-50  card-new ">
                         <div>
                             <p class="font-medium text-gray-900 truncate max-w-[180px]" title="dev.example.org">
                                 dev.example.org</p>
@@ -348,7 +348,7 @@ import { defineAsyncComponent } from 'vue';
             </section>
 
             <!-- 5. Client-side JS Errors -->
-            <section class="border border-gray-200 rounded-lg bg-white p-4 col-span-1 lg:col-span-2 flex flex-col">
+            <section class=" card-new  rounded-lg bg-white p-4 col-span-1 lg:col-span-2 flex flex-col">
                 <div class="flex items-center justify-between mb-4">
                     <h2 class="text-xl font-semibold">❌ Client-side JS Errors</h2>
                     <button aria-label="Filter errors"
@@ -357,9 +357,9 @@ import { defineAsyncComponent } from 'vue';
                     </button>
                 </div>
                 <div
-                    class="overflow-y-auto max-h-72 border border-gray-200 rounded-lg bg-gray-50 p-3 font-mono text-xs text-gray-800">
+                    class="overflow-y-auto max-h-72  card-new  rounded-lg bg-gray-50 p-3 font-mono text-xs text-gray-800">
                     <ul class="space-y-2">
-                        <li class="bg-white border border-gray-200 rounded p-3 shadow-sm">
+                        <li class="bg-white  card-new  rounded p-3 shadow-sm">
                             <div class="flex justify-between items-center mb-1">
                                 <span class="font-semibold text-red-700">TypeError</span>
                                 <time class="text-gray-400 text-xs">2024-06-15 14:22:10</time>
@@ -367,7 +367,7 @@ import { defineAsyncComponent } from 'vue';
                             <pre class="whitespace-pre-wrap break-words bg-gray-100 p-2 rounded text-xs">Cannot read property
                     'length' of undefined at analytics.js:45:12</pre>
                         </li>
-                        <li class="bg-white border border-gray-200 rounded p-3 shadow-sm">
+                        <li class="bg-white  card-new  rounded p-3 shadow-sm">
                             <div class="flex justify-between items-center mb-1">
                                 <span class="font-semibold text-red-700">ReferenceError</span>
                                 <time class="text-gray-400 text-xs">2024-06-15 14:21:55</time>
@@ -375,7 +375,7 @@ import { defineAsyncComponent } from 'vue';
                             <pre class="whitespace-pre-wrap break-words bg-gray-100 p-2 rounded text-xs">eventData is not defined at
                     tracker.js:78:5</pre>
                         </li>
-                        <li class="bg-white border border-gray-200 rounded p-3 shadow-sm">
+                        <li class="bg-white  card-new  rounded p-3 shadow-sm">
                             <div class="flex justify-between items-center mb-1">
                                 <span class="font-semibold text-red-700">SyntaxError</span>
                                 <time class="text-gray-400 text-xs">2024-06-15 14:20:40</time>
@@ -383,7 +383,7 @@ import { defineAsyncComponent } from 'vue';
                             <pre class="whitespace-pre-wrap break-words bg-gray-100 p-2 rounded text-xs">Unexpected token '<' in
                         JSON at position 0 at parser.js:12:3</pre>
                         </li>
-                        <li class="bg-white border border-gray-200 rounded p-3 shadow-sm">
+                        <li class="bg-white  card-new  rounded p-3 shadow-sm">
                             <div class="flex justify-between items-center mb-1">
                                 <span class="font-semibold text-red-700">TypeError</span>
                                 <time class="text-gray-400 text-xs">2024-06-15 14:19:30</time>
@@ -391,7 +391,7 @@ import { defineAsyncComponent } from 'vue';
                             <pre class="whitespace-pre-wrap break-words bg-gray-100 p-2 rounded text-xs">Cannot read property 'push'
                     of null at events.js:33:10</pre>
                         </li>
-                        <li class="bg-white border border-gray-200 rounded p-3 shadow-sm">
+                        <li class="bg-white  card-new  rounded p-3 shadow-sm">
                             <div class="flex justify-between items-center mb-1">
                                 <span class="font-semibold text-red-700">RangeError</span>
                                 <time class="text-gray-400 text-xs">2024-06-15 14:18:15</time>
@@ -404,7 +404,7 @@ import { defineAsyncComponent } from 'vue';
             </section>
 
             <!-- 6. Unverified Domains -->
-            <section class="border border-gray-200 rounded-lg bg-white p-4 col-span-1 lg:col-span-1 flex flex-col">
+            <section class=" card-new  rounded-lg bg-white p-4 col-span-1 lg:col-span-1 flex flex-col">
                 <div class="flex items-center justify-between mb-4">
                     <h2 class="text-xl font-semibold">🔍 Unverified Domains</h2>
                     <button aria-label="Refresh unverified domains" id="refresh-unverified"
@@ -413,31 +413,31 @@ import { defineAsyncComponent } from 'vue';
                     </button>
                 </div>
                 <ul class="space-y-3 overflow-y-auto max-h-[290px] pr-2">
-                    <li class="flex justify-between items-center p-3 rounded-lg bg-gray-50 border border-gray-200">
+                    <li class="flex justify-between items-center p-3 rounded-lg bg-gray-50  card-new ">
                         <p class="font-medium text-gray-900 truncate max-w-[180px]" title="unknown-domain.com">
                             unknown-domain.com</p>
                         <span
                             class="inline-flex items-center rounded-full bg-yellow-100 text-yellow-700 px-2 py-0.5 text-xs font-semibold">Unverified</span>
                     </li>
-                    <li class="flex justify-between items-center p-3 rounded-lg bg-gray-50 border border-gray-200">
+                    <li class="flex justify-between items-center p-3 rounded-lg bg-gray-50  card-new ">
                         <p class="font-medium text-gray-900 truncate max-w-[180px]" title="malicious-site.net">
                             malicious-site.net</p>
                         <span
                             class="inline-flex items-center rounded-full bg-yellow-100 text-yellow-700 px-2 py-0.5 text-xs font-semibold">Unverified</span>
                     </li>
-                    <li class="flex justify-between items-center p-3 rounded-lg bg-gray-50 border border-gray-200">
+                    <li class="flex justify-between items-center p-3 rounded-lg bg-gray-50  card-new ">
                         <p class="font-medium text-gray-900 truncate max-w-[180px]" title="randomtracker.org">
                             randomtracker.org</p>
                         <span
                             class="inline-flex items-center rounded-full bg-yellow-100 text-yellow-700 px-2 py-0.5 text-xs font-semibold">Unverified</span>
                     </li>
-                    <li class="flex justify-between items-center p-3 rounded-lg bg-gray-50 border border-gray-200">
+                    <li class="flex justify-between items-center p-3 rounded-lg bg-gray-50  card-new ">
                         <p class="font-medium text-gray-900 truncate max-w-[180px]" title="unknown123.io">unknown123.io
                         </p>
                         <span
                             class="inline-flex items-center rounded-full bg-yellow-100 text-yellow-700 px-2 py-0.5 text-xs font-semibold">Unverified</span>
                     </li>
-                    <li class="flex justify-between items-center p-3 rounded-lg bg-gray-50 border border-gray-200">
+                    <li class="flex justify-between items-center p-3 rounded-lg bg-gray-50  card-new ">
                         <p class="font-medium text-gray-900 truncate max-w-[180px]" title="tracker-bot.com">
                             tracker-bot.com
                         </p>
@@ -448,7 +448,7 @@ import { defineAsyncComponent } from 'vue';
             </section>
 
             <!-- 7. Data Flow Health -->
-            <section class="border border-gray-200 rounded-lg bg-white p-4 col-span-1 lg:col-span-2 flex flex-col">
+            <section class=" card-new  rounded-lg bg-white p-4 col-span-1 lg:col-span-2 flex flex-col">
                 <div class="flex items-center justify-between mb-4">
                     <h2 class="text-xl font-semibold">🔁 Retry Queue & Failed Events</h2>
                     <button aria-label="Refresh retry queue" id="refresh-retry"
@@ -458,7 +458,7 @@ import { defineAsyncComponent } from 'vue';
                 </div>
                 <div class="overflow-x-auto">
                     <table
-                        class="w-full text-left text-sm text-gray-700 border border-gray-200 rounded-lg overflow-hidden">
+                        class="w-full text-left text-sm text-gray-700  card-new  rounded-lg overflow-hidden">
                         <thead class="bg-gray-100 border-b border-gray-300">
                             <tr>
                                 <th class="py-3 px-4 font-medium">Event ID</th>
@@ -523,7 +523,7 @@ import { defineAsyncComponent } from 'vue';
             </section>
 
             <!-- 8. Raw Payload Inspector -->
-            <section class="border border-gray-200 rounded-lg bg-white p-4 col-span-1 lg:col-span-1 flex flex-col">
+            <section class=" card-new  rounded-lg bg-white p-4 col-span-1 lg:col-span-1 flex flex-col">
                 <div class="flex items-center justify-between mb-4">
                     <h2 class="text-xl font-semibold">📦 Raw Payload Inspector</h2>
                     <button aria-label="Copy JSON" id="copy-payload"
@@ -556,7 +556,7 @@ import { defineAsyncComponent } from 'vue';
         </div>
         <!-- <section aria-label="Main content"
             class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4 sm:gap-6 h-max mb-6">
-            <article aria-label="Overview chart" class="border border-gray-200 rounded-lg p-4 flex flex-col">
+            <article aria-label="Overview chart" class=" card-new  rounded-lg p-4 flex flex-col">
                 <h2 class="font-semibold text-gray-900 mb-4">Bot Detection</h2>
                 <Suspense>
                     <template #default>
@@ -567,7 +567,7 @@ import { defineAsyncComponent } from 'vue';
                     </template>
                 </Suspense>
             </article>
-            <article aria-label="Overview chart" class="border border-gray-200 rounded-lg p-4 flex flex-col">
+            <article aria-label="Overview chart" class=" card-new  rounded-lg p-4 flex flex-col">
                 <h2 class="font-semibold text-gray-900 mb-4">Bot & Human</h2>
                 <Suspense>
                     <template #default>
@@ -578,7 +578,7 @@ import { defineAsyncComponent } from 'vue';
                     </template>
                 </Suspense>
             </article>
-            <article aria-label="Overview chart" class="border border-gray-200 rounded-lg p-4 flex flex-col">
+            <article aria-label="Overview chart" class=" card-new  rounded-lg p-4 flex flex-col">
                 <h2 class="font-semibold text-gray-900 mb-4">Bot VS Human</h2>
                 <Suspense>
                     <template #default>
@@ -595,7 +595,7 @@ import { defineAsyncComponent } from 'vue';
         <section aria-label="Main content"
             class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4 sm:gap-6 h-max mb-6">
 
-            <article aria-label="Overview chart" class="border border-gray-200 rounded-lg p-4 flex flex-col">
+            <article aria-label="Overview chart" class=" card-new  rounded-lg p-4 flex flex-col">
                 <h2 class="font-semibold text-gray-900 mb-4">Client Errors</h2>
                 <Suspense>
                     <template #default>
@@ -607,7 +607,7 @@ import { defineAsyncComponent } from 'vue';
                 </Suspense>
             </article>
 
-            <article aria-label="Overview chart" class="border border-gray-200 rounded-lg p-4 flex flex-col">
+            <article aria-label="Overview chart" class=" card-new  rounded-lg p-4 flex flex-col">
                 <h2 class="font-semibold text-gray-900 mb-4">Load Time & Duration</h2>
                 <Suspense>
                     <template #default>
@@ -619,7 +619,7 @@ import { defineAsyncComponent } from 'vue';
                     </template>
                 </Suspense>
             </article>
-            <article aria-label="Overview chart" class="border border-gray-200 rounded-lg p-4 flex flex-col">
+            <article aria-label="Overview chart" class=" card-new  rounded-lg p-4 flex flex-col">
                 <h2 class="font-semibold text-gray-900 mb-4">JS Error Rate</h2>
                 <Suspense>
                     <template #default>

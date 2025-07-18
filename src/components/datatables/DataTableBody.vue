@@ -1,7 +1,7 @@
 <template>
     <div class="overflow-x-auto">
-        <table class="w-full border-collapse table-auto text-xs text-gray-700">
-            <thead class="border-b bg-gray-50 text-gray-600 font-semibold select-none">
+        <table class="w-full border-collapse table-auto text-xs text-gray-800">
+            <thead class="border-b border-gray-300 bg-gray-100 text-gray-600 font-semibold select-none">
                 <tr>
                     <th v-for="(header, index) in headers" :key="header.value" :class="[
                         index === headers.length - 1 && header.text === '24h Visitors' ? 'text-center' : 'text-left',
@@ -15,7 +15,7 @@
                 </tr>
             </thead>
             <tbody class="divide-y divide-gray-100">
-                <tr v-for="row in rows" :key="generateRowKey(row)" class="hover:bg-gray-50 border-t border-gray-200">
+                <tr v-for="row in rows" :key="generateRowKey(row)" class="hover:bg-gray-50 border-b border-gray-200">
                     <td v-for="header in headers" :key="header.value" class="text-nowrap py-2 px-3 text-gray-700"
                         :class="header.class">
                         <template v-if="header.value === 'visitorperhours' && row[header.value]">

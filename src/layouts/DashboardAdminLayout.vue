@@ -6,7 +6,7 @@
                 <h1 class="text-2xl sm:text-3xl font-extrabold leading-tight text-gray-900 mb-4 md:mb-0 drop-shadow-lg">
                     {{ pageTitle }}
                 </h1>
-                <div class="flex flex-col sm:flex-row items-start sm:items-center space-y-3 sm:space-y-0 sm:space-x-3">
+                <div v-if="pageTitle === 'Overview'" class="flex flex-col sm:flex-row items-start sm:items-center space-y-3 sm:space-y-0 sm:space-x-3">
                     <select v-model="selectedRange"
                         class="card-new rounded-md py-2 px-4 w-full sm:w-auto bg-white focus:outline-none focus:ring-1 focus:ring-blue-500">
                         <option v-for="range in dateRanges" :key="range.value" :value="range.value">

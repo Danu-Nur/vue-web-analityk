@@ -59,7 +59,7 @@ const summaryCards = computed(() => [
             <div class="flex justify-between">
                 <p class="text-sm text-gray-500">{{ card.change }}</p>
                 <span
-                    class="flex items-center card-new h-max rounded px-1 py-0.5 text-[10px] font-semibold text-gray-600">
+                    class="flex items-center border border-gray-300 h-max rounded px-1 py-0.5 text-[10px] font-semibold text-gray-600">
                     <i class="fas fa-chart-line text-[10px]"></i>
                     <span>{{ card.rekap }}</span>
                 </span>

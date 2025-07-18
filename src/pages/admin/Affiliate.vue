@@ -14,11 +14,11 @@ const AreaChartTrends = defineAsyncComponent(() =>
     <!-- <DashboardAdminLayout> -->
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             <!-- Card 1: Affiliate Earnings (2x1) -->
-            <div class="p-4 col-span-1 sm:col-span-2 border border-gray-200 rounded-lg bg-white">
+            <div class="p-4 col-span-1 sm:col-span-2  card-new  rounded-lg bg-white">
                 <div class="flex items-center justify-between mb-4">
                     <h2 class="text-xl font-semibold">Affiliate Earnings</h2>
                     <div class="flex items-center space-x-2">
-                        <select class="bg-white text-sm rounded-lg px-3 py-1 border border-gray-200">
+                        <select class="bg-white text-sm rounded-lg px-3 py-1  card-new ">
                             <option>This Month</option>
                             <option>Last Month</option>
                             <option>All Time</option>
@@ -54,14 +54,14 @@ const AreaChartTrends = defineAsyncComponent(() =>
             </div>
 
             <!-- Card 2: Referral Link (1x1) -->
-            <div class="p-4 border border-gray-200 rounded-lg bg-white">
+            <div class="p-4  card-new  rounded-lg bg-white">
                 <div class="flex items-center justify-between mb-4">
                     <h2 class="text-xl font-semibold">Your Referral Link</h2>
                     <i data-lucide="link" class="text-gray-400"></i>
                 </div>
                 <div class="bg-gray-50 rounded-lg p-3 flex items-center justify-between mb-4">
                     <p class="text-sm truncate">https://analyticspro.com/ref/yourusername</p>
-                    <button class="copy-btn bg-white rounded-md p-1 px-2 border border-gray-200 hover:bg-gray-50">
+                    <button class="copy-btn bg-white rounded-md p-1 px-2  card-new  hover:bg-gray-50">
                         <i class="bi bi-copy"></i>
                     </button>
                 </div>
@@ -76,7 +76,7 @@ const AreaChartTrends = defineAsyncComponent(() =>
             </div>
 
             <!-- Card 3: Signups from Referrals (1x2) -->
-            <div class="p-4 border border-gray-200 rounded-lg row-span-2 bg-white">
+            <div class="p-4  card-new  rounded-lg row-span-2 bg-white">
                 <div class="flex items-center justify-between mb-4">
                     <h2 class="text-xl font-semibold">Signups from Referrals</h2>
                     <i data-lucide="users" class="text-gray-400"></i>
@@ -118,7 +118,7 @@ const AreaChartTrends = defineAsyncComponent(() =>
             </div>
 
             <!-- Card 4: Commission Tier (1x1) -->
-            <div class="p-4 border border-gray-200 rounded-lg bg-white">
+            <div class="p-4  card-new  rounded-lg bg-white">
                 <div class="flex items-center justify-between mb-4">
                     <h2 class="text-xl font-semibold">Commission Tier</h2>
                     <i data-lucide="award" class="text-gray-400"></i>
@@ -150,7 +150,7 @@ const AreaChartTrends = defineAsyncComponent(() =>
             </div>
 
             <!-- Card 5: Invite Friends (1x1) -->
-            <div class="p-4 border border-gray-200 rounded-lg bg-white">
+            <div class="p-4  card-new  rounded-lg bg-white">
                 <div class="flex items-center justify-between mb-4">
                     <h2 class="text-xl font-semibold">Invite Friends</h2>
                     <i data-lucide="send" class="text-gray-400"></i>
@@ -192,7 +192,7 @@ const AreaChartTrends = defineAsyncComponent(() =>
             </div>
 
             <!-- Card 6: Top Affiliates Leaderboard (2x1) -->
-            <div class="p-4 border border-gray-200 rounded-lg col-span-1 sm:col-span-2 bg-white">
+            <div class="p-4  card-new  rounded-lg col-span-1 sm:col-span-2 bg-white">
                 <div class="flex items-center justify-between mb-4">
                     <h2 class="text-xl font-semibold">Top Affiliates</h2>
                     <i data-lucide="trophy" class="text-gray-400"></i>
@@ -282,7 +282,7 @@ const AreaChartTrends = defineAsyncComponent(() =>
             </div>
 
             <!-- Card 7: Payout History (1x1) -->
-            <div class="p-4 border border-gray-200 rounded-lg bg-white">
+            <div class="p-4  card-new  rounded-lg bg-white">
                 <div class="flex items-center justify-between mb-4">
                     <h2 class="text-xl font-semibold">Payout History</h2>
                     <i data-lucide="banknote" class="text-gray-400"></i>
@@ -318,7 +318,7 @@ const AreaChartTrends = defineAsyncComponent(() =>
             </div>
 
             <!-- Card 8: Promo Banners & Assets (1x1) -->
-            <div class="p-4 border border-gray-200 rounded-lg bg-white">
+            <div class="p-4  card-new  rounded-lg bg-white">
                 <div class="flex items-center justify-between mb-4">
                     <h2 class="text-xl font-semibold">Promo Assets</h2>
                     <i data-lucide="image" class="text-gray-400"></i>
@@ -345,7 +345,7 @@ const AreaChartTrends = defineAsyncComponent(() =>
             </div>
 
             <!-- Card 9: Affiliate Settings (1x1) -->
-            <div class="p-4 border border-gray-200 rounded-lg bg-white">
+            <div class="p-4  card-new  rounded-lg bg-white">
                 <div class="flex items-center justify-between mb-4">
                     <h2 class="text-xl font-semibold">Affiliate Settings</h2>
                     <i data-lucide="settings" class="text-gray-400"></i>
@@ -353,7 +353,7 @@ const AreaChartTrends = defineAsyncComponent(() =>
                 <div class="space-y-4">
                     <div>
                         <p class="text-sm font-medium mb-1">Payout Method</p>
-                        <select class="w-full bg-white rounded-lg px-3 py-2 border border-gray-200 text-sm">
+                        <select class="w-full bg-white rounded-lg px-3 py-2  card-new  text-sm">
                             <option>PayPal</option>
                             <option>Bank Transfer</option>
                             <option>Stripe</option>
@@ -362,7 +362,7 @@ const AreaChartTrends = defineAsyncComponent(() =>
                     <div>
                         <p class="text-sm font-medium mb-1">Payout Email</p>
                         <input type="email" value="your.email@example.com"
-                            class="w-full bg-white rounded-lg px-3 py-2 border border-gray-200 text-sm">
+                            class="w-full bg-white rounded-lg px-3 py-2  card-new  text-sm">
                     </div>
                     <div class="flex items-center justify-between pt-2">
                         <div>

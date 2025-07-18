@@ -12,7 +12,7 @@ import { defineAsyncComponent } from 'vue';
                 <h1 class="text-3xl font-bold text-gray-900">Billing & Plans</h1>
                 <div class="flex space-x-2">
                     <button
-                        class="px-4 py-2 text-sm font-medium text-gray-700 bg-white rounded-lg border border-gray-200 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        class="px-4 py-2 text-sm font-medium text-gray-700 bg-white rounded-lg  card-new  hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500">
                         Help Center
                     </button>
                 </div>
@@ -21,7 +21,7 @@ import { defineAsyncComponent } from 'vue';
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
 
                 <!-- Current Plan Summary -->
-                <div class="border border-gray-200 p-6 rounded-lg">
+                <div class=" card-new  p-6 rounded-lg">
                     <div class="flex justify-between items-start mb-4">
                         <h2 class="text-xl font-semibold text-gray-900">Current Plan</h2>
                         <span class="px-3 py-1 text-xs font-medium rounded-full bg-blue-100 text-blue-800">Active</span>
@@ -45,7 +45,7 @@ import { defineAsyncComponent } from 'vue';
                 </div>
 
                 <!-- Usage Overview -->
-                <div class="border border-gray-200 md:col-span-2 p-6 rounded-lg">
+                <div class=" card-new  md:col-span-2 p-6 rounded-lg">
                     <h2 class="text-xl font-semibold text-gray-900 mb-6">Usage Overview</h2>
 
                     <div class="space-y-6">
@@ -82,7 +82,7 @@ import { defineAsyncComponent } from 'vue';
                 </div>
 
                 <!-- Plan Comparison Table -->
-                <div class="border border-gray-200 md:col-span-2 p-6 rounded-lg">
+                <div class=" card-new  md:col-span-2 p-6 rounded-lg">
                     <h2 class="text-xl font-semibold text-gray-900 mb-6">Plan Comparison</h2>
 
                     <div class="overflow-x-auto">
@@ -147,18 +147,18 @@ import { defineAsyncComponent } from 'vue';
                 </div>
 
                 <!-- Upgrade / Downgrade -->
-                <div class="border border-gray-200 p-6 rounded-lg">
+                <div class=" card-new  p-6 rounded-lg">
                     <h2 class="text-xl font-semibold text-gray-900 mb-6">Change Plan</h2>
 
                     <div class="space-y-4">
-                        <div class="plan-card p-4 border border-gray-200 rounded-lg transition-all duration-300">
+                        <div class="plan-card p-4  card-new  rounded-lg transition-all duration-300">
                             <div class="flex justify-between items-center">
                                 <div>
                                     <h3 class="font-medium">Free</h3>
                                     <p class="text-sm text-gray-500">$0/month</p>
                                 </div>
                                 <button
-                                    class="px-4 py-2 text-sm font-medium text-gray-700 bg-white rounded-lg border border-gray-200 hover:bg-gray-50">
+                                    class="px-4 py-2 text-sm font-medium text-gray-700 bg-white rounded-lg  card-new  hover:bg-gray-50">
                                     Downgrade
                                 </button>
                             </div>
@@ -179,7 +179,7 @@ import { defineAsyncComponent } from 'vue';
                             </div>
                         </div>
 
-                        <div class="plan-card p-4 border border-gray-200 rounded-lg transition-all duration-300">
+                        <div class="plan-card p-4  card-new  rounded-lg transition-all duration-300">
                             <div class="flex justify-between items-center">
                                 <div>
                                     <h3 class="font-medium">Enterprise</h3>
@@ -195,7 +195,7 @@ import { defineAsyncComponent } from 'vue';
                 </div>
 
                 <!-- Payment Method -->
-                <div class="border border-gray-200 p-6 rounded-lg">
+                <div class=" card-new  p-6 rounded-lg">
                     <div class="flex justify-between items-center mb-6">
                         <h2 class="text-xl font-semibold text-gray-900">Payment Method</h2>
                         <button
@@ -220,7 +220,7 @@ import { defineAsyncComponent } from 'vue';
                 </div>
 
                 <!-- Billing History -->
-                <div class="border border-gray-200 p-6 rounded-lg">
+                <div class=" card-new  p-6 rounded-lg">
                     <h2 class="text-xl font-semibold text-gray-900 mb-6">Billing History</h2>
 
                     <div class="space-y-4">
@@ -260,7 +260,7 @@ import { defineAsyncComponent } from 'vue';
                 </div>
 
                 <!-- Subscription Settings -->
-                <div class="border border-gray-200 p-6 rounded-lg">
+                <div class=" card-new  p-6 rounded-lg">
                     <h2 class="text-xl font-semibold text-gray-900 mb-6">Subscription Settings</h2>
 
                     <div class="space-y-6">
@@ -286,7 +286,7 @@ import { defineAsyncComponent } from 'vue';
                                     Monthly
                                 </button>
                                 <button
-                                    class="px-4 py-2 text-sm font-medium text-gray-700 bg-white rounded-lg border border-gray-200 hover:bg-gray-50">
+                                    class="px-4 py-2 text-sm font-medium text-gray-700 bg-white rounded-lg  card-new  hover:bg-gray-50">
                                     Yearly (Save 20%)
                                 </button>
                             </div>
