@@ -61,7 +61,7 @@ onUnmounted(() => {
 <template>
     <!-- Navigation -->
     <header class="sticky top-4 z-50 px-4 bg-transparent">
-        <nav class="container mx-auto max-w-7xl bg-white px-4 sm:px-6 md:px-8 rounded-lg shadow-md py-3">
+        <nav class="container mx-auto max-w-7xl bg-white/80 backdrop-blur-md px-4 sm:px-6 md:px-8 rounded-lg shadow-md py-3">
             <div class="flex justify-between items-center">
                 <div class="text-2xl font-bold text-gray-900 drop-shadow-lg">
                     <a href="#hero">Traffic Verse</a>

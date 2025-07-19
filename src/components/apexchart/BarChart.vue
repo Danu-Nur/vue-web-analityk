@@ -19,7 +19,7 @@ const props = defineProps({
     seriesData: {
         type: Array,
         default: () => [{ name: 'Series 1', data: [10, 41, 35, 51, 49] }], // Default with example data
-        validator: (series) => series.every(s => typeof s === 'object' && s !== null && 'name' in s && Array.isArray(s.data))
+        // validator: (series) => series.every(s => typeof s === 'object' && s !== null && 'name' in s && Array.isArray(s.data))
     },
     colors: {
         type: Array,
@@ -94,7 +94,7 @@ const chartOptions = computed(() => ({
 const chartSeries = computed(() => {
     // Jika seriesData memiliki format lama (array angka), konversi ke format baru
     if (props.seriesData.length > 0 && typeof props.seriesData[0] !== 'object') {
-        console.warn("Using old seriesData format. Please update to [{ name: '...', data: [...] }] for better clarity.");
+        // console.warn("Using old seriesData format. Please update to [{ name: '...', data: [...] }] for better clarity.");
         return [{ name: props.title, data: props.seriesData }];
     }
     return props.seriesData;

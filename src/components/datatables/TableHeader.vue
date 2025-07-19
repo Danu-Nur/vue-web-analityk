@@ -14,7 +14,7 @@
 
         <div class="flex items-center w-full justify-between space-x-2">
             <input v-model="search" type="text" placeholder="Search..."
-                class="border border-gray-300 rounded-md py-1.5 px-3 placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-blue-500 text-xs" />
+                class="border border-gray-300 card-new rounded-md py-1.5 px-3 placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-blue-500 text-xs" />
             <div class="relative">
                 <button ref="buttonRef" @click="toggleDropdown" title="Export File"
                     class="px-2 py-1 text-gray-700 hover:bg-gray-100 rounded-md focus:outline-none focus:ring-1 focus:ring-blue-500">
