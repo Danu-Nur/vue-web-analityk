@@ -12,6 +12,7 @@ export const useVisitorStore = defineStore('visitor', {
         hourlyVisitors: { title: '', categories: [], seriesData: [] },
         // State baru
         urlHourlyVisitors: [],
+        liveEvents: ref([]),
 
         headers: {
             liveUsers: [],
@@ -47,7 +48,8 @@ export const useVisitorStore = defineStore('visitor', {
                     this.fetchTimezonesAndLanguage(),
                     this.fetchMapRealTime(),
                     this.fetchHourlyVisitors(),
-                    this.fetchUrlHourlyVisitors() // Panggil fungsi baru
+                    this.fetchUrlHourlyVisitors(), // Panggil fungsi baru
+                    this.fetchLiveEvents(),
                 ]);
 
                 const rejectedPromises = results.filter(result => result.status === 'rejected');
@@ -133,6 +135,14 @@ export const useVisitorStore = defineStore('visitor', {
                 'urlHourlyVisitors',
                 'Fetch hourly visitors per URL'
             );
-        }
+        },
+        async fetchLiveEvents() {
+            try {
+                const response = await axios.get('/api/admin/diagnostics/live-events');
+                this.liveEvents = response.data;
+            } catch (err) {
+                console.error("Failed to fetch live events:", err);
+            }
+        },
     }
 });

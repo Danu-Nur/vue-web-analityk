@@ -206,7 +206,40 @@ const MapMarkerAsync = defineAsyncComponent(() => import('../../components/maps/
             </Suspense>
         </article>
     </section>
-    <section aria-label="Main Content" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4 sm:gap-6 h-max mb-6">
+    <section class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 sm:gap-6 h-max mb-6">
+        <article aria-label="Device Breakdown" class="card-new md:col-span-2 rounded-lg p-4 flex flex-col">
+            <h2 class="text-xl font-semibold">🧪 Live Event Monitor</h2>
+            <div class="overflow-y-auto max-h-[400px] bg-gray-50 p-3 font-mono text-xs text-gray-800">
+                <ul id="live-event-list" class="space-y-1">
+                    <li v-if="!visitorStore.liveEvents.length">Awaiting incoming events...</li>
+                    <li v-for="(event, index) in visitorStore.liveEvents" :key="index"
+                        class="px-2 py-1 rounded bg-white shadow-sm card-new">
+                        <time class="text-gray-400 mr-2">{{ new Date(event.time).toLocaleTimeString() }}</time>
+                        {{ event.type }}: <span class="font-semibold">{{ event.description }}</span>
+                        from <span class="italic">{{ event.ip_address }}</span>
+                    </li>
+                </ul>
+            </div>
+        </article>
+        <article aria-label="Device Breakdown" class="card-new rounded-lg p-4 flex flex-col">
+            <h2 class="font-semibold text-gray-900 mb-1">Device Breakdown</h2>
+            <Suspense>
+                <template #default>
+                    <PieChart v-if="visitorStore.devices && visitorStore.devices.seriesData"
+                        :title="visitorStore.devices.title" :categories="visitorStore.devices.categories"
+                        :seriesData="visitorStore.devices.seriesData" satuan=" visitors" class="max-h-80" />
+                    <SkeletonChart chartType="pie" v-else-if="isLoading" />
+                    <div v-else class="flex items-center justify-center min-h-[200px] max-h-80 text-gray-500">
+                        Tidak ada data perangkat.
+                    </div>
+                </template>
+                <template #fallback>
+                    <SkeletonChart chartType="pie" />
+                </template>
+            </Suspense>
+        </article>
+    </section>
+    <section aria-label="Main Content" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 sm:gap-6 h-max mb-6">
         <article aria-label="Live Users" class="card-new md:col-span-2 rounded-lg p-4 flex flex-col">
             <h2 class="font-semibold text-gray-900 mb-1">Live Users</h2>
             <Suspense>
@@ -241,23 +274,7 @@ const MapMarkerAsync = defineAsyncComponent(() => import('../../components/maps/
                 </template>
             </Suspense>
         </article>
-        <article aria-label="Device Breakdown" class="card-new rounded-lg p-4 flex flex-col">
-            <h2 class="font-semibold text-gray-900 mb-1">Device Breakdown</h2>
-            <Suspense>
-                <template #default>
-                    <PieChart v-if="visitorStore.devices && visitorStore.devices.seriesData"
-                        :title="visitorStore.devices.title" :categories="visitorStore.devices.categories"
-                        :seriesData="visitorStore.devices.seriesData" satuan=" visitors" />
-                    <SkeletonChart chartType="pie" v-else-if="isLoading" />
-                    <div v-else class="flex items-center justify-center min-h-[200px] text-gray-500">
-                        Tidak ada data perangkat.
-                    </div>
-                </template>
-                <template #fallback>
-                    <SkeletonChart chartType="pie" />
-                </template>
-            </Suspense>
-        </article>
+
     </section>
 </template>
 

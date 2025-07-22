@@ -1,635 +1,268 @@
 <script setup>
-// import DashboardAdminLayout from '../../layouts/DashboardAdminLayout.vue';
-import { errorLogs, botTable, humanVsBot, jsErrorRate, pageLoadTable, monthHumanBot } from '../../../../dummydata/pages5/dataPages5';
-const DataTable = defineAsyncComponent(() => import('../../../../components/datatables/DataTable.vue'))
-// Importing the PieChart component asynchronously
-const PieChart = defineAsyncComponent(() =>
-    import('../../../../components/apexchart/PieChart.vue')
-)
+import { ref, onMounted, onUnmounted, defineAsyncComponent, computed } from 'vue';
+import { useDiagnosticsStore } from '../../../../store/admin/diagnosticsStore';
 
-// Importing the LineChart component asynchronously
-const LineChart = defineAsyncComponent(() =>
-    import('../../../../components/apexchart/AreaChart.vue')
-)
+// --- Komponen & Store ---
+const DataTable = defineAsyncComponent(() => import('../../../../components/datatables/DataTable.vue'));
+const PieChart = defineAsyncComponent(() => import('../../../../components/apexchart/PieChart.vue'));
+const LineChart = defineAsyncComponent(() => import('../../../../components/apexchart/AreaChart.vue'));
 import SkeletonTable from '../../../../components/skeleton/SkeletonTable.vue';
-import { defineAsyncComponent } from 'vue';
+
+const diagnosticsStore = useDiagnosticsStore();
+const isLoading = computed(() => diagnosticsStore.loading);
+const error = computed(() => diagnosticsStore.error);
+
+// --- Logika untuk Scroll Load More ---
+
+// Ref untuk setiap elemen daftar yang bisa di-scroll
+const botLogsListEl = ref(null);
+const clientErrorsListEl = ref(null);
+const failedJobsListEl = ref(null);
+
+/**
+ * Fungsi reusable untuk membuat event handler scroll.
+ * @param {ref} listRef - Ref ke elemen DOM yang di-scroll.
+ * @param {string} stateKey - Nama state di store (misal: 'botLogs').
+ * @param {string} fetchAction - Nama action di store untuk mengambil data.
+ * @returns {ref} - Ref boolean untuk status loading.
+ */
+const createScrollHandler = (listRef, stateKey, fetchAction) => {
+    const isLoadingMore = ref(false);
+    const handleScroll = async () => {
+        const el = listRef.value;
+        if (!el) return;
+
+        const state = diagnosticsStore[stateKey];
+        const isAtBottom = el.scrollTop + el.clientHeight >= el.scrollHeight - 20; // -20px buffer
+
+        if (isAtBottom && !isLoadingMore.value && state.hasMore) {
+            isLoadingMore.value = true;
+            await diagnosticsStore[fetchAction](true); // Panggil action dengan flag loadMore
+            isLoadingMore.value = false;
+        }
+    };
+
+    onMounted(() => listRef.value?.addEventListener('scroll', handleScroll));
+    onUnmounted(() => listRef.value?.removeEventListener('scroll', handleScroll));
+
+    return isLoadingMore;
+};
+
+// Buat instance scroll handler untuk setiap komponen
+const isLoadingBotLogs = createScrollHandler(botLogsListEl, 'botLogs', 'fetchBotDetectionLogs');
+const isLoadingErrors = createScrollHandler(clientErrorsListEl, 'clientErrors', 'fetchClientSideErrors');
+const isLoadingJobs = createScrollHandler(failedJobsListEl, 'failedJobs', 'fetchFailedJobs');
+
+
+// Ambil semua data saat komponen pertama kali dimuat
+onMounted(() => {
+    diagnosticsStore.fetchAllDiagnostics();
+});
 </script>
+
 <template>
-    <!-- <DashboardAdminLayout> -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
 
-            <!-- 1. Integration Warnings -->
-            <section class=" card-new  rounded-lg bg-white p-4 col-span-1 lg:col-span-1 flex flex-col">
-                <div class="flex items-center justify-between mb-4">
-                    <h2 class="text-xl font-semibold">⚠️ Integration Warnings</h2>
-                    <button aria-label="Filter warnings"
-                        class="text-gray-400 hover:text-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-indigo-500 rounded">
-                        <i class="fas fa-filter"></i>
-                    </button>
-                </div>
-                <div class="flex space-x-3 mb-4">
-                    <button data-filter="all"
-                        class="filter-btn bg-gray-100 text-gray-700 rounded-full px-3 py-1 text-sm font-medium shadow-sm hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-500">All</button>
-                    <button data-filter="missing"
-                        class="filter-btn bg-gray-100 text-gray-700 rounded-full px-3 py-1 text-sm font-medium shadow-sm hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-500">Missing
-                        Pageviews</button>
-                    <button data-filter="invalid"
-                        class="filter-btn bg-gray-100 text-gray-700 rounded-full px-3 py-1 text-sm font-medium shadow-sm hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-500">Invalid
-                        Keys</button>
-                </div>
-                <ul class="space-y-3 overflow-y-auto max-h-[290px] pr-2">
-                    <li data-type="missing"
-                        class="flex justify-between items-center p-3 rounded-lg bg-gray-50  card-new ">
-                        <div>
-                            <p class="font-medium text-gray-900">Missing pageview event on /checkout</p>
-                            <p class="text-sm text-gray-500">tracking_sessions</p>
-                        </div>
-                        <span
-                            class="inline-flex items-center rounded-full bg-yellow-100 text-yellow-700 px-2 py-0.5 text-xs font-semibold">Warning</span>
-                    </li>
-                    <li data-type="invalid"
-                        class="flex justify-between items-center p-3 rounded-lg bg-gray-50  card-new ">
-                        <div>
-                            <p class="font-medium text-gray-900">Invalid API key detected</p>
-                            <p class="text-sm text-gray-500">api_keys</p>
-                        </div>
-                        <span
-                            class="inline-flex items-center rounded-full bg-red-100 text-red-700 px-2 py-0.5 text-xs font-semibold">Error</span>
-                    </li>
-                    <li data-type="missing"
-                        class="flex justify-between items-center p-3 rounded-lg bg-gray-50  card-new ">
-                        <div>
-                            <p class="font-medium text-gray-900">Missing pageview event on /pricing</p>
-                            <p class="text-sm text-gray-500">tracking_sessions</p>
-                        </div>
-                        <span
-                            class="inline-flex items-center rounded-full bg-yellow-100 text-yellow-700 px-2 py-0.5 text-xs font-semibold">Warning</span>
-                    </li>
-                    <li data-type="invalid"
-                        class="flex justify-between items-center p-3 rounded-lg bg-gray-50  card-new ">
-                        <div>
-                            <p class="font-medium text-gray-900">Invalid API key format</p>
-                            <p class="text-sm text-gray-500">api_keys</p>
-                        </div>
-                        <span
-                            class="inline-flex items-center rounded-full bg-red-100 text-red-700 px-2 py-0.5 text-xs font-semibold">Error</span>
-                    </li>
-                    <li data-type="missing"
-                        class="flex justify-between items-center p-3 rounded-lg bg-gray-50  card-new ">
-                        <div>
-                            <p class="font-medium text-gray-900">Missing pageview event on /signup</p>
-                            <p class="text-sm text-gray-500">tracking_sessions</p>
-                        </div>
-                        <span
-                            class="inline-flex items-center rounded-full bg-yellow-100 text-yellow-700 px-2 py-0.5 text-xs font-semibold">Warning</span>
-                    </li>
-                </ul>
-            </section>
-
-            <!-- 2. Bot Detection Logs -->
-            <section class=" card-new  rounded-lg bg-white p-4 col-span-1 lg:col-span-1 flex flex-col">
-                <div class="flex items-center justify-between mb-4">
-                    <h2 class="text-xl font-semibold">🧠 Bot Detection Logs</h2>
-                    <button aria-label="Filter bot logs"
-                        class="text-gray-400 hover:text-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-indigo-500 rounded">
-                        <i class="fas fa-filter"></i>
-                    </button>
-                </div>
-                <div class="overflow-y-auto max-h-64">
-                    <table class="w-full text-left text-sm text-gray-700">
-                        <thead class="border-b border-gray-300">
-                            <tr>
-                                <th class="py-2 px-3 font-medium">User-Agent</th>
-                                <th class="py-2 px-3 font-medium hidden sm:table-cell">Country</th>
-                                <th class="py-2 px-3 font-medium">Time</th>
-                                <th class="py-2 px-3 font-medium">Status</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr class="border-b border-gray-200 hover:bg-gray-50">
-                                <td class="py-2 px-3 truncate max-w-[150px]"
-                                    title="Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)">
-                                    Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)</td>
-                                <td class="py-2 px-3 hidden sm:table-cell">US</td>
-                                <td class="py-2 px-3">2024-06-15 14:23:11</td>
-                                <td class="py-2 px-3"><span
-                                        class="inline-flex items-center rounded-full bg-green-100 text-green-700 px-2 py-0.5 text-xs font-semibold">Detected</span>
-                                </td>
-                            </tr>
-                            <tr class="border-b border-gray-200 hover:bg-gray-50">
-                                <td class="py-2 px-3 truncate max-w-[150px]"
-                                    title="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/90.0.4430.93">
-                                    Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/90.0.4430.93
-                                </td>
-                                <td class="py-2 px-3 hidden sm:table-cell">DE</td>
-                                <td class="py-2 px-3">2024-06-15 14:22:45</td>
-                                <td class="py-2 px-3"><span
-                                        class="inline-flex items-center rounded-full bg-gray-100 text-gray-500 px-2 py-0.5 text-xs font-semibold">Not
-                                        Bot</span></td>
-                            </tr>
-                            <tr class="border-b border-gray-200 hover:bg-gray-50">
-                                <td class="py-2 px-3 truncate max-w-[150px]" title="curl/7.64.1">curl/7.64.1</td>
-                                <td class="py-2 px-3 hidden sm:table-cell">FR</td>
-                                <td class="py-2 px-3">2024-06-15 14:21:59</td>
-                                <td class="py-2 px-3"><span
-                                        class="inline-flex items-center rounded-full bg-green-100 text-green-700 px-2 py-0.5 text-xs font-semibold">Detected</span>
-                                </td>
-                            </tr>
-                            <tr class="border-b border-gray-200 hover:bg-gray-50">
-                                <td class="py-2 px-3 truncate max-w-[150px]"
-                                    title="Mozilla/5.0 (compatible; Bingbot/2.0; +http://www.bing.com/bingbot.htm)">
-                                    Mozilla/5.0 (compatible; Bingbot/2.0; +http://www.bing.com/bingbot.htm)</td>
-                                <td class="py-2 px-3 hidden sm:table-cell">GB</td>
-                                <td class="py-2 px-3">2024-06-15 14:20:33</td>
-                                <td class="py-2 px-3"><span
-                                        class="inline-flex items-center rounded-full bg-green-100 text-green-700 px-2 py-0.5 text-xs font-semibold">Detected</span>
-                                </td>
-                            </tr>
-                            <tr class="border-b border-gray-200 hover:bg-gray-50">
-                                <td class="py-2 px-3 truncate max-w-[150px]"
-                                    title="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15">
-                                    Mozilla/5.0
-                                    (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15</td>
-                                <td class="py-2 px-3 hidden sm:table-cell">US</td>
-                                <td class="py-2 px-3">2024-06-15 14:19:58</td>
-                                <td class="py-2 px-3"><span
-                                        class="inline-flex items-center rounded-full bg-gray-100 text-gray-500 px-2 py-0.5 text-xs font-semibold">Not
-                                        Bot</span></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </section>
-
-            <!-- Tracking Session Health -->
-            <section class=" card-new  rounded-lg bg-white p-4 col-span-1">
-                <div class="flex items-center justify-between mb-4">
-                    <h2 class="font-semibold text-lg flex items-center">
-                        <span class="mr-2">🧪</span> Session Health
-                    </h2>
-                    <span class="text-xs text-gray-500">Last 15 min</span>
-                </div>
-                <div class="grid grid-cols-3 gap-2 mb-4">
-                    <div class="bg-gray-50 p-2 rounded text-center">
-                        <div class="text-2xl font-bold">142</div>
-                        <div class="text-xs text-gray-500">Active</div>
+        <section class="card-new rounded-lg bg-white p-4 col-span-1 lg:col-span-2 flex flex-col">
+            <h2 class="text-xl font-semibold">⚠️ Integration Warnings</h2>
+            <ul class="space-y-3 overflow-y-auto max-h-[290px] pr-2">
+                <li v-if="!isLoading && !diagnosticsStore.integrationWarnings.length" class="text-gray-500">
+                    No integration warnings. System looks healthy.
+                </li>
+                <li v-for="(warning, index) in diagnosticsStore.integrationWarnings" :key="index"
+                    class="flex justify-between items-center p-3 rounded-lg bg-gray-50 card-new">
+                    <div>
+                        <p class="font-medium text-gray-900">{{ warning.message }}</p>
+                        <p class="text-sm text-gray-500">{{ warning.source_table }}</p>
                     </div>
-                    <div class="bg-gray-50 p-2 rounded text-center">
-                        <div class="text-2xl font-bold">8</div>
-                        <div class="text-xs text-gray-500">Suspicious</div>
-                    </div>
-                    <div class="bg-gray-50 p-2 rounded text-center">
-                        <div class="text-2xl font-bold">3</div>
-                        <div class="text-xs text-gray-500">Invalid</div>
-                    </div>
-                </div>
-                <div class="space-y-2">
-                    <div class="flex items-center justify-between text-sm">
-                        <span>US Chrome Desktop</span>
-                        <span class="font-medium">68</span>
-                    </div>
-                    <div class="flex items-center justify-between text-sm">
-                        <span>UK Safari Mobile</span>
-                        <span class="font-medium">42</span>
-                    </div>
-                    <div class="flex items-center justify-between text-sm">
-                        <span>DE Firefox Desktop</span>
-                        <span class="font-medium">19</span>
-                    </div>
-                    <div class="flex items-center justify-between text-sm">
-                        <span>FR Edge Desktop</span>
-                        <span class="font-medium">13</span>
-                    </div>
-                </div>
-            </section>
+                    <span :class="{
+                        'bg-yellow-100 text-yellow-700': warning.severity === 'Warning',
+                        'bg-red-100 text-red-700': warning.severity === 'Error'
+                    }" class="inline-flex items-center rounded-full px-2 py-0.5 text-xs font-semibold">
+                        {{ warning.severity }}
+                    </span>
+                </li>
+            </ul>
+        </section>
 
-            <section aria-label="Overview chart"
-                class=" card-new  xl:col-span-3 rounded-lg p-4 flex flex-col">
-                <h2 class="font-semibold text-gray-900 mb-4">Bot vs Human Traffic</h2>
-                <Suspense>
-                    <template #default>
-                        <LineChart :title="humanVsBot.title" :categories="humanVsBot.categories"
-                            :seriesData="humanVsBot.seriesData" :height="400"/>
-                    </template>
-                    <template #fallback>
-                        <SkeletonChart chartType="bar" />
-                    </template>
-                </Suspense>
-            </section>
+        <section class="card-new rounded-lg bg-white p-4 col-span-1 lg:col-span-1 flex flex-col">
+            <div class="flex items-center justify-between mb-4">
+                <h2 class="text-xl font-semibold">🧠 Bot Detection Logs</h2>
+            </div>
+            <div ref="botLogsListEl" class="overflow-y-auto max-h-64">
+                <table class="w-full text-left text-sm text-gray-700">
+                    <tbody>
+                        <tr v-if="!isLoading && !diagnosticsStore.botLogs.length">
+                            <td colspan="4" class="text-center py-4 text-gray-500">No bot logs found.</td>
+                        </tr>
+                        <tr v-for="(log, index) in diagnosticsStore.botLogs" :key="index"
+                            class="border-b border-gray-200 hover:bg-gray-50">
+                            <td class="py-2 px-3 truncate max-w-[150px]" :title="log.user_agent">{{ log.user_agent }}
+                            </td>
+                            <td class="py-2 px-3 hidden sm:table-cell">{{ log.country }}</td>
+                            <td class="py-2 px-3">{{ log.time }}</td>
+                            <td class="py-2 px-3">
+                                <span
+                                    :class="log.status === 'Detected' ? 'bg-green-100 text-green-700' : 'bg-gray-100 text-gray-500'"
+                                    class="inline-flex items-center rounded-full px-2 py-0.5 text-xs font-semibold">
+                                    {{ log.status }}
+                                </span>
+                            </td>
+                        </tr>
+                        <tr v-if="isLoadingBotLogs">
+                            <td colspan="4" class="text-center py-2 text-gray-500 text-xs">Loading more...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
 
-            <!-- 3. Live Event Monitor -->
-            <section class=" card-new  rounded-lg bg-white p-4 col-span-1 lg:col-span-2 flex flex-col">
-                <div class="flex items-center justify-between mb-4">
-                    <h2 class="text-xl font-semibold">🧪 Live Event Monitor</h2>
-                    <div class="flex items-center space-x-3">
-                        <button data-filter="all"
-                            class="live-filter-btn bg-gray-100 text-gray-700 rounded-full px-3 py-1 text-sm font-medium shadow-sm hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-500">All</button>
-                        <button data-filter="pageview"
-                            class="live-filter-btn bg-gray-100 text-gray-700 rounded-full px-3 py-1 text-sm font-medium shadow-sm hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-500">Page
-                            Views</button>
-                        <button data-filter="custom"
-                            class="live-filter-btn bg-gray-100 text-gray-700 rounded-full px-3 py-1 text-sm font-medium shadow-sm hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-500">Custom
-                            Events</button>
-                    </div>
+        <!-- <section class="card-new rounded-lg bg-white p-4 col-span-1">
+            <div class="flex items-center justify-between mb-4">
+                <h2 class="font-semibold text-lg flex items-center">
+                    <span class="mr-2">🧪</span> Session Health
+                </h2>
+            </div>
+            <div class="grid grid-cols-3 gap-2 mb-4">
+                <div class="bg-gray-50 p-2 rounded text-center">
+                    <div class="text-2xl font-bold">{{ diagnosticsStore.sessionHealth.counts.active }}</div>
+                    <div class="text-xs text-gray-500">Active</div>
                 </div>
-                <div
-                    class="overflow-y-auto max-h-72  card-new  rounded-lg bg-gray-50 p-3 font-mono text-xs text-gray-800">
-                    <ul id="live-event-list" class="space-y-1">
-                        <li data-type="pageview" class="px-2 py-1 rounded bg-white shadow-sm  card-new ">
-                            <time class="text-gray-400 mr-2">14:23:15</time> Pageview: <span
-                                class="font-semibold">/home</span> from
-                            <span class="italic">192.168.1.10</span>
-                        </li>
-                        <li data-type="custom" class="px-2 py-1 rounded bg-white shadow-sm  card-new ">
-                            <time class="text-gray-400 mr-2">14:23:12</time> Event: <span
-                                class="font-semibold">button_click</span>
-                            on <span class="italic">signup_form</span>
-                        </li>
-                        <li data-type="pageview" class="px-2 py-1 rounded bg-white shadow-sm  card-new ">
-                            <time class="text-gray-400 mr-2">14:23:10</time> Pageview: <span
-                                class="font-semibold">/pricing</span>
-                            from <span class="italic">192.168.1.11</span>
-                        </li>
-                        <li data-type="custom" class="px-2 py-1 rounded bg-white shadow-sm  card-new ">
-                            <time class="text-gray-400 mr-2">14:23:08</time> Event: <span
-                                class="font-semibold">form_submit</span>
-                            on <span class="italic">contact_us</span>
-                        </li>
-                        <li data-type="pageview" class="px-2 py-1 rounded bg-white shadow-sm  card-new ">
-                            <time class="text-gray-400 mr-2">14:23:05</time> Pageview: <span
-                                class="font-semibold">/blog/post-123</span> from <span
-                                class="italic">192.168.1.12</span>
-                        </li>
-                        <li data-type="custom" class="px-2 py-1 rounded bg-white shadow-sm  card-new ">
-                            <time class="text-gray-400 mr-2">14:23:02</time> Event: <span
-                                class="font-semibold">video_play</span> on
-                            <span class="italic">homepage_video</span>
-                        </li>
-                        <li data-type="pageview" class="px-2 py-1 rounded bg-white shadow-sm  card-new ">
-                            <time class="text-gray-400 mr-2">14:22:59</time> Pageview: <span
-                                class="font-semibold">/features</span>
-                            from <span class="italic">192.168.1.13</span>
-                        </li>
-                        <li data-type="custom" class="px-2 py-1 rounded bg-white shadow-sm  card-new ">
-                            <time class="text-gray-400 mr-2">14:22:55</time> Event: <span
-                                class="font-semibold">scroll_depth</span>
-                            50% on <span class="italic">blog/post-123</span>
-                        </li>
-                        <li data-type="pageview" class="px-2 py-1 rounded bg-white shadow-sm  card-new ">
-                            <time class="text-gray-400 mr-2">14:22:52</time> Pageview: <span
-                                class="font-semibold">/contact</span>
-                            from <span class="italic">192.168.1.14</span>
-                        </li>
-                        <li data-type="custom" class="px-2 py-1 rounded bg-white shadow-sm  card-new ">
-                            <time class="text-gray-400 mr-2">14:22:50</time> Event: <span
-                                class="font-semibold">link_click</span> on
-                            <span class="italic">footer_link</span>
-                        </li>
-                    </ul>
+                <div class="bg-gray-50 p-2 rounded text-center">
+                    <div class="text-2xl font-bold">{{ diagnosticsStore.sessionHealth.counts.suspicious }}</div>
+                    <div class="text-xs text-gray-500">Suspicious</div>
                 </div>
-            </section>
-
-            <!-- 4. Tracking Script Status -->
-            <section class=" card-new  rounded-lg bg-white p-4 col-span-1 lg:col-span-1 flex flex-col">
-                <div class="flex items-center justify-between mb-4">
-                    <h2 class="text-xl font-semibold">🛠️ Tracking Script Status</h2>
-                    <button aria-label="Refresh script status" id="refresh-script-status"
-                        class="text-gray-400 hover:text-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-indigo-500 rounded">
-                        <i class="fas fa-sync-alt"></i>
-                    </button>
+                <div class="bg-gray-50 p-2 rounded text-center">
+                    <div class="text-2xl font-bold">{{ diagnosticsStore.sessionHealth.counts.invalid }}</div>
+                    <div class="text-xs text-gray-500">Invalid</div>
                 </div>
-                <ul class="space-y-3 overflow-y-auto max-h-[290px] pr-2">
-                    <li class="flex justify-between items-center p-3 rounded-lg bg-gray-50  card-new ">
-                        <div>
-                            <p class="font-medium text-gray-900 truncate max-w-[180px]" title="example.com">example.com
-                            </p>
-                            <p class="text-sm text-gray-500">Last loaded: 2024-06-15 14:20:00</p>
-                        </div>
-                        <span
-                            class="inline-flex items-center rounded-full bg-green-100 text-green-700 px-2 py-0.5 text-xs font-semibold">OK</span>
-                    </li>
-                    <li class="flex justify-between items-center p-3 rounded-lg bg-gray-50  card-new ">
-                        <div>
-                            <p class="font-medium text-gray-900 truncate max-w-[180px]" title="shop.example.com">
-                                shop.example.com</p>
-                            <p class="text-sm text-gray-500">Last loaded: 2024-06-15 14:18:45</p>
-                        </div>
-                        <span
-                            class="inline-flex items-center rounded-full bg-yellow-100 text-yellow-700 px-2 py-0.5 text-xs font-semibold">Warning</span>
-                    </li>
-                    <li class="flex justify-between items-center p-3 rounded-lg bg-gray-50  card-new ">
-                        <div>
-                            <p class="font-medium text-gray-900 truncate max-w-[180px]" title="blog.example.com">
-                                blog.example.com</p>
-                            <p class="text-sm text-gray-500">Last loaded: 2024-06-15 13:50:12</p>
-                        </div>
-                        <span
-                            class="inline-flex items-center rounded-full bg-red-100 text-red-700 px-2 py-0.5 text-xs font-semibold">Error</span>
-                    </li>
-                    <li class="flex justify-between items-center p-3 rounded-lg bg-gray-50  card-new ">
-                        <div>
-                            <p class="font-medium text-gray-900 truncate max-w-[180px]" title="app.example.net">
-                                app.example.net</p>
-                            <p class="text-sm text-gray-500">Last loaded: 2024-06-15 14:19:30</p>
-                        </div>
-                        <span
-                            class="inline-flex items-center rounded-full bg-green-100 text-green-700 px-2 py-0.5 text-xs font-semibold">OK</span>
-                    </li>
-                    <li class="flex justify-between items-center p-3 rounded-lg bg-gray-50  card-new ">
-                        <div>
-                            <p class="font-medium text-gray-900 truncate max-w-[180px]" title="dev.example.org">
-                                dev.example.org</p>
-                            <p class="text-sm text-gray-500">Last loaded: 2024-06-15 14:10:05</p>
-                        </div>
-                        <span
-                            class="inline-flex items-center rounded-full bg-yellow-100 text-yellow-700 px-2 py-0.5 text-xs font-semibold">Warning</span>
-                    </li>
-                </ul>
-            </section>
-
-            <!-- 5. Client-side JS Errors -->
-            <section class=" card-new  rounded-lg bg-white p-4 col-span-1 lg:col-span-2 flex flex-col">
-                <div class="flex items-center justify-between mb-4">
-                    <h2 class="text-xl font-semibold">❌ Client-side JS Errors</h2>
-                    <button aria-label="Filter errors"
-                        class="text-gray-400 hover:text-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-indigo-500 rounded">
-                        <i class="fas fa-filter"></i>
-                    </button>
+            </div>
+            <div class="space-y-2">
+                <div v-if="!isLoading && !diagnosticsStore.sessionHealth.top_sources.length"
+                    class="text-sm text-gray-500">
+                    Awaiting session data...
                 </div>
-                <div
-                    class="overflow-y-auto max-h-72  card-new  rounded-lg bg-gray-50 p-3 font-mono text-xs text-gray-800">
-                    <ul class="space-y-2">
-                        <li class="bg-white  card-new  rounded p-3 shadow-sm">
-                            <div class="flex justify-between items-center mb-1">
-                                <span class="font-semibold text-red-700">TypeError</span>
-                                <time class="text-gray-400 text-xs">2024-06-15 14:22:10</time>
-                            </div>
-                            <pre class="whitespace-pre-wrap break-words bg-gray-100 p-2 rounded text-xs">Cannot read property
-                    'length' of undefined at analytics.js:45:12</pre>
-                        </li>
-                        <li class="bg-white  card-new  rounded p-3 shadow-sm">
-                            <div class="flex justify-between items-center mb-1">
-                                <span class="font-semibold text-red-700">ReferenceError</span>
-                                <time class="text-gray-400 text-xs">2024-06-15 14:21:55</time>
-                            </div>
-                            <pre class="whitespace-pre-wrap break-words bg-gray-100 p-2 rounded text-xs">eventData is not defined at
-                    tracker.js:78:5</pre>
-                        </li>
-                        <li class="bg-white  card-new  rounded p-3 shadow-sm">
-                            <div class="flex justify-between items-center mb-1">
-                                <span class="font-semibold text-red-700">SyntaxError</span>
-                                <time class="text-gray-400 text-xs">2024-06-15 14:20:40</time>
-                            </div>
-                            <pre class="whitespace-pre-wrap break-words bg-gray-100 p-2 rounded text-xs">Unexpected token '<' in
-                        JSON at position 0 at parser.js:12:3</pre>
-                        </li>
-                        <li class="bg-white  card-new  rounded p-3 shadow-sm">
-                            <div class="flex justify-between items-center mb-1">
-                                <span class="font-semibold text-red-700">TypeError</span>
-                                <time class="text-gray-400 text-xs">2024-06-15 14:19:30</time>
-                            </div>
-                            <pre class="whitespace-pre-wrap break-words bg-gray-100 p-2 rounded text-xs">Cannot read property 'push'
-                    of null at events.js:33:10</pre>
-                        </li>
-                        <li class="bg-white  card-new  rounded p-3 shadow-sm">
-                            <div class="flex justify-between items-center mb-1">
-                                <span class="font-semibold text-red-700">RangeError</span>
-                                <time class="text-gray-400 text-xs">2024-06-15 14:18:15</time>
-                            </div>
-                            <pre class="whitespace-pre-wrap break-words bg-gray-100 p-2 rounded text-xs">Maximum call stack size
-                    exceeded at recursive.js:22:7</pre>
-                        </li>
-                    </ul>
+                <div v-for="(source, index) in diagnosticsStore.sessionHealth.top_sources" :key="index"
+                    class="flex items-center justify-between text-sm">
+                    <span>{{ source.name }}</span>
+                    <span class="font-medium">{{ source.count }}</span>
                 </div>
-            </section>
-
-            <!-- 6. Unverified Domains -->
-            <section class=" card-new  rounded-lg bg-white p-4 col-span-1 lg:col-span-1 flex flex-col">
-                <div class="flex items-center justify-between mb-4">
-                    <h2 class="text-xl font-semibold">🔍 Unverified Domains</h2>
-                    <button aria-label="Refresh unverified domains" id="refresh-unverified"
-                        class="text-gray-400 hover:text-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-indigo-500 rounded">
-                        <i class="fas fa-sync-alt"></i>
-                    </button>
-                </div>
-                <ul class="space-y-3 overflow-y-auto max-h-[290px] pr-2">
-                    <li class="flex justify-between items-center p-3 rounded-lg bg-gray-50  card-new ">
-                        <p class="font-medium text-gray-900 truncate max-w-[180px]" title="unknown-domain.com">
-                            unknown-domain.com</p>
-                        <span
-                            class="inline-flex items-center rounded-full bg-yellow-100 text-yellow-700 px-2 py-0.5 text-xs font-semibold">Unverified</span>
-                    </li>
-                    <li class="flex justify-between items-center p-3 rounded-lg bg-gray-50  card-new ">
-                        <p class="font-medium text-gray-900 truncate max-w-[180px]" title="malicious-site.net">
-                            malicious-site.net</p>
-                        <span
-                            class="inline-flex items-center rounded-full bg-yellow-100 text-yellow-700 px-2 py-0.5 text-xs font-semibold">Unverified</span>
-                    </li>
-                    <li class="flex justify-between items-center p-3 rounded-lg bg-gray-50  card-new ">
-                        <p class="font-medium text-gray-900 truncate max-w-[180px]" title="randomtracker.org">
-                            randomtracker.org</p>
-                        <span
-                            class="inline-flex items-center rounded-full bg-yellow-100 text-yellow-700 px-2 py-0.5 text-xs font-semibold">Unverified</span>
-                    </li>
-                    <li class="flex justify-between items-center p-3 rounded-lg bg-gray-50  card-new ">
-                        <p class="font-medium text-gray-900 truncate max-w-[180px]" title="unknown123.io">unknown123.io
-                        </p>
-                        <span
-                            class="inline-flex items-center rounded-full bg-yellow-100 text-yellow-700 px-2 py-0.5 text-xs font-semibold">Unverified</span>
-                    </li>
-                    <li class="flex justify-between items-center p-3 rounded-lg bg-gray-50  card-new ">
-                        <p class="font-medium text-gray-900 truncate max-w-[180px]" title="tracker-bot.com">
-                            tracker-bot.com
-                        </p>
-                        <span
-                            class="inline-flex items-center rounded-full bg-yellow-100 text-yellow-700 px-2 py-0.5 text-xs font-semibold">Unverified</span>
-                    </li>
-                </ul>
-            </section>
-
-            <!-- 7. Data Flow Health -->
-            <section class=" card-new  rounded-lg bg-white p-4 col-span-1 lg:col-span-2 flex flex-col">
-                <div class="flex items-center justify-between mb-4">
-                    <h2 class="text-xl font-semibold">🔁 Retry Queue & Failed Events</h2>
-                    <button aria-label="Refresh retry queue" id="refresh-retry"
-                        class="text-gray-400 hover:text-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-indigo-500 rounded">
-                        <i class="fas fa-sync-alt"></i>
-                    </button>
-                </div>
-                <div class="overflow-x-auto">
-                    <table
-                        class="w-full text-left text-sm text-gray-700  card-new  rounded-lg overflow-hidden">
-                        <thead class="bg-gray-100 border-b border-gray-300">
-                            <tr>
-                                <th class="py-3 px-4 font-medium">Event ID</th>
-                                <th class="py-3 px-4 font-medium">Type</th>
-                                <th class="py-3 px-4 font-medium">Last Attempt</th>
-                                <th class="py-3 px-4 font-medium">Error Message</th>
-                                <th class="py-3 px-4 font-medium">Status</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr class="border-b border-gray-200 hover:bg-gray-50">
-                                <td class="py-2 px-4 font-mono truncate max-w-[120px]" title="evt_00123">evt_00123</td>
-                                <td class="py-2 px-4">page_view</td>
-                                <td class="py-2 px-4">2024-06-15 14:15:00</td>
-                                <td class="py-2 px-4 truncate max-w-[250px]" title="Timeout while sending batch">Timeout
-                                    while sending batch</td>
-                                <td class="py-2 px-4"><span
-                                        class="inline-flex items-center rounded-full bg-red-100 text-red-700 px-2 py-0.5 text-xs font-semibold">Failed</span>
-                                </td>
-                            </tr>
-                            <tr class="border-b border-gray-200 hover:bg-gray-50">
-                                <td class="py-2 px-4 font-mono truncate max-w-[120px]" title="evt_00124">evt_00124</td>
-                                <td class="py-2 px-4">custom_event</td>
-                                <td class="py-2 px-4">2024-06-15 14:14:30</td>
-                                <td class="py-2 px-4 truncate max-w-[250px]" title="Network error">Network error</td>
-                                <td class="py-2 px-4"><span
-                                        class="inline-flex items-center rounded-full bg-yellow-100 text-yellow-700 px-2 py-0.5 text-xs font-semibold">Retrying</span>
-                                </td>
-                            </tr>
-                            <tr class="border-b border-gray-200 hover:bg-gray-50">
-                                <td class="py-2 px-4 font-mono truncate max-w-[120px]" title="evt_00125">evt_00125</td>
-                                <td class="py-2 px-4">page_view</td>
-                                <td class="py-2 px-4">2024-06-15 14:13:50</td>
-                                <td class="py-2 px-4 truncate max-w-[250px]" title="Server 500 error">Server 500 error
-                                </td>
-                                <td class="py-2 px-4"><span
-                                        class="inline-flex items-center rounded-full bg-red-100 text-red-700 px-2 py-0.5 text-xs font-semibold">Failed</span>
-                                </td>
-                            </tr>
-                            <tr class="border-b border-gray-200 hover:bg-gray-50">
-                                <td class="py-2 px-4 font-mono truncate max-w-[120px]" title="evt_00126">evt_00126</td>
-                                <td class="py-2 px-4">custom_event</td>
-                                <td class="py-2 px-4">2024-06-15 14:12:40</td>
-                                <td class="py-2 px-4 truncate max-w-[250px]" title="Timeout while sending batch">Timeout
-                                    while sending batch</td>
-                                <td class="py-2 px-4"><span
-                                        class="inline-flex items-center rounded-full bg-yellow-100 text-yellow-700 px-2 py-0.5 text-xs font-semibold">Retrying</span>
-                                </td>
-                            </tr>
-                            <tr class="border-b border-gray-200 hover:bg-gray-50">
-                                <td class="py-2 px-4 font-mono truncate max-w-[120px]" title="evt_00127">evt_00127</td>
-                                <td class="py-2 px-4">page_view</td>
-                                <td class="py-2 px-4">2024-06-15 14:11:30</td>
-                                <td class="py-2 px-4 truncate max-w-[250px]" title="Network error">Network error</td>
-                                <td class="py-2 px-4"><span
-                                        class="inline-flex items-center rounded-full bg-red-100 text-red-700 px-2 py-0.5 text-xs font-semibold">Failed</span>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </section>
-
-            <!-- 8. Raw Payload Inspector -->
-            <section class=" card-new  rounded-lg bg-white p-4 col-span-1 lg:col-span-1 flex flex-col">
-                <div class="flex items-center justify-between mb-4">
-                    <h2 class="text-xl font-semibold">📦 Raw Payload Inspector</h2>
-                    <button aria-label="Copy JSON" id="copy-payload"
-                        class="text-gray-400 hover:text-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-indigo-500 rounded">
-                        <i class="fas fa-copy"></i>
-                    </button>
-                </div>
-                <pre class="bg-gray-100 rounded-lg p-4 overflow-auto max-h-[290px] text-xs font-mono text-gray-800"
-                    id="payload-json" tabindex="0" aria-label="Recent incoming JSON payload preview">
-        {
-        "event": "page_view",
-        "timestamp": "2024-06-15T14:23:15Z",
-        "user": {
-        "id": "user_12345",
-        "ip": "192.168.1.10",
-        "agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
-        },
-        "page": {
-        "url": "https://example.com/home",
-        "referrer": "https://google.com"
-        },
-        "properties": {
-        "session_id": "sess_67890",
-        "campaign": "summer_sale"
-        }
-        }
-    </pre>
-            </section>
-
-        </div>
-        <!-- <section aria-label="Main content"
-            class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4 sm:gap-6 h-max mb-6">
-            <article aria-label="Overview chart" class=" card-new  rounded-lg p-4 flex flex-col">
-                <h2 class="font-semibold text-gray-900 mb-4">Bot Detection</h2>
-                <Suspense>
-                    <template #default>
-                        <DataTable :headers="botTable.headers" :items="botTable.items" title="All Transactions" />
-                    </template>
-                    <template #fallback>
-                        <SkeletonTable />
-                    </template>
-                </Suspense>
-            </article>
-            <article aria-label="Overview chart" class=" card-new  rounded-lg p-4 flex flex-col">
-                <h2 class="font-semibold text-gray-900 mb-4">Bot & Human</h2>
-                <Suspense>
-                    <template #default>
-                        <DataTable :headers="humanVsBot.headers" :items="humanVsBot.items" title="All Transactions" />
-                    </template>
-                    <template #fallback>
-                        <SkeletonTable />
-                    </template>
-                </Suspense>
-            </article>
-            <article aria-label="Overview chart" class=" card-new  rounded-lg p-4 flex flex-col">
-                <h2 class="font-semibold text-gray-900 mb-4">Bot VS Human</h2>
-                <Suspense>
-                    <template #default>
-                        <PieChart :title="monthHumanBot.title" :categories="monthHumanBot.categories"
-                            :seriesData="monthHumanBot.seriesData" satuan=" visitors" />
-                    </template>
-                    <template #fallback>
-                        <SkeletonChart chartType="pie" />
-                    </template>
-                </Suspense>
-            </article>
+            </div>
         </section> -->
-        <!-- 
-        <section aria-label="Main content"
-            class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4 sm:gap-6 h-max mb-6">
 
-            <article aria-label="Overview chart" class=" card-new  rounded-lg p-4 flex flex-col">
-                <h2 class="font-semibold text-gray-900 mb-4">Client Errors</h2>
-                <Suspense>
-                    <template #default>
-                        <DataTable :headers="errorLogs.headers" :items="errorLogs.items" title="All Transactions" />
-                    </template>
-                    <template #fallback>
-                        <SkeletonTable />
-                    </template>
-                </Suspense>
-            </article>
+        <section aria-label="Overview chart" class="card-new xl:col-span-3 rounded-lg p-4 flex flex-col">
+            <h2 class="font-semibold text-gray-900 mb-4">Bot vs Human Traffic</h2>
+            <Suspense>
+                <template #default>
+                    <LineChart :title="diagnosticsStore.botVsHumanTraffic.title"
+                        :categories="diagnosticsStore.botVsHumanTraffic.categories"
+                        :seriesData="diagnosticsStore.botVsHumanTraffic.seriesData" :height="400" />
+                </template>
+                <template #fallback>
+                    <div class="w-full h-[400px] bg-gray-200 rounded animate-pulse"></div>
+                </template>
+            </Suspense>
+        </section>
 
-            <article aria-label="Overview chart" class=" card-new  rounded-lg p-4 flex flex-col">
-                <h2 class="font-semibold text-gray-900 mb-4">Load Time & Duration</h2>
-                <Suspense>
-                    <template #default>
-                        <DataTable :headers="pageLoadTable.headers" :items="pageLoadTable.items"
-                            title="All Transactions" />
-                    </template>
-                    <template #fallback>
-                        <SkeletonTable />
-                    </template>
-                </Suspense>
-            </article>
-            <article aria-label="Overview chart" class=" card-new  rounded-lg p-4 flex flex-col">
-                <h2 class="font-semibold text-gray-900 mb-4">JS Error Rate</h2>
-                <Suspense>
-                    <template #default>
-                        <DataTable :headers="jsErrorRate.headers" :items="jsErrorRate.items" title="All Transactions" />
-                    </template>
-                    <template #fallback>
-                        <SkeletonTable />
-                    </template>
-                </Suspense>
-            </article>
-        </section> -->
-    <!-- </DashboardAdminLayout> -->
+        <section class="card-new rounded-lg bg-white p-4 col-span-1 lg:col-span-3 flex flex-col">
+            <h2 class="text-xl font-semibold">🧪 Live Event Monitor</h2>
+            <div class="overflow-y-auto max-h-72 card-new rounded-lg bg-gray-50 p-3 font-mono text-xs text-gray-800">
+                <ul id="live-event-list" class="space-y-1">
+                    <li v-if="!isLoading && !diagnosticsStore.liveEvents.length">Awaiting incoming events...</li>
+                    <li v-for="(event, index) in diagnosticsStore.liveEvents" :key="index"
+                        class="px-2 py-1 rounded bg-white shadow-sm card-new">
+                        <time class="text-gray-400 mr-2">{{ new Date(event.time).toLocaleTimeString() }}</time>
+                        {{ event.type }}: <span class="font-semibold">{{ event.description }}</span>
+                        from <span class="italic">{{ event.ip_address }}</span>
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="card-new rounded-lg bg-white p-4 col-span-1 lg:col-span-1 flex flex-col">
+            <h2 class="text-xl font-semibold">🛠️ Tracking Script Status</h2>
+            <ul class="space-y-3 overflow-y-auto max-h-[290px] pr-2">
+                <li v-if="!isLoading && !diagnosticsStore.scriptStatus.length">No domains found.</li>
+                <li v-for="(item, index) in diagnosticsStore.scriptStatus" :key="index"
+                    class="flex justify-between items-center p-3 rounded-lg bg-gray-50 card-new">
+                    <div>
+                        <p class="font-medium text-gray-900 truncate max-w-[180px]" :title="item.domain">{{ item.domain
+                            }}</p>
+                        <p class="text-sm text-gray-500">Last loaded: {{ item.last_loaded }}</p>
+                    </div>
+                    <span :class="{
+                        'bg-green-100 text-green-700': item.status === 'OK',
+                        'bg-yellow-100 text-yellow-700': item.status === 'Warning',
+                        'bg-red-100 text-red-700': item.status === 'Error'
+                    }" class="inline-flex items-center rounded-full px-2 py-0.5 text-xs font-semibold">
+                        {{ item.status }}
+                    </span>
+                </li>
+            </ul>
+        </section>
+
+        <section class="card-new rounded-lg bg-white p-4 col-span-1 lg:col-span-2 flex flex-col">
+            <h2 class="text-xl font-semibold">❌ Client-side JS Errors</h2>
+            <div ref="clientErrorsListEl"
+                class="overflow-y-auto max-h-72 card-new rounded-lg bg-gray-50 p-3 font-mono text-xs text-gray-800">
+                <ul class="space-y-2">
+                    <li v-if="!isLoading && !diagnosticsStore.clientErrors.length"
+                        class="text-center text-gray-500">No
+                        client-side errors recorded.</li>
+                    <li v-for="error in diagnosticsStore.clientErrors" :key="error.id"
+                        class="bg-white card-new rounded p-3 shadow-sm">
+                        <div class="flex justify-between items-center mb-1">
+                            <span class="font-semibold text-red-700">JavaScript Error</span>
+                            <time class="text-gray-400 text-xs">{{ new Date(error.occurred_at).toLocaleString()
+                                }}</time>
+                        </div>
+                        <pre class="whitespace-pre-wrap break-words bg-gray-100 p-2 rounded text-xs">{{ error.error_message }}
+                </pre>
+                    </li>
+                    <li v-if="isLoadingErrors" class="text-center text-gray-500 text-xs py-2">Loading more...</li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="card-new rounded-lg bg-white p-4 col-span-1 lg:col-span-3 flex flex-col">
+            <div class="flex items-center justify-between mb-4">
+                <h2 class="text-xl font-semibold">🔁 Retry Queue & Failed Events</h2>
+            </div>
+            <div ref="failedJobsListEl" class="overflow-x-auto max-h-72">
+                <table class="w-full text-left text-sm text-gray-700 card-new rounded-lg overflow-hidden">
+                    <thead class="bg-gray-100 border-b border-gray-300">
+                        <tr>
+                            <th class="py-3 px-4 font-medium">Event ID</th>
+                            <th class="py-3 px-4 font-medium">Type</th>
+                            <th class="py-3 px-4 font-medium">Last Attempt</th>
+                            <th class="py-3 px-4 font-medium">Error Message</th>
+                            <th class="py-3 px-4 font-medium">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-if="!isLoading && !diagnosticsStore.failedJobs.length">
+                            <td colspan="5" class="text-center py-4 text-gray-500">No failed jobs found.</td>
+                        </tr>
+                        <tr v-for="job in diagnosticsStore.failedJobs" :key="job.id"
+                            class="border-b border-gray-200 hover:bg-gray-50">
+                            <td class="py-2 px-4 font-mono truncate max-w-[120px]" :title="job.id">{{ job.id }}</td>
+                            <td class="py-2 px-4">{{ job.type }}</td>
+                            <td class="py-2 px-4">{{ job.last_attempt }}</td>
+                            <td class="py-2 px-4 truncate max-w-[250px]" :title="job.error_message">{{ job.error_message
+                                }}</td>
+                            <td class="py-2 px-4">
+                                <span
+                                    class="inline-flex items-center rounded-full bg-red-100 text-red-700 px-2 py-0.5 text-xs font-semibold">
+                                    {{ job.status }}
+                                </span>
+                            </td>
+                        </tr>
+                        <tr v-if="isLoadingJobs">
+                            <td colspan="5" class="text-center py-2 text-gray-500 text-xs">Loading more...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </div>
 </template>

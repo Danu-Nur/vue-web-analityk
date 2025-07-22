@@ -47,6 +47,7 @@ import { useOverviewStore } from '../store/admin/overviewStore';
 import { useVisitorStore } from '../store/admin/visitorStore';
 import { useBehaviorStore } from '../store/admin/behaviorStore';
 import { useConversionStore } from '../store/admin/conversionStore';
+import { useDiagnosticsStore } from '../store/admin/diagnosticsStore';
 import HeaderAdmin from './dashboardadmin/HeaderAdmin.vue';
 import DateRangePicker from '../components/ui/DateRangePicker.vue';
 
@@ -56,6 +57,7 @@ const overviewStore = useOverviewStore();
 const visitorStore = useVisitorStore();
 const behaviorStore = useBehaviorStore();
 const conversionStore = useConversionStore();
+const diagnosticsStore = useDiagnosticsStore();
 
 const pageTitle = computed(() => route.meta.title || 'Dashboard');
 const isLoading = ref(false);
@@ -85,6 +87,8 @@ const activeStore = computed(() => {
             return behaviorStore;
         case 'admin.conversion':
             return conversionStore;
+        case 'admin.diagnostics':
+            return diagnosticsStore;
         default:
             return overviewStore; // Default ke overviewStore
     }
