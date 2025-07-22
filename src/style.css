@@ -367,3 +367,17 @@ pre::-webkit-scrollbar-thumb {
     background-color: #9ca3af;
     border-radius: 4px;
 }
+
+/* Style baru untuk summary card yang lebih minimalis */
+.summary-card-new {
+    @apply rounded-lg p-4 relative;
+    transition: box-shadow 0.3s ease-in-out;
+}
+
+.summary-card-new:hover {
+    @apply shadow-md;
+}
+
+.summary-percent-badge {
+    @apply absolute bottom-3 right-4 bg-gray-100 text-gray-600 text-xs font-medium px-2 py-0.5 rounded;
+}

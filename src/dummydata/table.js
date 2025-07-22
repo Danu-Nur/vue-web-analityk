@@ -2,19 +2,13 @@
 // table with chart inside row
 export const table1 = {
     headers: [
-        { text: 'Lane ID', value: 'lane', sortable: true },
-        { text: 'Plaza Name', value: 'plaza', sortable: true },
         { text: 'URL', value: 'url', sortable: true },
-        { text: 'Date & time', value: 'date', sortable: true },
         { text: 'Visitors', value: 'visit', sortable: true },
-        { text: '24h Visitors', value: 'visitorperhours', sortable: true, class: 'text-blue-500 text-center', formatter: (val) => val.length.toString() },
+        { text: '24h Visitors', value: 'visitorperhours', sortable: true, class: 'text-blue-500 text-center' },
     ],
     items: [
         {
-            lane: 'M01',
-            plaza: 'Kingston E',
             url: '/toll/kingston',
-            date: '01-01-2025',
             visit: 150,
             visitorperhours: [
                 { date: '01-01-2025 08:30 AM' },
@@ -27,10 +21,7 @@ export const table1 = {
             ],
         },
         {
-            lane: 'M02',
-            plaza: 'May Pen W',
             url: '/toll/maypen',
-            date: '02-01-2025',
             visit: 180,
             visitorperhours: [
                 { date: '02-01-2025 09:15 AM' },
@@ -41,10 +32,7 @@ export const table1 = {
             ],
         },
         {
-            lane: 'M03',
-            plaza: 'Spanish Town N',
             url: '/toll/spanishtown',
-            date: '03-01-2025',
             visit: 200,
             visitorperhours: [
                 { date: '03-01-2025 10:00 AM' },
@@ -57,10 +45,7 @@ export const table1 = {
             ],
         },
         {
-            lane: 'M04',
-            plaza: 'Vineyard S',
             url: '/toll/vineyard',
-            date: '04-01-2025',
             visit: 220,
             visitorperhours: [
                 { date: '04-01-2025 00:00 PM' },
@@ -73,10 +58,7 @@ export const table1 = {
             ],
         },
         {
-            lane: 'M05',
-            plaza: 'Portmore E',
             url: '/toll/portmore',
-            date: '05-01-2025',
             visit: 250,
             visitorperhours: [
                 { date: '05-01-2025 12:30 PM' },
